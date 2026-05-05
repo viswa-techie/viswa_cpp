@@ -44,24 +44,27 @@ Think of floating point precision issues as a tool in your toolbox — know when
 ### Approach 1: Direct / Straightforward
 ```cpp
 #include <iostream>
-#include <string>
-#include <vector>
-#include <algorithm>
-
-/*
- * Floating point precision issues
- * 
- * Approach: Direct implementation
- * Time Complexity:  O(n) — typical for this type of problem
- * Space Complexity: O(1) — or O(n) if storing results
- */
+#include <iomanip>
 int main() {
-    // TODO: Implement Floating point precision issues
-    // Step 1: Read input
-    // Step 2: Process
-    // Step 3: Output result
-    
-    std::cout << "Solution for: Floating point precision issues" << std::endl;
+    // The classic: 0.1 + 0.2 != 0.3
+    double a = 0.1 + 0.2;
+    double b = 0.3;
+    std::cout << std::setprecision(20);
+    std::cout << "0.1 + 0.2 = " << a << "
+";
+    std::cout << "0.3       = " << b << "
+";
+    std::cout << "Equal? " << (a == b) << "
+";  // 0 (false!)
+    std::cout << "Difference: " << (a - b) << "
+";
+
+    // Loss of precision with large + small
+    float big = 1000000.0f;
+    float small_val = 0.001f;
+    float sum = big + small_val;
+    std::cout << "1000000 + 0.001 = " << sum << "
+";  // 1000000 (small lost!)
     return 0;
 }
 ```
@@ -73,21 +76,25 @@ int main() {
 ### Approach 2: Optimized / STL-Based
 ```cpp
 #include <iostream>
-#include <string>
-#include <vector>
-#include <algorithm>
-#include <numeric>
-
-/*
- * Floating point precision issues — Optimized approach using STL
- * 
- * Uses standard library algorithms where applicable.
- * Generally preferred in production C++ code.
- */
+#include <cmath>
+#include <limits>
 int main() {
-    // TODO: STL-based implementation
-    // Use std::sort, std::find, std::accumulate, etc. as appropriate
-    
+    // Epsilon-based comparison
+    double a = 0.1 + 0.2;
+    double b = 0.3;
+    double eps = std::numeric_limits<double>::epsilon();
+
+    // Absolute comparison (for values near zero)
+    bool eq1 = std::abs(a - b) < eps * 100;
+    std::cout << "Absolute compare: " << std::boolalpha << eq1 << "
+";
+
+    // Relative comparison (for larger values)
+    auto relEqual = [](double x, double y, double tol = 1e-9) {
+        return std::abs(x - y) <= tol * std::max(std::abs(x), std::abs(y));
+    };
+    std::cout << "Relative compare: " << relEqual(a, b) << "
+";
     return 0;
 }
 ```
@@ -99,19 +106,32 @@ int main() {
 ### Approach 3: Modern C++ (C++17/20)
 ```cpp
 #include <iostream>
-#include <string>
-#include <vector>
-
-/*
- * Floating point precision issues — Modern C++ approach
- * 
- * Uses features from C++17/20: structured bindings,
- * if-init, ranges, constexpr, etc.
- */
+#include <iomanip>
+#include <cmath>
 int main() {
-    // TODO: Modern C++ implementation
-    // Use auto, structured bindings, ranges, etc.
-    
+    // Catastrophic cancellation
+    double x = 1e15;
+    double y = x + 1.0;
+    std::cout << "(1e15 + 1) - 1e15 = " << (y - x) << "
+";  // May be 0 or 1!
+
+    // Summation order matters (Kahan summation)
+    float naive_sum = 0.0f;
+    for (int i = 0; i < 1000000; ++i)
+        naive_sum += 0.1f;
+    std::cout << "Naive sum of 0.1 * 1M: " << naive_sum << "
+";
+
+    // Kahan compensated summation
+    float kahan_sum = 0.0f, c = 0.0f;
+    for (int i = 0; i < 1000000; ++i) {
+        float y2 = 0.1f - c;
+        float t = kahan_sum + y2;
+        c = (t - kahan_sum) - y2;
+        kahan_sum = t;
+    }
+    std::cout << "Kahan sum of 0.1 * 1M: " << kahan_sum << "
+";
     return 0;
 }
 ```
@@ -187,3 +207,17 @@ For a typical input, trace the solution:
 ---
 
 *Generated for C++ Level 0 — C01 Problem Solving Guide*
+
+
+## Key Takeaways
+1. Most decimals (0.1, 0.2) cannot be represented exactly in binary floating-point
+2. NEVER use `==` to compare floats — use epsilon-based comparison
+3. Adding small numbers to large numbers loses the small value
+4. Subtraction of nearly-equal values causes catastrophic cancellation
+5. Summation order matters — Kahan summation reduces accumulated error
+
+## Common Mistakes (Specific)
+- Using `==` to compare floating-point numbers
+- Assuming `0.1 + 0.2 == 0.3` → it's false
+- Accumulating many small floats without compensation → drift
+- Using `float` when `double` precision is needed

@@ -1,189 +1,108 @@
 # Static vs automatic storage basics
 
 > **Level:** 0 — Absolute Beginner  
-> **Category:** C00  
-> **Topic:** memory
+> **Category:** C00 — C++ Syntax & Program Structure  
+> **Topic:** syntax
 
 ---
 
 ## Problem Statement
+Understand the difference between automatic (stack) and static storage duration.
 
-Understand and explain the concept of Static vs automatic storage basics. Be able to describe it, identify it in code, and use it correctly.
+## What You Need to Know
+- **Automatic storage**: local variables — created when scope is entered, destroyed when scope exits.
+- **Static storage**: `static` and global variables — exist for the entire program lifetime.
 
-### Examples
-- **Input Example 1:** A typical/simple case
-- **Input Example 2:** An edge case (empty input, boundary values)
-- **Input Example 3:** A larger or tricky case
-
----
-
-## Prerequisites
-- Basic C++ syntax (variables, types, operators)
-- Understanding of C++ compilation model
-- Header files and namespaces
-
----
-
-## Core Concept
-
-### What Is It?
-Static vs automatic storage basics is a fundamental concept in C++ that every programmer must understand.
-
-### Why Does It Matter?
-- Forms the foundation for understanding more complex C++ features
-- Commonly asked in technical interviews
-- Helps write clean, maintainable code
-
-### Mental Model
-Think of static vs automatic storage basics as a building block — you can't build a house without understanding bricks.
-
----
-
-## Solution Approaches
-
-### Approach 1: Direct / Straightforward
+## Automatic Storage (Default)
 ```cpp
 #include <iostream>
-#include <string>
-#include <vector>
-#include <algorithm>
 
-/*
- * Static vs automatic storage basics
- * 
- * Approach: Direct implementation
- * Time Complexity:  O(n) — typical for this type of problem
- * Space Complexity: O(1) — or O(n) if storing results
- */
+void count() {
+    int x = 0;    // Created each call, destroyed at end
+    ++x;
+    std::cout << "x = " << x << "\n";
+}
+
 int main() {
-    // TODO: Implement Static vs automatic storage basics
-    // Step 1: Read input
-    // Step 2: Process
-    // Step 3: Output result
-    
-    std::cout << "Solution for: Static vs automatic storage basics" << std::endl;
+    count();   // x = 1
+    count();   // x = 1  (x is re-created each time)
+    count();   // x = 1
     return 0;
 }
 ```
 
-**Time Complexity:** O(n) (typical)  
-**Space Complexity:** O(1) or O(n)  
-**When to use:** First attempt, when simplicity matters over performance.
-
-### Approach 2: Optimized / STL-Based
+## Static Storage
 ```cpp
 #include <iostream>
-#include <string>
-#include <vector>
-#include <algorithm>
-#include <numeric>
 
-/*
- * Static vs automatic storage basics — Optimized approach using STL
- * 
- * Uses standard library algorithms where applicable.
- * Generally preferred in production C++ code.
- */
+void count() {
+    static int x = 0;   // Created ONCE, persists between calls
+    ++x;
+    std::cout << "x = " << x << "\n";
+}
+
 int main() {
-    // TODO: STL-based implementation
-    // Use std::sort, std::find, std::accumulate, etc. as appropriate
-    
+    count();   // x = 1
+    count();   // x = 2  (x persists!)
+    count();   // x = 3
     return 0;
 }
 ```
 
-**Time Complexity:** Depends on STL algorithm used  
-**Space Complexity:** Depends on approach  
-**When to use:** Production code, when you know the right STL tool.
-
-### Approach 3: Modern C++ (C++17/20)
+## Global Variables (Static Storage)
 ```cpp
 #include <iostream>
-#include <string>
-#include <vector>
 
-/*
- * Static vs automatic storage basics — Modern C++ approach
- * 
- * Uses features from C++17/20: structured bindings,
- * if-init, ranges, constexpr, etc.
- */
+int globalCounter = 0;   // Static storage duration
+
+void increment() {
+    ++globalCounter;
+}
+
 int main() {
-    // TODO: Modern C++ implementation
-    // Use auto, structured bindings, ranges, etc.
-    
+    increment();
+    increment();
+    std::cout << globalCounter << "\n";  // 2
     return 0;
 }
 ```
 
----
+## Comparison
+```
+Feature          Automatic (local)        Static
+-------          -----------------        ------
+Keyword          (none)                   static / global
+Lifetime         Scope entry → exit       Program start → end
+Initialization   Every time               Once (first call for local static)
+Default value    Garbage                  Zero
+Memory           Stack                    Data segment
+```
 
-## Step-by-Step Trace
+## static Local Variable Use Case
+```cpp
+#include <iostream>
 
-For a typical input, trace the solution:
+int getId() {
+    static int nextId = 0;    // Initialized once
+    return ++nextId;          // Returns 1, 2, 3, ...
+}
 
-| Step | State | Action | Result |
-|------|-------|--------|--------|
-| 1 | Initial | Read input | — |
-| 2 | Processing | Apply algorithm | — |
-| 3 | Final | Output result | — |
+int main() {
+    std::cout << getId() << "\n";  // 1
+    std::cout << getId() << "\n";  // 2
+    std::cout << getId() << "\n";  // 3
+    return 0;
+}
+```
 
----
+## Key Takeaways
+1. Automatic variables live on the stack, re-created each time
+2. Static local variables are initialized once, persist across calls
+3. Global variables have static storage — exist for program lifetime
+4. Static and global variables are zero-initialized by default
+5. Use `static` local variables for persistent counters, caches, etc.
 
-## Common Mistakes & Pitfalls
-
-1. **Off-by-one errors** — Check loop boundaries carefully
-2. **Uninitialized variables** — Always initialize before use
-3. **Integer overflow** — Use `long long` for large numbers
-4. **Missing edge cases** — Empty input, single element, negative numbers
-5. **Forgetting `#include`** — Include all necessary headers
-6. **Using `==` vs `=`** — Assignment vs comparison
-
----
-
-## What You Should Learn From This
-
-### Key C++ Feature Demonstrated
-- Static vs automatic storage basics demonstrates fundamental language syntax
-
-### Interview Tips
-- Explain the concept clearly before writing code
-- Always discuss time/space complexity
-- Mention edge cases proactively
-
-### Code Review Checklist
-- [ ] Compiles with `-Wall -Wextra` — no warnings
-- [ ] Handles edge cases
-- [ ] Variables are properly initialized
-- [ ] No memory leaks (if using dynamic allocation)
-- [ ] Code is readable and well-commented
-
----
-
-## Pattern Recognition
-
-**Pattern:** Language fundamentals — know the rules
-
-**Similar Problems:**
-- (See other problems in this category)
-
-**When you see** _______, **think** _______.
-
----
-
-## Practice Variants
-1. **Easy:** Simplify the constraints (smaller input, fewer edge cases)
-2. **Medium:** Add a constraint (handle negative numbers, optimize for time)
-3. **Hard:** Combine with another concept (recursion, dynamic programming)
-
----
-
-## Quick Reference Card
-- **Core idea:** Static vs automatic storage basics
-- **Key construct:** Language syntax
-- **Complexity:** O(n) typical
-- **Don't forget:** Initialize variables, check edge cases, use `-Wall`
-
----
-
-*Generated for C++ Level 0 — C00 Problem Solving Guide*
+## Common Mistakes
+- Expecting local variables to remember values between calls
+- Overusing globals → makes code hard to test and maintain
+- Forgetting that static initialization happens only once

@@ -1,189 +1,115 @@
-# Multiple return values (intro)
+# Multiple return values intro
 
 > **Level:** 0 — Absolute Beginner  
-> **Category:** C00  
-> **Topic:** functions
+> **Category:** C00 — C++ Syntax & Program Structure  
+> **Topic:** syntax
 
 ---
 
 ## Problem Statement
+Return multiple values from a function — something `return` alone can't do.
 
-Understand and explain the concept of Multiple return values (intro). Be able to describe it, identify it in code, and use it correctly.
+## What You Need to Know
+- A function can only `return` one value directly.
+- To return multiple values, use: `struct`, `std::pair`, `std::tuple`, or output parameters.
 
-### Examples
-- **Input Example 1:** A typical/simple case
-- **Input Example 2:** An edge case (empty input, boundary values)
-- **Input Example 3:** A larger or tricky case
-
----
-
-## Prerequisites
-- Basic C++ syntax (variables, types, operators)
-- Understanding of C++ compilation model
-- Header files and namespaces
-
----
-
-## Core Concept
-
-### What Is It?
-Multiple return values (intro) is a fundamental concept in C++ that every programmer must understand.
-
-### Why Does It Matter?
-- Forms the foundation for understanding more complex C++ features
-- Commonly asked in technical interviews
-- Helps write clean, maintainable code
-
-### Mental Model
-Think of multiple return values (intro) as a building block — you can't build a house without understanding bricks.
-
----
-
-## Solution Approaches
-
-### Approach 1: Direct / Straightforward
+## Method 1: Using std::pair
 ```cpp
 #include <iostream>
-#include <string>
-#include <vector>
-#include <algorithm>
+#include <utility>
 
-/*
- * Multiple return values (intro)
- * 
- * Approach: Direct implementation
- * Time Complexity:  O(n) — typical for this type of problem
- * Space Complexity: O(1) — or O(n) if storing results
- */
+std::pair<int, int> minMax(int a, int b) {
+    if (a < b) return {a, b};
+    return {b, a};
+}
+
 int main() {
-    // TODO: Implement Multiple return values (intro)
-    // Step 1: Read input
-    // Step 2: Process
-    // Step 3: Output result
-    
-    std::cout << "Solution for: Multiple return values (intro)" << std::endl;
+    auto [lo, hi] = minMax(7, 3);   // Structured binding (C++17)
+    std::cout << "Min: " << lo << ", Max: " << hi << "\n";
+
+    // Without structured binding:
+    auto result = minMax(7, 3);
+    std::cout << "Min: " << result.first << ", Max: " << result.second << "\n";
     return 0;
 }
 ```
 
-**Time Complexity:** O(n) (typical)  
-**Space Complexity:** O(1) or O(n)  
-**When to use:** First attempt, when simplicity matters over performance.
-
-### Approach 2: Optimized / STL-Based
+## Method 2: Using std::tuple
 ```cpp
 #include <iostream>
+#include <tuple>
 #include <string>
-#include <vector>
-#include <algorithm>
-#include <numeric>
 
-/*
- * Multiple return values (intro) — Optimized approach using STL
- * 
- * Uses standard library algorithms where applicable.
- * Generally preferred in production C++ code.
- */
+std::tuple<std::string, int, double> getStudentInfo() {
+    return {"Viswa", 25, 3.85};
+}
+
 int main() {
-    // TODO: STL-based implementation
-    // Use std::sort, std::find, std::accumulate, etc. as appropriate
-    
+    auto [name, age, gpa] = getStudentInfo();  // C++17
+    std::cout << name << ", " << age << ", " << gpa << "\n";
+
+    // Without structured binding:
+    auto info = getStudentInfo();
+    std::cout << std::get<0>(info) << "\n";  // "Viswa"
     return 0;
 }
 ```
 
-**Time Complexity:** Depends on STL algorithm used  
-**Space Complexity:** Depends on approach  
-**When to use:** Production code, when you know the right STL tool.
-
-### Approach 3: Modern C++ (C++17/20)
+## Method 3: Using a struct
 ```cpp
 #include <iostream>
-#include <string>
-#include <vector>
 
-/*
- * Multiple return values (intro) — Modern C++ approach
- * 
- * Uses features from C++17/20: structured bindings,
- * if-init, ranges, constexpr, etc.
- */
+struct DivResult {
+    int quotient;
+    int remainder;
+};
+
+DivResult divide(int a, int b) {
+    return {a / b, a % b};
+}
+
 int main() {
-    // TODO: Modern C++ implementation
-    // Use auto, structured bindings, ranges, etc.
-    
+    auto [q, r] = divide(17, 5);
+    std::cout << "17 / 5 = " << q << " remainder " << r << "\n";
     return 0;
 }
 ```
 
----
+## Method 4: Output Parameters (older style)
+```cpp
+#include <iostream>
 
-## Step-by-Step Trace
+void divide(int a, int b, int& quotient, int& remainder) {
+    quotient = a / b;
+    remainder = a % b;
+}
 
-For a typical input, trace the solution:
+int main() {
+    int q, r;
+    divide(17, 5, q, r);
+    std::cout << q << " R " << r << "\n";
+    return 0;
+}
+```
 
-| Step | State | Action | Result |
-|------|-------|--------|--------|
-| 1 | Initial | Read input | — |
-| 2 | Processing | Apply algorithm | — |
-| 3 | Final | Output result | — |
+## Recommendation
+```
+Method            When to Use
+------            -----------
+struct            Named fields, used frequently
+pair              Exactly 2 values, quick
+tuple             3+ values, quick
+Output params     Legacy code, performance-critical
+```
 
----
+## Key Takeaways
+1. Use `std::pair` for 2 values, `std::tuple` for 3+
+2. Use structs when values have meaningful names
+3. Structured bindings (C++17) make all methods clean
+4. Output parameters work but are less readable
+5. Prefer returning values over output parameters
 
-## Common Mistakes & Pitfalls
-
-1. **Off-by-one errors** — Check loop boundaries carefully
-2. **Uninitialized variables** — Always initialize before use
-3. **Integer overflow** — Use `long long` for large numbers
-4. **Missing edge cases** — Empty input, single element, negative numbers
-5. **Forgetting `#include`** — Include all necessary headers
-6. **Using `==` vs `=`** — Assignment vs comparison
-
----
-
-## What You Should Learn From This
-
-### Key C++ Feature Demonstrated
-- Multiple return values (intro) demonstrates fundamental language syntax
-
-### Interview Tips
-- Explain the concept clearly before writing code
-- Always discuss time/space complexity
-- Mention edge cases proactively
-
-### Code Review Checklist
-- [ ] Compiles with `-Wall -Wextra` — no warnings
-- [ ] Handles edge cases
-- [ ] Variables are properly initialized
-- [ ] No memory leaks (if using dynamic allocation)
-- [ ] Code is readable and well-commented
-
----
-
-## Pattern Recognition
-
-**Pattern:** Language fundamentals — know the rules
-
-**Similar Problems:**
-- (See other problems in this category)
-
-**When you see** _______, **think** _______.
-
----
-
-## Practice Variants
-1. **Easy:** Simplify the constraints (smaller input, fewer edge cases)
-2. **Medium:** Add a constraint (handle negative numbers, optimize for time)
-3. **Hard:** Combine with another concept (recursion, dynamic programming)
-
----
-
-## Quick Reference Card
-- **Core idea:** Multiple return values (intro)
-- **Key construct:** Language syntax
-- **Complexity:** O(n) typical
-- **Don't forget:** Initialize variables, check edge cases, use `-Wall`
-
----
-
-*Generated for C++ Level 0 — C00 Problem Solving Guide*
+## Common Mistakes
+- Using output parameters when pair/tuple would be clearer
+- Forgetting `#include <tuple>` or `#include <utility>`
+- Not using structured bindings when available (C++17)

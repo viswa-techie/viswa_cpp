@@ -1,189 +1,95 @@
 # Debugger basics (gdb intro)
 
 > **Level:** 0 — Absolute Beginner  
-> **Category:** C00  
-> **Topic:** debugging
+> **Category:** C00 — C++ Syntax & Program Structure  
+> **Topic:** syntax
 
 ---
 
 ## Problem Statement
+Learn the basics of using GDB (GNU Debugger) to debug C++ programs.
 
-Understand and explain the concept of Debugger basics (gdb intro). Be able to describe it, identify it in code, and use it correctly.
+## What You Need to Know
+- A debugger lets you run your program step by step and inspect variables.
+- GDB is the standard debugger for C/C++ on Linux.
+- You must compile with `-g` flag to include debug information.
 
-### Examples
-- **Input Example 1:** A typical/simple case
-- **Input Example 2:** An edge case (empty input, boundary values)
-- **Input Example 3:** A larger or tricky case
+## Compile for Debugging
+```bash
+g++ -g -o program main.cpp     # -g adds debug symbols
+# Also useful:
+g++ -g -O0 -o program main.cpp  # -O0 disables optimization for clearer debugging
+```
 
----
+## Basic GDB Commands
+```
+Command          Short    Action
+-------          -----    ------
+run              r        Start the program
+break main       b main   Set breakpoint at main()
+break 15         b 15     Set breakpoint at line 15
+next             n        Execute next line (step over)
+step             s        Step into function call
+continue         c        Continue to next breakpoint
+print x          p x      Print value of variable x
+backtrace        bt       Show call stack
+quit             q        Exit GDB
+list             l        Show source code around current line
+info locals               Show all local variables
+watch x                   Break when x changes
+```
 
-## Prerequisites
-- Basic C++ syntax (variables, types, operators)
-- Understanding of C++ compilation model
-- Header files and namespaces
-
----
-
-## Core Concept
-
-### What Is It?
-Debugger basics (gdb intro) is a fundamental concept in C++ that every programmer must understand.
-
-### Why Does It Matter?
-- Forms the foundation for understanding more complex C++ features
-- Commonly asked in technical interviews
-- Helps write clean, maintainable code
-
-### Mental Model
-Think of debugger basics (gdb intro) as a building block — you can't build a house without understanding bricks.
-
----
-
-## Solution Approaches
-
-### Approach 1: Direct / Straightforward
+## Example Session
 ```cpp
+// example.cpp
 #include <iostream>
-#include <string>
-#include <vector>
-#include <algorithm>
 
-/*
- * Debugger basics (gdb intro)
- * 
- * Approach: Direct implementation
- * Time Complexity:  O(n) — typical for this type of problem
- * Space Complexity: O(1) — or O(n) if storing results
- */
+int add(int a, int b) {
+    return a + b;    // Line 4
+}
+
 int main() {
-    // TODO: Implement Debugger basics (gdb intro)
-    // Step 1: Read input
-    // Step 2: Process
-    // Step 3: Output result
-    
-    std::cout << "Solution for: Debugger basics (gdb intro)" << std::endl;
+    int x = 10;     // Line 8
+    int y = 20;     // Line 9
+    int sum = add(x, y);  // Line 10
+    std::cout << sum << "\n";
     return 0;
 }
 ```
 
-**Time Complexity:** O(n) (typical)  
-**Space Complexity:** O(1) or O(n)  
-**When to use:** First attempt, when simplicity matters over performance.
+```bash
+$ g++ -g -o example example.cpp
+$ gdb ./example
 
-### Approach 2: Optimized / STL-Based
-```cpp
-#include <iostream>
-#include <string>
-#include <vector>
-#include <algorithm>
-#include <numeric>
-
-/*
- * Debugger basics (gdb intro) — Optimized approach using STL
- * 
- * Uses standard library algorithms where applicable.
- * Generally preferred in production C++ code.
- */
-int main() {
-    // TODO: STL-based implementation
-    // Use std::sort, std::find, std::accumulate, etc. as appropriate
-    
-    return 0;
-}
+(gdb) break main        # Set breakpoint at main
+(gdb) run               # Start program
+# Stopped at main
+(gdb) next              # Execute: int x = 10
+(gdb) next              # Execute: int y = 20
+(gdb) print x           # $1 = 10
+(gdb) print y           # $2 = 20
+(gdb) step              # Step INTO add() function
+(gdb) print a           # $3 = 10
+(gdb) print b           # $4 = 20
+(gdb) continue          # Run to end
+(gdb) quit              # Exit GDB
 ```
 
-**Time Complexity:** Depends on STL algorithm used  
-**Space Complexity:** Depends on approach  
-**When to use:** Production code, when you know the right STL tool.
-
-### Approach 3: Modern C++ (C++17/20)
-```cpp
-#include <iostream>
-#include <string>
-#include <vector>
-
-/*
- * Debugger basics (gdb intro) — Modern C++ approach
- * 
- * Uses features from C++17/20: structured bindings,
- * if-init, ranges, constexpr, etc.
- */
-int main() {
-    // TODO: Modern C++ implementation
-    // Use auto, structured bindings, ranges, etc.
-    
-    return 0;
-}
+## GDB with Arguments
+```bash
+gdb --args ./program arg1 arg2
+# or inside GDB:
+(gdb) run arg1 arg2
 ```
 
----
+## Key Takeaways
+1. Always compile with `-g` for debugging
+2. `break` sets a breakpoint, `run` starts the program
+3. `next` steps over, `step` steps into functions
+4. `print` shows variable values at the current point
+5. `backtrace` shows the call stack when you crash
 
-## Step-by-Step Trace
-
-For a typical input, trace the solution:
-
-| Step | State | Action | Result |
-|------|-------|--------|--------|
-| 1 | Initial | Read input | — |
-| 2 | Processing | Apply algorithm | — |
-| 3 | Final | Output result | — |
-
----
-
-## Common Mistakes & Pitfalls
-
-1. **Off-by-one errors** — Check loop boundaries carefully
-2. **Uninitialized variables** — Always initialize before use
-3. **Integer overflow** — Use `long long` for large numbers
-4. **Missing edge cases** — Empty input, single element, negative numbers
-5. **Forgetting `#include`** — Include all necessary headers
-6. **Using `==` vs `=`** — Assignment vs comparison
-
----
-
-## What You Should Learn From This
-
-### Key C++ Feature Demonstrated
-- Debugger basics (gdb intro) demonstrates fundamental language syntax
-
-### Interview Tips
-- Explain the concept clearly before writing code
-- Always discuss time/space complexity
-- Mention edge cases proactively
-
-### Code Review Checklist
-- [ ] Compiles with `-Wall -Wextra` — no warnings
-- [ ] Handles edge cases
-- [ ] Variables are properly initialized
-- [ ] No memory leaks (if using dynamic allocation)
-- [ ] Code is readable and well-commented
-
----
-
-## Pattern Recognition
-
-**Pattern:** Language fundamentals — know the rules
-
-**Similar Problems:**
-- (See other problems in this category)
-
-**When you see** _______, **think** _______.
-
----
-
-## Practice Variants
-1. **Easy:** Simplify the constraints (smaller input, fewer edge cases)
-2. **Medium:** Add a constraint (handle negative numbers, optimize for time)
-3. **Hard:** Combine with another concept (recursion, dynamic programming)
-
----
-
-## Quick Reference Card
-- **Core idea:** Debugger basics (gdb intro)
-- **Key construct:** Language syntax
-- **Complexity:** O(n) typical
-- **Don't forget:** Initialize variables, check edge cases, use `-Wall`
-
----
-
-*Generated for C++ Level 0 — C00 Problem Solving Guide*
+## Common Mistakes
+- Compiling without `-g` → GDB shows assembly instead of source
+- Compiling with `-O2` → optimizer rearranges code, confusing stepping
+- Not using `run` after starting GDB → program never executes

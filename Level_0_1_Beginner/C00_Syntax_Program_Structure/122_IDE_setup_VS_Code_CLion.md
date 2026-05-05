@@ -1,189 +1,108 @@
-# IDE setup (VS Code / CLion)
+# IDE setup: VS Code & CLion
 
 > **Level:** 0 — Absolute Beginner  
-> **Category:** C00  
-> **Topic:** tools
+> **Category:** C00 — C++ Syntax & Program Structure  
+> **Topic:** syntax
 
 ---
 
 ## Problem Statement
+Set up a C++ development environment in VS Code or CLion.
 
-Master the use of IDE setup (VS Code / CLion) in C++ programs. Understand when and why to use it.
+## VS Code Setup
 
-### Examples
-- **Input Example 1:** A typical/simple case
-- **Input Example 2:** An edge case (empty input, boundary values)
-- **Input Example 3:** A larger or tricky case
+### Required Extensions
+```
+1. C/C++ (Microsoft)           — IntelliSense, debugging, formatting
+2. C/C++ Extension Pack         — Additional tools
+3. CMake Tools (optional)       — CMake integration
+```
 
----
+### Install Compiler (Linux)
+```bash
+# Ubuntu/Debian
+sudo apt update
+sudo apt install g++ gdb make
 
-## Prerequisites
-- Basic C++ syntax (variables, types, operators)
-- Standard I/O operations
-- Header files and namespaces
+# Verify
+g++ --version
+gdb --version
+```
 
----
-
-## Core Concept
-
-### What Is It?
-IDE setup (VS Code / CLion) is a technique in C++ that appears frequently in interviews and real projects.
-
-### Why Does It Matter?
-- Used extensively in production C++ code
-- Commonly asked in technical interviews
-- Helps write clean, maintainable code
-
-### Mental Model
-Think of ide setup (vs code / clion) as a tool in your toolbox — know when to reach for it.
-
----
-
-## Solution Approaches
-
-### Approach 1: Direct / Straightforward
-```cpp
-#include <iostream>
-#include <string>
-#include <vector>
-#include <algorithm>
-
-/*
- * IDE setup (VS Code / CLion)
- * 
- * Approach: Direct implementation
- * Time Complexity:  O(n) — typical for this type of problem
- * Space Complexity: O(1) — or O(n) if storing results
- */
-int main() {
-    // TODO: Implement IDE setup (VS Code / CLion)
-    // Step 1: Read input
-    // Step 2: Process
-    // Step 3: Output result
-    
-    std::cout << "Solution for: IDE setup (VS Code / CLion)" << std::endl;
-    return 0;
+### Minimal tasks.json (Build)
+```json
+{
+    "version": "2.0.0",
+    "tasks": [{
+        "label": "build",
+        "type": "shell",
+        "command": "g++",
+        "args": ["-std=c++17", "-Wall", "-g", "${file}", "-o", "${fileDirname}/${fileBasenameNoExtension}"],
+        "group": {"kind": "build", "isDefault": true}
+    }]
 }
 ```
 
-**Time Complexity:** O(n) (typical)  
-**Space Complexity:** O(1) or O(n)  
-**When to use:** First attempt, when simplicity matters over performance.
-
-### Approach 2: Optimized / STL-Based
-```cpp
-#include <iostream>
-#include <string>
-#include <vector>
-#include <algorithm>
-#include <numeric>
-
-/*
- * IDE setup (VS Code / CLion) — Optimized approach using STL
- * 
- * Uses standard library algorithms where applicable.
- * Generally preferred in production C++ code.
- */
-int main() {
-    // TODO: STL-based implementation
-    // Use std::sort, std::find, std::accumulate, etc. as appropriate
-    
-    return 0;
+### Minimal launch.json (Debug)
+```json
+{
+    "version": "0.2.0",
+    "configurations": [{
+        "name": "Debug",
+        "type": "cppdbg",
+        "request": "launch",
+        "program": "${fileDirname}/${fileBasenameNoExtension}",
+        "args": [],
+        "cwd": "${workspaceFolder}",
+        "preLaunchTask": "build",
+        "MIMode": "gdb"
+    }]
 }
 ```
 
-**Time Complexity:** Depends on STL algorithm used  
-**Space Complexity:** Depends on approach  
-**When to use:** Production code, when you know the right STL tool.
+## CLion Setup
 
-### Approach 3: Modern C++ (C++17/20)
-```cpp
-#include <iostream>
-#include <string>
-#include <vector>
-
-/*
- * IDE setup (VS Code / CLion) — Modern C++ approach
- * 
- * Uses features from C++17/20: structured bindings,
- * if-init, ranges, constexpr, etc.
- */
-int main() {
-    // TODO: Modern C++ implementation
-    // Use auto, structured bindings, ranges, etc.
-    
-    return 0;
-}
+### Key Features
+```
+- CMake-based project system (built-in)
+- Advanced refactoring
+- Integrated debugger (GDB/LLDB)
+- Memory view, profiler
+- Code analysis
 ```
 
----
+### Minimal CMakeLists.txt for CLion
+```cmake
+cmake_minimum_required(VERSION 3.10)
+project(MyProject)
+set(CMAKE_CXX_STANDARD 17)
+add_executable(main main.cpp)
+```
 
-## Step-by-Step Trace
+## Quick Start: Command Line Only
+```bash
+# No IDE needed — just terminal
+# Write code
+nano main.cpp
 
-For a typical input, trace the solution:
+# Compile
+g++ -std=c++17 -Wall -g main.cpp -o main
 
-| Step | State | Action | Result |
-|------|-------|--------|--------|
-| 1 | Initial | Read input | — |
-| 2 | Processing | Apply algorithm | — |
-| 3 | Final | Output result | — |
+# Run
+./main
 
----
+# Debug
+gdb ./main
+```
 
-## Common Mistakes & Pitfalls
+## Key Takeaways
+1. VS Code: free, lightweight, needs extensions for C++
+2. CLion: paid (free for students), full-featured C++ IDE
+3. Both need a compiler installed separately (g++, clang++)
+4. `-g` flag enables debugging symbols
+5. Command line works perfectly for learning — IDE is optional
 
-1. **Off-by-one errors** — Check loop boundaries carefully
-2. **Uninitialized variables** — Always initialize before use
-3. **Integer overflow** — Use `long long` for large numbers
-4. **Missing edge cases** — Empty input, single element, negative numbers
-5. **Forgetting `#include`** — Include all necessary headers
-6. **Using `==` vs `=`** — Assignment vs comparison
-
----
-
-## What You Should Learn From This
-
-### Key C++ Feature Demonstrated
-- IDE setup (VS Code / CLion) demonstrates proper C++ idioms and best practices
-
-### Interview Tips
-- Discuss tradeoffs between approaches
-- Always discuss time/space complexity
-- Mention edge cases proactively
-
-### Code Review Checklist
-- [ ] Compiles with `-Wall -Wextra` — no warnings
-- [ ] Handles edge cases
-- [ ] Variables are properly initialized
-- [ ] No memory leaks (if using dynamic allocation)
-- [ ] Code is readable and well-commented
-
----
-
-## Pattern Recognition
-
-**Pattern:** Implementation pattern — combine concepts to build
-
-**Similar Problems:**
-- (See other problems in this category)
-
-**When you see** _______, **think** _______.
-
----
-
-## Practice Variants
-1. **Easy:** Simplify the constraints (smaller input, fewer edge cases)
-2. **Medium:** Add a constraint (handle negative numbers, optimize for time)
-3. **Hard:** Combine with another concept (recursion, dynamic programming)
-
----
-
-## Quick Reference Card
-- **Core idea:** IDE setup (VS Code / CLion)
-- **Key construct:** STL / Standard Library
-- **Complexity:** O(n) typical
-- **Don't forget:** Initialize variables, check edge cases, use `-Wall`
-
----
-
-*Generated for C++ Level 0 — C00 Problem Solving Guide*
+## Common Mistakes
+- Forgetting to install g++/gdb before setting up IDE
+- Not using `-g` flag → can't debug
+- VS Code: forgetting to save tasks.json/launch.json in `.vscode/` folder

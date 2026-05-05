@@ -1,189 +1,104 @@
 # sizeof operator
 
 > **Level:** 0 — Absolute Beginner  
-> **Category:** C00  
-> **Topic:** types
+> **Category:** C00 — C++ Syntax & Program Structure  
+> **Topic:** syntax
 
 ---
 
 ## Problem Statement
+Use `sizeof` to determine the size (in bytes) of types and variables.
 
-Master the use of sizeof operator in C++ programs. Understand when and why to use it.
+## What You Need to Know
+- `sizeof` returns the size in bytes at compile time.
+- Works on types and expressions.
+- `sizeof(char)` is always 1 byte (by definition).
 
-### Examples
-- **Input Example 1:** A typical/simple case
-- **Input Example 2:** An edge case (empty input, boundary values)
-- **Input Example 3:** A larger or tricky case
-
----
-
-## Prerequisites
-- Basic C++ syntax (variables, types, operators)
-- Standard I/O operations
-- Header files and namespaces
-
----
-
-## Core Concept
-
-### What Is It?
-sizeof operator is a technique in C++ that appears frequently in interviews and real projects.
-
-### Why Does It Matter?
-- Used extensively in production C++ code
-- Commonly asked in technical interviews
-- Helps write clean, maintainable code
-
-### Mental Model
-Think of sizeof operator as a tool in your toolbox — know when to reach for it.
-
----
-
-## Solution Approaches
-
-### Approach 1: Direct / Straightforward
+## Basic Usage
 ```cpp
 #include <iostream>
-#include <string>
-#include <vector>
-#include <algorithm>
 
-/*
- * sizeof operator
- * 
- * Approach: Direct implementation
- * Time Complexity:  O(n) — typical for this type of problem
- * Space Complexity: O(1) — or O(n) if storing results
- */
 int main() {
-    // TODO: Implement sizeof operator
-    // Step 1: Read input
-    // Step 2: Process
-    // Step 3: Output result
-    
-    std::cout << "Solution for: sizeof operator" << std::endl;
+    std::cout << "char:        " << sizeof(char)        << " bytes\n";
+    std::cout << "short:       " << sizeof(short)       << " bytes\n";
+    std::cout << "int:         " << sizeof(int)         << " bytes\n";
+    std::cout << "long:        " << sizeof(long)        << " bytes\n";
+    std::cout << "long long:   " << sizeof(long long)   << " bytes\n";
+    std::cout << "float:       " << sizeof(float)       << " bytes\n";
+    std::cout << "double:      " << sizeof(double)      << " bytes\n";
+    std::cout << "bool:        " << sizeof(bool)        << " bytes\n";
+    std::cout << "pointer:     " << sizeof(int*)        << " bytes\n";
     return 0;
 }
 ```
 
-**Time Complexity:** O(n) (typical)  
-**Space Complexity:** O(1) or O(n)  
-**When to use:** First attempt, when simplicity matters over performance.
-
-### Approach 2: Optimized / STL-Based
-```cpp
-#include <iostream>
-#include <string>
-#include <vector>
-#include <algorithm>
-#include <numeric>
-
-/*
- * sizeof operator — Optimized approach using STL
- * 
- * Uses standard library algorithms where applicable.
- * Generally preferred in production C++ code.
- */
-int main() {
-    // TODO: STL-based implementation
-    // Use std::sort, std::find, std::accumulate, etc. as appropriate
-    
-    return 0;
-}
+Typical output (64-bit Linux):
+```
+char:        1 bytes
+short:       2 bytes
+int:         4 bytes
+long:        8 bytes
+long long:   8 bytes
+float:       4 bytes
+double:      8 bytes
+bool:        1 bytes
+pointer:     8 bytes
 ```
 
-**Time Complexity:** Depends on STL algorithm used  
-**Space Complexity:** Depends on approach  
-**When to use:** Production code, when you know the right STL tool.
-
-### Approach 3: Modern C++ (C++17/20)
+## sizeof on Variables
 ```cpp
 #include <iostream>
 #include <string>
 #include <vector>
 
-/*
- * sizeof operator — Modern C++ approach
- * 
- * Uses features from C++17/20: structured bindings,
- * if-init, ranges, constexpr, etc.
- */
 int main() {
-    // TODO: Modern C++ implementation
-    // Use auto, structured bindings, ranges, etc.
-    
+    int x = 42;
+    double pi = 3.14;
+    char c = 'A';
+    int arr[10];
+
+    std::cout << "x:     " << sizeof(x) << "\n";    // 4
+    std::cout << "pi:    " << sizeof(pi) << "\n";    // 8
+    std::cout << "c:     " << sizeof(c) << "\n";     // 1
+    std::cout << "arr:   " << sizeof(arr) << "\n";   // 40 (10 * 4)
+
+    // Array element count
+    std::cout << "arr elements: " << sizeof(arr) / sizeof(arr[0]) << "\n";  // 10
+
     return 0;
 }
 ```
 
----
+## sizeof with Structs
+```cpp
+#include <iostream>
 
-## Step-by-Step Trace
+struct Point {
+    double x;    // 8 bytes
+    double y;    // 8 bytes
+};
 
-For a typical input, trace the solution:
+struct Padded {
+    char a;      // 1 byte + 3 padding
+    int b;       // 4 bytes
+    char c;      // 1 byte + 3 padding
+};
 
-| Step | State | Action | Result |
-|------|-------|--------|--------|
-| 1 | Initial | Read input | — |
-| 2 | Processing | Apply algorithm | — |
-| 3 | Final | Output result | — |
+int main() {
+    std::cout << "Point:  " << sizeof(Point) << "\n";   // 16
+    std::cout << "Padded: " << sizeof(Padded) << "\n";  // 12 (not 6!)
+    return 0;
+}
+```
 
----
+## Key Takeaways
+1. `sizeof` is a compile-time operator — no runtime cost
+2. `sizeof(char)` is always 1 (by definition)
+3. Pointer sizes are platform-dependent (4 on 32-bit, 8 on 64-bit)
+4. Struct sizes may include padding for alignment
+5. Array length: `sizeof(arr) / sizeof(arr[0])`
 
-## Common Mistakes & Pitfalls
-
-1. **Off-by-one errors** — Check loop boundaries carefully
-2. **Uninitialized variables** — Always initialize before use
-3. **Integer overflow** — Use `long long` for large numbers
-4. **Missing edge cases** — Empty input, single element, negative numbers
-5. **Forgetting `#include`** — Include all necessary headers
-6. **Using `==` vs `=`** — Assignment vs comparison
-
----
-
-## What You Should Learn From This
-
-### Key C++ Feature Demonstrated
-- sizeof operator demonstrates proper C++ idioms and best practices
-
-### Interview Tips
-- Discuss tradeoffs between approaches
-- Always discuss time/space complexity
-- Mention edge cases proactively
-
-### Code Review Checklist
-- [ ] Compiles with `-Wall -Wextra` — no warnings
-- [ ] Handles edge cases
-- [ ] Variables are properly initialized
-- [ ] No memory leaks (if using dynamic allocation)
-- [ ] Code is readable and well-commented
-
----
-
-## Pattern Recognition
-
-**Pattern:** Implementation pattern — combine concepts to build
-
-**Similar Problems:**
-- (See other problems in this category)
-
-**When you see** _______, **think** _______.
-
----
-
-## Practice Variants
-1. **Easy:** Simplify the constraints (smaller input, fewer edge cases)
-2. **Medium:** Add a constraint (handle negative numbers, optimize for time)
-3. **Hard:** Combine with another concept (recursion, dynamic programming)
-
----
-
-## Quick Reference Card
-- **Core idea:** sizeof operator
-- **Key construct:** STL / Standard Library
-- **Complexity:** O(n) typical
-- **Don't forget:** Initialize variables, check edge cases, use `-Wall`
-
----
-
-*Generated for C++ Level 0 — C00 Problem Solving Guide*
+## Common Mistakes
+- `sizeof(pointer)` gives pointer size, not what it points to
+- `sizeof(std::string)` gives the object size, not the string content length
+- Array decays to pointer in function args: `sizeof(arr)` gives pointer size, not array size

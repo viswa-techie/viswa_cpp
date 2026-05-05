@@ -1,189 +1,104 @@
 # Overflow on small types
 
 > **Level:** 0 — Absolute Beginner  
-> **Category:** C00  
-> **Topic:** types
+> **Category:** C00 — C++ Syntax & Program Structure  
+> **Topic:** syntax
 
 ---
 
 ## Problem Statement
+Understand integer overflow — what happens when a value exceeds a type's range.
 
-Master the use of Overflow on small types in C++ programs. Understand when and why to use it.
+## What You Need to Know
+- Each integer type has a fixed range (e.g., `int` is typically -2³¹ to 2³¹-1).
+- Overflow is **undefined behavior** for signed integers.
+- Unsigned integers wrap around (modular arithmetic).
 
-### Examples
-- **Input Example 1:** A typical/simple case
-- **Input Example 2:** An edge case (empty input, boundary values)
-- **Input Example 3:** A larger or tricky case
+## Type Ranges
+```
+Type              Bytes   Min                    Max
+----              -----   ---                    ---
+char              1       -128                   127
+unsigned char     1       0                      255
+short             2       -32,768                32,767
+unsigned short    2       0                      65,535
+int               4       -2,147,483,648         2,147,483,647
+unsigned int      4       0                      4,294,967,295
+long long         8       -9.2×10¹⁸              9.2×10¹⁸
+```
 
----
-
-## Prerequisites
-- Basic C++ syntax (variables, types, operators)
-- Standard I/O operations
-- Header files and namespaces
-
----
-
-## Core Concept
-
-### What Is It?
-Overflow on small types is a technique in C++ that appears frequently in interviews and real projects.
-
-### Why Does It Matter?
-- Used extensively in production C++ code
-- Commonly asked in technical interviews
-- Helps write clean, maintainable code
-
-### Mental Model
-Think of overflow on small types as a tool in your toolbox — know when to reach for it.
-
----
-
-## Solution Approaches
-
-### Approach 1: Direct / Straightforward
+## Overflow Example
 ```cpp
 #include <iostream>
-#include <string>
-#include <vector>
-#include <algorithm>
+#include <climits>
 
-/*
- * Overflow on small types
- * 
- * Approach: Direct implementation
- * Time Complexity:  O(n) — typical for this type of problem
- * Space Complexity: O(1) — or O(n) if storing results
- */
 int main() {
-    // TODO: Implement Overflow on small types
-    // Step 1: Read input
-    // Step 2: Process
-    // Step 3: Output result
-    
-    std::cout << "Solution for: Overflow on small types" << std::endl;
+    // Signed overflow — UNDEFINED BEHAVIOR!
+    int max_int = INT_MAX;   // 2,147,483,647
+    std::cout << "INT_MAX: " << max_int << "\n";
+    std::cout << "INT_MAX + 1: " << max_int + 1 << "\n";  // UB! Often wraps to INT_MIN
+
+    // Unsigned overflow — well-defined wrapping
+    unsigned int umax = UINT_MAX;  // 4,294,967,295
+    std::cout << "UINT_MAX: " << umax << "\n";
+    std::cout << "UINT_MAX + 1: " << umax + 1 << "\n";  // 0 (wraps around)
+
     return 0;
 }
 ```
 
-**Time Complexity:** O(n) (typical)  
-**Space Complexity:** O(1) or O(n)  
-**When to use:** First attempt, when simplicity matters over performance.
-
-### Approach 2: Optimized / STL-Based
+## Small Type Overflow
 ```cpp
 #include <iostream>
-#include <string>
-#include <vector>
-#include <algorithm>
-#include <numeric>
 
-/*
- * Overflow on small types — Optimized approach using STL
- * 
- * Uses standard library algorithms where applicable.
- * Generally preferred in production C++ code.
- */
 int main() {
-    // TODO: STL-based implementation
-    // Use std::sort, std::find, std::accumulate, etc. as appropriate
-    
+    // char: range -128 to 127
+    char c = 127;
+    c = c + 1;    // Overflow! Result is implementation-defined
+    std::cout << static_cast<int>(c) << "\n";  // Often -128
+
+    // short: range -32768 to 32767
+    short s = 32767;
+    s = s + 1;    // Overflow!
+    std::cout << s << "\n";  // Often -32768
+
     return 0;
 }
 ```
 
-**Time Complexity:** Depends on STL algorithm used  
-**Space Complexity:** Depends on approach  
-**When to use:** Production code, when you know the right STL tool.
-
-### Approach 3: Modern C++ (C++17/20)
+## Detecting Overflow Before It Happens
 ```cpp
 #include <iostream>
-#include <string>
-#include <vector>
+#include <climits>
 
-/*
- * Overflow on small types — Modern C++ approach
- * 
- * Uses features from C++17/20: structured bindings,
- * if-init, ranges, constexpr, etc.
- */
+int safe_add(int a, int b) {
+    if (b > 0 && a > INT_MAX - b) {
+        std::cerr << "Overflow detected!\n";
+        return INT_MAX;
+    }
+    if (b < 0 && a < INT_MIN - b) {
+        std::cerr << "Underflow detected!\n";
+        return INT_MIN;
+    }
+    return a + b;
+}
+
 int main() {
-    // TODO: Modern C++ implementation
-    // Use auto, structured bindings, ranges, etc.
-    
+    std::cout << safe_add(INT_MAX, 1) << "\n";    // Overflow detected
+    std::cout << safe_add(100, 200) << "\n";       // 300
     return 0;
 }
 ```
 
----
+## Key Takeaways
+1. Signed integer overflow is **undefined behavior** — anything can happen
+2. Unsigned integers wrap around (defined, modular arithmetic)
+3. Use `<climits>` for `INT_MAX`, `INT_MIN`, etc.
+4. Use larger types (`long long`) when values might exceed `int` range
+5. Check before arithmetic to prevent overflow
 
-## Step-by-Step Trace
-
-For a typical input, trace the solution:
-
-| Step | State | Action | Result |
-|------|-------|--------|--------|
-| 1 | Initial | Read input | — |
-| 2 | Processing | Apply algorithm | — |
-| 3 | Final | Output result | — |
-
----
-
-## Common Mistakes & Pitfalls
-
-1. **Off-by-one errors** — Check loop boundaries carefully
-2. **Uninitialized variables** — Always initialize before use
-3. **Integer overflow** — Use `long long` for large numbers
-4. **Missing edge cases** — Empty input, single element, negative numbers
-5. **Forgetting `#include`** — Include all necessary headers
-6. **Using `==` vs `=`** — Assignment vs comparison
-
----
-
-## What You Should Learn From This
-
-### Key C++ Feature Demonstrated
-- Overflow on small types demonstrates proper C++ idioms and best practices
-
-### Interview Tips
-- Discuss tradeoffs between approaches
-- Always discuss time/space complexity
-- Mention edge cases proactively
-
-### Code Review Checklist
-- [ ] Compiles with `-Wall -Wextra` — no warnings
-- [ ] Handles edge cases
-- [ ] Variables are properly initialized
-- [ ] No memory leaks (if using dynamic allocation)
-- [ ] Code is readable and well-commented
-
----
-
-## Pattern Recognition
-
-**Pattern:** Implementation pattern — combine concepts to build
-
-**Similar Problems:**
-- (See other problems in this category)
-
-**When you see** _______, **think** _______.
-
----
-
-## Practice Variants
-1. **Easy:** Simplify the constraints (smaller input, fewer edge cases)
-2. **Medium:** Add a constraint (handle negative numbers, optimize for time)
-3. **Hard:** Combine with another concept (recursion, dynamic programming)
-
----
-
-## Quick Reference Card
-- **Core idea:** Overflow on small types
-- **Key construct:** STL / Standard Library
-- **Complexity:** O(n) typical
-- **Don't forget:** Initialize variables, check edge cases, use `-Wall`
-
----
-
-*Generated for C++ Level 0 — C00 Problem Solving Guide*
+## Common Mistakes
+- Assuming signed overflow wraps like unsigned — it's UB
+- Using `int` for large values (e.g., factorial of 20)
+- Multiplying two ints without checking: `50000 * 50000` overflows int
+- `char` arithmetic: `char + char` promotes to `int`, but storing back in `char` may overflow

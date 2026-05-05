@@ -1,189 +1,79 @@
 # UBSan intro
 
 > **Level:** 0 — Absolute Beginner  
-> **Category:** C00  
-> **Topic:** debugging
+> **Category:** C00 — C++ Syntax & Program Structure  
+> **Topic:** syntax
 
 ---
 
 ## Problem Statement
+Use UndefinedBehaviorSanitizer (UBSan) to detect undefined behavior at runtime.
 
-Understand and explain the concept of UBSan intro. Be able to describe it, identify it in code, and use it correctly.
+## What You Need to Know
+- Undefined behavior (UB) means the C++ standard doesn't define what happens.
+- UB can cause crashes, wrong results, or "work fine" — unpredictably.
+- UBSan instruments your code to catch UB at runtime.
 
-### Examples
-- **Input Example 1:** A typical/simple case
-- **Input Example 2:** An edge case (empty input, boundary values)
-- **Input Example 3:** A larger or tricky case
+## Basic Usage
+```bash
+# Compile with UBSan
+g++ -std=c++17 -g -fsanitize=undefined main.cpp -o main
 
----
-
-## Prerequisites
-- Basic C++ syntax (variables, types, operators)
-- Understanding of C++ compilation model
-- Header files and namespaces
-
----
-
-## Core Concept
-
-### What Is It?
-UBSan intro is a fundamental concept in C++ that every programmer must understand.
-
-### Why Does It Matter?
-- Forms the foundation for understanding more complex C++ features
-- Commonly asked in technical interviews
-- Helps write clean, maintainable code
-
-### Mental Model
-Think of ubsan intro as a building block — you can't build a house without understanding bricks.
-
----
-
-## Solution Approaches
-
-### Approach 1: Direct / Straightforward
-```cpp
-#include <iostream>
-#include <string>
-#include <vector>
-#include <algorithm>
-
-/*
- * UBSan intro
- * 
- * Approach: Direct implementation
- * Time Complexity:  O(n) — typical for this type of problem
- * Space Complexity: O(1) — or O(n) if storing results
- */
-int main() {
-    // TODO: Implement UBSan intro
-    // Step 1: Read input
-    // Step 2: Process
-    // Step 3: Output result
-    
-    std::cout << "Solution for: UBSan intro" << std::endl;
-    return 0;
-}
+# Run — UBSan reports UB as it happens
+./main
 ```
 
-**Time Complexity:** O(n) (typical)  
-**Space Complexity:** O(1) or O(n)  
-**When to use:** First attempt, when simplicity matters over performance.
-
-### Approach 2: Optimized / STL-Based
+## What UBSan Catches
 ```cpp
-#include <iostream>
-#include <string>
-#include <vector>
-#include <algorithm>
-#include <numeric>
+// 1. Signed integer overflow
+int x = INT_MAX;
+x += 1;     // UBSan: "signed integer overflow"
 
-/*
- * UBSan intro — Optimized approach using STL
- * 
- * Uses standard library algorithms where applicable.
- * Generally preferred in production C++ code.
- */
-int main() {
-    // TODO: STL-based implementation
-    // Use std::sort, std::find, std::accumulate, etc. as appropriate
-    
-    return 0;
-}
+// 2. Division by zero
+int a = 10, b = 0;
+int c = a / b;    // UBSan: "division by zero"
+
+// 3. Null pointer dereference
+int* p = nullptr;
+*p = 42;    // UBSan: "null pointer dereference"
+
+// 4. Out-of-bounds array access
+int arr[5];
+arr[10] = 0;    // UBSan: "index 10 out of bounds"
+
+// 5. Shift overflow
+int x = 1;
+x << 33;    // UBSan: "shift exponent 33 is too large for 32-bit type"
+
+// 6. Misaligned pointer
+char buf[10];
+int* p = (int*)(buf + 1);   // UBSan: "misaligned address"
 ```
 
-**Time Complexity:** Depends on STL algorithm used  
-**Space Complexity:** Depends on approach  
-**When to use:** Production code, when you know the right STL tool.
-
-### Approach 3: Modern C++ (C++17/20)
-```cpp
-#include <iostream>
-#include <string>
-#include <vector>
-
-/*
- * UBSan intro — Modern C++ approach
- * 
- * Uses features from C++17/20: structured bindings,
- * if-init, ranges, constexpr, etc.
- */
-int main() {
-    // TODO: Modern C++ implementation
-    // Use auto, structured bindings, ranges, etc.
-    
-    return 0;
-}
+## UBSan Output Example
+```
+main.cpp:8:15: runtime error: signed integer overflow:
+2147483647 + 1 cannot be represented in type 'int'
+SUMMARY: UndefinedBehaviorSanitizer: undefined-behavior main.cpp:8:15
 ```
 
----
+## Combining Sanitizers
+```bash
+# ASan + UBSan together (recommended)
+g++ -g -fsanitize=address,undefined main.cpp -o main
 
-## Step-by-Step Trace
+# All common sanitizers
+g++ -g -fsanitize=address,undefined -fno-omit-frame-pointer main.cpp -o main
+```
 
-For a typical input, trace the solution:
+## Key Takeaways
+1. `-fsanitize=undefined` catches undefined behavior at runtime
+2. Catches: integer overflow, null dereference, bad shifts, division by zero
+3. Combine with ASan: `-fsanitize=address,undefined`
+4. Always use `-g` for readable diagnostics
+5. Run tests with UBSan regularly — UB causes subtle, hard-to-find bugs
 
-| Step | State | Action | Result |
-|------|-------|--------|--------|
-| 1 | Initial | Read input | — |
-| 2 | Processing | Apply algorithm | — |
-| 3 | Final | Output result | — |
-
----
-
-## Common Mistakes & Pitfalls
-
-1. **Off-by-one errors** — Check loop boundaries carefully
-2. **Uninitialized variables** — Always initialize before use
-3. **Integer overflow** — Use `long long` for large numbers
-4. **Missing edge cases** — Empty input, single element, negative numbers
-5. **Forgetting `#include`** — Include all necessary headers
-6. **Using `==` vs `=`** — Assignment vs comparison
-
----
-
-## What You Should Learn From This
-
-### Key C++ Feature Demonstrated
-- UBSan intro demonstrates fundamental language syntax
-
-### Interview Tips
-- Explain the concept clearly before writing code
-- Always discuss time/space complexity
-- Mention edge cases proactively
-
-### Code Review Checklist
-- [ ] Compiles with `-Wall -Wextra` — no warnings
-- [ ] Handles edge cases
-- [ ] Variables are properly initialized
-- [ ] No memory leaks (if using dynamic allocation)
-- [ ] Code is readable and well-commented
-
----
-
-## Pattern Recognition
-
-**Pattern:** Language fundamentals — know the rules
-
-**Similar Problems:**
-- (See other problems in this category)
-
-**When you see** _______, **think** _______.
-
----
-
-## Practice Variants
-1. **Easy:** Simplify the constraints (smaller input, fewer edge cases)
-2. **Medium:** Add a constraint (handle negative numbers, optimize for time)
-3. **Hard:** Combine with another concept (recursion, dynamic programming)
-
----
-
-## Quick Reference Card
-- **Core idea:** UBSan intro
-- **Key construct:** Language syntax
-- **Complexity:** O(n) typical
-- **Don't forget:** Initialize variables, check edge cases, use `-Wall`
-
----
-
-*Generated for C++ Level 0 — C00 Problem Solving Guide*
+## Common Mistakes
+- Assuming "it works on my machine" means no UB exists
+- Not testing with UBSan → shipping code with undefined behavior
+- Relying on specific UB behavior (e.g., signed overflow wrapping)

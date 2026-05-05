@@ -60,7 +60,38 @@ int main() {
     // Step 1: Read input
     // Step 2: Process
     // Step 3: Output result
-    
+#include <iostream>
+
+    // Step 1: Read input
+    int number;
+    std::cout << "Enter a number: ";
+    std::cin >> number;
+
+    // Step 2: Process (nested braces)
+    if (number > 0) {
+        std::cout << "Number is positive" << std::endl;
+
+        // Nested if block
+        if (number % 2 == 0) {
+            std::cout << "Number is even" << std::endl;
+        } else {
+            std::cout << "Number is odd" << std::endl;
+        }
+    } else {
+        std::cout << "Number is not positive" << std::endl;
+        return 0; // Early exit for non-positive numbers
+    }
+
+    // Nested loops
+    std::cout << "Nested loop example:" << std::endl;
+    for (int i = 1; i <= number; i++) {
+        for (int j = 1; j <= i; j++) {
+            std::cout << "*";
+        }
+        std::cout << std::endl;
+    }
+
+    // Step 3: Output result
     std::cout << "Solution for: Nested braces" << std::endl;
     return 0;
 }
@@ -87,7 +118,27 @@ int main() {
 int main() {
     // TODO: STL-based implementation
     // Use std::sort, std::find, std::accumulate, etc. as appropriate
-    
+#include <iostream>
+#include <vector>
+#include <algorithm>
+    // Step 1: Input
+    std::vector<int> numbers = {1, 2, 3, 4, 5};
+
+    // Step 2: Process
+    std::for_each(numbers.begin(), numbers.end(), [](int n) {
+        if (n > 0) {
+            std::cout << n << " is positive";
+
+            // Nested condition inside lambda
+            if (n % 2 == 0) {
+                std::cout << " and even";
+            } else {
+                std::cout << " and odd";
+            }
+            std::cout << std::endl;
+        }
+    });
+
     return 0;
 }
 ```
@@ -111,7 +162,23 @@ int main() {
 int main() {
     // TODO: Modern C++ implementation
     // Use auto, structured bindings, ranges, etc.
-    
+#include <iostream>
+#include <vector>
+
+    std::vector<int> values = {10, 20, 30};
+
+    // Outer block with initialization
+    if (int size = values.size(); size > 0) {
+        std::cout << "Vector is not empty" << std::endl;
+
+        // Nested block
+        for (int value : values) {
+            if (value > 15) {
+                std::cout << value << " is greater than 15" << std::endl;
+            }
+        }
+    }
+
     return 0;
 }
 ```

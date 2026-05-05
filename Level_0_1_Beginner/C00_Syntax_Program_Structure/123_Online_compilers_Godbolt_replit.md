@@ -1,189 +1,85 @@
-# Online compilers (Godbolt, replit)
+# Online compilers: Godbolt & Replit
 
 > **Level:** 0 — Absolute Beginner  
-> **Category:** C00  
-> **Topic:** tools
+> **Category:** C00 — C++ Syntax & Program Structure  
+> **Topic:** syntax
 
 ---
 
 ## Problem Statement
+Use online compilers to write and run C++ without local setup.
 
-Master the use of Online compilers (Godbolt, replit) in C++ programs. Understand when and why to use it.
+## Popular Online Compilers
 
-### Examples
-- **Input Example 1:** A typical/simple case
-- **Input Example 2:** An edge case (empty input, boundary values)
-- **Input Example 3:** A larger or tricky case
-
----
-
-## Prerequisites
-- Basic C++ syntax (variables, types, operators)
-- Standard I/O operations
-- Header files and namespaces
-
----
-
-## Core Concept
-
-### What Is It?
-Online compilers (Godbolt, replit) is a technique in C++ that appears frequently in interviews and real projects.
-
-### Why Does It Matter?
-- Used extensively in production C++ code
-- Commonly asked in technical interviews
-- Helps write clean, maintainable code
-
-### Mental Model
-Think of online compilers (godbolt, replit) as a tool in your toolbox — know when to reach for it.
-
----
-
-## Solution Approaches
-
-### Approach 1: Direct / Straightforward
-```cpp
-#include <iostream>
-#include <string>
-#include <vector>
-#include <algorithm>
-
-/*
- * Online compilers (Godbolt, replit)
- * 
- * Approach: Direct implementation
- * Time Complexity:  O(n) — typical for this type of problem
- * Space Complexity: O(1) — or O(n) if storing results
- */
-int main() {
-    // TODO: Implement Online compilers (Godbolt, replit)
-    // Step 1: Read input
-    // Step 2: Process
-    // Step 3: Output result
-    
-    std::cout << "Solution for: Online compilers (Godbolt, replit)" << std::endl;
-    return 0;
-}
+### 1. Compiler Explorer (Godbolt) — godbolt.org
+```
+Purpose:  See assembly output alongside your C++ code
+Best for: Understanding what the compiler does, optimization analysis
+Features:
+  - Side-by-side C++ → assembly view
+  - Multiple compilers (GCC, Clang, MSVC)
+  - Color-coded source-to-assembly mapping
+  - Compiler flags support
+  - Share via URL
 ```
 
-**Time Complexity:** O(n) (typical)  
-**Space Complexity:** O(1) or O(n)  
-**When to use:** First attempt, when simplicity matters over performance.
-
-### Approach 2: Optimized / STL-Based
-```cpp
-#include <iostream>
-#include <string>
-#include <vector>
-#include <algorithm>
-#include <numeric>
-
-/*
- * Online compilers (Godbolt, replit) — Optimized approach using STL
- * 
- * Uses standard library algorithms where applicable.
- * Generally preferred in production C++ code.
- */
-int main() {
-    // TODO: STL-based implementation
-    // Use std::sort, std::find, std::accumulate, etc. as appropriate
-    
-    return 0;
-}
+### 2. Wandbox — wandbox.org
+```
+Purpose:  Run C++ code quickly
+Best for: Quick testing, trying different compilers/standards
+Features:
+  - Multiple C++ standards (C++11 to C++23)
+  - GCC and Clang
+  - Standard input support
+  - Share via URL
 ```
 
-**Time Complexity:** Depends on STL algorithm used  
-**Space Complexity:** Depends on approach  
-**When to use:** Production code, when you know the right STL tool.
-
-### Approach 3: Modern C++ (C++17/20)
-```cpp
-#include <iostream>
-#include <string>
-#include <vector>
-
-/*
- * Online compilers (Godbolt, replit) — Modern C++ approach
- * 
- * Uses features from C++17/20: structured bindings,
- * if-init, ranges, constexpr, etc.
- */
-int main() {
-    // TODO: Modern C++ implementation
-    // Use auto, structured bindings, ranges, etc.
-    
-    return 0;
-}
+### 3. Coliru — coliru.stacked-crooked.com
+```
+Purpose:  Run C++ code with full command-line control
+Best for: Testing compilation commands
+Features:
+  - Custom compiler commands
+  - Output display
 ```
 
----
+### 4. cpp.sh — cpp.sh
+```
+Purpose:  Simple C++ playground
+Best for: Beginners — minimal interface
+Features:
+  - Run C++ directly in browser
+  - Basic input/output
+```
 
-## Step-by-Step Trace
+## When to Use What
+```
+Scenario                    Tool
+--------                    ----
+Learn what compiler does    Godbolt
+Quick code test             Wandbox or cpp.sh
+Try different standards     Wandbox
+Share code snippet          Any (all have URL sharing)
+Serious development         Local IDE (VS Code, CLion)
+```
 
-For a typical input, trace the solution:
+## Godbolt Tips
+```
+1. Type C++ on the left
+2. See assembly on the right
+3. Color coding shows which source line → which assembly
+4. Add compiler flags: -O2, -std=c++17
+5. Add multiple compiler panels to compare GCC vs Clang
+```
 
-| Step | State | Action | Result |
-|------|-------|--------|--------|
-| 1 | Initial | Read input | — |
-| 2 | Processing | Apply algorithm | — |
-| 3 | Final | Output result | — |
+## Key Takeaways
+1. Online compilers need zero setup — great for learning
+2. Godbolt shows assembly — invaluable for understanding optimization
+3. Wandbox supports multiple compilers and C++ standards
+4. Always share code via URL links — no screenshots
+5. For real projects, use a local development environment
 
----
-
-## Common Mistakes & Pitfalls
-
-1. **Off-by-one errors** — Check loop boundaries carefully
-2. **Uninitialized variables** — Always initialize before use
-3. **Integer overflow** — Use `long long` for large numbers
-4. **Missing edge cases** — Empty input, single element, negative numbers
-5. **Forgetting `#include`** — Include all necessary headers
-6. **Using `==` vs `=`** — Assignment vs comparison
-
----
-
-## What You Should Learn From This
-
-### Key C++ Feature Demonstrated
-- Online compilers (Godbolt, replit) demonstrates proper C++ idioms and best practices
-
-### Interview Tips
-- Discuss tradeoffs between approaches
-- Always discuss time/space complexity
-- Mention edge cases proactively
-
-### Code Review Checklist
-- [ ] Compiles with `-Wall -Wextra` — no warnings
-- [ ] Handles edge cases
-- [ ] Variables are properly initialized
-- [ ] No memory leaks (if using dynamic allocation)
-- [ ] Code is readable and well-commented
-
----
-
-## Pattern Recognition
-
-**Pattern:** Implementation pattern — combine concepts to build
-
-**Similar Problems:**
-- (See other problems in this category)
-
-**When you see** _______, **think** _______.
-
----
-
-## Practice Variants
-1. **Easy:** Simplify the constraints (smaller input, fewer edge cases)
-2. **Medium:** Add a constraint (handle negative numbers, optimize for time)
-3. **Hard:** Combine with another concept (recursion, dynamic programming)
-
----
-
-## Quick Reference Card
-- **Core idea:** Online compilers (Godbolt, replit)
-- **Key construct:** STL / Standard Library
-- **Complexity:** O(n) typical
-- **Don't forget:** Initialize variables, check edge cases, use `-Wall`
-
----
-
-*Generated for C++ Level 0 — C00 Problem Solving Guide*
+## Common Mistakes
+- Using online compilers for large projects — they have limits
+- Not checking which C++ standard is selected
+- Forgetting to provide stdin input when program uses cin

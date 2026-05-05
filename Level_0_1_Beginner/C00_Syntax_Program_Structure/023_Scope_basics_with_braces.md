@@ -60,8 +60,24 @@ int main() {
     // Step 1: Read input
     // Step 2: Process
     // Step 3: Output result
-    
+#include <iostream>
+
+    int x;
+    std::cout << "Enter a number: ";
+    std::cin >> x;
+
+    // Step 2: Process
+    if (x > 0) {
+        // New scope starts here
+        int y = x * 2;
+        std::cout << "Inside block: y = " << y << std::endl;
+    }
+    // Scope ends here — y no longer exists
+
+    // Step 3: Output result
+    std::cout << "Outside block: x = " << x << std::endl;
     std::cout << "Solution for: Scope basics with braces" << std::endl;
+
     return 0;
 }
 ```
@@ -87,7 +103,22 @@ int main() {
 int main() {
     // TODO: STL-based implementation
     // Use std::sort, std::find, std::accumulate, etc. as appropriate
-    
+#include <iostream>
+#include <vector>
+#include <algorithm>
+
+    // Step 1: Input
+    std::vector<int> numbers = {1, 2, 3, 4};
+
+    // Step 2: Process
+    std::for_each(numbers.begin(), numbers.end(), int n {
+        // Lambda has its own scope
+        int square = n * n;
+        std::cout << "Square of " << n << " is " << square << std::endl;
+    });
+
+    // square is NOT accessible here
+
     return 0;
 }
 ```
@@ -111,11 +142,20 @@ int main() {
 int main() {
     // TODO: Modern C++ implementation
     // Use auto, structured bindings, ranges, etc.
-    
+#include <iostream>
+#include <vector>
+
+    std::vector<int> data = {10, 20, 30};
+
+    // if-init creates a scoped variable
+    if (int size = data.size(); size > 0) {
+        std::cout << "Vector size = " << size << std::endl;
+    }
+    // size does NOT exist here
+
     return 0;
 }
 ```
-
 ---
 
 ## Step-by-Step Trace

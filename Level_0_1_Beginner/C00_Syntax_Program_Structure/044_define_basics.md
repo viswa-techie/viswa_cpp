@@ -1,189 +1,95 @@
 # #define basics
 
 > **Level:** 0 — Absolute Beginner  
-> **Category:** C00  
-> **Topic:** preprocessor
+> **Category:** C00 — C++ Syntax & Program Structure  
+> **Topic:** syntax
 
 ---
 
 ## Problem Statement
+Understand `#define` for creating macros and constants, and when to avoid it in modern C++.
 
-Understand and explain the concept of #define basics. Be able to describe it, identify it in code, and use it correctly.
+## What You Need to Know
+- `#define NAME value` creates a text substitution rule.
+- The preprocessor replaces every `NAME` with `value` before compilation.
+- No type checking — it's just text replacement.
 
-### Examples
-- **Input Example 1:** A typical/simple case
-- **Input Example 2:** An edge case (empty input, boundary values)
-- **Input Example 3:** A larger or tricky case
-
----
-
-## Prerequisites
-- Basic C++ syntax (variables, types, operators)
-- Understanding of C++ compilation model
-- Header files and namespaces
-
----
-
-## Core Concept
-
-### What Is It?
-#define basics is a fundamental concept in C++ that every programmer must understand.
-
-### Why Does It Matter?
-- Forms the foundation for understanding more complex C++ features
-- Commonly asked in technical interviews
-- Helps write clean, maintainable code
-
-### Mental Model
-Think of #define basics as a building block — you can't build a house without understanding bricks.
-
----
-
-## Solution Approaches
-
-### Approach 1: Direct / Straightforward
+## Simple Constants
 ```cpp
 #include <iostream>
-#include <string>
-#include <vector>
-#include <algorithm>
 
-/*
- * #define basics
- * 
- * Approach: Direct implementation
- * Time Complexity:  O(n) — typical for this type of problem
- * Space Complexity: O(1) — or O(n) if storing results
- */
+#define PI 3.14159
+#define MAX_STUDENTS 30
+#define GREETING "Hello, World!"
+
 int main() {
-    // TODO: Implement #define basics
-    // Step 1: Read input
-    // Step 2: Process
-    // Step 3: Output result
-    
-    std::cout << "Solution for: #define basics" << std::endl;
+    double area = PI * 5 * 5;
+    std::cout << GREETING << "\n";
+    std::cout << "Area: " << area << "\n";
+    std::cout << "Max students: " << MAX_STUDENTS << "\n";
     return 0;
 }
 ```
 
-**Time Complexity:** O(n) (typical)  
-**Space Complexity:** O(1) or O(n)  
-**When to use:** First attempt, when simplicity matters over performance.
-
-### Approach 2: Optimized / STL-Based
+## Modern C++ Alternative (Preferred)
 ```cpp
 #include <iostream>
-#include <string>
-#include <vector>
-#include <algorithm>
-#include <numeric>
 
-/*
- * #define basics — Optimized approach using STL
- * 
- * Uses standard library algorithms where applicable.
- * Generally preferred in production C++ code.
- */
+// Use constexpr instead of #define for typed constants
+constexpr double PI = 3.14159;
+constexpr int MAX_STUDENTS = 30;
+const char* GREETING = "Hello, World!";
+
 int main() {
-    // TODO: STL-based implementation
-    // Use std::sort, std::find, std::accumulate, etc. as appropriate
-    
+    double area = PI * 5 * 5;
+    std::cout << area << "\n";
     return 0;
 }
 ```
 
-**Time Complexity:** Depends on STL algorithm used  
-**Space Complexity:** Depends on approach  
-**When to use:** Production code, when you know the right STL tool.
+## Why constexpr is Better
+```
+Feature          #define         constexpr/const
+-------          -------         ---------------
+Type checking    No              Yes
+Scope            Global          Respects scope
+Debuggable       No (replaced)   Yes (visible)
+Namespace        No              Yes
+Errors           Confusing       Clear
+```
 
-### Approach 3: Modern C++ (C++17/20)
+## #undef
 ```cpp
-#include <iostream>
-#include <string>
-#include <vector>
+#define TEMP 100
+// ... use TEMP ...
+#undef TEMP       // Remove the macro
+// TEMP is no longer defined
+```
 
-/*
- * #define basics — Modern C++ approach
- * 
- * Uses features from C++17/20: structured bindings,
- * if-init, ranges, constexpr, etc.
- */
+## Multi-line #define
+```cpp
+#define PRINT_HEADER()      \
+    std::cout << "========" \
+              << "\n"       \
+              << "REPORT"   \
+              << "\n"       \
+              << "========" \
+              << "\n"
+
 int main() {
-    // TODO: Modern C++ implementation
-    // Use auto, structured bindings, ranges, etc.
-    
+    PRINT_HEADER();
     return 0;
 }
 ```
 
----
+## Key Takeaways
+1. `#define` does text replacement — no types, no scope
+2. Prefer `constexpr` (C++11) for constants in modern C++
+3. Prefer `const` for string literals
+4. `#define` is still useful for include guards and conditional compilation
+5. Use `\` for multi-line macros
 
-## Step-by-Step Trace
-
-For a typical input, trace the solution:
-
-| Step | State | Action | Result |
-|------|-------|--------|--------|
-| 1 | Initial | Read input | — |
-| 2 | Processing | Apply algorithm | — |
-| 3 | Final | Output result | — |
-
----
-
-## Common Mistakes & Pitfalls
-
-1. **Off-by-one errors** — Check loop boundaries carefully
-2. **Uninitialized variables** — Always initialize before use
-3. **Integer overflow** — Use `long long` for large numbers
-4. **Missing edge cases** — Empty input, single element, negative numbers
-5. **Forgetting `#include`** — Include all necessary headers
-6. **Using `==` vs `=`** — Assignment vs comparison
-
----
-
-## What You Should Learn From This
-
-### Key C++ Feature Demonstrated
-- #define basics demonstrates fundamental language syntax
-
-### Interview Tips
-- Explain the concept clearly before writing code
-- Always discuss time/space complexity
-- Mention edge cases proactively
-
-### Code Review Checklist
-- [ ] Compiles with `-Wall -Wextra` — no warnings
-- [ ] Handles edge cases
-- [ ] Variables are properly initialized
-- [ ] No memory leaks (if using dynamic allocation)
-- [ ] Code is readable and well-commented
-
----
-
-## Pattern Recognition
-
-**Pattern:** Language fundamentals — know the rules
-
-**Similar Problems:**
-- (See other problems in this category)
-
-**When you see** _______, **think** _______.
-
----
-
-## Practice Variants
-1. **Easy:** Simplify the constraints (smaller input, fewer edge cases)
-2. **Medium:** Add a constraint (handle negative numbers, optimize for time)
-3. **Hard:** Combine with another concept (recursion, dynamic programming)
-
----
-
-## Quick Reference Card
-- **Core idea:** #define basics
-- **Key construct:** Language syntax
-- **Complexity:** O(n) typical
-- **Don't forget:** Initialize variables, check edge cases, use `-Wall`
-
----
-
-*Generated for C++ Level 0 — C00 Problem Solving Guide*
+## Common Mistakes
+- `#define MAX 100;` — the `;` becomes part of the value
+- No `=` sign: `#define X = 5` means X is replaced by `= 5`
+- `#define` doesn't respect scope — it's global from point of definition

@@ -1,189 +1,84 @@
 # One-definition rule basics
 
 > **Level:** 0 — Absolute Beginner  
-> **Category:** C00  
-> **Topic:** linking
+> **Category:** C00 — C++ Syntax & Program Structure  
+> **Topic:** syntax
 
 ---
 
 ## Problem Statement
+Understand the One Definition Rule (ODR) — a fundamental C++ rule that governs definitions.
 
-Understand and explain the concept of One-definition rule basics. Be able to describe it, identify it in code, and use it correctly.
+## What You Need to Know
+- **ODR**: Each entity (function, variable, class) can be **defined** only once in the entire program.
+- **Declarations** (prototypes) can appear multiple times.
+- **Definitions** (with body/value) must appear exactly once (with exceptions).
 
-### Examples
-- **Input Example 1:** A typical/simple case
-- **Input Example 2:** An edge case (empty input, boundary values)
-- **Input Example 3:** A larger or tricky case
-
----
-
-## Prerequisites
-- Basic C++ syntax (variables, types, operators)
-- Understanding of C++ compilation model
-- Header files and namespaces
-
----
-
-## Core Concept
-
-### What Is It?
-One-definition rule basics is a fundamental concept in C++ that every programmer must understand.
-
-### Why Does It Matter?
-- Forms the foundation for understanding more complex C++ features
-- Commonly asked in technical interviews
-- Helps write clean, maintainable code
-
-### Mental Model
-Think of one-definition rule basics as a building block — you can't build a house without understanding bricks.
-
----
-
-## Solution Approaches
-
-### Approach 1: Direct / Straightforward
+## Declaration vs Definition
 ```cpp
-#include <iostream>
-#include <string>
-#include <vector>
-#include <algorithm>
+// DECLARATIONS (can appear multiple times)
+int add(int a, int b);          // Function declaration
+extern int globalVar;            // Variable declaration
+class MyClass;                   // Class forward declaration
 
-/*
- * One-definition rule basics
- * 
- * Approach: Direct implementation
- * Time Complexity:  O(n) — typical for this type of problem
- * Space Complexity: O(1) — or O(n) if storing results
- */
-int main() {
-    // TODO: Implement One-definition rule basics
-    // Step 1: Read input
-    // Step 2: Process
-    // Step 3: Output result
-    
-    std::cout << "Solution for: One-definition rule basics" << std::endl;
-    return 0;
+// DEFINITIONS (must appear exactly once)
+int add(int a, int b) {         // Function definition (has body)
+    return a + b;
 }
+int globalVar = 42;              // Variable definition (has value)
+class MyClass {                  // Class definition (has body)
+    int x;
+};
 ```
 
-**Time Complexity:** O(n) (typical)  
-**Space Complexity:** O(1) or O(n)  
-**When to use:** First attempt, when simplicity matters over performance.
-
-### Approach 2: Optimized / STL-Based
+## ODR Violation Example
 ```cpp
-#include <iostream>
-#include <string>
-#include <vector>
-#include <algorithm>
-#include <numeric>
+// file1.cpp
+int add(int a, int b) { return a + b; }
 
-/*
- * One-definition rule basics — Optimized approach using STL
- * 
- * Uses standard library algorithms where applicable.
- * Generally preferred in production C++ code.
- */
-int main() {
-    // TODO: STL-based implementation
-    // Use std::sort, std::find, std::accumulate, etc. as appropriate
-    
-    return 0;
-}
+// file2.cpp
+int add(int a, int b) { return a + b; }  // ODR VIOLATION!
+// Linker error: multiple definition of `add`
 ```
 
-**Time Complexity:** Depends on STL algorithm used  
-**Space Complexity:** Depends on approach  
-**When to use:** Production code, when you know the right STL tool.
-
-### Approach 3: Modern C++ (C++17/20)
+## Exceptions to ODR
 ```cpp
-#include <iostream>
-#include <string>
-#include <vector>
+// These CAN appear in multiple translation units (must be identical):
 
-/*
- * One-definition rule basics — Modern C++ approach
- * 
- * Uses features from C++17/20: structured bindings,
- * if-init, ranges, constexpr, etc.
- */
-int main() {
-    // TODO: Modern C++ implementation
-    // Use auto, structured bindings, ranges, etc.
-    
-    return 0;
-}
+// 1. Inline functions
+inline int square(int x) { return x * x; }
+
+// 2. constexpr functions
+constexpr int cube(int x) { return x * x * x; }
+
+// 3. Class definitions (in headers — same definition everywhere)
+struct Point { int x, y; };
+
+// 4. Template definitions
+template<typename T>
+T getMax(T a, T b) { return (a > b) ? a : b; }
 ```
 
----
+## The Header Problem
+```cpp
+// math.h (BAD — violates ODR when included by multiple .cpp files)
+int add(int a, int b) { return a + b; }  // Definition in header!
 
-## Step-by-Step Trace
+// math.h (GOOD — declaration only)
+int add(int a, int b);  // Declaration
 
-For a typical input, trace the solution:
+// math.h (GOOD — inline makes it ODR-safe)
+inline int add(int a, int b) { return a + b; }
+```
 
-| Step | State | Action | Result |
-|------|-------|--------|--------|
-| 1 | Initial | Read input | — |
-| 2 | Processing | Apply algorithm | — |
-| 3 | Final | Output result | — |
+## Key Takeaways
+1. ONE definition per function/variable across the entire program
+2. Multiple declarations are OK (and normal — headers contain declarations)
+3. `inline`, `constexpr`, templates, and class definitions are exceptions
+4. Violating ODR = linker error ("multiple definition of...")
+5. Headers should contain declarations, not definitions (unless inline/template)
 
----
-
-## Common Mistakes & Pitfalls
-
-1. **Off-by-one errors** — Check loop boundaries carefully
-2. **Uninitialized variables** — Always initialize before use
-3. **Integer overflow** — Use `long long` for large numbers
-4. **Missing edge cases** — Empty input, single element, negative numbers
-5. **Forgetting `#include`** — Include all necessary headers
-6. **Using `==` vs `=`** — Assignment vs comparison
-
----
-
-## What You Should Learn From This
-
-### Key C++ Feature Demonstrated
-- One-definition rule basics demonstrates fundamental language syntax
-
-### Interview Tips
-- Explain the concept clearly before writing code
-- Always discuss time/space complexity
-- Mention edge cases proactively
-
-### Code Review Checklist
-- [ ] Compiles with `-Wall -Wextra` — no warnings
-- [ ] Handles edge cases
-- [ ] Variables are properly initialized
-- [ ] No memory leaks (if using dynamic allocation)
-- [ ] Code is readable and well-commented
-
----
-
-## Pattern Recognition
-
-**Pattern:** Language fundamentals — know the rules
-
-**Similar Problems:**
-- (See other problems in this category)
-
-**When you see** _______, **think** _______.
-
----
-
-## Practice Variants
-1. **Easy:** Simplify the constraints (smaller input, fewer edge cases)
-2. **Medium:** Add a constraint (handle negative numbers, optimize for time)
-3. **Hard:** Combine with another concept (recursion, dynamic programming)
-
----
-
-## Quick Reference Card
-- **Core idea:** One-definition rule basics
-- **Key construct:** Language syntax
-- **Complexity:** O(n) typical
-- **Don't forget:** Initialize variables, check edge cases, use `-Wall`
-
----
-
-*Generated for C++ Level 0 — C00 Problem Solving Guide*
+## Common Mistakes
+- Defining functions in headers without `inline` → linker error
+- Defining global variables in headers → multiple definitions
+- Two different definitions of the same entity → undefined behavior

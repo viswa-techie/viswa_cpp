@@ -44,24 +44,38 @@ Think of std::vector basics as a building block — you can't build a house with
 ### Approach 1: Direct / Straightforward
 ```cpp
 #include <iostream>
-#include <string>
 #include <vector>
-#include <algorithm>
-
-/*
- * std::vector basics
- * 
- * Approach: Direct implementation
- * Time Complexity:  O(n) — typical for this type of problem
- * Space Complexity: O(1) — or O(n) if storing results
- */
 int main() {
-    // TODO: Implement std::vector basics
-    // Step 1: Read input
-    // Step 2: Process
-    // Step 3: Output result
+    // Dynamic array — grows/shrinks as needed
+    std::vector<int> v1;                    // Empty
+    std::vector<int> v2(5);                 // 5 zeros
+    std::vector<int> v3(5, 42);            // 5 copies of 42
+    std::vector<int> v4 = {1, 2, 3, 4, 5}; // Initializer list
     
-    std::cout << "Solution for: std::vector basics" << std::endl;
+    // Access
+    std::cout << "v4[0] = " << v4[0] << "
+";
+    std::cout << "v4.at(2) = " << v4.at(2) << "
+"; // Bounds-checked
+    std::cout << "front = " << v4.front() << "
+";
+    std::cout << "back = " << v4.back() << "
+";
+    
+    // Size info
+    std::cout << "size = " << v4.size() << "
+";
+    std::cout << "empty? " << v4.empty() << "
+";
+    
+    // Add/remove
+    v4.push_back(6);
+    v4.pop_back();
+    
+    // Iterate
+    for (const auto& x : v4) std::cout << x << " ";
+    std::cout << "
+";
     return 0;
 }
 ```
@@ -73,21 +87,26 @@ int main() {
 ### Approach 2: Optimized / STL-Based
 ```cpp
 #include <iostream>
-#include <string>
 #include <vector>
 #include <algorithm>
 #include <numeric>
 
 /*
- * std::vector basics — Optimized approach using STL
- * 
- * Uses standard library algorithms where applicable.
- * Generally preferred in production C++ code.
+ * stdvector basics — STL/Library approach
  */
 int main() {
-    // TODO: STL-based implementation
-    // Use std::sort, std::find, std::accumulate, etc. as appropriate
+    std::vector<int> data = {5, 2, 8, 1, 9, 3, 7, 4, 6};
     
+    // STL-based implementation
+    std::sort(data.begin(), data.end());
+    for (const auto& x : data) std::cout << x << " ";
+    std::cout << "
+";
+    
+    auto it = std::lower_bound(data.begin(), data.end(), 5);
+    if (it != data.end())
+        std::cout << "Found: " << *it << " at index " << (it - data.begin()) << "
+";
     return 0;
 }
 ```
@@ -99,19 +118,28 @@ int main() {
 ### Approach 3: Modern C++ (C++17/20)
 ```cpp
 #include <iostream>
-#include <string>
 #include <vector>
+#include <algorithm>
+#include <numeric>
 
 /*
- * std::vector basics — Modern C++ approach
- * 
- * Uses features from C++17/20: structured bindings,
- * if-init, ranges, constexpr, etc.
+ * stdvector basics — Modern C++17/20 approach
  */
 int main() {
-    // TODO: Modern C++ implementation
-    // Use auto, structured bindings, ranges, etc.
+    std::vector<int> data = {5, 2, 8, 1, 9, 3, 7, 4, 6};
     
+    // Modern C++ features
+    auto [min_it, max_it] = std::minmax_element(data.begin(), data.end());
+    std::cout << "Range: [" << *min_it << ", " << *max_it << "]
+";
+    
+    // Partition with lambda
+    auto pivot = std::partition(data.begin(), data.end(), [](int x) { return x <= 5; });
+    std::cout << "Partitioned at index: " << (pivot - data.begin()) << "
+";
+    for (int x : data) std::cout << x << " ";
+    std::cout << "
+";
     return 0;
 }
 ```
@@ -187,3 +215,18 @@ For a typical input, trace the solution:
 ---
 
 *Generated for C++ Level 1 — C12 Problem Solving Guide*
+
+
+## Key Takeaways
+1. std::vector is a dynamic array that grows automatically
+2. push_back/emplace_back add to the end in amortized O(1)
+3. size() returns current elements; capacity() returns allocated space
+4. .at() does bounds checking; [] does not
+5. Vectors are contiguous in memory — cache-friendly
+
+## Common Mistakes (Specific)
+- Accessing elements before push_back (empty vector)
+- Invalidating iterators after push_back (if reallocation occurs)
+- Using [] without bounds check on untrusted indices
+- Not reserving capacity when size is known — causes reallocation
+- Comparing size() (unsigned) with negative int — promotion bug

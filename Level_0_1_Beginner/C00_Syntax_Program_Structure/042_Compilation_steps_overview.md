@@ -1,189 +1,88 @@
 # Compilation steps overview
 
 > **Level:** 0 — Absolute Beginner  
-> **Category:** C00  
-> **Topic:** preprocessor
+> **Category:** C00 — C++ Syntax & Program Structure  
+> **Topic:** syntax
 
 ---
 
 ## Problem Statement
+Understand the four stages of C++ compilation: preprocessing, compilation, assembly, and linking.
 
-Understand and explain the concept of Compilation steps overview. Be able to describe it, identify it in code, and use it correctly.
-
-### Examples
-- **Input Example 1:** A typical/simple case
-- **Input Example 2:** An edge case (empty input, boundary values)
-- **Input Example 3:** A larger or tricky case
-
----
-
-## Prerequisites
-- Basic C++ syntax (variables, types, operators)
-- Understanding of C++ compilation model
-- Header files and namespaces
-
----
-
-## Core Concept
-
-### What Is It?
-Compilation steps overview is a fundamental concept in C++ that every programmer must understand.
-
-### Why Does It Matter?
-- Forms the foundation for understanding more complex C++ features
-- Commonly asked in technical interviews
-- Helps write clean, maintainable code
-
-### Mental Model
-Think of compilation steps overview as a building block — you can't build a house without understanding bricks.
-
----
-
-## Solution Approaches
-
-### Approach 1: Direct / Straightforward
-```cpp
-#include <iostream>
-#include <string>
-#include <vector>
-#include <algorithm>
-
-/*
- * Compilation steps overview
- * 
- * Approach: Direct implementation
- * Time Complexity:  O(n) — typical for this type of problem
- * Space Complexity: O(1) — or O(n) if storing results
- */
-int main() {
-    // TODO: Implement Compilation steps overview
-    // Step 1: Read input
-    // Step 2: Process
-    // Step 3: Output result
-    
-    std::cout << "Solution for: Compilation steps overview" << std::endl;
-    return 0;
-}
+## The Four Stages
+```
+Source Code (.cpp)
+      │
+      ▼
+┌─────────────┐
+│ Preprocessor │  (#include, #define, #ifdef)
+└──────┬──────┘
+       │  Translation Unit (.i)
+       ▼
+┌──────────────┐
+│   Compiler   │  (C++ → Assembly)
+└──────┬───────┘
+       │  Assembly (.s)
+       ▼
+┌──────────────┐
+│  Assembler   │  (Assembly → Machine Code)
+└──────┬───────┘
+       │  Object File (.o)
+       ▼
+┌──────────────┐
+│    Linker    │  (Combine .o files + libraries)
+└──────┬───────┘
+       │
+       ▼
+  Executable (a.out / program)
 ```
 
-**Time Complexity:** O(n) (typical)  
-**Space Complexity:** O(1) or O(n)  
-**When to use:** First attempt, when simplicity matters over performance.
+## Stage 1: Preprocessing
+```bash
+g++ -E main.cpp -o main.i    # Stop after preprocessing
+```
+- Expands `#include` (copies header content)
+- Replaces `#define` macros
+- Processes `#ifdef` / `#endif` conditionally
+- Strips comments
 
-### Approach 2: Optimized / STL-Based
-```cpp
-#include <iostream>
-#include <string>
-#include <vector>
-#include <algorithm>
-#include <numeric>
+## Stage 2: Compilation
+```bash
+g++ -S main.cpp -o main.s    # Stop after compilation
+```
+- Converts C++ into assembly language
+- Performs syntax checking, type checking
+- Generates compiler errors and warnings here
 
-/*
- * Compilation steps overview — Optimized approach using STL
- * 
- * Uses standard library algorithms where applicable.
- * Generally preferred in production C++ code.
- */
-int main() {
-    // TODO: STL-based implementation
-    // Use std::sort, std::find, std::accumulate, etc. as appropriate
-    
-    return 0;
-}
+## Stage 3: Assembly
+```bash
+g++ -c main.cpp -o main.o    # Stop after assembly
+```
+- Converts assembly to machine code (object file)
+- Object file contains binary code but unresolved references
+
+## Stage 4: Linking
+```bash
+g++ main.o utils.o -o program   # Link object files
+```
+- Combines object files into final executable
+- Resolves function calls across files
+- Links standard library functions
+- Generates linker errors (undefined reference)
+
+## One-Step Command
+```bash
+g++ -o program main.cpp utils.cpp   # All 4 stages at once
 ```
 
-**Time Complexity:** Depends on STL algorithm used  
-**Space Complexity:** Depends on approach  
-**When to use:** Production code, when you know the right STL tool.
+## Key Takeaways
+1. Preprocessing → `#include` expansion, macro substitution
+2. Compilation → C++ to assembly, catches syntax/type errors
+3. Assembly → assembly to machine code (`.o` files)
+4. Linking → combines `.o` files, resolves cross-file references
+5. Each stage produces specific error types
 
-### Approach 3: Modern C++ (C++17/20)
-```cpp
-#include <iostream>
-#include <string>
-#include <vector>
-
-/*
- * Compilation steps overview — Modern C++ approach
- * 
- * Uses features from C++17/20: structured bindings,
- * if-init, ranges, constexpr, etc.
- */
-int main() {
-    // TODO: Modern C++ implementation
-    // Use auto, structured bindings, ranges, etc.
-    
-    return 0;
-}
-```
-
----
-
-## Step-by-Step Trace
-
-For a typical input, trace the solution:
-
-| Step | State | Action | Result |
-|------|-------|--------|--------|
-| 1 | Initial | Read input | — |
-| 2 | Processing | Apply algorithm | — |
-| 3 | Final | Output result | — |
-
----
-
-## Common Mistakes & Pitfalls
-
-1. **Off-by-one errors** — Check loop boundaries carefully
-2. **Uninitialized variables** — Always initialize before use
-3. **Integer overflow** — Use `long long` for large numbers
-4. **Missing edge cases** — Empty input, single element, negative numbers
-5. **Forgetting `#include`** — Include all necessary headers
-6. **Using `==` vs `=`** — Assignment vs comparison
-
----
-
-## What You Should Learn From This
-
-### Key C++ Feature Demonstrated
-- Compilation steps overview demonstrates fundamental language syntax
-
-### Interview Tips
-- Explain the concept clearly before writing code
-- Always discuss time/space complexity
-- Mention edge cases proactively
-
-### Code Review Checklist
-- [ ] Compiles with `-Wall -Wextra` — no warnings
-- [ ] Handles edge cases
-- [ ] Variables are properly initialized
-- [ ] No memory leaks (if using dynamic allocation)
-- [ ] Code is readable and well-commented
-
----
-
-## Pattern Recognition
-
-**Pattern:** Language fundamentals — know the rules
-
-**Similar Problems:**
-- (See other problems in this category)
-
-**When you see** _______, **think** _______.
-
----
-
-## Practice Variants
-1. **Easy:** Simplify the constraints (smaller input, fewer edge cases)
-2. **Medium:** Add a constraint (handle negative numbers, optimize for time)
-3. **Hard:** Combine with another concept (recursion, dynamic programming)
-
----
-
-## Quick Reference Card
-- **Core idea:** Compilation steps overview
-- **Key construct:** Language syntax
-- **Complexity:** O(n) typical
-- **Don't forget:** Initialize variables, check edge cases, use `-Wall`
-
----
-
-*Generated for C++ Level 0 — C00 Problem Solving Guide*
+## Common Mistakes
+- Confusing compiler errors (stage 2) with linker errors (stage 4)
+- Forgetting to link all `.o` files → "undefined reference" errors
+- Not understanding that `#include` literally copies file contents

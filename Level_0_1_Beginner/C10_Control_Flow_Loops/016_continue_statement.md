@@ -44,24 +44,23 @@ Think of continue statement as a tool in your toolbox — know when to reach for
 ### Approach 1: Direct / Straightforward
 ```cpp
 #include <iostream>
-#include <string>
-#include <vector>
-#include <algorithm>
-
-/*
- * continue statement
- * 
- * Approach: Direct implementation
- * Time Complexity:  O(n) — typical for this type of problem
- * Space Complexity: O(1) — or O(n) if storing results
- */
 int main() {
-    // TODO: Implement continue statement
-    // Step 1: Read input
-    // Step 2: Process
-    // Step 3: Output result
+    // Continue skips rest of current iteration
+    for (int i = 0; i < 10; ++i) {
+        if (i % 2 == 0) continue;  // Skip even numbers
+        std::cout << i << " ";     // Only odd: 1 3 5 7 9
+    }
+    std::cout << "
+";
     
-    std::cout << "Solution for: continue statement" << std::endl;
+    // Skip specific values
+    for (int i = 1; i <= 20; ++i) {
+        if (i % 3 == 0) continue;  // Skip multiples of 3
+        std::cout << i << " ";
+    }
+    std::cout << "
+";
+    
     return 0;
 }
 ```
@@ -73,21 +72,29 @@ int main() {
 ### Approach 2: Optimized / STL-Based
 ```cpp
 #include <iostream>
-#include <string>
 #include <vector>
 #include <algorithm>
 #include <numeric>
+#include <string>
 
 /*
- * continue statement — Optimized approach using STL
- * 
- * Uses standard library algorithms where applicable.
- * Generally preferred in production C++ code.
+ * continue statement — STL/Library approach
  */
 int main() {
-    // TODO: STL-based implementation
-    // Use std::sort, std::find, std::accumulate, etc. as appropriate
+    std::vector<int> data = {5, 2, 8, 1, 9, 3, 7, 4, 6};
     
+    // Using STL algorithms for continue statement
+    std::sort(data.begin(), data.end());
+    
+    for (const auto& x : data)
+        std::cout << x << " ";
+    std::cout << "
+";
+    
+    // STL-based solution demonstration
+    auto sum = std::accumulate(data.begin(), data.end(), 0);
+    std::cout << "Sum: " << sum << "
+";
     return 0;
 }
 ```
@@ -99,18 +106,29 @@ int main() {
 ### Approach 3: Modern C++ (C++17/20)
 ```cpp
 #include <iostream>
-#include <string>
 #include <vector>
+#include <algorithm>
+#include <ranges>
+#include <numeric>
 
 /*
- * continue statement — Modern C++ approach
- * 
- * Uses features from C++17/20: structured bindings,
- * if-init, ranges, constexpr, etc.
+ * continue statement — Modern C++17/20 approach
  */
 int main() {
-    // TODO: Modern C++ implementation
-    // Use auto, structured bindings, ranges, etc.
+    std::vector<int> data = {5, 2, 8, 1, 9, 3, 7, 4, 6};
+    
+    // Modern C++ approach for: continue statement
+    // Using auto, structured bindings, ranges where applicable
+    
+    auto [min_it, max_it] = std::minmax_element(data.begin(), data.end());
+    std::cout << "Min: " << *min_it << ", Max: " << *max_it << "
+";
+    
+    // Lambda-based processing
+    auto is_even = [](int n) { return n % 2 == 0; };
+    auto count = std::count_if(data.begin(), data.end(), is_even);
+    std::cout << "Even count: " << count << "
+";
     
     return 0;
 }
@@ -187,3 +205,17 @@ For a typical input, trace the solution:
 ---
 
 *Generated for C++ Level 1 — C10 Problem Solving Guide*
+
+
+## Key Takeaways
+1. `break` exits the innermost loop only — not nested loops
+2. `continue` skips to the next iteration of the innermost loop
+3. Use sparingly — excessive use can make flow hard to follow
+4. For breaking nested loops, use a flag variable or goto or refactor to a function
+5. Prefer early `continue` to reduce nesting (guard clause pattern)
+
+## Common Mistakes (Specific)
+- Assuming break exits ALL nested loops — it only exits one level
+- Using continue in switch inside a loop — confusing behavior
+- Overusing break/continue making control flow hard to trace
+- Forgetting that continue in do-while checks condition AFTER skip

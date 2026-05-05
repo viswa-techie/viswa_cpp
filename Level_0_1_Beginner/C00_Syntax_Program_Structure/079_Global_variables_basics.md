@@ -1,189 +1,104 @@
 # Global variables basics
 
 > **Level:** 0 — Absolute Beginner  
-> **Category:** C00  
-> **Topic:** variables
+> **Category:** C00 — C++ Syntax & Program Structure  
+> **Topic:** syntax
 
 ---
 
 ## Problem Statement
+Understand global variables — their behavior, uses, and why they should be avoided.
 
-Understand and explain the concept of Global variables basics. Be able to describe it, identify it in code, and use it correctly.
+## What You Need to Know
+- A global variable is declared outside all functions.
+- It's accessible from any function in the same file (and across files with `extern`).
+- It has static storage duration — exists for the entire program.
 
-### Examples
-- **Input Example 1:** A typical/simple case
-- **Input Example 2:** An edge case (empty input, boundary values)
-- **Input Example 3:** A larger or tricky case
-
----
-
-## Prerequisites
-- Basic C++ syntax (variables, types, operators)
-- Understanding of C++ compilation model
-- Header files and namespaces
-
----
-
-## Core Concept
-
-### What Is It?
-Global variables basics is a fundamental concept in C++ that every programmer must understand.
-
-### Why Does It Matter?
-- Forms the foundation for understanding more complex C++ features
-- Commonly asked in technical interviews
-- Helps write clean, maintainable code
-
-### Mental Model
-Think of global variables basics as a building block — you can't build a house without understanding bricks.
-
----
-
-## Solution Approaches
-
-### Approach 1: Direct / Straightforward
+## Basic Example
 ```cpp
 #include <iostream>
-#include <string>
-#include <vector>
-#include <algorithm>
 
-/*
- * Global variables basics
- * 
- * Approach: Direct implementation
- * Time Complexity:  O(n) — typical for this type of problem
- * Space Complexity: O(1) — or O(n) if storing results
- */
+int count = 0;    // Global variable
+
+void increment() {
+    ++count;      // Can access global directly
+}
+
+void print() {
+    std::cout << "Count: " << count << "\n";
+}
+
 int main() {
-    // TODO: Implement Global variables basics
-    // Step 1: Read input
-    // Step 2: Process
-    // Step 3: Output result
-    
-    std::cout << "Solution for: Global variables basics" << std::endl;
+    increment();
+    increment();
+    print();      // Count: 2
     return 0;
 }
 ```
 
-**Time Complexity:** O(n) (typical)  
-**Space Complexity:** O(1) or O(n)  
-**When to use:** First attempt, when simplicity matters over performance.
-
-### Approach 2: Optimized / STL-Based
+## Global vs Local
 ```cpp
 #include <iostream>
-#include <string>
-#include <vector>
-#include <algorithm>
-#include <numeric>
 
-/*
- * Global variables basics — Optimized approach using STL
- * 
- * Uses standard library algorithms where applicable.
- * Generally preferred in production C++ code.
- */
+int x = 100;    // Global x
+
 int main() {
-    // TODO: STL-based implementation
-    // Use std::sort, std::find, std::accumulate, etc. as appropriate
-    
+    int x = 42;  // Local x — shadows the global
+    std::cout << x << "\n";     // 42 (local)
+    std::cout << ::x << "\n";   // 100 (global, using scope resolution)
     return 0;
 }
 ```
 
-**Time Complexity:** Depends on STL algorithm used  
-**Space Complexity:** Depends on approach  
-**When to use:** Production code, when you know the right STL tool.
-
-### Approach 3: Modern C++ (C++17/20)
+## Across Files (extern)
 ```cpp
-#include <iostream>
-#include <string>
-#include <vector>
+// config.cpp
+int maxRetries = 3;    // Definition
 
-/*
- * Global variables basics — Modern C++ approach
- * 
- * Uses features from C++17/20: structured bindings,
- * if-init, ranges, constexpr, etc.
- */
-int main() {
-    // TODO: Modern C++ implementation
-    // Use auto, structured bindings, ranges, etc.
-    
-    return 0;
+// main.cpp
+extern int maxRetries;  // Declaration (no memory allocated)
+// Now main.cpp can use maxRetries
+```
+
+## Why Globals Are Discouraged
+```
+Problem              Description
+-------              -----------
+Hidden dependencies  Functions secretly depend on global state
+Hard to test         Can't test functions in isolation
+Thread safety        Multiple threads can corrupt shared data
+Name collisions      Two globals with same name → linker error
+Initialization order Globals in different files: undefined init order
+```
+
+## Better Alternatives
+```cpp
+// Instead of global:
+// int config_value = 42;
+
+// Option 1: Pass as parameter
+void process(int config) { /* ... */ }
+
+// Option 2: Use a namespace
+namespace Config {
+    const int value = 42;
+}
+
+// Option 3: Use a function (lazy initialization, thread-safe)
+int getConfig() {
+    static int value = 42;
+    return value;
 }
 ```
 
----
+## Key Takeaways
+1. Global variables are declared outside all functions
+2. They're zero-initialized automatically
+3. Use `extern` to share across files
+4. **Avoid globals** — pass data through parameters instead
+5. If you must use globals, make them `const`
 
-## Step-by-Step Trace
-
-For a typical input, trace the solution:
-
-| Step | State | Action | Result |
-|------|-------|--------|--------|
-| 1 | Initial | Read input | — |
-| 2 | Processing | Apply algorithm | — |
-| 3 | Final | Output result | — |
-
----
-
-## Common Mistakes & Pitfalls
-
-1. **Off-by-one errors** — Check loop boundaries carefully
-2. **Uninitialized variables** — Always initialize before use
-3. **Integer overflow** — Use `long long` for large numbers
-4. **Missing edge cases** — Empty input, single element, negative numbers
-5. **Forgetting `#include`** — Include all necessary headers
-6. **Using `==` vs `=`** — Assignment vs comparison
-
----
-
-## What You Should Learn From This
-
-### Key C++ Feature Demonstrated
-- Global variables basics demonstrates fundamental language syntax
-
-### Interview Tips
-- Explain the concept clearly before writing code
-- Always discuss time/space complexity
-- Mention edge cases proactively
-
-### Code Review Checklist
-- [ ] Compiles with `-Wall -Wextra` — no warnings
-- [ ] Handles edge cases
-- [ ] Variables are properly initialized
-- [ ] No memory leaks (if using dynamic allocation)
-- [ ] Code is readable and well-commented
-
----
-
-## Pattern Recognition
-
-**Pattern:** Language fundamentals — know the rules
-
-**Similar Problems:**
-- (See other problems in this category)
-
-**When you see** _______, **think** _______.
-
----
-
-## Practice Variants
-1. **Easy:** Simplify the constraints (smaller input, fewer edge cases)
-2. **Medium:** Add a constraint (handle negative numbers, optimize for time)
-3. **Hard:** Combine with another concept (recursion, dynamic programming)
-
----
-
-## Quick Reference Card
-- **Core idea:** Global variables basics
-- **Key construct:** Language syntax
-- **Complexity:** O(n) typical
-- **Don't forget:** Initialize variables, check edge cases, use `-Wall`
-
----
-
-*Generated for C++ Level 0 — C00 Problem Solving Guide*
+## Common Mistakes
+- Overusing globals → spaghetti code with hidden dependencies
+- Name shadowing: local variable hides global → confusing bugs
+- `static` global ≠ regular global: `static` limits scope to the file

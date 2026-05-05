@@ -1,189 +1,137 @@
 # Input failure states
 
 > **Level:** 0 — Absolute Beginner  
-> **Category:** C00  
-> **Topic:** io
+> **Category:** C00 — C++ Syntax & Program Structure  
+> **Topic:** syntax
 
 ---
 
 ## Problem Statement
+Understand the different input stream states and how to detect and handle failures.
 
-Master the use of Input failure states in C++ programs. Understand when and why to use it.
+## Stream State Flags
+```
+Flag         Method         Meaning
+----         ------         -------
+goodbit      good()         No errors, ready for I/O
+failbit      fail()         Logical error (wrong type, format error)
+badbit       bad()          I/O error (hardware/system failure)
+eofbit       eof()          End of file/input reached
+```
 
-### Examples
-- **Input Example 1:** A typical/simple case
-- **Input Example 2:** An edge case (empty input, boundary values)
-- **Input Example 3:** A larger or tricky case
-
----
-
-## Prerequisites
-- Basic C++ syntax (variables, types, operators)
-- Standard I/O operations
-- Header files and namespaces
-
----
-
-## Core Concept
-
-### What Is It?
-Input failure states is a technique in C++ that appears frequently in interviews and real projects.
-
-### Why Does It Matter?
-- Used extensively in production C++ code
-- Commonly asked in technical interviews
-- Helps write clean, maintainable code
-
-### Mental Model
-Think of input failure states as a tool in your toolbox — know when to reach for it.
-
----
-
-## Solution Approaches
-
-### Approach 1: Direct / Straightforward
+## Checking Stream State
 ```cpp
 #include <iostream>
-#include <string>
-#include <vector>
-#include <algorithm>
 
-/*
- * Input failure states
- * 
- * Approach: Direct implementation
- * Time Complexity:  O(n) — typical for this type of problem
- * Space Complexity: O(1) — or O(n) if storing results
- */
 int main() {
-    // TODO: Implement Input failure states
-    // Step 1: Read input
-    // Step 2: Process
-    // Step 3: Output result
-    
-    std::cout << "Solution for: Input failure states" << std::endl;
+    int x;
+    std::cout << "Enter a number: ";
+    std::cin >> x;
+
+    if (std::cin.good()) {
+        std::cout << "Success: " << x << "\n";
+    } else if (std::cin.eof()) {
+        std::cout << "End of input (Ctrl+D)\n";
+    } else if (std::cin.fail()) {
+        std::cout << "Format error (not a number)\n";
+    } else if (std::cin.bad()) {
+        std::cout << "I/O error (hardware problem)\n";
+    }
+
     return 0;
 }
 ```
 
-**Time Complexity:** O(n) (typical)  
-**Space Complexity:** O(1) or O(n)  
-**When to use:** First attempt, when simplicity matters over performance.
-
-### Approach 2: Optimized / STL-Based
+## Using Stream as Boolean
 ```cpp
 #include <iostream>
-#include <string>
-#include <vector>
-#include <algorithm>
-#include <numeric>
 
-/*
- * Input failure states — Optimized approach using STL
- * 
- * Uses standard library algorithms where applicable.
- * Generally preferred in production C++ code.
- */
 int main() {
-    // TODO: STL-based implementation
-    // Use std::sort, std::find, std::accumulate, etc. as appropriate
-    
+    int x;
+
+    // The stream converts to bool — true if good
+    if (std::cin >> x) {
+        std::cout << "Got: " << x << "\n";
+    } else {
+        std::cout << "Input failed\n";
+    }
+
+    // Useful in loops
+    while (std::cin >> x) {
+        std::cout << "Read: " << x << "\n";
+    }
+    // Loop ends on EOF (Ctrl+D) or bad input
+
     return 0;
 }
 ```
 
-**Time Complexity:** Depends on STL algorithm used  
-**Space Complexity:** Depends on approach  
-**When to use:** Production code, when you know the right STL tool.
-
-### Approach 3: Modern C++ (C++17/20)
+## Common Failure Scenarios
 ```cpp
 #include <iostream>
-#include <string>
-#include <vector>
+#include <limits>
 
-/*
- * Input failure states — Modern C++ approach
- * 
- * Uses features from C++17/20: structured bindings,
- * if-init, ranges, constexpr, etc.
- */
 int main() {
-    // TODO: Modern C++ implementation
-    // Use auto, structured bindings, ranges, etc.
-    
+    int x;
+
+    // Scenario 1: Type mismatch
+    // User enters "hello" for int → failbit set
+    std::cin >> x;
+    if (std::cin.fail()) {
+        std::cerr << "Not a number!\n";
+        std::cin.clear();
+        std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+    }
+
+    // Scenario 2: EOF
+    // User presses Ctrl+D → eofbit set
+    std::cin >> x;
+    if (std::cin.eof()) {
+        std::cerr << "End of input\n";
+    }
+
+    // Scenario 3: Overflow
+    // User enters 99999999999999 for int → failbit set (on some implementations)
+
     return 0;
 }
 ```
 
----
+## Recovery Pattern
+```cpp
+#include <iostream>
+#include <limits>
+#include <string>
 
-## Step-by-Step Trace
+int readInt(const std::string& prompt) {
+    int value;
+    while (true) {
+        std::cout << prompt;
+        if (std::cin >> value) {
+            std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+            return value;
+        }
+        std::cerr << "Invalid input. Try again.\n";
+        std::cin.clear();
+        std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+    }
+}
 
-For a typical input, trace the solution:
+int main() {
+    int age = readInt("Enter your age: ");
+    std::cout << "Age: " << age << "\n";
+    return 0;
+}
+```
 
-| Step | State | Action | Result |
-|------|-------|--------|--------|
-| 1 | Initial | Read input | — |
-| 2 | Processing | Apply algorithm | — |
-| 3 | Final | Output result | — |
+## Key Takeaways
+1. `fail()` = format/type error, `bad()` = I/O error, `eof()` = end of input
+2. Use stream in boolean context: `if (cin >> x)` checks for success
+3. Always clear + ignore after a failure before reading again
+4. `while (cin >> x)` reads until EOF or error — very idiomatic
+5. `good()` returns true only when no flags are set
 
----
-
-## Common Mistakes & Pitfalls
-
-1. **Off-by-one errors** — Check loop boundaries carefully
-2. **Uninitialized variables** — Always initialize before use
-3. **Integer overflow** — Use `long long` for large numbers
-4. **Missing edge cases** — Empty input, single element, negative numbers
-5. **Forgetting `#include`** — Include all necessary headers
-6. **Using `==` vs `=`** — Assignment vs comparison
-
----
-
-## What You Should Learn From This
-
-### Key C++ Feature Demonstrated
-- Input failure states demonstrates proper C++ idioms and best practices
-
-### Interview Tips
-- Discuss tradeoffs between approaches
-- Always discuss time/space complexity
-- Mention edge cases proactively
-
-### Code Review Checklist
-- [ ] Compiles with `-Wall -Wextra` — no warnings
-- [ ] Handles edge cases
-- [ ] Variables are properly initialized
-- [ ] No memory leaks (if using dynamic allocation)
-- [ ] Code is readable and well-commented
-
----
-
-## Pattern Recognition
-
-**Pattern:** Implementation pattern — combine concepts to build
-
-**Similar Problems:**
-- (See other problems in this category)
-
-**When you see** _______, **think** _______.
-
----
-
-## Practice Variants
-1. **Easy:** Simplify the constraints (smaller input, fewer edge cases)
-2. **Medium:** Add a constraint (handle negative numbers, optimize for time)
-3. **Hard:** Combine with another concept (recursion, dynamic programming)
-
----
-
-## Quick Reference Card
-- **Core idea:** Input failure states
-- **Key construct:** STL / Standard Library
-- **Complexity:** O(n) typical
-- **Don't forget:** Initialize variables, check edge cases, use `-Wall`
-
----
-
-*Generated for C++ Level 0 — C00 Problem Solving Guide*
+## Common Mistakes
+- Not checking stream state → using garbage values from failed reads
+- Only checking `eof()` — `fail()` is more common
+- Forgetting that after failure, ALL reads are skipped until `clear()`

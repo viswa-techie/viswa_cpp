@@ -1,189 +1,101 @@
 # Macro constants
 
 > **Level:** 0 — Absolute Beginner  
-> **Category:** C00  
-> **Topic:** preprocessor
+> **Category:** C00 — C++ Syntax & Program Structure  
+> **Topic:** syntax
 
 ---
 
 ## Problem Statement
+Understand function-like macros and their pitfalls compared to inline functions.
 
-Master the use of Macro constants in C++ programs. Understand when and why to use it.
+## What You Need to Know
+- Macros can take parameters like functions: `#define NAME(params) body`.
+- They perform text substitution — not function calls.
+- Parentheses are critical to avoid bugs.
 
-### Examples
-- **Input Example 1:** A typical/simple case
-- **Input Example 2:** An edge case (empty input, boundary values)
-- **Input Example 3:** A larger or tricky case
-
----
-
-## Prerequisites
-- Basic C++ syntax (variables, types, operators)
-- Standard I/O operations
-- Header files and namespaces
-
----
-
-## Core Concept
-
-### What Is It?
-Macro constants is a technique in C++ that appears frequently in interviews and real projects.
-
-### Why Does It Matter?
-- Used extensively in production C++ code
-- Commonly asked in technical interviews
-- Helps write clean, maintainable code
-
-### Mental Model
-Think of macro constants as a tool in your toolbox — know when to reach for it.
-
----
-
-## Solution Approaches
-
-### Approach 1: Direct / Straightforward
+## Object-like vs Function-like Macros
 ```cpp
 #include <iostream>
-#include <string>
-#include <vector>
+
+// Object-like macro (constant)
+#define PI 3.14159
+
+// Function-like macro
+#define SQUARE(x) ((x) * (x))
+#define MAX(a, b) ((a) > (b) ? (a) : (b))
+#define ABS(x) ((x) < 0 ? -(x) : (x))
+
+int main() {
+    std::cout << SQUARE(5) << "\n";   // 25
+    std::cout << MAX(10, 20) << "\n"; // 20
+    std::cout << ABS(-7) << "\n";     // 7
+    return 0;
+}
+```
+
+## The Parenthesis Problem
+```cpp
+#include <iostream>
+
+// BAD: Missing parentheses
+#define BAD_SQUARE(x) x * x
+
+// GOOD: Proper parentheses
+#define GOOD_SQUARE(x) ((x) * (x))
+
+int main() {
+    // BAD_SQUARE(2+3) expands to: 2+3 * 2+3 = 2+6+3 = 11 (WRONG!)
+    std::cout << BAD_SQUARE(2+3) << "\n";   // 11, not 25!
+
+    // GOOD_SQUARE(2+3) expands to: ((2+3) * (2+3)) = 25 (CORRECT)
+    std::cout << GOOD_SQUARE(2+3) << "\n";  // 25
+    return 0;
+}
+```
+
+## Double Evaluation Problem
+```cpp
+#include <iostream>
+
+#define MAX(a, b) ((a) > (b) ? (a) : (b))
+
+int main() {
+    int x = 5;
+    // MAX(x++, 3) expands to: ((x++) > (3) ? (x++) : (3))
+    // x gets incremented TWICE if x > 3!
+    int result = MAX(x++, 3);  // x becomes 7, not 6!
+    std::cout << result << ", x=" << x << "\n";
+    return 0;
+}
+```
+
+## Modern Alternative: Inline Functions
+```cpp
+#include <iostream>
 #include <algorithm>
 
-/*
- * Macro constants
- * 
- * Approach: Direct implementation
- * Time Complexity:  O(n) — typical for this type of problem
- * Space Complexity: O(1) — or O(n) if storing results
- */
+// Prefer this over macros
+inline int square(int x) {
+    return x * x;
+}
+
 int main() {
-    // TODO: Implement Macro constants
-    // Step 1: Read input
-    // Step 2: Process
-    // Step 3: Output result
-    
-    std::cout << "Solution for: Macro constants" << std::endl;
+    int x = 5;
+    std::cout << square(2 + 3) << "\n";   // 25 (correct!)
+    std::cout << std::max(x++, 3) << "\n"; // No double evaluation
     return 0;
 }
 ```
 
-**Time Complexity:** O(n) (typical)  
-**Space Complexity:** O(1) or O(n)  
-**When to use:** First attempt, when simplicity matters over performance.
+## Key Takeaways
+1. Always wrap macro parameters and the whole body in parentheses
+2. Macros evaluate arguments multiple times — beware of side effects
+3. Prefer `inline` functions or `constexpr` functions over macros
+4. Macros have no type checking or scope
+5. Macros are still used for: include guards, `__FILE__`, `__LINE__`, conditional compilation
 
-### Approach 2: Optimized / STL-Based
-```cpp
-#include <iostream>
-#include <string>
-#include <vector>
-#include <algorithm>
-#include <numeric>
-
-/*
- * Macro constants — Optimized approach using STL
- * 
- * Uses standard library algorithms where applicable.
- * Generally preferred in production C++ code.
- */
-int main() {
-    // TODO: STL-based implementation
-    // Use std::sort, std::find, std::accumulate, etc. as appropriate
-    
-    return 0;
-}
-```
-
-**Time Complexity:** Depends on STL algorithm used  
-**Space Complexity:** Depends on approach  
-**When to use:** Production code, when you know the right STL tool.
-
-### Approach 3: Modern C++ (C++17/20)
-```cpp
-#include <iostream>
-#include <string>
-#include <vector>
-
-/*
- * Macro constants — Modern C++ approach
- * 
- * Uses features from C++17/20: structured bindings,
- * if-init, ranges, constexpr, etc.
- */
-int main() {
-    // TODO: Modern C++ implementation
-    // Use auto, structured bindings, ranges, etc.
-    
-    return 0;
-}
-```
-
----
-
-## Step-by-Step Trace
-
-For a typical input, trace the solution:
-
-| Step | State | Action | Result |
-|------|-------|--------|--------|
-| 1 | Initial | Read input | — |
-| 2 | Processing | Apply algorithm | — |
-| 3 | Final | Output result | — |
-
----
-
-## Common Mistakes & Pitfalls
-
-1. **Off-by-one errors** — Check loop boundaries carefully
-2. **Uninitialized variables** — Always initialize before use
-3. **Integer overflow** — Use `long long` for large numbers
-4. **Missing edge cases** — Empty input, single element, negative numbers
-5. **Forgetting `#include`** — Include all necessary headers
-6. **Using `==` vs `=`** — Assignment vs comparison
-
----
-
-## What You Should Learn From This
-
-### Key C++ Feature Demonstrated
-- Macro constants demonstrates proper C++ idioms and best practices
-
-### Interview Tips
-- Discuss tradeoffs between approaches
-- Always discuss time/space complexity
-- Mention edge cases proactively
-
-### Code Review Checklist
-- [ ] Compiles with `-Wall -Wextra` — no warnings
-- [ ] Handles edge cases
-- [ ] Variables are properly initialized
-- [ ] No memory leaks (if using dynamic allocation)
-- [ ] Code is readable and well-commented
-
----
-
-## Pattern Recognition
-
-**Pattern:** Implementation pattern — combine concepts to build
-
-**Similar Problems:**
-- (See other problems in this category)
-
-**When you see** _______, **think** _______.
-
----
-
-## Practice Variants
-1. **Easy:** Simplify the constraints (smaller input, fewer edge cases)
-2. **Medium:** Add a constraint (handle negative numbers, optimize for time)
-3. **Hard:** Combine with another concept (recursion, dynamic programming)
-
----
-
-## Quick Reference Card
-- **Core idea:** Macro constants
-- **Key construct:** STL / Standard Library
-- **Complexity:** O(n) typical
-- **Don't forget:** Initialize variables, check edge cases, use `-Wall`
-
----
-
-*Generated for C++ Level 0 — C00 Problem Solving Guide*
+## Common Mistakes
+- Missing parentheses: `#define SQ(x) x*x` → wrong results with expressions
+- Side effects: `MAX(i++, j)` → `i` incremented twice
+- Semicolons in macros: `#define FOO(x) { bar(x); }` breaks in `if` without braces

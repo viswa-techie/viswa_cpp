@@ -44,24 +44,25 @@ Think of int_max / int_min constants as a tool in your toolbox — know when to 
 ### Approach 1: Direct / Straightforward
 ```cpp
 #include <iostream>
-#include <string>
-#include <vector>
-#include <algorithm>
-
-/*
- * INT_MAX / INT_MIN constants
- * 
- * Approach: Direct implementation
- * Time Complexity:  O(n) — typical for this type of problem
- * Space Complexity: O(1) — or O(n) if storing results
- */
+#include <climits>
 int main() {
-    // TODO: Implement INT_MAX / INT_MIN constants
-    // Step 1: Read input
-    // Step 2: Process
-    // Step 3: Output result
-    
-    std::cout << "Solution for: INT_MAX / INT_MIN constants" << std::endl;
+    std::cout << "INT_MAX = " << INT_MAX << "
+";   // 2147483647
+    std::cout << "INT_MIN = " << INT_MIN << "
+";   // -2147483648
+    std::cout << "UINT_MAX = " << UINT_MAX << "
+"; // 4294967295
+    std::cout << "SHRT_MAX = " << SHRT_MAX << "
+"; // 32767
+    std::cout << "LLONG_MAX = " << LLONG_MAX << "
+";
+    std::cout << "CHAR_MAX = " << CHAR_MAX << "
+";
+
+    // Overflow check
+    int x = INT_MAX;
+    std::cout << "INT_MAX + 1 = UB (signed overflow)
+";
     return 0;
 }
 ```
@@ -73,21 +74,19 @@ int main() {
 ### Approach 2: Optimized / STL-Based
 ```cpp
 #include <iostream>
-#include <string>
-#include <vector>
-#include <algorithm>
-#include <numeric>
-
-/*
- * INT_MAX / INT_MIN constants — Optimized approach using STL
- * 
- * Uses standard library algorithms where applicable.
- * Generally preferred in production C++ code.
- */
+#include <limits>
 int main() {
-    // TODO: STL-based implementation
-    // Use std::sort, std::find, std::accumulate, etc. as appropriate
-    
+    // Preferred C++ way: std::numeric_limits
+    std::cout << "int max: " << std::numeric_limits<int>::max() << "
+";
+    std::cout << "int min: " << std::numeric_limits<int>::min() << "
+";
+    std::cout << "int lowest: " << std::numeric_limits<int>::lowest() << "
+";
+    std::cout << "uint max: " << std::numeric_limits<unsigned>::max() << "
+";
+    std::cout << "digits: " << std::numeric_limits<int>::digits << " bits
+";
     return 0;
 }
 ```
@@ -99,19 +98,20 @@ int main() {
 ### Approach 3: Modern C++ (C++17/20)
 ```cpp
 #include <iostream>
-#include <string>
-#include <vector>
-
-/*
- * INT_MAX / INT_MIN constants — Modern C++ approach
- * 
- * Uses features from C++17/20: structured bindings,
- * if-init, ranges, constexpr, etc.
- */
+#include <limits>
+#include <type_traits>
+template<typename T>
+void showLimits(const char* name) {
+    std::cout << name << ": [" << std::numeric_limits<T>::lowest()
+              << ", " << std::numeric_limits<T>::max() << "]
+";
+}
 int main() {
-    // TODO: Modern C++ implementation
-    // Use auto, structured bindings, ranges, etc.
-    
+    showLimits<short>("short");
+    showLimits<int>("int");
+    showLimits<long>("long");
+    showLimits<long long>("long long");
+    showLimits<unsigned>("unsigned");
     return 0;
 }
 ```
@@ -187,3 +187,16 @@ For a typical input, trace the solution:
 ---
 
 *Generated for C++ Level 0 — C01 Problem Solving Guide*
+
+
+## Key Takeaways
+1. `<climits>` provides INT_MAX, INT_MIN, UINT_MAX etc. (C-style macros)
+2. `<limits>` provides `std::numeric_limits<T>::max()/min()` (C++ way, preferred)
+3. INT_MAX is typically 2,147,483,647 (2^31 - 1)
+4. Use these to check for overflow before arithmetic
+5. `lowest()` vs `min()`: for floats, min() is smallest positive, lowest() is most negative
+
+## Common Mistakes (Specific)
+- Using INT_MAX + 1 → undefined behavior (signed overflow)
+- Confusing `numeric_limits<float>::min()` (smallest positive) with `lowest()` (most negative)
+- Not including `<climits>` or `<limits>` → compilation error

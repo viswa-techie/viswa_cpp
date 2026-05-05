@@ -1,189 +1,84 @@
 # Unicode basics
 
 > **Level:** 0 — Absolute Beginner  
-> **Category:** C00  
+> **Category:** C00 — C++ Syntax & Program Structure  
 > **Topic:** syntax
 
 ---
 
 ## Problem Statement
+Understand Unicode character encoding and how C++ supports it.
 
-Understand and explain the concept of Unicode basics. Be able to describe it, identify it in code, and use it correctly.
+## What You Need to Know
+- **ASCII** encodes 128 characters (0–127): English letters, digits, symbols.
+- **Unicode** is a universal standard that assigns a code point to every character in every language.
+- **UTF-8** is the most common encoding: ASCII-compatible, variable-width (1–4 bytes).
+- **UTF-16** uses 2 or 4 bytes per character. Windows uses this internally.
+- **UTF-32** uses exactly 4 bytes per character.
 
-### Examples
-- **Input Example 1:** A typical/simple case
-- **Input Example 2:** An edge case (empty input, boundary values)
-- **Input Example 3:** A larger or tricky case
+## C++ Character Types
+```cpp
+char     c1 = 'A';       // 1 byte, ASCII/UTF-8
+wchar_t  c2 = L'Ω';      // Wide char (platform-dependent size)
+char16_t c3 = u'Ω';      // 2 bytes, UTF-16 (C++11)
+char32_t c4 = U'😀';     // 4 bytes, UTF-32 (C++11)
+char8_t  c5 = u8'A';     // 1 byte, UTF-8 (C++20)
+```
 
----
-
-## Prerequisites
-- Basic C++ syntax (variables, types, operators)
-- Understanding of C++ compilation model
-- Header files and namespaces
-
----
-
-## Core Concept
-
-### What Is It?
-Unicode basics is a fundamental concept in C++ that every programmer must understand.
-
-### Why Does It Matter?
-- Forms the foundation for understanding more complex C++ features
-- Commonly asked in technical interviews
-- Helps write clean, maintainable code
-
-### Mental Model
-Think of unicode basics as a building block — you can't build a house without understanding bricks.
-
----
-
-## Solution Approaches
-
-### Approach 1: Direct / Straightforward
+## String Literal Prefixes
 ```cpp
 #include <iostream>
 #include <string>
-#include <vector>
-#include <algorithm>
 
-/*
- * Unicode basics
- * 
- * Approach: Direct implementation
- * Time Complexity:  O(n) — typical for this type of problem
- * Space Complexity: O(1) — or O(n) if storing results
- */
 int main() {
-    // TODO: Implement Unicode basics
-    // Step 1: Read input
-    // Step 2: Process
-    // Step 3: Output result
-    
-    std::cout << "Solution for: Unicode basics" << std::endl;
+    auto s1 = "Hello";         // const char[]     — narrow (ASCII/UTF-8)
+    auto s2 = L"Hello";        // const wchar_t[]  — wide
+    auto s3 = u"Hello";        // const char16_t[] — UTF-16
+    auto s4 = U"Hello";        // const char32_t[] — UTF-32
+    auto s5 = u8"Hello";       // const char8_t[]  — UTF-8 (C++20)
+
+    std::cout << s1 << "\n";
     return 0;
 }
 ```
 
-**Time Complexity:** O(n) (typical)  
-**Space Complexity:** O(1) or O(n)  
-**When to use:** First attempt, when simplicity matters over performance.
-
-### Approach 2: Optimized / STL-Based
+## Unicode Escape Sequences
 ```cpp
 #include <iostream>
-#include <string>
-#include <vector>
-#include <algorithm>
-#include <numeric>
 
-/*
- * Unicode basics — Optimized approach using STL
- * 
- * Uses standard library algorithms where applicable.
- * Generally preferred in production C++ code.
- */
 int main() {
-    // TODO: STL-based implementation
-    // Use std::sort, std::find, std::accumulate, etc. as appropriate
-    
+    // \uNNNN — 4-digit Unicode code point
+    std::cout << "\u03A9" << "\n";   // Ω (Greek capital omega)
+
+    // \UNNNNNNNN — 8-digit Unicode code point
+    std::cout << "\U0001F600" << "\n";  // 😀 (if terminal supports it)
+
     return 0;
 }
 ```
 
-**Time Complexity:** Depends on STL algorithm used  
-**Space Complexity:** Depends on approach  
-**When to use:** Production code, when you know the right STL tool.
-
-### Approach 3: Modern C++ (C++17/20)
+## Practical: UTF-8 in std::string
 ```cpp
 #include <iostream>
 #include <string>
-#include <vector>
 
-/*
- * Unicode basics — Modern C++ approach
- * 
- * Uses features from C++17/20: structured bindings,
- * if-init, ranges, constexpr, etc.
- */
 int main() {
-    // TODO: Modern C++ implementation
-    // Use auto, structured bindings, ranges, etc.
-    
+    std::string greeting = "नमस्ते";   // Hindi (UTF-8 encoded)
+    std::cout << greeting << "\n";
+    std::cout << "Bytes: " << greeting.size() << "\n";  // More than 6!
+    // Each Devanagari character takes 3 bytes in UTF-8
     return 0;
 }
 ```
 
----
+## Key Takeaways
+1. Use UTF-8 (`char` / `std::string`) for most purposes
+2. `\uNNNN` for 4-digit Unicode, `\UNNNNNNNN` for 8-digit
+3. `std::string::size()` returns bytes, not characters for UTF-8
+4. `wchar_t` is platform-dependent — avoid in portable code
+5. C++20 adds `char8_t` for type-safe UTF-8
 
-## Step-by-Step Trace
-
-For a typical input, trace the solution:
-
-| Step | State | Action | Result |
-|------|-------|--------|--------|
-| 1 | Initial | Read input | — |
-| 2 | Processing | Apply algorithm | — |
-| 3 | Final | Output result | — |
-
----
-
-## Common Mistakes & Pitfalls
-
-1. **Off-by-one errors** — Check loop boundaries carefully
-2. **Uninitialized variables** — Always initialize before use
-3. **Integer overflow** — Use `long long` for large numbers
-4. **Missing edge cases** — Empty input, single element, negative numbers
-5. **Forgetting `#include`** — Include all necessary headers
-6. **Using `==` vs `=`** — Assignment vs comparison
-
----
-
-## What You Should Learn From This
-
-### Key C++ Feature Demonstrated
-- Unicode basics demonstrates fundamental language syntax
-
-### Interview Tips
-- Explain the concept clearly before writing code
-- Always discuss time/space complexity
-- Mention edge cases proactively
-
-### Code Review Checklist
-- [ ] Compiles with `-Wall -Wextra` — no warnings
-- [ ] Handles edge cases
-- [ ] Variables are properly initialized
-- [ ] No memory leaks (if using dynamic allocation)
-- [ ] Code is readable and well-commented
-
----
-
-## Pattern Recognition
-
-**Pattern:** Language fundamentals — know the rules
-
-**Similar Problems:**
-- (See other problems in this category)
-
-**When you see** _______, **think** _______.
-
----
-
-## Practice Variants
-1. **Easy:** Simplify the constraints (smaller input, fewer edge cases)
-2. **Medium:** Add a constraint (handle negative numbers, optimize for time)
-3. **Hard:** Combine with another concept (recursion, dynamic programming)
-
----
-
-## Quick Reference Card
-- **Core idea:** Unicode basics
-- **Key construct:** Language syntax
-- **Complexity:** O(n) typical
-- **Don't forget:** Initialize variables, check edge cases, use `-Wall`
-
----
-
-*Generated for C++ Level 0 — C00 Problem Solving Guide*
+## Common Mistakes
+- Assuming `std::string::length()` gives character count for non-ASCII text
+- Mixing wide and narrow strings without conversion
+- Assuming `wchar_t` is always 4 bytes (2 on Windows, 4 on Linux)

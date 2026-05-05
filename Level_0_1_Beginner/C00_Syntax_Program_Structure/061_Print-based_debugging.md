@@ -1,189 +1,115 @@
 # Print-based debugging
 
 > **Level:** 0 — Absolute Beginner  
-> **Category:** C00  
-> **Topic:** debugging
+> **Category:** C00 — C++ Syntax & Program Structure  
+> **Topic:** syntax
 
 ---
 
 ## Problem Statement
+Use print statements to debug C++ programs — the simplest debugging technique.
 
-Master the use of Print-based debugging in C++ programs. Understand when and why to use it.
+## What You Need to Know
+- Print debugging (printf debugging) means adding output statements to trace program flow.
+- Quick and easy — no debugger setup required.
+- Works everywhere, including embedded systems and remote servers.
 
-### Examples
-- **Input Example 1:** A typical/simple case
-- **Input Example 2:** An edge case (empty input, boundary values)
-- **Input Example 3:** A larger or tricky case
-
----
-
-## Prerequisites
-- Basic C++ syntax (variables, types, operators)
-- Standard I/O operations
-- Header files and namespaces
-
----
-
-## Core Concept
-
-### What Is It?
-Print-based debugging is a technique in C++ that appears frequently in interviews and real projects.
-
-### Why Does It Matter?
-- Used extensively in production C++ code
-- Commonly asked in technical interviews
-- Helps write clean, maintainable code
-
-### Mental Model
-Think of print-based debugging as a tool in your toolbox — know when to reach for it.
-
----
-
-## Solution Approaches
-
-### Approach 1: Direct / Straightforward
+## Basic Print Debugging
 ```cpp
 #include <iostream>
-#include <string>
-#include <vector>
-#include <algorithm>
 
-/*
- * Print-based debugging
- * 
- * Approach: Direct implementation
- * Time Complexity:  O(n) — typical for this type of problem
- * Space Complexity: O(1) — or O(n) if storing results
- */
+int factorial(int n) {
+    std::cerr << "[DEBUG] factorial(" << n << ") called\n";
+    if (n <= 1) return 1;
+    int result = n * factorial(n - 1);
+    std::cerr << "[DEBUG] factorial(" << n << ") = " << result << "\n";
+    return result;
+}
+
 int main() {
-    // TODO: Implement Print-based debugging
-    // Step 1: Read input
-    // Step 2: Process
-    // Step 3: Output result
-    
-    std::cout << "Solution for: Print-based debugging" << std::endl;
+    std::cerr << "[DEBUG] Starting program\n";
+    int result = factorial(5);
+    std::cout << "5! = " << result << "\n";
     return 0;
 }
 ```
 
-**Time Complexity:** O(n) (typical)  
-**Space Complexity:** O(1) or O(n)  
-**When to use:** First attempt, when simplicity matters over performance.
+## Why Use cerr Instead of cout?
+```cpp
+// cerr is unbuffered — output appears immediately
+std::cerr << "Debug: x = " << x << "\n";   // Goes to stderr
 
-### Approach 2: Optimized / STL-Based
+// cout is buffered — might not appear before a crash
+std::cout << "Debug: x = " << x << "\n";   // Goes to stdout
+```
+
+```bash
+# Separate debug output from program output
+./program 2> debug.log    # stderr → file, stdout → screen
+./program > output.txt 2> debug.log   # Both separated
+```
+
+## Debug Macro
 ```cpp
 #include <iostream>
-#include <string>
-#include <vector>
-#include <algorithm>
-#include <numeric>
 
-/*
- * Print-based debugging — Optimized approach using STL
- * 
- * Uses standard library algorithms where applicable.
- * Generally preferred in production C++ code.
- */
+#ifdef DEBUG
+    #define DBG(msg) std::cerr << "[" << __FILE__ << ":" << __LINE__ << "] " << msg << "\n"
+#else
+    #define DBG(msg)    // Compiles to nothing in release
+#endif
+
 int main() {
-    // TODO: STL-based implementation
-    // Use std::sort, std::find, std::accumulate, etc. as appropriate
-    
+    int x = 42;
+    DBG("x = " << x);            // [main.cpp:12] x = 42
+    DBG("Starting processing");   // [main.cpp:13] Starting processing
     return 0;
 }
 ```
 
-**Time Complexity:** Depends on STL algorithm used  
-**Space Complexity:** Depends on approach  
-**When to use:** Production code, when you know the right STL tool.
+```bash
+g++ -DDEBUG main.cpp -o program    # Debug output enabled
+g++ main.cpp -o program            # Debug output disabled
+```
 
-### Approach 3: Modern C++ (C++17/20)
+## Useful Debug Patterns
 ```cpp
 #include <iostream>
-#include <string>
 #include <vector>
 
-/*
- * Print-based debugging — Modern C++ approach
- * 
- * Uses features from C++17/20: structured bindings,
- * if-init, ranges, constexpr, etc.
- */
 int main() {
-    // TODO: Modern C++ implementation
-    // Use auto, structured bindings, ranges, etc.
-    
+    // Pattern 1: Trace function entry/exit
+    std::cerr << ">>> Entering main()\n";
+
+    // Pattern 2: Print variable values
+    int x = 42;
+    std::cerr << "x = " << x << "\n";
+
+    // Pattern 3: Print container contents
+    std::vector<int> v = {1, 2, 3, 4, 5};
+    std::cerr << "v = [";
+    for (size_t i = 0; i < v.size(); ++i) {
+        if (i > 0) std::cerr << ", ";
+        std::cerr << v[i];
+    }
+    std::cerr << "]\n";
+
+    // Pattern 4: Checkpoint messages
+    std::cerr << "--- Checkpoint A reached ---\n";
+
+    std::cerr << "<<< Exiting main()\n";
     return 0;
 }
 ```
 
----
+## Key Takeaways
+1. Use `std::cerr` for debug output (unbuffered, goes to stderr)
+2. Use `__FILE__` and `__LINE__` to auto-include location info
+3. Wrap debug prints in `#ifdef DEBUG` to easily disable them
+4. Redirect stderr to a file: `./program 2> debug.log`
+5. Remove or disable debug prints before releasing code
 
-## Step-by-Step Trace
-
-For a typical input, trace the solution:
-
-| Step | State | Action | Result |
-|------|-------|--------|--------|
-| 1 | Initial | Read input | — |
-| 2 | Processing | Apply algorithm | — |
-| 3 | Final | Output result | — |
-
----
-
-## Common Mistakes & Pitfalls
-
-1. **Off-by-one errors** — Check loop boundaries carefully
-2. **Uninitialized variables** — Always initialize before use
-3. **Integer overflow** — Use `long long` for large numbers
-4. **Missing edge cases** — Empty input, single element, negative numbers
-5. **Forgetting `#include`** — Include all necessary headers
-6. **Using `==` vs `=`** — Assignment vs comparison
-
----
-
-## What You Should Learn From This
-
-### Key C++ Feature Demonstrated
-- Print-based debugging demonstrates proper C++ idioms and best practices
-
-### Interview Tips
-- Discuss tradeoffs between approaches
-- Always discuss time/space complexity
-- Mention edge cases proactively
-
-### Code Review Checklist
-- [ ] Compiles with `-Wall -Wextra` — no warnings
-- [ ] Handles edge cases
-- [ ] Variables are properly initialized
-- [ ] No memory leaks (if using dynamic allocation)
-- [ ] Code is readable and well-commented
-
----
-
-## Pattern Recognition
-
-**Pattern:** Implementation pattern — combine concepts to build
-
-**Similar Problems:**
-- (See other problems in this category)
-
-**When you see** _______, **think** _______.
-
----
-
-## Practice Variants
-1. **Easy:** Simplify the constraints (smaller input, fewer edge cases)
-2. **Medium:** Add a constraint (handle negative numbers, optimize for time)
-3. **Hard:** Combine with another concept (recursion, dynamic programming)
-
----
-
-## Quick Reference Card
-- **Core idea:** Print-based debugging
-- **Key construct:** STL / Standard Library
-- **Complexity:** O(n) typical
-- **Don't forget:** Initialize variables, check edge cases, use `-Wall`
-
----
-
-*Generated for C++ Level 0 — C00 Problem Solving Guide*
+## Common Mistakes
+- Using `cout` for debug output — may not appear before a crash (buffered)
+- Leaving debug prints in production code
+- Not including newlines → output gets jumbled

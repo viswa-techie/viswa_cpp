@@ -44,24 +44,34 @@ Think of merge sort as a puzzle — break it into smaller pieces and solve each 
 ### Approach 1: Direct / Straightforward
 ```cpp
 #include <iostream>
-#include <string>
 #include <vector>
-#include <algorithm>
 
-/*
- * Merge sort
- * 
- * Approach: Direct implementation
- * Time Complexity:  O(n) — typical for this type of problem
- * Space Complexity: O(1) — or O(n) if storing results
- */
+void merge(std::vector<int>& arr, int left, int mid, int right) {
+    std::vector<int> temp(right - left + 1);
+    int i = left, j = mid + 1, k = 0;
+    while (i <= mid && j <= right) {
+        if (arr[i] <= arr[j]) temp[k++] = arr[i++];
+        else temp[k++] = arr[j++];
+    }
+    while (i <= mid) temp[k++] = arr[i++];
+    while (j <= right) temp[k++] = arr[j++];
+    for (int p = 0; p < k; ++p) arr[left + p] = temp[p];
+}
+
+void mergeSort(std::vector<int>& arr, int left, int right) {
+    if (left >= right) return;
+    int mid = left + (right - left) / 2;
+    mergeSort(arr, left, mid);
+    mergeSort(arr, mid + 1, right);
+    merge(arr, left, mid, right);
+}
+
 int main() {
-    // TODO: Implement Merge sort
-    // Step 1: Read input
-    // Step 2: Process
-    // Step 3: Output result
-    
-    std::cout << "Solution for: Merge sort" << std::endl;
+    std::vector<int> arr = {38, 27, 43, 3, 9, 82, 10};
+    mergeSort(arr, 0, arr.size() - 1);
+    for (int x : arr) std::cout << x << " ";
+    std::cout << "
+";
     return 0;
 }
 ```
@@ -73,21 +83,26 @@ int main() {
 ### Approach 2: Optimized / STL-Based
 ```cpp
 #include <iostream>
-#include <string>
 #include <vector>
 #include <algorithm>
+#include <functional>
 #include <numeric>
 
 /*
- * Merge sort — Optimized approach using STL
- * 
- * Uses standard library algorithms where applicable.
- * Generally preferred in production C++ code.
+ * Merge sort — STL/Library approach
  */
 int main() {
-    // TODO: STL-based implementation
-    // Use std::sort, std::find, std::accumulate, etc. as appropriate
+    std::vector<int> data = {5, 2, 8, 1, 9, 3, 7, 4, 6};
     
+    // STL-based implementation of Merge sort
+    std::sort(data.begin(), data.end());
+    for (const auto& x : data) std::cout << x << " ";
+    std::cout << "
+";
+    
+    auto sum = std::accumulate(data.begin(), data.end(), 0);
+    std::cout << "Sum: " << sum << "
+";
     return 0;
 }
 ```
@@ -99,19 +114,26 @@ int main() {
 ### Approach 3: Modern C++ (C++17/20)
 ```cpp
 #include <iostream>
-#include <string>
 #include <vector>
+#include <algorithm>
+#include <numeric>
 
 /*
- * Merge sort — Modern C++ approach
- * 
- * Uses features from C++17/20: structured bindings,
- * if-init, ranges, constexpr, etc.
+ * Merge sort — Modern C++17/20 approach
  */
 int main() {
-    // TODO: Modern C++ implementation
-    // Use auto, structured bindings, ranges, etc.
+    std::vector<int> data = {5, 2, 8, 1, 9, 3, 7, 4, 6};
     
+    // Modern C++ features for Merge sort
+    auto [min_it, max_it] = std::minmax_element(data.begin(), data.end());
+    std::cout << "Range: [" << *min_it << ", " << *max_it << "]
+";
+    
+    // Lambda-based approach
+    std::sort(data.begin(), data.end());
+    for (const auto& x : data) std::cout << x << " ";
+    std::cout << "
+";
     return 0;
 }
 ```
@@ -187,3 +209,17 @@ For a typical input, trace the solution:
 ---
 
 *Generated for C++ Level 1 — C11 Problem Solving Guide*
+
+
+## Key Takeaways
+1. Merge sort: O(n log n) guaranteed, stable, uses O(n) extra space
+2. Quick sort: O(n log n) average, O(n²) worst, in-place
+3. std::sort uses introsort (quicksort + heapsort + insertion sort)
+4. Use std::stable_sort when order of equal elements matters
+5. Both divide-and-conquer: split, solve halves, combine
+
+## Common Mistakes (Specific)
+- Not handling empty arrays/single elements (base case)
+- Quicksort: always picking first/last as pivot → O(n²) on sorted data
+- Merge sort: not properly handling odd-length subarrays
+- Off-by-one in partition boundaries

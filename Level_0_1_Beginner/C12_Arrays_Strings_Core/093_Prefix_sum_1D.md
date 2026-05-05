@@ -44,24 +44,22 @@ Think of prefix sum 1d as a puzzle — break it into smaller pieces and solve ea
 ### Approach 1: Direct / Straightforward
 ```cpp
 #include <iostream>
-#include <string>
 #include <vector>
-#include <algorithm>
 
-/*
- * Prefix sum 1D
- * 
- * Approach: Direct implementation
- * Time Complexity:  O(n) — typical for this type of problem
- * Space Complexity: O(1) — or O(n) if storing results
- */
 int main() {
-    // TODO: Implement Prefix sum 1D
-    // Step 1: Read input
-    // Step 2: Process
-    // Step 3: Output result
+    std::vector<int> arr = {1, 2, 3, 4, 5};
+    int n = arr.size();
     
-    std::cout << "Solution for: Prefix sum 1D" << std::endl;
+    // Build prefix sum
+    std::vector<int> prefix(n + 1, 0);
+    for (int i = 0; i < n; ++i)
+        prefix[i + 1] = prefix[i] + arr[i];
+    
+    // Range sum query: sum of arr[l..r] = prefix[r+1] - prefix[l]
+    int l = 1, r = 3;  // sum of arr[1..3] = 2+3+4 = 9
+    std::cout << "Sum [" << l << ".." << r << "] = " 
+              << prefix[r+1] - prefix[l] << "
+";
     return 0;
 }
 ```
@@ -73,21 +71,26 @@ int main() {
 ### Approach 2: Optimized / STL-Based
 ```cpp
 #include <iostream>
-#include <string>
 #include <vector>
 #include <algorithm>
 #include <numeric>
 
 /*
- * Prefix sum 1D — Optimized approach using STL
- * 
- * Uses standard library algorithms where applicable.
- * Generally preferred in production C++ code.
+ * Prefix sum 1D — STL/Library approach
  */
 int main() {
-    // TODO: STL-based implementation
-    // Use std::sort, std::find, std::accumulate, etc. as appropriate
+    std::vector<int> data = {5, 2, 8, 1, 9, 3, 7, 4, 6};
     
+    // STL-based implementation
+    std::sort(data.begin(), data.end());
+    for (const auto& x : data) std::cout << x << " ";
+    std::cout << "
+";
+    
+    auto it = std::lower_bound(data.begin(), data.end(), 5);
+    if (it != data.end())
+        std::cout << "Found: " << *it << " at index " << (it - data.begin()) << "
+";
     return 0;
 }
 ```
@@ -99,19 +102,28 @@ int main() {
 ### Approach 3: Modern C++ (C++17/20)
 ```cpp
 #include <iostream>
-#include <string>
 #include <vector>
+#include <algorithm>
+#include <numeric>
 
 /*
- * Prefix sum 1D — Modern C++ approach
- * 
- * Uses features from C++17/20: structured bindings,
- * if-init, ranges, constexpr, etc.
+ * Prefix sum 1D — Modern C++17/20 approach
  */
 int main() {
-    // TODO: Modern C++ implementation
-    // Use auto, structured bindings, ranges, etc.
+    std::vector<int> data = {5, 2, 8, 1, 9, 3, 7, 4, 6};
     
+    // Modern C++ features
+    auto [min_it, max_it] = std::minmax_element(data.begin(), data.end());
+    std::cout << "Range: [" << *min_it << ", " << *max_it << "]
+";
+    
+    // Partition with lambda
+    auto pivot = std::partition(data.begin(), data.end(), [](int x) { return x <= 5; });
+    std::cout << "Partitioned at index: " << (pivot - data.begin()) << "
+";
+    for (int x : data) std::cout << x << " ";
+    std::cout << "
+";
     return 0;
 }
 ```
@@ -187,3 +199,18 @@ For a typical input, trace the solution:
 ---
 
 *Generated for C++ Level 1 — C12 Problem Solving Guide*
+
+
+## Key Takeaways
+1. Build prefix array in O(n), answer range queries in O(1)
+2. Range sum [l,r] = prefix[r+1] - prefix[l]
+3. Use 1-indexed prefix array to simplify boundary handling
+4. 2D prefix sums enable O(1) submatrix sum queries
+5. Difference array is the inverse — O(1) range updates
+
+## Common Mistakes (Specific)
+- Off-by-one errors in array indices and loop bounds
+- Not handling edge cases (empty array, single element)
+- Integer overflow with large sums — use long long
+- Modifying container while iterating — invalidates iterators
+- Forgetting to sort before binary search

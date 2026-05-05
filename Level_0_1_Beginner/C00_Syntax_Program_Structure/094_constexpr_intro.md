@@ -1,189 +1,102 @@
 # constexpr intro
 
 > **Level:** 0 — Absolute Beginner  
-> **Category:** C00  
-> **Topic:** modern
+> **Category:** C00 — C++ Syntax & Program Structure  
+> **Topic:** syntax
 
 ---
 
 ## Problem Statement
+Understand `constexpr` — compile-time constant expressions in C++11 and later.
 
-Understand and explain the concept of constexpr intro. Be able to describe it, identify it in code, and use it correctly.
+## What You Need to Know
+- `constexpr` means "can be evaluated at compile time."
+- Better than `#define` — it's typed, scoped, and debuggable.
+- Available since C++11, significantly improved in C++14/17/20.
 
-### Examples
-- **Input Example 1:** A typical/simple case
-- **Input Example 2:** An edge case (empty input, boundary values)
-- **Input Example 3:** A larger or tricky case
-
----
-
-## Prerequisites
-- Basic C++ syntax (variables, types, operators)
-- Understanding of C++ compilation model
-- Header files and namespaces
-
----
-
-## Core Concept
-
-### What Is It?
-constexpr intro is a fundamental concept in C++ that every programmer must understand.
-
-### Why Does It Matter?
-- Forms the foundation for understanding more complex C++ features
-- Commonly asked in technical interviews
-- Helps write clean, maintainable code
-
-### Mental Model
-Think of constexpr intro as a building block — you can't build a house without understanding bricks.
-
----
-
-## Solution Approaches
-
-### Approach 1: Direct / Straightforward
+## constexpr Variables
 ```cpp
 #include <iostream>
-#include <string>
-#include <vector>
-#include <algorithm>
 
-/*
- * constexpr intro
- * 
- * Approach: Direct implementation
- * Time Complexity:  O(n) — typical for this type of problem
- * Space Complexity: O(1) — or O(n) if storing results
- */
+constexpr int MAX_SIZE = 100;        // Compile-time constant
+constexpr double PI = 3.14159265;    // Compile-time constant
+
 int main() {
-    // TODO: Implement constexpr intro
-    // Step 1: Read input
-    // Step 2: Process
-    // Step 3: Output result
-    
-    std::cout << "Solution for: constexpr intro" << std::endl;
+    constexpr int N = 10;
+    int arr[N];    // OK — N is known at compile time
+
+    // constexpr int x = rand();  // ERROR — rand() is not constexpr
+    std::cout << MAX_SIZE << " " << PI << "\n";
     return 0;
 }
 ```
 
-**Time Complexity:** O(n) (typical)  
-**Space Complexity:** O(1) or O(n)  
-**When to use:** First attempt, when simplicity matters over performance.
-
-### Approach 2: Optimized / STL-Based
+## constexpr Functions
 ```cpp
 #include <iostream>
-#include <string>
-#include <vector>
-#include <algorithm>
-#include <numeric>
 
-/*
- * constexpr intro — Optimized approach using STL
- * 
- * Uses standard library algorithms where applicable.
- * Generally preferred in production C++ code.
- */
+constexpr int square(int x) {
+    return x * x;
+}
+
+constexpr int factorial(int n) {
+    return (n <= 1) ? 1 : n * factorial(n - 1);
+}
+
 int main() {
-    // TODO: STL-based implementation
-    // Use std::sort, std::find, std::accumulate, etc. as appropriate
-    
+    constexpr int s = square(5);     // Computed at COMPILE time
+    constexpr int f = factorial(5);   // Computed at COMPILE time
+
+    std::cout << "5² = " << s << "\n";   // 25
+    std::cout << "5! = " << f << "\n";   // 120
+
+    // Can also be called at runtime
+    int x;
+    std::cin >> x;
+    std::cout << square(x) << "\n";  // Computed at runtime
     return 0;
 }
 ```
 
-**Time Complexity:** Depends on STL algorithm used  
-**Space Complexity:** Depends on approach  
-**When to use:** Production code, when you know the right STL tool.
+## constexpr vs const vs #define
+```
+Feature        #define          const              constexpr
+-------        -------          -----              ---------
+Type safety    No               Yes                Yes
+Scoped         No (global)      Yes                Yes
+Debuggable     No               Yes                Yes
+Compile-time   Text replace     Maybe              Guaranteed (if possible)
+Functions      Macros only      No                 Yes
+```
 
-### Approach 3: Modern C++ (C++17/20)
+## constexpr with if (C++17)
 ```cpp
 #include <iostream>
-#include <string>
-#include <vector>
 
-/*
- * constexpr intro — Modern C++ approach
- * 
- * Uses features from C++17/20: structured bindings,
- * if-init, ranges, constexpr, etc.
- */
+template<typename T>
+void process(T value) {
+    if constexpr (std::is_integral_v<T>) {
+        std::cout << "Integer: " << value << "\n";
+    } else {
+        std::cout << "Not integer: " << value << "\n";
+    }
+}
+
 int main() {
-    // TODO: Modern C++ implementation
-    // Use auto, structured bindings, ranges, etc.
-    
+    process(42);      // Integer: 42
+    process(3.14);    // Not integer: 3.14
     return 0;
 }
 ```
 
----
+## Key Takeaways
+1. `constexpr` variables are guaranteed compile-time constants
+2. `constexpr` functions CAN run at compile time (if args are constexpr)
+3. Prefer `constexpr` over `#define` for constants
+4. Use for array sizes, template arguments, compile-time computation
+5. `constexpr` implies `inline` for functions
 
-## Step-by-Step Trace
-
-For a typical input, trace the solution:
-
-| Step | State | Action | Result |
-|------|-------|--------|--------|
-| 1 | Initial | Read input | — |
-| 2 | Processing | Apply algorithm | — |
-| 3 | Final | Output result | — |
-
----
-
-## Common Mistakes & Pitfalls
-
-1. **Off-by-one errors** — Check loop boundaries carefully
-2. **Uninitialized variables** — Always initialize before use
-3. **Integer overflow** — Use `long long` for large numbers
-4. **Missing edge cases** — Empty input, single element, negative numbers
-5. **Forgetting `#include`** — Include all necessary headers
-6. **Using `==` vs `=`** — Assignment vs comparison
-
----
-
-## What You Should Learn From This
-
-### Key C++ Feature Demonstrated
-- constexpr intro demonstrates fundamental language syntax
-
-### Interview Tips
-- Explain the concept clearly before writing code
-- Always discuss time/space complexity
-- Mention edge cases proactively
-
-### Code Review Checklist
-- [ ] Compiles with `-Wall -Wextra` — no warnings
-- [ ] Handles edge cases
-- [ ] Variables are properly initialized
-- [ ] No memory leaks (if using dynamic allocation)
-- [ ] Code is readable and well-commented
-
----
-
-## Pattern Recognition
-
-**Pattern:** Language fundamentals — know the rules
-
-**Similar Problems:**
-- (See other problems in this category)
-
-**When you see** _______, **think** _______.
-
----
-
-## Practice Variants
-1. **Easy:** Simplify the constraints (smaller input, fewer edge cases)
-2. **Medium:** Add a constraint (handle negative numbers, optimize for time)
-3. **Hard:** Combine with another concept (recursion, dynamic programming)
-
----
-
-## Quick Reference Card
-- **Core idea:** constexpr intro
-- **Key construct:** Language syntax
-- **Complexity:** O(n) typical
-- **Don't forget:** Initialize variables, check edge cases, use `-Wall`
-
----
-
-*Generated for C++ Level 0 — C00 Problem Solving Guide*
+## Common Mistakes
+- `constexpr int x = non_constexpr_func();` → compile error
+- Confusing `const` (runtime constant) with `constexpr` (compile-time constant)
+- Overly complex constexpr functions in C++11 (only one return statement allowed)

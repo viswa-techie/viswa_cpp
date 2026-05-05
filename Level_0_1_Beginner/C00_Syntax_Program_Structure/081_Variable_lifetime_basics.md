@@ -1,189 +1,114 @@
 # Variable lifetime basics
 
 > **Level:** 0 — Absolute Beginner  
-> **Category:** C00  
-> **Topic:** variables
+> **Category:** C00 — C++ Syntax & Program Structure  
+> **Topic:** syntax
 
 ---
 
 ## Problem Statement
+Understand variable lifetime — when a variable is created and destroyed in C++.
 
-Understand and explain the concept of Variable lifetime basics. Be able to describe it, identify it in code, and use it correctly.
+## What You Need to Know
+- **Lifetime** = the period during which a variable exists in memory.
+- **Scope** = where in the code a variable can be accessed by name.
+- A variable can be "alive" but out of scope (e.g., outer variable during inner scope).
 
-### Examples
-- **Input Example 1:** A typical/simple case
-- **Input Example 2:** An edge case (empty input, boundary values)
-- **Input Example 3:** A larger or tricky case
+## Storage Duration Types
+```
+Duration         Created              Destroyed            Examples
+--------         -------              ---------            --------
+Automatic        Entering scope       Leaving scope        Local variables
+Static           Program start        Program end          Globals, static locals
+Dynamic          new expression       delete expression    Heap allocations
+Thread           Thread start         Thread end           thread_local vars
+```
 
----
+## Automatic Lifetime
+```cpp
+#include <iostream>
 
-## Prerequisites
-- Basic C++ syntax (variables, types, operators)
-- Understanding of C++ compilation model
-- Header files and namespaces
+int main() {
+    // x created here
+    int x = 10;
+    {
+        // y created here
+        int y = 20;
+        std::cout << x + y << "\n";
+    }
+    // y destroyed here
 
----
+    // x is still alive
+    std::cout << x << "\n";
+    return 0;
+}
+// x destroyed here
+```
 
-## Core Concept
+## Static Lifetime
+```cpp
+#include <iostream>
 
-### What Is It?
-Variable lifetime basics is a fundamental concept in C++ that every programmer must understand.
+void counter() {
+    static int n = 0;   // Created once (first call), destroyed at program end
+    ++n;
+    std::cout << "Call #" << n << "\n";
+}
 
-### Why Does It Matter?
-- Forms the foundation for understanding more complex C++ features
-- Commonly asked in technical interviews
-- Helps write clean, maintainable code
+int main() {
+    counter();   // Call #1
+    counter();   // Call #2
+    counter();   // Call #3
+    return 0;
+}
+// static n destroyed here (program end)
+```
 
-### Mental Model
-Think of variable lifetime basics as a building block — you can't build a house without understanding bricks.
-
----
-
-## Solution Approaches
-
-### Approach 1: Direct / Straightforward
+## Destructor Timing
 ```cpp
 #include <iostream>
 #include <string>
-#include <vector>
-#include <algorithm>
 
-/*
- * Variable lifetime basics
- * 
- * Approach: Direct implementation
- * Time Complexity:  O(n) — typical for this type of problem
- * Space Complexity: O(1) — or O(n) if storing results
- */
+struct Widget {
+    std::string name;
+    Widget(const std::string& n) : name(n) {
+        std::cout << name << " created\n";
+    }
+    ~Widget() {
+        std::cout << name << " destroyed\n";
+    }
+};
+
 int main() {
-    // TODO: Implement Variable lifetime basics
-    // Step 1: Read input
-    // Step 2: Process
-    // Step 3: Output result
-    
-    std::cout << "Solution for: Variable lifetime basics" << std::endl;
+    Widget a("A");
+    {
+        Widget b("B");
+        Widget c("C");
+    }   // C destroyed, then B (reverse order!)
+    Widget d("D");
     return 0;
-}
+}   // D destroyed, then A (reverse order!)
+```
+**Output:**
+```
+A created
+B created
+C created
+C destroyed
+B destroyed
+D created
+D destroyed
+A destroyed
 ```
 
-**Time Complexity:** O(n) (typical)  
-**Space Complexity:** O(1) or O(n)  
-**When to use:** First attempt, when simplicity matters over performance.
+## Key Takeaways
+1. Local variables: lifetime = scope (entering `{` to leaving `}`)
+2. Static variables: lifetime = entire program
+3. Destruction happens in reverse order of construction
+4. Lifetime ≠ scope: a variable can exist but be inaccessible (shadowed)
+5. Understanding lifetime prevents dangling references and use-after-destroy bugs
 
-### Approach 2: Optimized / STL-Based
-```cpp
-#include <iostream>
-#include <string>
-#include <vector>
-#include <algorithm>
-#include <numeric>
-
-/*
- * Variable lifetime basics — Optimized approach using STL
- * 
- * Uses standard library algorithms where applicable.
- * Generally preferred in production C++ code.
- */
-int main() {
-    // TODO: STL-based implementation
-    // Use std::sort, std::find, std::accumulate, etc. as appropriate
-    
-    return 0;
-}
-```
-
-**Time Complexity:** Depends on STL algorithm used  
-**Space Complexity:** Depends on approach  
-**When to use:** Production code, when you know the right STL tool.
-
-### Approach 3: Modern C++ (C++17/20)
-```cpp
-#include <iostream>
-#include <string>
-#include <vector>
-
-/*
- * Variable lifetime basics — Modern C++ approach
- * 
- * Uses features from C++17/20: structured bindings,
- * if-init, ranges, constexpr, etc.
- */
-int main() {
-    // TODO: Modern C++ implementation
-    // Use auto, structured bindings, ranges, etc.
-    
-    return 0;
-}
-```
-
----
-
-## Step-by-Step Trace
-
-For a typical input, trace the solution:
-
-| Step | State | Action | Result |
-|------|-------|--------|--------|
-| 1 | Initial | Read input | — |
-| 2 | Processing | Apply algorithm | — |
-| 3 | Final | Output result | — |
-
----
-
-## Common Mistakes & Pitfalls
-
-1. **Off-by-one errors** — Check loop boundaries carefully
-2. **Uninitialized variables** — Always initialize before use
-3. **Integer overflow** — Use `long long` for large numbers
-4. **Missing edge cases** — Empty input, single element, negative numbers
-5. **Forgetting `#include`** — Include all necessary headers
-6. **Using `==` vs `=`** — Assignment vs comparison
-
----
-
-## What You Should Learn From This
-
-### Key C++ Feature Demonstrated
-- Variable lifetime basics demonstrates fundamental language syntax
-
-### Interview Tips
-- Explain the concept clearly before writing code
-- Always discuss time/space complexity
-- Mention edge cases proactively
-
-### Code Review Checklist
-- [ ] Compiles with `-Wall -Wextra` — no warnings
-- [ ] Handles edge cases
-- [ ] Variables are properly initialized
-- [ ] No memory leaks (if using dynamic allocation)
-- [ ] Code is readable and well-commented
-
----
-
-## Pattern Recognition
-
-**Pattern:** Language fundamentals — know the rules
-
-**Similar Problems:**
-- (See other problems in this category)
-
-**When you see** _______, **think** _______.
-
----
-
-## Practice Variants
-1. **Easy:** Simplify the constraints (smaller input, fewer edge cases)
-2. **Medium:** Add a constraint (handle negative numbers, optimize for time)
-3. **Hard:** Combine with another concept (recursion, dynamic programming)
-
----
-
-## Quick Reference Card
-- **Core idea:** Variable lifetime basics
-- **Key construct:** Language syntax
-- **Complexity:** O(n) typical
-- **Don't forget:** Initialize variables, check edge cases, use `-Wall`
-
----
-
-*Generated for C++ Level 0 — C00 Problem Solving Guide*
+## Common Mistakes
+- Returning a reference to a local variable → dangling reference (destroyed)
+- Assuming static local variables are recreated each call
+- Not understanding reverse destruction order → resource cleanup issues

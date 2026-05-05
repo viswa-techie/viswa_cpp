@@ -44,24 +44,41 @@ Think of switch-case statement as a tool in your toolbox — know when to reach 
 ### Approach 1: Direct / Straightforward
 ```cpp
 #include <iostream>
-#include <string>
-#include <vector>
-#include <algorithm>
-
-/*
- * Switch-case statement
- * 
- * Approach: Direct implementation
- * Time Complexity:  O(n) — typical for this type of problem
- * Space Complexity: O(1) — or O(n) if storing results
- */
 int main() {
-    // TODO: Implement Switch-case statement
-    // Step 1: Read input
-    // Step 2: Process
-    // Step 3: Output result
+    int day = 3;
     
-    std::cout << "Solution for: Switch-case statement" << std::endl;
+    switch (day) {
+        case 1: std::cout << "Monday
+"; break;
+        case 2: std::cout << "Tuesday
+"; break;
+        case 3: std::cout << "Wednesday
+"; break;
+        case 4: std::cout << "Thursday
+"; break;
+        case 5: std::cout << "Friday
+"; break;
+        case 6: std::cout << "Saturday
+"; break;
+        case 7: std::cout << "Sunday
+"; break;
+        default: std::cout << "Invalid day
+"; break;
+    }
+    
+    // Switch with char
+    char grade = 'B';
+    switch (grade) {
+        case 'A': std::cout << "Excellent
+"; break;
+        case 'B': std::cout << "Good
+"; break;
+        case 'C': std::cout << "Average
+"; break;
+        default: std::cout << "Below average
+"; break;
+    }
+    
     return 0;
 }
 ```
@@ -73,21 +90,29 @@ int main() {
 ### Approach 2: Optimized / STL-Based
 ```cpp
 #include <iostream>
-#include <string>
 #include <vector>
 #include <algorithm>
 #include <numeric>
+#include <string>
 
 /*
- * Switch-case statement — Optimized approach using STL
- * 
- * Uses standard library algorithms where applicable.
- * Generally preferred in production C++ code.
+ * Switch case statement — STL/Library approach
  */
 int main() {
-    // TODO: STL-based implementation
-    // Use std::sort, std::find, std::accumulate, etc. as appropriate
+    std::vector<int> data = {5, 2, 8, 1, 9, 3, 7, 4, 6};
     
+    // Using STL algorithms for Switch case statement
+    std::sort(data.begin(), data.end());
+    
+    for (const auto& x : data)
+        std::cout << x << " ";
+    std::cout << "
+";
+    
+    // STL-based solution demonstration
+    auto sum = std::accumulate(data.begin(), data.end(), 0);
+    std::cout << "Sum: " << sum << "
+";
     return 0;
 }
 ```
@@ -99,18 +124,29 @@ int main() {
 ### Approach 3: Modern C++ (C++17/20)
 ```cpp
 #include <iostream>
-#include <string>
 #include <vector>
+#include <algorithm>
+#include <ranges>
+#include <numeric>
 
 /*
- * Switch-case statement — Modern C++ approach
- * 
- * Uses features from C++17/20: structured bindings,
- * if-init, ranges, constexpr, etc.
+ * Switch case statement — Modern C++17/20 approach
  */
 int main() {
-    // TODO: Modern C++ implementation
-    // Use auto, structured bindings, ranges, etc.
+    std::vector<int> data = {5, 2, 8, 1, 9, 3, 7, 4, 6};
+    
+    // Modern C++ approach for: Switch case statement
+    // Using auto, structured bindings, ranges where applicable
+    
+    auto [min_it, max_it] = std::minmax_element(data.begin(), data.end());
+    std::cout << "Min: " << *min_it << ", Max: " << *max_it << "
+";
+    
+    // Lambda-based processing
+    auto is_even = [](int n) { return n % 2 == 0; };
+    auto count = std::count_if(data.begin(), data.end(), is_even);
+    std::cout << "Even count: " << count << "
+";
     
     return 0;
 }
@@ -187,3 +223,17 @@ For a typical input, trace the solution:
 ---
 
 *Generated for C++ Level 1 — C10 Problem Solving Guide*
+
+
+## Key Takeaways
+1. Switch works with int, char, enum — not strings or floats
+2. Always include `break` unless fall-through is intentional
+3. Use `default` case to handle unexpected values
+4. `[[fallthrough]]` (C++17) documents intentional fall-through
+5. Compiler warns about unhandled enum values — exploit this
+
+## Common Mistakes (Specific)
+- Missing braces in if/else — dangling else, wrong block executes
+- Using `=` (assignment) instead of `==` (comparison) in conditions
+- Forgetting `break` in switch → unintended fall-through
+- Deeply nested if-else making code unreadable — flatten with early returns

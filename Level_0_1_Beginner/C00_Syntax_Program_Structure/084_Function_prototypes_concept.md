@@ -1,189 +1,97 @@
 # Function prototypes concept
 
 > **Level:** 0 — Absolute Beginner  
-> **Category:** C00  
-> **Topic:** functions
+> **Category:** C00 — C++ Syntax & Program Structure  
+> **Topic:** syntax
 
 ---
 
 ## Problem Statement
+Understand function prototypes — declarations that tell the compiler about a function's interface.
 
-Understand and explain the concept of Function prototypes concept. Be able to describe it, identify it in code, and use it correctly.
+## What You Need to Know
+- A prototype declares a function's return type, name, and parameter types.
+- It does NOT include the function body.
+- Prototypes go at the top of the file or in header files.
 
-### Examples
-- **Input Example 1:** A typical/simple case
-- **Input Example 2:** An edge case (empty input, boundary values)
-- **Input Example 3:** A larger or tricky case
+## Syntax
+```cpp
+// Prototype (declaration only — no body)
+return_type function_name(param_type1 param_name1, param_type2 param_name2);
 
----
+// Examples:
+int add(int a, int b);
+void printMessage(const std::string& msg);
+double calculateArea(double radius);
+bool isEven(int n);
+```
 
-## Prerequisites
-- Basic C++ syntax (variables, types, operators)
-- Understanding of C++ compilation model
-- Function definition and calling
-
----
-
-## Core Concept
-
-### What Is It?
-Function prototypes concept is a fundamental concept in C++ that every programmer must understand.
-
-### Why Does It Matter?
-- Forms the foundation for understanding more complex C++ features
-- Commonly asked in technical interviews
-- Helps write clean, maintainable code
-
-### Mental Model
-Think of function prototypes concept as a building block — you can't build a house without understanding bricks.
-
----
-
-## Solution Approaches
-
-### Approach 1: Direct / Straightforward
+## Complete Example
 ```cpp
 #include <iostream>
 #include <string>
-#include <vector>
-#include <algorithm>
 
-/*
- * Function prototypes concept
- * 
- * Approach: Direct implementation
- * Time Complexity:  O(n) — typical for this type of problem
- * Space Complexity: O(1) — or O(n) if storing results
- */
+// Prototypes (declarations)
+int add(int a, int b);
+void greet(const std::string& name);
+bool isPositive(int n);
+
 int main() {
-    // TODO: Implement Function prototypes concept
-    // Step 1: Read input
-    // Step 2: Process
-    // Step 3: Output result
-    
-    std::cout << "Solution for: Function prototypes concept" << std::endl;
+    std::cout << add(3, 4) << "\n";
+    greet("Viswa");
+    std::cout << std::boolalpha << isPositive(-5) << "\n";
     return 0;
+}
+
+// Definitions (must match prototypes exactly)
+int add(int a, int b) {
+    return a + b;
+}
+
+void greet(const std::string& name) {
+    std::cout << "Hello, " << name << "!\n";
+}
+
+bool isPositive(int n) {
+    return n > 0;
 }
 ```
 
-**Time Complexity:** O(n) (typical)  
-**Space Complexity:** O(1) or O(n)  
-**When to use:** First attempt, when simplicity matters over performance.
-
-### Approach 2: Optimized / STL-Based
+## Parameter Names Are Optional in Prototypes
 ```cpp
-#include <iostream>
-#include <string>
-#include <vector>
-#include <algorithm>
-#include <numeric>
-
-/*
- * Function prototypes concept — Optimized approach using STL
- * 
- * Uses standard library algorithms where applicable.
- * Generally preferred in production C++ code.
- */
-int main() {
-    // TODO: STL-based implementation
-    // Use std::sort, std::find, std::accumulate, etc. as appropriate
-    
-    return 0;
-}
+// These are all valid prototypes:
+int add(int a, int b);      // With names (preferred for documentation)
+int add(int, int);           // Without names (valid but less clear)
+int add(int x, int y);      // Different names from definition (valid)
 ```
 
-**Time Complexity:** Depends on STL algorithm used  
-**Space Complexity:** Depends on approach  
-**When to use:** Production code, when you know the right STL tool.
-
-### Approach 3: Modern C++ (C++17/20)
+## Prototypes in Headers
 ```cpp
-#include <iostream>
-#include <string>
-#include <vector>
+// math_utils.h
+#pragma once
+int add(int a, int b);
+int multiply(int a, int b);
 
-/*
- * Function prototypes concept — Modern C++ approach
- * 
- * Uses features from C++17/20: structured bindings,
- * if-init, ranges, constexpr, etc.
- */
+// math_utils.cpp
+#include "math_utils.h"
+int add(int a, int b) { return a + b; }
+int multiply(int a, int b) { return a * b; }
+
+// main.cpp
+#include "math_utils.h"    // Gets the prototypes
 int main() {
-    // TODO: Modern C++ implementation
-    // Use auto, structured bindings, ranges, etc.
-    
-    return 0;
+    return add(1, 2);
 }
 ```
 
----
+## Key Takeaways
+1. Prototypes declare the interface without the body
+2. Placed at the top of `.cpp` files or in `.h` header files
+3. Parameter names are optional in prototypes
+4. The definition must match the prototype's return type and parameter types
+5. Headers are collections of prototypes (and other declarations)
 
-## Step-by-Step Trace
-
-For a typical input, trace the solution:
-
-| Step | State | Action | Result |
-|------|-------|--------|--------|
-| 1 | Initial | Read input | — |
-| 2 | Processing | Apply algorithm | — |
-| 3 | Final | Output result | — |
-
----
-
-## Common Mistakes & Pitfalls
-
-1. **Off-by-one errors** — Check loop boundaries carefully
-2. **Uninitialized variables** — Always initialize before use
-3. **Integer overflow** — Use `long long` for large numbers
-4. **Missing edge cases** — Empty input, single element, negative numbers
-5. **Forgetting `#include`** — Include all necessary headers
-6. **Using `==` vs `=`** — Assignment vs comparison
-
----
-
-## What You Should Learn From This
-
-### Key C++ Feature Demonstrated
-- Function prototypes concept demonstrates fundamental language syntax
-
-### Interview Tips
-- Explain the concept clearly before writing code
-- Always discuss time/space complexity
-- Mention edge cases proactively
-
-### Code Review Checklist
-- [ ] Compiles with `-Wall -Wextra` — no warnings
-- [ ] Handles edge cases
-- [ ] Variables are properly initialized
-- [ ] No memory leaks (if using dynamic allocation)
-- [ ] Code is readable and well-commented
-
----
-
-## Pattern Recognition
-
-**Pattern:** Language fundamentals — know the rules
-
-**Similar Problems:**
-- (See other problems in this category)
-
-**When you see** _______, **think** _______.
-
----
-
-## Practice Variants
-1. **Easy:** Simplify the constraints (smaller input, fewer edge cases)
-2. **Medium:** Add a constraint (handle negative numbers, optimize for time)
-3. **Hard:** Combine with another concept (recursion, dynamic programming)
-
----
-
-## Quick Reference Card
-- **Core idea:** Function prototypes concept
-- **Key construct:** Language syntax
-- **Complexity:** O(n) typical
-- **Don't forget:** Initialize variables, check edge cases, use `-Wall`
-
----
-
-*Generated for C++ Level 0 — C00 Problem Solving Guide*
+## Common Mistakes
+- Prototype doesn't match definition: `int add(int, int)` vs `double add(int, int)` → error
+- Missing prototype: calling a function before it's declared → compile error
+- Forgetting semicolon after prototype: `int add(int a, int b)` → compile error

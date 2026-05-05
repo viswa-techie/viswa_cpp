@@ -44,24 +44,37 @@ Think of std::array<t,n> as a tool in your toolbox — know when to reach for it
 ### Approach 1: Direct / Straightforward
 ```cpp
 #include <iostream>
-#include <string>
-#include <vector>
+#include <array>
 #include <algorithm>
-
-/*
- * std::array<T,N>
- * 
- * Approach: Direct implementation
- * Time Complexity:  O(n) — typical for this type of problem
- * Space Complexity: O(1) — or O(n) if storing results
- */
 int main() {
-    // TODO: Implement std::array<T,N>
-    // Step 1: Read input
-    // Step 2: Process
-    // Step 3: Output result
+    // std::array<T, N> — fixed-size, stack-allocated, safe
+    std::array<int, 5> arr = {5, 2, 8, 1, 3};
     
-    std::cout << "Solution for: std::array<T,N>" << std::endl;
+    std::cout << "Size: " << arr.size() << "
+";
+    std::cout << "Front: " << arr.front() << "
+";
+    std::cout << "Back: " << arr.back() << "
+";
+    
+    // Safe access with bounds checking
+    std::cout << "arr.at(2) = " << arr.at(2) << "
+";
+    
+    // Works with STL algorithms
+    std::sort(arr.begin(), arr.end());
+    for (int x : arr) std::cout << x << " ";
+    std::cout << "
+";
+    
+    // Fill and swap
+    std::array<int, 5> other;
+    other.fill(0);
+    arr.swap(other);
+    
+    // Doesn't decay to pointer
+    std::cout << "sizeof: " << sizeof(arr) << "
+";  // 20 (5*4)
     return 0;
 }
 ```
@@ -73,21 +86,26 @@ int main() {
 ### Approach 2: Optimized / STL-Based
 ```cpp
 #include <iostream>
-#include <string>
 #include <vector>
 #include <algorithm>
 #include <numeric>
 
 /*
- * std::array<T,N> — Optimized approach using STL
- * 
- * Uses standard library algorithms where applicable.
- * Generally preferred in production C++ code.
+ * stdarrayTN — STL/Library approach
  */
 int main() {
-    // TODO: STL-based implementation
-    // Use std::sort, std::find, std::accumulate, etc. as appropriate
+    std::vector<int> data = {5, 2, 8, 1, 9, 3, 7, 4, 6};
     
+    // STL-based implementation
+    std::sort(data.begin(), data.end());
+    for (const auto& x : data) std::cout << x << " ";
+    std::cout << "
+";
+    
+    auto it = std::lower_bound(data.begin(), data.end(), 5);
+    if (it != data.end())
+        std::cout << "Found: " << *it << " at index " << (it - data.begin()) << "
+";
     return 0;
 }
 ```
@@ -99,19 +117,28 @@ int main() {
 ### Approach 3: Modern C++ (C++17/20)
 ```cpp
 #include <iostream>
-#include <string>
 #include <vector>
+#include <algorithm>
+#include <numeric>
 
 /*
- * std::array<T,N> — Modern C++ approach
- * 
- * Uses features from C++17/20: structured bindings,
- * if-init, ranges, constexpr, etc.
+ * stdarrayTN — Modern C++17/20 approach
  */
 int main() {
-    // TODO: Modern C++ implementation
-    // Use auto, structured bindings, ranges, etc.
+    std::vector<int> data = {5, 2, 8, 1, 9, 3, 7, 4, 6};
     
+    // Modern C++ features
+    auto [min_it, max_it] = std::minmax_element(data.begin(), data.end());
+    std::cout << "Range: [" << *min_it << ", " << *max_it << "]
+";
+    
+    // Partition with lambda
+    auto pivot = std::partition(data.begin(), data.end(), [](int x) { return x <= 5; });
+    std::cout << "Partitioned at index: " << (pivot - data.begin()) << "
+";
+    for (int x : data) std::cout << x << " ";
+    std::cout << "
+";
     return 0;
 }
 ```
@@ -187,3 +214,18 @@ For a typical input, trace the solution:
 ---
 
 *Generated for C++ Level 1 — C12 Problem Solving Guide*
+
+
+## Key Takeaways
+1. Understand the algorithm and its time/space complexity
+2. Handle edge cases: empty array, single element, all same values
+3. Consider both brute-force and optimized approaches
+4. Test with small inputs and verify with larger ones
+5. Know when to use STL algorithms vs manual implementation
+
+## Common Mistakes (Specific)
+- Out-of-bounds access: no runtime check for C arrays (UB!)
+- Forgetting that arrays are zero-indexed (last element at size-1)
+- sizeof in function gives pointer size, not array size
+- Uninitialized array elements contain garbage values
+- Using VLAs (variable-length arrays) — not standard C++

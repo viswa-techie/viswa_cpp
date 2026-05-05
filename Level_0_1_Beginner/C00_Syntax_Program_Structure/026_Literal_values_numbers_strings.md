@@ -1,189 +1,78 @@
 # Literal values (numbers, strings)
 
 > **Level:** 0 — Absolute Beginner  
-> **Category:** C00  
+> **Category:** C00 — C++ Syntax & Program Structure  
 > **Topic:** syntax
 
 ---
 
 ## Problem Statement
+Understand the different kinds of literal values you can write directly in C++ code.
 
-Master the use of Literal values (numbers, strings) in C++ programs. Understand when and why to use it.
+## What You Need to Know
+- A **literal** is a fixed value written directly in source code.
+- The compiler determines the type of a literal from its form.
 
-### Examples
-- **Input Example 1:** A typical/simple case
-- **Input Example 2:** An edge case (empty input, boundary values)
-- **Input Example 3:** A larger or tricky case
-
----
-
-## Prerequisites
-- Basic C++ syntax (variables, types, operators)
-- Standard I/O operations
-- Header files and namespaces
-
----
-
-## Core Concept
-
-### What Is It?
-Literal values (numbers, strings) is a technique in C++ that appears frequently in interviews and real projects.
-
-### Why Does It Matter?
-- Used extensively in production C++ code
-- Commonly asked in technical interviews
-- Helps write clean, maintainable code
-
-### Mental Model
-Think of literal values (numbers, strings) as a tool in your toolbox — know when to reach for it.
-
----
-
-## Solution Approaches
-
-### Approach 1: Direct / Straightforward
+## Integer Literals
 ```cpp
-#include <iostream>
-#include <string>
-#include <vector>
-#include <algorithm>
+int a = 42;            // Decimal (base 10)
+int b = 052;           // Octal (base 8) — starts with 0 → equals 42
+int c = 0x2A;          // Hexadecimal (base 16) — starts with 0x → equals 42
+int d = 0b101010;      // Binary (base 2, C++14) — starts with 0b → equals 42
 
-/*
- * Literal values (numbers, strings)
- * 
- * Approach: Direct implementation
- * Time Complexity:  O(n) — typical for this type of problem
- * Space Complexity: O(1) — or O(n) if storing results
- */
-int main() {
-    // TODO: Implement Literal values (numbers, strings)
-    // Step 1: Read input
-    // Step 2: Process
-    // Step 3: Output result
-    
-    std::cout << "Solution for: Literal values (numbers, strings)" << std::endl;
-    return 0;
-}
+// Digit separators (C++14) for readability
+long big = 1'000'000;               // one million
+int mask = 0b1111'0000'1111'0000;   // binary with separators
 ```
 
-**Time Complexity:** O(n) (typical)  
-**Space Complexity:** O(1) or O(n)  
-**When to use:** First attempt, when simplicity matters over performance.
-
-### Approach 2: Optimized / STL-Based
+## Floating-Point Literals
 ```cpp
-#include <iostream>
-#include <string>
-#include <vector>
-#include <algorithm>
-#include <numeric>
-
-/*
- * Literal values (numbers, strings) — Optimized approach using STL
- * 
- * Uses standard library algorithms where applicable.
- * Generally preferred in production C++ code.
- */
-int main() {
-    // TODO: STL-based implementation
-    // Use std::sort, std::find, std::accumulate, etc. as appropriate
-    
-    return 0;
-}
+double a = 3.14;       // double by default
+float b = 3.14f;       // f suffix → float
+long double c = 3.14L; // L suffix → long double
+double d = 6.02e23;    // Scientific notation: 6.02 × 10²³
+double e = 1.5e-3;     // 0.0015
 ```
 
-**Time Complexity:** Depends on STL algorithm used  
-**Space Complexity:** Depends on approach  
-**When to use:** Production code, when you know the right STL tool.
-
-### Approach 3: Modern C++ (C++17/20)
+## Character and String Literals
 ```cpp
-#include <iostream>
-#include <string>
-#include <vector>
-
-/*
- * Literal values (numbers, strings) — Modern C++ approach
- * 
- * Uses features from C++17/20: structured bindings,
- * if-init, ranges, constexpr, etc.
- */
-int main() {
-    // TODO: Modern C++ implementation
-    // Use auto, structured bindings, ranges, etc.
-    
-    return 0;
-}
+char ch = 'A';                    // Single character in single quotes
+const char* s = "Hello";         // C-style string in double quotes
+std::string str = "World";       // std::string from string literal
 ```
 
----
+## Boolean Literals
+```cpp
+bool t = true;     // 1
+bool f = false;    // 0
+```
 
-## Step-by-Step Trace
+## Pointer Literal
+```cpp
+int* p = nullptr;  // C++11 null pointer (prefer over NULL or 0)
+```
 
-For a typical input, trace the solution:
+## Suffix Summary
+```
+Suffix    Type              Example
+------    ----              -------
+(none)    int / double      42, 3.14
+u / U     unsigned int      42u
+l / L     long              42L
+ll / LL   long long         42LL
+ul / UL   unsigned long     42UL
+f / F     float             3.14f
+L         long double       3.14L
+```
 
-| Step | State | Action | Result |
-|------|-------|--------|--------|
-| 1 | Initial | Read input | — |
-| 2 | Processing | Apply algorithm | — |
-| 3 | Final | Output result | — |
+## Key Takeaways
+1. Integer default type is `int`; floating-point default is `double`
+2. Use `0x` for hex, `0b` for binary, `0` prefix for octal
+3. Use `'` digit separator (C++14) for large numbers: `1'000'000`
+4. Use `nullptr` instead of `NULL` or `0` for null pointers
+5. Suffix `f` for float literals, `L` for long/long double
 
----
-
-## Common Mistakes & Pitfalls
-
-1. **Off-by-one errors** — Check loop boundaries carefully
-2. **Uninitialized variables** — Always initialize before use
-3. **Integer overflow** — Use `long long` for large numbers
-4. **Missing edge cases** — Empty input, single element, negative numbers
-5. **Forgetting `#include`** — Include all necessary headers
-6. **Using `==` vs `=`** — Assignment vs comparison
-
----
-
-## What You Should Learn From This
-
-### Key C++ Feature Demonstrated
-- Literal values (numbers, strings) demonstrates proper C++ idioms and best practices
-
-### Interview Tips
-- Discuss tradeoffs between approaches
-- Always discuss time/space complexity
-- Mention edge cases proactively
-
-### Code Review Checklist
-- [ ] Compiles with `-Wall -Wextra` — no warnings
-- [ ] Handles edge cases
-- [ ] Variables are properly initialized
-- [ ] No memory leaks (if using dynamic allocation)
-- [ ] Code is readable and well-commented
-
----
-
-## Pattern Recognition
-
-**Pattern:** Implementation pattern — combine concepts to build
-
-**Similar Problems:**
-- (See other problems in this category)
-
-**When you see** _______, **think** _______.
-
----
-
-## Practice Variants
-1. **Easy:** Simplify the constraints (smaller input, fewer edge cases)
-2. **Medium:** Add a constraint (handle negative numbers, optimize for time)
-3. **Hard:** Combine with another concept (recursion, dynamic programming)
-
----
-
-## Quick Reference Card
-- **Core idea:** Literal values (numbers, strings)
-- **Key construct:** STL / Standard Library
-- **Complexity:** O(n) typical
-- **Don't forget:** Initialize variables, check edge cases, use `-Wall`
-
----
-
-*Generated for C++ Level 0 — C00 Problem Solving Guide*
+## Common Mistakes
+- Writing `052` thinking it's 52 — it's actually octal 42!
+- Forgetting `f` suffix: `float x = 3.14;` triggers a narrowing warning
+- Using `NULL` instead of `nullptr` — `NULL` is just `0` or `(void*)0`

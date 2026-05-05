@@ -1,189 +1,96 @@
 # Linking explained
 
 > **Level:** 0 — Absolute Beginner  
-> **Category:** C00  
-> **Topic:** preprocessor
+> **Category:** C00 — C++ Syntax & Program Structure  
+> **Topic:** syntax
 
 ---
 
 ## Problem Statement
+Understand what the linker does and how it combines object files into an executable.
 
-Understand and explain the concept of Linking explained. Be able to describe it, identify it in code, and use it correctly.
+## What You Need to Know
+- The linker is the final stage of the build process.
+- It combines `.o` files and resolves references between them.
+- It also links the C++ standard library.
 
-### Examples
-- **Input Example 1:** A typical/simple case
-- **Input Example 2:** An edge case (empty input, boundary values)
-- **Input Example 3:** A larger or tricky case
-
----
-
-## Prerequisites
-- Basic C++ syntax (variables, types, operators)
-- Understanding of C++ compilation model
-- Header files and namespaces
-
----
-
-## Core Concept
-
-### What Is It?
-Linking explained is a fundamental concept in C++ that every programmer must understand.
-
-### Why Does It Matter?
-- Forms the foundation for understanding more complex C++ features
-- Commonly asked in technical interviews
-- Helps write clean, maintainable code
-
-### Mental Model
-Think of linking explained as a building block — you can't build a house without understanding bricks.
-
----
-
-## Solution Approaches
-
-### Approach 1: Direct / Straightforward
-```cpp
-#include <iostream>
-#include <string>
-#include <vector>
-#include <algorithm>
-
-/*
- * Linking explained
- * 
- * Approach: Direct implementation
- * Time Complexity:  O(n) — typical for this type of problem
- * Space Complexity: O(1) — or O(n) if storing results
- */
-int main() {
-    // TODO: Implement Linking explained
-    // Step 1: Read input
-    // Step 2: Process
-    // Step 3: Output result
-    
-    std::cout << "Solution for: Linking explained" << std::endl;
-    return 0;
-}
+## What the Linker Does
+```
+1. Takes all .o files as input
+2. Resolves symbols: matches function calls to function definitions
+3. Combines code and data sections
+4. Links standard library functions (cout, string, etc.)
+5. Produces the final executable
 ```
 
-**Time Complexity:** O(n) (typical)  
-**Space Complexity:** O(1) or O(n)  
-**When to use:** First attempt, when simplicity matters over performance.
+## Symbol Resolution Example
+```
+main.o contains:
+  CALLS add()        ← undefined, needs resolution
+  CALLS multiply()   ← undefined, needs resolution
+  DEFINES main()     ← defined here
 
-### Approach 2: Optimized / STL-Based
-```cpp
-#include <iostream>
-#include <string>
-#include <vector>
-#include <algorithm>
-#include <numeric>
+math_utils.o contains:
+  DEFINES add()      ← defined here
+  DEFINES multiply() ← defined here
 
-/*
- * Linking explained — Optimized approach using STL
- * 
- * Uses standard library algorithms where applicable.
- * Generally preferred in production C++ code.
- */
-int main() {
-    // TODO: STL-based implementation
-    // Use std::sort, std::find, std::accumulate, etc. as appropriate
-    
-    return 0;
-}
+Linker: matches CALLS → DEFINES, produces executable
 ```
 
-**Time Complexity:** Depends on STL algorithm used  
-**Space Complexity:** Depends on approach  
-**When to use:** Production code, when you know the right STL tool.
+## Common Linker Errors
+```bash
+# Error: undefined reference
+$ g++ main.o -o program
+# undefined reference to `add(int, int)'
+# Fix: include math_utils.o in the link command
 
-### Approach 3: Modern C++ (C++17/20)
-```cpp
-#include <iostream>
-#include <string>
-#include <vector>
-
-/*
- * Linking explained — Modern C++ approach
- * 
- * Uses features from C++17/20: structured bindings,
- * if-init, ranges, constexpr, etc.
- */
-int main() {
-    // TODO: Modern C++ implementation
-    // Use auto, structured bindings, ranges, etc.
-    
-    return 0;
-}
+$ g++ main.o math_utils.o -o program   # Fixed!
 ```
 
----
+```bash
+# Error: multiple definition
+# If add() is defined in TWO .cpp files:
+# multiple definition of `add(int, int)'
+# Fix: define the function in only ONE .cpp file
+```
 
-## Step-by-Step Trace
+## Static vs Dynamic Linking
+```bash
+# Static linking: copies library code into executable
+g++ -static main.o -o program   # Larger binary, no dependencies
 
-For a typical input, trace the solution:
+# Dynamic linking: references shared libraries (.so/.dll)
+g++ main.o -o program           # Default, smaller binary
+```
 
-| Step | State | Action | Result |
-|------|-------|--------|--------|
-| 1 | Initial | Read input | — |
-| 2 | Processing | Apply algorithm | — |
-| 3 | Final | Output result | — |
+```
+Static (.a)          Dynamic (.so / .dll)
+-----------          --------------------
+Code copied into exe Code loaded at runtime
+Larger executable    Smaller executable
+No runtime deps      Needs .so/.dll files
+Faster startup       Shared across programs
+```
 
----
+## Linking Libraries
+```bash
+# Link the math library (-lm)
+g++ main.o -lm -o program
 
-## Common Mistakes & Pitfalls
+# Link a custom library
+g++ main.o -L./libs -lmylib -o program
+# -L: library search path
+# -l: library name (libmylib.a or libmylib.so)
+```
 
-1. **Off-by-one errors** — Check loop boundaries carefully
-2. **Uninitialized variables** — Always initialize before use
-3. **Integer overflow** — Use `long long` for large numbers
-4. **Missing edge cases** — Empty input, single element, negative numbers
-5. **Forgetting `#include`** — Include all necessary headers
-6. **Using `==` vs `=`** — Assignment vs comparison
+## Key Takeaways
+1. The linker connects function calls to function definitions
+2. "Undefined reference" = linker can't find a function definition
+3. "Multiple definition" = same function defined in multiple `.o` files
+4. Static linking copies code; dynamic linking shares libraries
+5. `-l` flag links libraries: `-lm` links `libm`
 
----
-
-## What You Should Learn From This
-
-### Key C++ Feature Demonstrated
-- Linking explained demonstrates fundamental language syntax
-
-### Interview Tips
-- Explain the concept clearly before writing code
-- Always discuss time/space complexity
-- Mention edge cases proactively
-
-### Code Review Checklist
-- [ ] Compiles with `-Wall -Wextra` — no warnings
-- [ ] Handles edge cases
-- [ ] Variables are properly initialized
-- [ ] No memory leaks (if using dynamic allocation)
-- [ ] Code is readable and well-commented
-
----
-
-## Pattern Recognition
-
-**Pattern:** Language fundamentals — know the rules
-
-**Similar Problems:**
-- (See other problems in this category)
-
-**When you see** _______, **think** _______.
-
----
-
-## Practice Variants
-1. **Easy:** Simplify the constraints (smaller input, fewer edge cases)
-2. **Medium:** Add a constraint (handle negative numbers, optimize for time)
-3. **Hard:** Combine with another concept (recursion, dynamic programming)
-
----
-
-## Quick Reference Card
-- **Core idea:** Linking explained
-- **Key construct:** Language syntax
-- **Complexity:** O(n) typical
-- **Don't forget:** Initialize variables, check edge cases, use `-Wall`
-
----
-
-*Generated for C++ Level 0 — C00 Problem Solving Guide*
+## Common Mistakes
+- Forgetting to link all `.o` files → undefined reference
+- Defining functions in headers without `inline` → multiple definition
+- Wrong link order: libraries must come after the files that use them

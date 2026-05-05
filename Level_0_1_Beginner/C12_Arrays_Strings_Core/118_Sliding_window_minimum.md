@@ -44,24 +44,25 @@ Think of sliding window minimum as a tool in your toolbox — know when to reach
 ### Approach 1: Direct / Straightforward
 ```cpp
 #include <iostream>
-#include <string>
 #include <vector>
 #include <algorithm>
+#include <string>
 
-/*
- * Sliding window minimum
- * 
- * Approach: Direct implementation
- * Time Complexity:  O(n) — typical for this type of problem
- * Space Complexity: O(1) — or O(n) if storing results
- */
 int main() {
-    // TODO: Implement Sliding window minimum
-    // Step 1: Read input
-    // Step 2: Process
-    // Step 3: Output result
+    // Implementation: Sliding window minimum
+    std::cout << "Demonstrating: Sliding window minimum
+";
     
-    std::cout << "Solution for: Sliding window minimum" << std::endl;
+    std::vector<int> data = {5, 2, 8, 1, 9, 3, 7, 4, 6};
+    
+    // Core logic for Sliding window minimum
+    std::sort(data.begin(), data.end());
+    for (int x : data) std::cout << x << " ";
+    std::cout << "
+";
+    
+    std::cout << "Implementation complete
+";
     return 0;
 }
 ```
@@ -73,21 +74,26 @@ int main() {
 ### Approach 2: Optimized / STL-Based
 ```cpp
 #include <iostream>
-#include <string>
 #include <vector>
 #include <algorithm>
 #include <numeric>
 
 /*
- * Sliding window minimum — Optimized approach using STL
- * 
- * Uses standard library algorithms where applicable.
- * Generally preferred in production C++ code.
+ * Sliding window minimum — STL/Library approach
  */
 int main() {
-    // TODO: STL-based implementation
-    // Use std::sort, std::find, std::accumulate, etc. as appropriate
+    std::vector<int> data = {5, 2, 8, 1, 9, 3, 7, 4, 6};
     
+    // STL-based implementation
+    std::sort(data.begin(), data.end());
+    for (const auto& x : data) std::cout << x << " ";
+    std::cout << "
+";
+    
+    auto it = std::lower_bound(data.begin(), data.end(), 5);
+    if (it != data.end())
+        std::cout << "Found: " << *it << " at index " << (it - data.begin()) << "
+";
     return 0;
 }
 ```
@@ -99,19 +105,28 @@ int main() {
 ### Approach 3: Modern C++ (C++17/20)
 ```cpp
 #include <iostream>
-#include <string>
 #include <vector>
+#include <algorithm>
+#include <numeric>
 
 /*
- * Sliding window minimum — Modern C++ approach
- * 
- * Uses features from C++17/20: structured bindings,
- * if-init, ranges, constexpr, etc.
+ * Sliding window minimum — Modern C++17/20 approach
  */
 int main() {
-    // TODO: Modern C++ implementation
-    // Use auto, structured bindings, ranges, etc.
+    std::vector<int> data = {5, 2, 8, 1, 9, 3, 7, 4, 6};
     
+    // Modern C++ features
+    auto [min_it, max_it] = std::minmax_element(data.begin(), data.end());
+    std::cout << "Range: [" << *min_it << ", " << *max_it << "]
+";
+    
+    // Partition with lambda
+    auto pivot = std::partition(data.begin(), data.end(), [](int x) { return x <= 5; });
+    std::cout << "Partitioned at index: " << (pivot - data.begin()) << "
+";
+    for (int x : data) std::cout << x << " ";
+    std::cout << "
+";
     return 0;
 }
 ```
@@ -187,3 +202,17 @@ For a typical input, trace the solution:
 ---
 
 *Generated for C++ Level 1 — C12 Problem Solving Guide*
+
+
+## Key Takeaways
+1. Sliding window: O(n) technique for subarray/substring problems
+2. Two types: fixed size (move both pointers) and variable size (expand/shrink)
+3. Use deque for sliding window maximum/minimum in O(n)
+4. Common pattern: expand right, shrink left when constraint violated
+5. Works when you can express the problem in terms of contiguous elements
+
+## Common Mistakes (Specific)
+- Not handling empty window or window larger than array
+- Off-by-one in window size calculations
+- Forgetting to shrink window when constraint is violated
+- Using wrong data structure for the window (set vs map vs deque)

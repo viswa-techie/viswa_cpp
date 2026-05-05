@@ -1,189 +1,87 @@
 # -std=c++17 / c++20 flags
 
 > **Level:** 0 — Absolute Beginner  
-> **Category:** C00  
-> **Topic:** build
+> **Category:** C00 — C++ Syntax & Program Structure  
+> **Topic:** syntax
 
 ---
 
 ## Problem Statement
+Select the C++ standard version to compile against.
 
-Master the use of -std=c++17 / c++20 flags in C++ programs. Understand when and why to use it.
+## What You Need to Know
+- C++ has multiple standards: C++11, C++14, C++17, C++20, C++23.
+- Each adds new features.
+- Use `-std=c++XX` to select which standard to compile with.
 
-### Examples
-- **Input Example 1:** A typical/simple case
-- **Input Example 2:** An edge case (empty input, boundary values)
-- **Input Example 3:** A larger or tricky case
+## Selecting a Standard
+```bash
+g++ -std=c++11 main.cpp -o main    # C++11
+g++ -std=c++14 main.cpp -o main    # C++14
+g++ -std=c++17 main.cpp -o main    # C++17 (recommended for learning)
+g++ -std=c++20 main.cpp -o main    # C++20
+g++ -std=c++23 main.cpp -o main    # C++23
+```
 
----
+## Key Features by Standard
+```
+C++11 (2011) — The "Modern C++" revolution:
+  auto, range-for, lambdas, nullptr, enum class,
+  move semantics, smart pointers, constexpr, threads
 
-## Prerequisites
-- Basic C++ syntax (variables, types, operators)
-- Standard I/O operations
-- Header files and namespaces
+C++14 (2014) — Refinements:
+  Generic lambdas, return type deduction,
+  std::make_unique, relaxed constexpr
 
----
+C++17 (2017) — Quality of life:
+  Structured bindings, if constexpr, std::optional,
+  std::variant, std::string_view, nested namespaces,
+  filesystem library
 
-## Core Concept
+C++20 (2020) — Major additions:
+  Concepts, ranges, coroutines, modules,
+  std::format, calendar/timezone, three-way comparison
 
-### What Is It?
--std=c++17 / c++20 flags is a technique in C++ that appears frequently in interviews and real projects.
+C++23 (2023) — Latest:
+  std::print, deducing this, std::expected,
+  flat_map, improved ranges
+```
 
-### Why Does It Matter?
-- Used extensively in production C++ code
-- Commonly asked in technical interviews
-- Helps write clean, maintainable code
-
-### Mental Model
-Think of -std=c++17 / c++20 flags as a tool in your toolbox — know when to reach for it.
-
----
-
-## Solution Approaches
-
-### Approach 1: Direct / Straightforward
+## Check Which Standard Features Work
 ```cpp
+// This requires C++17
 #include <iostream>
-#include <string>
-#include <vector>
-#include <algorithm>
+#include <optional>
 
-/*
- * -std=c++17 / c++20 flags
- * 
- * Approach: Direct implementation
- * Time Complexity:  O(n) — typical for this type of problem
- * Space Complexity: O(1) — or O(n) if storing results
- */
 int main() {
-    // TODO: Implement -std=c++17 / c++20 flags
-    // Step 1: Read input
-    // Step 2: Process
-    // Step 3: Output result
-    
-    std::cout << "Solution for: -std=c++17 / c++20 flags" << std::endl;
+    std::optional<int> value = 42;
+    if (value) {
+        std::cout << *value << "\n";
+    }
     return 0;
 }
 ```
 
-**Time Complexity:** O(n) (typical)  
-**Space Complexity:** O(1) or O(n)  
-**When to use:** First attempt, when simplicity matters over performance.
-
-### Approach 2: Optimized / STL-Based
-```cpp
-#include <iostream>
-#include <string>
-#include <vector>
-#include <algorithm>
-#include <numeric>
-
-/*
- * -std=c++17 / c++20 flags — Optimized approach using STL
- * 
- * Uses standard library algorithms where applicable.
- * Generally preferred in production C++ code.
- */
-int main() {
-    // TODO: STL-based implementation
-    // Use std::sort, std::find, std::accumulate, etc. as appropriate
-    
-    return 0;
-}
+```bash
+g++ -std=c++14 optional.cpp   # ERROR — optional not available
+g++ -std=c++17 optional.cpp   # OK — optional is C++17
 ```
 
-**Time Complexity:** Depends on STL algorithm used  
-**Space Complexity:** Depends on approach  
-**When to use:** Production code, when you know the right STL tool.
-
-### Approach 3: Modern C++ (C++17/20)
-```cpp
-#include <iostream>
-#include <string>
-#include <vector>
-
-/*
- * -std=c++17 / c++20 flags — Modern C++ approach
- * 
- * Uses features from C++17/20: structured bindings,
- * if-init, ranges, constexpr, etc.
- */
-int main() {
-    // TODO: Modern C++ implementation
-    // Use auto, structured bindings, ranges, etc.
-    
-    return 0;
-}
+## Checking Default Standard
+```bash
+# See what your compiler defaults to
+g++ -dM -E -x c++ /dev/null | grep cplusplus
+# __cplusplus 201703L  (means C++17)
 ```
 
----
+## Key Takeaways
+1. `-std=c++17` is the recommended standard for learning (2024)
+2. Each standard adds features — code may not compile with older standards
+3. Always specify the standard explicitly in your build system
+4. GCC/Clang default standard varies by version
+5. `__cplusplus` macro tells you which standard is active
 
-## Step-by-Step Trace
-
-For a typical input, trace the solution:
-
-| Step | State | Action | Result |
-|------|-------|--------|--------|
-| 1 | Initial | Read input | — |
-| 2 | Processing | Apply algorithm | — |
-| 3 | Final | Output result | — |
-
----
-
-## Common Mistakes & Pitfalls
-
-1. **Off-by-one errors** — Check loop boundaries carefully
-2. **Uninitialized variables** — Always initialize before use
-3. **Integer overflow** — Use `long long` for large numbers
-4. **Missing edge cases** — Empty input, single element, negative numbers
-5. **Forgetting `#include`** — Include all necessary headers
-6. **Using `==` vs `=`** — Assignment vs comparison
-
----
-
-## What You Should Learn From This
-
-### Key C++ Feature Demonstrated
-- -std=c++17 / c++20 flags demonstrates proper C++ idioms and best practices
-
-### Interview Tips
-- Discuss tradeoffs between approaches
-- Always discuss time/space complexity
-- Mention edge cases proactively
-
-### Code Review Checklist
-- [ ] Compiles with `-Wall -Wextra` — no warnings
-- [ ] Handles edge cases
-- [ ] Variables are properly initialized
-- [ ] No memory leaks (if using dynamic allocation)
-- [ ] Code is readable and well-commented
-
----
-
-## Pattern Recognition
-
-**Pattern:** Implementation pattern — combine concepts to build
-
-**Similar Problems:**
-- (See other problems in this category)
-
-**When you see** _______, **think** _______.
-
----
-
-## Practice Variants
-1. **Easy:** Simplify the constraints (smaller input, fewer edge cases)
-2. **Medium:** Add a constraint (handle negative numbers, optimize for time)
-3. **Hard:** Combine with another concept (recursion, dynamic programming)
-
----
-
-## Quick Reference Card
-- **Core idea:** -std=c++17 / c++20 flags
-- **Key construct:** STL / Standard Library
-- **Complexity:** O(n) typical
-- **Don't forget:** Initialize variables, check edge cases, use `-Wall`
-
----
-
-*Generated for C++ Level 0 — C00 Problem Solving Guide*
+## Common Mistakes
+- Not specifying `-std=` → getting an old default
+- Using C++20 features with `-std=c++17` → compile error
+- Assuming all compilers support the latest standard

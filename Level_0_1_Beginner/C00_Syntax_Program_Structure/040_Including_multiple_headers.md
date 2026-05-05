@@ -1,189 +1,104 @@
 # Including multiple headers
 
 > **Level:** 0 — Absolute Beginner  
-> **Category:** C00  
+> **Category:** C00 — C++ Syntax & Program Structure  
 > **Topic:** syntax
 
 ---
 
 ## Problem Statement
+Learn how to include multiple headers properly and understand header organization.
 
-Master the use of Including multiple headers in C++ programs. Understand when and why to use it.
+## What You Need to Know
+- Each `#include` brings in declarations from one header file.
+- Include only the headers you actually use.
+- Order of includes matters for style, not usually for correctness.
 
-### Examples
-- **Input Example 1:** A typical/simple case
-- **Input Example 2:** An edge case (empty input, boundary values)
-- **Input Example 3:** A larger or tricky case
+## Common C++ Headers
+```cpp
+// I/O
+#include <iostream>       // cin, cout, cerr
+#include <fstream>        // File I/O
+#include <sstream>        // String streams
 
----
+// Strings
+#include <string>         // std::string
+#include <cstring>        // C-string functions (strlen, strcpy)
 
-## Prerequisites
-- Basic C++ syntax (variables, types, operators)
-- Standard I/O operations
-- Header files and namespaces
+// Containers
+#include <vector>         // Dynamic array
+#include <array>          // Fixed-size array
+#include <map>            // Key-value pairs
+#include <set>            // Unique sorted elements
+#include <unordered_map>  // Hash map
 
----
+// Algorithms & Utilities
+#include <algorithm>      // sort, find, etc.
+#include <numeric>        // accumulate, iota
+#include <cmath>          // Math functions
+#include <climits>        // INT_MAX, INT_MIN
+#include <cassert>        // assert macro
 
-## Core Concept
+// C compatibility
+#include <cstdio>         // printf, scanf
+#include <cstdlib>        // malloc, free, exit
+#include <cctype>         // isalpha, isdigit
+```
 
-### What Is It?
-Including multiple headers is a technique in C++ that appears frequently in interviews and real projects.
+## Recommended Include Order
+```cpp
+// 1. Corresponding header (for .cpp files)
+#include "myclass.h"
 
-### Why Does It Matter?
-- Used extensively in production C++ code
-- Commonly asked in technical interviews
-- Helps write clean, maintainable code
+// 2. C++ standard library headers
+#include <iostream>
+#include <string>
+#include <vector>
 
-### Mental Model
-Think of including multiple headers as a tool in your toolbox — know when to reach for it.
+// 3. C standard library headers (wrapped)
+#include <cstdio>
+#include <cmath>
 
----
+// 4. Third-party library headers
+#include <boost/algorithm/string.hpp>
 
-## Solution Approaches
+// 5. Project-specific headers
+#include "utils.h"
+#include "config.h"
+```
 
-### Approach 1: Direct / Straightforward
+## System vs User Headers
+```cpp
+#include <iostream>    // Angle brackets: search system/standard paths
+#include "myfile.h"    // Quotes: search current directory first, then system
+```
+
+## Example: Using Multiple Headers
 ```cpp
 #include <iostream>
 #include <string>
 #include <vector>
 #include <algorithm>
 
-/*
- * Including multiple headers
- * 
- * Approach: Direct implementation
- * Time Complexity:  O(n) — typical for this type of problem
- * Space Complexity: O(1) — or O(n) if storing results
- */
 int main() {
-    // TODO: Implement Including multiple headers
-    // Step 1: Read input
-    // Step 2: Process
-    // Step 3: Output result
-    
-    std::cout << "Solution for: Including multiple headers" << std::endl;
+    std::vector<std::string> names = {"Charlie", "Alice", "Bob"};
+    std::sort(names.begin(), names.end());
+
+    for (const auto& name : names) {
+        std::cout << name << "\n";
+    }
     return 0;
 }
 ```
 
-**Time Complexity:** O(n) (typical)  
-**Space Complexity:** O(1) or O(n)  
-**When to use:** First attempt, when simplicity matters over performance.
+## Key Takeaways
+1. Include only what you use — don't include everything
+2. Use `<header>` for standard/system, `"header"` for your own files
+3. Follow a consistent include order in your project
+4. `<cXXX>` headers (e.g., `<cmath>`) are C++ versions of C headers
+5. Duplicate includes are harmless (headers have include guards)
 
-### Approach 2: Optimized / STL-Based
-```cpp
-#include <iostream>
-#include <string>
-#include <vector>
-#include <algorithm>
-#include <numeric>
-
-/*
- * Including multiple headers — Optimized approach using STL
- * 
- * Uses standard library algorithms where applicable.
- * Generally preferred in production C++ code.
- */
-int main() {
-    // TODO: STL-based implementation
-    // Use std::sort, std::find, std::accumulate, etc. as appropriate
-    
-    return 0;
-}
-```
-
-**Time Complexity:** Depends on STL algorithm used  
-**Space Complexity:** Depends on approach  
-**When to use:** Production code, when you know the right STL tool.
-
-### Approach 3: Modern C++ (C++17/20)
-```cpp
-#include <iostream>
-#include <string>
-#include <vector>
-
-/*
- * Including multiple headers — Modern C++ approach
- * 
- * Uses features from C++17/20: structured bindings,
- * if-init, ranges, constexpr, etc.
- */
-int main() {
-    // TODO: Modern C++ implementation
-    // Use auto, structured bindings, ranges, etc.
-    
-    return 0;
-}
-```
-
----
-
-## Step-by-Step Trace
-
-For a typical input, trace the solution:
-
-| Step | State | Action | Result |
-|------|-------|--------|--------|
-| 1 | Initial | Read input | — |
-| 2 | Processing | Apply algorithm | — |
-| 3 | Final | Output result | — |
-
----
-
-## Common Mistakes & Pitfalls
-
-1. **Off-by-one errors** — Check loop boundaries carefully
-2. **Uninitialized variables** — Always initialize before use
-3. **Integer overflow** — Use `long long` for large numbers
-4. **Missing edge cases** — Empty input, single element, negative numbers
-5. **Forgetting `#include`** — Include all necessary headers
-6. **Using `==` vs `=`** — Assignment vs comparison
-
----
-
-## What You Should Learn From This
-
-### Key C++ Feature Demonstrated
-- Including multiple headers demonstrates proper C++ idioms and best practices
-
-### Interview Tips
-- Discuss tradeoffs between approaches
-- Always discuss time/space complexity
-- Mention edge cases proactively
-
-### Code Review Checklist
-- [ ] Compiles with `-Wall -Wextra` — no warnings
-- [ ] Handles edge cases
-- [ ] Variables are properly initialized
-- [ ] No memory leaks (if using dynamic allocation)
-- [ ] Code is readable and well-commented
-
----
-
-## Pattern Recognition
-
-**Pattern:** Implementation pattern — combine concepts to build
-
-**Similar Problems:**
-- (See other problems in this category)
-
-**When you see** _______, **think** _______.
-
----
-
-## Practice Variants
-1. **Easy:** Simplify the constraints (smaller input, fewer edge cases)
-2. **Medium:** Add a constraint (handle negative numbers, optimize for time)
-3. **Hard:** Combine with another concept (recursion, dynamic programming)
-
----
-
-## Quick Reference Card
-- **Core idea:** Including multiple headers
-- **Key construct:** STL / Standard Library
-- **Complexity:** O(n) typical
-- **Don't forget:** Initialize variables, check edge cases, use `-Wall`
-
----
-
-*Generated for C++ Level 0 — C00 Problem Solving Guide*
+## Common Mistakes
+- Including `<bits/stdc++.h>` — non-standard, GCC-only, slows compilation
+- Not including `<string>` when using `std::string` (may work on some compilers but not portable)
+- Including unused headers → slower compilation

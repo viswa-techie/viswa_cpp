@@ -44,24 +44,35 @@ Think of quick sort as a puzzle — break it into smaller pieces and solve each 
 ### Approach 1: Direct / Straightforward
 ```cpp
 #include <iostream>
-#include <string>
 #include <vector>
-#include <algorithm>
 
-/*
- * Quick sort
- * 
- * Approach: Direct implementation
- * Time Complexity:  O(n) — typical for this type of problem
- * Space Complexity: O(1) — or O(n) if storing results
- */
+int partition(std::vector<int>& arr, int low, int high) {
+    int pivot = arr[high];
+    int i = low - 1;
+    for (int j = low; j < high; ++j) {
+        if (arr[j] < pivot) {
+            ++i;
+            std::swap(arr[i], arr[j]);
+        }
+    }
+    std::swap(arr[i + 1], arr[high]);
+    return i + 1;
+}
+
+void quickSort(std::vector<int>& arr, int low, int high) {
+    if (low < high) {
+        int pi = partition(arr, low, high);
+        quickSort(arr, low, pi - 1);
+        quickSort(arr, pi + 1, high);
+    }
+}
+
 int main() {
-    // TODO: Implement Quick sort
-    // Step 1: Read input
-    // Step 2: Process
-    // Step 3: Output result
-    
-    std::cout << "Solution for: Quick sort" << std::endl;
+    std::vector<int> arr = {10, 7, 8, 9, 1, 5};
+    quickSort(arr, 0, arr.size() - 1);
+    for (int x : arr) std::cout << x << " ";
+    std::cout << "
+";
     return 0;
 }
 ```
@@ -73,21 +84,26 @@ int main() {
 ### Approach 2: Optimized / STL-Based
 ```cpp
 #include <iostream>
-#include <string>
 #include <vector>
 #include <algorithm>
+#include <functional>
 #include <numeric>
 
 /*
- * Quick sort — Optimized approach using STL
- * 
- * Uses standard library algorithms where applicable.
- * Generally preferred in production C++ code.
+ * Quick sort — STL/Library approach
  */
 int main() {
-    // TODO: STL-based implementation
-    // Use std::sort, std::find, std::accumulate, etc. as appropriate
+    std::vector<int> data = {5, 2, 8, 1, 9, 3, 7, 4, 6};
     
+    // STL-based implementation of Quick sort
+    std::sort(data.begin(), data.end());
+    for (const auto& x : data) std::cout << x << " ";
+    std::cout << "
+";
+    
+    auto sum = std::accumulate(data.begin(), data.end(), 0);
+    std::cout << "Sum: " << sum << "
+";
     return 0;
 }
 ```
@@ -99,19 +115,26 @@ int main() {
 ### Approach 3: Modern C++ (C++17/20)
 ```cpp
 #include <iostream>
-#include <string>
 #include <vector>
+#include <algorithm>
+#include <numeric>
 
 /*
- * Quick sort — Modern C++ approach
- * 
- * Uses features from C++17/20: structured bindings,
- * if-init, ranges, constexpr, etc.
+ * Quick sort — Modern C++17/20 approach
  */
 int main() {
-    // TODO: Modern C++ implementation
-    // Use auto, structured bindings, ranges, etc.
+    std::vector<int> data = {5, 2, 8, 1, 9, 3, 7, 4, 6};
     
+    // Modern C++ features for Quick sort
+    auto [min_it, max_it] = std::minmax_element(data.begin(), data.end());
+    std::cout << "Range: [" << *min_it << ", " << *max_it << "]
+";
+    
+    // Lambda-based approach
+    std::sort(data.begin(), data.end());
+    for (const auto& x : data) std::cout << x << " ";
+    std::cout << "
+";
     return 0;
 }
 ```
@@ -187,3 +210,17 @@ For a typical input, trace the solution:
 ---
 
 *Generated for C++ Level 1 — C11 Problem Solving Guide*
+
+
+## Key Takeaways
+1. Merge sort: O(n log n) guaranteed, stable, uses O(n) extra space
+2. Quick sort: O(n log n) average, O(n²) worst, in-place
+3. std::sort uses introsort (quicksort + heapsort + insertion sort)
+4. Use std::stable_sort when order of equal elements matters
+5. Both divide-and-conquer: split, solve halves, combine
+
+## Common Mistakes (Specific)
+- Not handling empty arrays/single elements (base case)
+- Quicksort: always picking first/last as pivot → O(n²) on sorted data
+- Merge sort: not properly handling odd-length subarrays
+- Off-by-one in partition boundaries

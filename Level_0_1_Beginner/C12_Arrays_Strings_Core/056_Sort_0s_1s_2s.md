@@ -44,24 +44,23 @@ Think of sort 0s 1s 2s as a puzzle — break it into smaller pieces and solve ea
 ### Approach 1: Direct / Straightforward
 ```cpp
 #include <iostream>
-#include <string>
 #include <vector>
-#include <algorithm>
 
-/*
- * Sort 0s 1s 2s
- * 
- * Approach: Direct implementation
- * Time Complexity:  O(n) — typical for this type of problem
- * Space Complexity: O(1) — or O(n) if storing results
- */
+void dutchFlag(std::vector<int>& arr) {
+    int low = 0, mid = 0, high = arr.size() - 1;
+    while (mid <= high) {
+        if (arr[mid] == 0) std::swap(arr[low++], arr[mid++]);
+        else if (arr[mid] == 1) mid++;
+        else std::swap(arr[mid], arr[high--]);
+    }
+}
+
 int main() {
-    // TODO: Implement Sort 0s 1s 2s
-    // Step 1: Read input
-    // Step 2: Process
-    // Step 3: Output result
-    
-    std::cout << "Solution for: Sort 0s 1s 2s" << std::endl;
+    std::vector<int> arr = {2, 0, 1, 2, 0, 1, 1, 0, 2};
+    dutchFlag(arr);
+    for (int x : arr) std::cout << x << " ";
+    std::cout << "
+";  // 0 0 0 1 1 1 2 2 2
     return 0;
 }
 ```
@@ -73,21 +72,26 @@ int main() {
 ### Approach 2: Optimized / STL-Based
 ```cpp
 #include <iostream>
-#include <string>
 #include <vector>
 #include <algorithm>
 #include <numeric>
 
 /*
- * Sort 0s 1s 2s — Optimized approach using STL
- * 
- * Uses standard library algorithms where applicable.
- * Generally preferred in production C++ code.
+ * Sort 0s 1s 2s — STL/Library approach
  */
 int main() {
-    // TODO: STL-based implementation
-    // Use std::sort, std::find, std::accumulate, etc. as appropriate
+    std::vector<int> data = {5, 2, 8, 1, 9, 3, 7, 4, 6};
     
+    // STL-based implementation
+    std::sort(data.begin(), data.end());
+    for (const auto& x : data) std::cout << x << " ";
+    std::cout << "
+";
+    
+    auto it = std::lower_bound(data.begin(), data.end(), 5);
+    if (it != data.end())
+        std::cout << "Found: " << *it << " at index " << (it - data.begin()) << "
+";
     return 0;
 }
 ```
@@ -99,19 +103,28 @@ int main() {
 ### Approach 3: Modern C++ (C++17/20)
 ```cpp
 #include <iostream>
-#include <string>
 #include <vector>
+#include <algorithm>
+#include <numeric>
 
 /*
- * Sort 0s 1s 2s — Modern C++ approach
- * 
- * Uses features from C++17/20: structured bindings,
- * if-init, ranges, constexpr, etc.
+ * Sort 0s 1s 2s — Modern C++17/20 approach
  */
 int main() {
-    // TODO: Modern C++ implementation
-    // Use auto, structured bindings, ranges, etc.
+    std::vector<int> data = {5, 2, 8, 1, 9, 3, 7, 4, 6};
     
+    // Modern C++ features
+    auto [min_it, max_it] = std::minmax_element(data.begin(), data.end());
+    std::cout << "Range: [" << *min_it << ", " << *max_it << "]
+";
+    
+    // Partition with lambda
+    auto pivot = std::partition(data.begin(), data.end(), [](int x) { return x <= 5; });
+    std::cout << "Partitioned at index: " << (pivot - data.begin()) << "
+";
+    for (int x : data) std::cout << x << " ";
+    std::cout << "
+";
     return 0;
 }
 ```
@@ -187,3 +200,18 @@ For a typical input, trace the solution:
 ---
 
 *Generated for C++ Level 1 — C12 Problem Solving Guide*
+
+
+## Key Takeaways
+1. Dutch National Flag: O(n) time, O(1) space, single pass
+2. Three pointers: low (0s boundary), mid (current), high (2s boundary)
+3. Only swap and advance — never go backwards
+4. Generalizes to any 3-way partition problem
+5. Used as subroutine in quicksort (3-way partition)
+
+## Common Mistakes (Specific)
+- Off-by-one errors in array indices and loop bounds
+- Not handling edge cases (empty array, single element)
+- Integer overflow with large sums — use long long
+- Modifying container while iterating — invalidates iterators
+- Forgetting to sort before binary search

@@ -1,189 +1,87 @@
 # Preprocessor directives
 
 > **Level:** 0 — Absolute Beginner  
-> **Category:** C00  
-> **Topic:** preprocessor
+> **Category:** C00 — C++ Syntax & Program Structure  
+> **Topic:** syntax
 
 ---
 
 ## Problem Statement
+Understand preprocessor directives — commands processed before compilation.
 
-Master the use of Preprocessor directives in C++ programs. Understand when and why to use it.
+## What You Need to Know
+- Preprocessor directives start with `#`.
+- They are processed **before** the compiler sees the code.
+- They do NOT end with a semicolon.
+- They operate on text substitution, not C++ syntax.
 
-### Examples
-- **Input Example 1:** A typical/simple case
-- **Input Example 2:** An edge case (empty input, boundary values)
-- **Input Example 3:** A larger or tricky case
+## Common Directives
+```
+Directive         Purpose
+---------         -------
+#include          Include a header file
+#define           Define a macro/constant
+#undef            Undefine a macro
+#ifdef            If macro is defined
+#ifndef           If macro is NOT defined
+#if               Conditional compilation
+#elif             Else if
+#else             Else
+#endif            End conditional
+#pragma           Compiler-specific instruction
+#error            Generate a compile error
+#warning          Generate a compile warning (GCC)
+#line             Change line number/filename
+```
 
----
+## Examples
+```cpp
+#include <iostream>         // Include header
 
-## Prerequisites
-- Basic C++ syntax (variables, types, operators)
-- Standard I/O operations
-- Header files and namespaces
+#define MAX_SIZE 100        // Define constant
+#define SQUARE(x) ((x)*(x))  // Define macro
 
----
+#ifdef DEBUG
+    #define LOG(msg) std::cerr << msg << "\n"
+#else
+    #define LOG(msg)        // Does nothing in release
+#endif
 
-## Core Concept
+#if __cplusplus >= 201703L
+    // C++17 or later code
+#elif __cplusplus >= 201402L
+    // C++14 code
+#else
+    // Older C++ code
+#endif
 
-### What Is It?
-Preprocessor directives is a technique in C++ that appears frequently in interviews and real projects.
+#pragma once               // Include guard (non-standard but universal)
 
-### Why Does It Matter?
-- Used extensively in production C++ code
-- Commonly asked in technical interviews
-- Helps write clean, maintainable code
+#error "This platform is not supported"  // Stop compilation with message
+```
 
-### Mental Model
-Think of preprocessor directives as a tool in your toolbox — know when to reach for it.
-
----
-
-## Solution Approaches
-
-### Approach 1: Direct / Straightforward
+## Predefined Macros
 ```cpp
 #include <iostream>
-#include <string>
-#include <vector>
-#include <algorithm>
 
-/*
- * Preprocessor directives
- * 
- * Approach: Direct implementation
- * Time Complexity:  O(n) — typical for this type of problem
- * Space Complexity: O(1) — or O(n) if storing results
- */
 int main() {
-    // TODO: Implement Preprocessor directives
-    // Step 1: Read input
-    // Step 2: Process
-    // Step 3: Output result
-    
-    std::cout << "Solution for: Preprocessor directives" << std::endl;
+    std::cout << "File: " << __FILE__ << "\n";
+    std::cout << "Line: " << __LINE__ << "\n";
+    std::cout << "Date: " << __DATE__ << "\n";
+    std::cout << "Time: " << __TIME__ << "\n";
+    std::cout << "C++ Standard: " << __cplusplus << "\n";
     return 0;
 }
 ```
 
-**Time Complexity:** O(n) (typical)  
-**Space Complexity:** O(1) or O(n)  
-**When to use:** First attempt, when simplicity matters over performance.
+## Key Takeaways
+1. Preprocessor runs before the compiler — it's text manipulation
+2. No semicolons on `#` directives
+3. `#define` constants are replaced literally — no type checking
+4. Prefer `const` / `constexpr` over `#define` for constants in C++
+5. Use `__cplusplus` to check the C++ standard version
 
-### Approach 2: Optimized / STL-Based
-```cpp
-#include <iostream>
-#include <string>
-#include <vector>
-#include <algorithm>
-#include <numeric>
-
-/*
- * Preprocessor directives — Optimized approach using STL
- * 
- * Uses standard library algorithms where applicable.
- * Generally preferred in production C++ code.
- */
-int main() {
-    // TODO: STL-based implementation
-    // Use std::sort, std::find, std::accumulate, etc. as appropriate
-    
-    return 0;
-}
-```
-
-**Time Complexity:** Depends on STL algorithm used  
-**Space Complexity:** Depends on approach  
-**When to use:** Production code, when you know the right STL tool.
-
-### Approach 3: Modern C++ (C++17/20)
-```cpp
-#include <iostream>
-#include <string>
-#include <vector>
-
-/*
- * Preprocessor directives — Modern C++ approach
- * 
- * Uses features from C++17/20: structured bindings,
- * if-init, ranges, constexpr, etc.
- */
-int main() {
-    // TODO: Modern C++ implementation
-    // Use auto, structured bindings, ranges, etc.
-    
-    return 0;
-}
-```
-
----
-
-## Step-by-Step Trace
-
-For a typical input, trace the solution:
-
-| Step | State | Action | Result |
-|------|-------|--------|--------|
-| 1 | Initial | Read input | — |
-| 2 | Processing | Apply algorithm | — |
-| 3 | Final | Output result | — |
-
----
-
-## Common Mistakes & Pitfalls
-
-1. **Off-by-one errors** — Check loop boundaries carefully
-2. **Uninitialized variables** — Always initialize before use
-3. **Integer overflow** — Use `long long` for large numbers
-4. **Missing edge cases** — Empty input, single element, negative numbers
-5. **Forgetting `#include`** — Include all necessary headers
-6. **Using `==` vs `=`** — Assignment vs comparison
-
----
-
-## What You Should Learn From This
-
-### Key C++ Feature Demonstrated
-- Preprocessor directives demonstrates proper C++ idioms and best practices
-
-### Interview Tips
-- Discuss tradeoffs between approaches
-- Always discuss time/space complexity
-- Mention edge cases proactively
-
-### Code Review Checklist
-- [ ] Compiles with `-Wall -Wextra` — no warnings
-- [ ] Handles edge cases
-- [ ] Variables are properly initialized
-- [ ] No memory leaks (if using dynamic allocation)
-- [ ] Code is readable and well-commented
-
----
-
-## Pattern Recognition
-
-**Pattern:** Implementation pattern — combine concepts to build
-
-**Similar Problems:**
-- (See other problems in this category)
-
-**When you see** _______, **think** _______.
-
----
-
-## Practice Variants
-1. **Easy:** Simplify the constraints (smaller input, fewer edge cases)
-2. **Medium:** Add a constraint (handle negative numbers, optimize for time)
-3. **Hard:** Combine with another concept (recursion, dynamic programming)
-
----
-
-## Quick Reference Card
-- **Core idea:** Preprocessor directives
-- **Key construct:** STL / Standard Library
-- **Complexity:** O(n) typical
-- **Don't forget:** Initialize variables, check edge cases, use `-Wall`
-
----
-
-*Generated for C++ Level 0 — C00 Problem Solving Guide*
+## Common Mistakes
+- Adding `;` after `#define MAX 100;` → the semicolon becomes part of the value
+- Macro side effects: `SQUARE(x++)` expands to `((x++)*(x++))` — increments twice
+- Forgetting `#endif` → confusing compilation errors

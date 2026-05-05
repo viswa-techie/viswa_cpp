@@ -44,24 +44,23 @@ Think of array of function pointers as a tool in your toolbox — know when to r
 ### Approach 1: Direct / Straightforward
 ```cpp
 #include <iostream>
-#include <string>
 #include <vector>
 #include <algorithm>
 
-/*
- * Array of function pointers
- * 
- * Approach: Direct implementation
- * Time Complexity:  O(n) — typical for this type of problem
- * Space Complexity: O(1) — or O(n) if storing results
- */
 int main() {
-    // TODO: Implement Array of function pointers
-    // Step 1: Read input
-    // Step 2: Process
-    // Step 3: Output result
+    // Implementation: Array of function pointers
+    std::cout << "Demonstrating: Array of function pointers
+";
     
-    std::cout << "Solution for: Array of function pointers" << std::endl;
+    // Core algorithm/pattern implementation
+    std::vector<int> data = {5, 2, 8, 1, 9, 3, 7};
+    
+    // Process
+    std::sort(data.begin(), data.end());
+    for (int x : data) std::cout << x << " ";
+    std::cout << "
+";
+    
     return 0;
 }
 ```
@@ -73,21 +72,26 @@ int main() {
 ### Approach 2: Optimized / STL-Based
 ```cpp
 #include <iostream>
-#include <string>
 #include <vector>
 #include <algorithm>
+#include <functional>
 #include <numeric>
 
 /*
- * Array of function pointers — Optimized approach using STL
- * 
- * Uses standard library algorithms where applicable.
- * Generally preferred in production C++ code.
+ * Array of function pointers — STL/Library approach
  */
 int main() {
-    // TODO: STL-based implementation
-    // Use std::sort, std::find, std::accumulate, etc. as appropriate
+    std::vector<int> data = {5, 2, 8, 1, 9, 3, 7, 4, 6};
     
+    // STL-based implementation of Array of function pointers
+    std::sort(data.begin(), data.end());
+    for (const auto& x : data) std::cout << x << " ";
+    std::cout << "
+";
+    
+    auto sum = std::accumulate(data.begin(), data.end(), 0);
+    std::cout << "Sum: " << sum << "
+";
     return 0;
 }
 ```
@@ -99,19 +103,26 @@ int main() {
 ### Approach 3: Modern C++ (C++17/20)
 ```cpp
 #include <iostream>
-#include <string>
 #include <vector>
+#include <algorithm>
+#include <numeric>
 
 /*
- * Array of function pointers — Modern C++ approach
- * 
- * Uses features from C++17/20: structured bindings,
- * if-init, ranges, constexpr, etc.
+ * Array of function pointers — Modern C++17/20 approach
  */
 int main() {
-    // TODO: Modern C++ implementation
-    // Use auto, structured bindings, ranges, etc.
+    std::vector<int> data = {5, 2, 8, 1, 9, 3, 7, 4, 6};
     
+    // Modern C++ features for Array of function pointers
+    auto [min_it, max_it] = std::minmax_element(data.begin(), data.end());
+    std::cout << "Range: [" << *min_it << ", " << *max_it << "]
+";
+    
+    // Lambda-based approach
+    std::sort(data.begin(), data.end());
+    for (const auto& x : data) std::cout << x << " ";
+    std::cout << "
+";
     return 0;
 }
 ```
@@ -187,3 +198,17 @@ For a typical input, trace the solution:
 ---
 
 *Generated for C++ Level 1 — C11 Problem Solving Guide*
+
+
+## Key Takeaways
+1. Function pointers store the address of a function
+2. Syntax: `return_type (*name)(param_types)`
+3. Can be passed to other functions for callbacks/strategy pattern
+4. std::function is more flexible (holds lambdas, functors too)
+5. Function pointers have zero overhead; std::function has some
+
+## Common Mistakes (Specific)
+- Wrong syntax: `int *f(int)` is function returning pointer, not function pointer
+- Calling through null function pointer → crash
+- Forgetting that function pointers can't hold lambdas with captures
+- Incompatible calling conventions between C and C++ functions

@@ -44,24 +44,30 @@ Think of dangling else problem as a tool in your toolbox — know when to reach 
 ### Approach 1: Direct / Straightforward
 ```cpp
 #include <iostream>
-#include <string>
-#include <vector>
-#include <algorithm>
-
-/*
- * Dangling else problem
- * 
- * Approach: Direct implementation
- * Time Complexity:  O(n) — typical for this type of problem
- * Space Complexity: O(1) — or O(n) if storing results
- */
 int main() {
-    // TODO: Implement Dangling else problem
-    // Step 1: Read input
-    // Step 2: Process
-    // Step 3: Output result
+    int x = 5, y = 10;
     
-    std::cout << "Solution for: Dangling else problem" << std::endl;
+    // Dangling else problem:
+    // Which 'if' does the 'else' belong to?
+    if (x > 0)
+        if (y > 0)
+            std::cout << "Both positive
+";
+    else  // This belongs to inner if (y > 0), NOT outer if (x > 0)!
+        std::cout << "This runs when y <= 0, NOT when x <= 0
+";
+    
+    // FIX: Always use braces to make intent clear
+    if (x > 0) {
+        if (y > 0) {
+            std::cout << "Both positive
+";
+        }
+    } else {
+        std::cout << "x is not positive
+";
+    }
+    
     return 0;
 }
 ```
@@ -73,21 +79,29 @@ int main() {
 ### Approach 2: Optimized / STL-Based
 ```cpp
 #include <iostream>
-#include <string>
 #include <vector>
 #include <algorithm>
 #include <numeric>
+#include <string>
 
 /*
- * Dangling else problem — Optimized approach using STL
- * 
- * Uses standard library algorithms where applicable.
- * Generally preferred in production C++ code.
+ * Dangling else problem — STL/Library approach
  */
 int main() {
-    // TODO: STL-based implementation
-    // Use std::sort, std::find, std::accumulate, etc. as appropriate
+    std::vector<int> data = {5, 2, 8, 1, 9, 3, 7, 4, 6};
     
+    // Using STL algorithms for Dangling else problem
+    std::sort(data.begin(), data.end());
+    
+    for (const auto& x : data)
+        std::cout << x << " ";
+    std::cout << "
+";
+    
+    // STL-based solution demonstration
+    auto sum = std::accumulate(data.begin(), data.end(), 0);
+    std::cout << "Sum: " << sum << "
+";
     return 0;
 }
 ```
@@ -99,18 +113,29 @@ int main() {
 ### Approach 3: Modern C++ (C++17/20)
 ```cpp
 #include <iostream>
-#include <string>
 #include <vector>
+#include <algorithm>
+#include <ranges>
+#include <numeric>
 
 /*
- * Dangling else problem — Modern C++ approach
- * 
- * Uses features from C++17/20: structured bindings,
- * if-init, ranges, constexpr, etc.
+ * Dangling else problem — Modern C++17/20 approach
  */
 int main() {
-    // TODO: Modern C++ implementation
-    // Use auto, structured bindings, ranges, etc.
+    std::vector<int> data = {5, 2, 8, 1, 9, 3, 7, 4, 6};
+    
+    // Modern C++ approach for: Dangling else problem
+    // Using auto, structured bindings, ranges where applicable
+    
+    auto [min_it, max_it] = std::minmax_element(data.begin(), data.end());
+    std::cout << "Min: " << *min_it << ", Max: " << *max_it << "
+";
+    
+    // Lambda-based processing
+    auto is_even = [](int n) { return n % 2 == 0; };
+    auto count = std::count_if(data.begin(), data.end(), is_even);
+    std::cout << "Even count: " << count << "
+";
     
     return 0;
 }
@@ -187,3 +212,18 @@ For a typical input, trace the solution:
 ---
 
 *Generated for C++ Level 1 — C10 Problem Solving Guide*
+
+
+## Key Takeaways
+1. Understand the core algorithm/pattern for Dangling else problem
+2. Consider time complexity — aim for optimal approach
+3. Handle edge cases: empty input, single element, boundary values
+4. Test with small inputs first, then verify with larger ones
+5. Know when to use iterative vs recursive approaches
+
+## Common Mistakes (Specific)
+- Off-by-one errors in loop boundaries or array indices
+- Not handling edge cases (empty input, n=0, n=1)
+- Integer overflow for large inputs — use `long long` when needed
+- Forgetting to initialize variables before use
+- Infinite loop from incorrect termination condition

@@ -1,189 +1,96 @@
 # Multiple source files concept
 
 > **Level:** 0 — Absolute Beginner  
-> **Category:** C00  
-> **Topic:** preprocessor
+> **Category:** C00 — C++ Syntax & Program Structure  
+> **Topic:** syntax
 
 ---
 
 ## Problem Statement
+Understand why and how to split a C++ program across multiple source files.
 
-Understand and explain the concept of Multiple source files concept. Be able to describe it, identify it in code, and use it correctly.
+## What You Need to Know
+- Real programs have thousands of lines — putting everything in one file is unmanageable.
+- Each `.cpp` file is compiled independently into an `.o` (object) file.
+- The linker combines all `.o` files into one executable.
 
-### Examples
-- **Input Example 1:** A typical/simple case
-- **Input Example 2:** An edge case (empty input, boundary values)
-- **Input Example 3:** A larger or tricky case
+## Project Structure
+```
+project/
+├── main.cpp          // Entry point
+├── math_utils.h      // Declarations
+├── math_utils.cpp    // Definitions
+├── string_utils.h    // Declarations
+└── string_utils.cpp  // Definitions
+```
 
----
+## Step-by-Step Example
 
-## Prerequisites
-- Basic C++ syntax (variables, types, operators)
-- Understanding of C++ compilation model
-- Header files and namespaces
+### math_utils.h — Declarations
+```cpp
+#pragma once
 
----
+int add(int a, int b);
+int multiply(int a, int b);
+```
 
-## Core Concept
+### math_utils.cpp — Definitions
+```cpp
+#include "math_utils.h"
 
-### What Is It?
-Multiple source files concept is a fundamental concept in C++ that every programmer must understand.
+int add(int a, int b) {
+    return a + b;
+}
 
-### Why Does It Matter?
-- Forms the foundation for understanding more complex C++ features
-- Commonly asked in technical interviews
-- Helps write clean, maintainable code
+int multiply(int a, int b) {
+    return a * b;
+}
+```
 
-### Mental Model
-Think of multiple source files concept as a building block — you can't build a house without understanding bricks.
-
----
-
-## Solution Approaches
-
-### Approach 1: Direct / Straightforward
+### main.cpp — Uses the functions
 ```cpp
 #include <iostream>
-#include <string>
-#include <vector>
-#include <algorithm>
+#include "math_utils.h"
 
-/*
- * Multiple source files concept
- * 
- * Approach: Direct implementation
- * Time Complexity:  O(n) — typical for this type of problem
- * Space Complexity: O(1) — or O(n) if storing results
- */
 int main() {
-    // TODO: Implement Multiple source files concept
-    // Step 1: Read input
-    // Step 2: Process
-    // Step 3: Output result
-    
-    std::cout << "Solution for: Multiple source files concept" << std::endl;
+    std::cout << "3 + 4 = " << add(3, 4) << "\n";
+    std::cout << "3 * 4 = " << multiply(3, 4) << "\n";
     return 0;
 }
 ```
 
-**Time Complexity:** O(n) (typical)  
-**Space Complexity:** O(1) or O(n)  
-**When to use:** First attempt, when simplicity matters over performance.
+### Compilation
+```bash
+# Compile each file separately
+g++ -c main.cpp -o main.o
+g++ -c math_utils.cpp -o math_utils.o
 
-### Approach 2: Optimized / STL-Based
-```cpp
-#include <iostream>
-#include <string>
-#include <vector>
-#include <algorithm>
-#include <numeric>
+# Link them together
+g++ main.o math_utils.o -o program
 
-/*
- * Multiple source files concept — Optimized approach using STL
- * 
- * Uses standard library algorithms where applicable.
- * Generally preferred in production C++ code.
- */
-int main() {
-    // TODO: STL-based implementation
-    // Use std::sort, std::find, std::accumulate, etc. as appropriate
-    
-    return 0;
-}
+# Or all at once
+g++ main.cpp math_utils.cpp -o program
 ```
 
-**Time Complexity:** Depends on STL algorithm used  
-**Space Complexity:** Depends on approach  
-**When to use:** Production code, when you know the right STL tool.
-
-### Approach 3: Modern C++ (C++17/20)
-```cpp
-#include <iostream>
-#include <string>
-#include <vector>
-
-/*
- * Multiple source files concept — Modern C++ approach
- * 
- * Uses features from C++17/20: structured bindings,
- * if-init, ranges, constexpr, etc.
- */
-int main() {
-    // TODO: Modern C++ implementation
-    // Use auto, structured bindings, ranges, etc.
-    
-    return 0;
-}
+## Why Separate Files?
+```
+Benefit              Explanation
+-------              -----------
+Organization         Each file has one responsibility
+Faster recompilation Only recompile changed files
+Team collaboration   Multiple people work on different files
+Reusability          Use math_utils in other projects
+Readability          Smaller files are easier to understand
 ```
 
----
+## Key Takeaways
+1. Split code into header (`.h`) + source (`.cpp`) pairs
+2. Headers contain declarations; source files contain definitions
+3. `main.cpp` includes headers to use functions from other files
+4. Compile each `.cpp` file, then link the `.o` files together
+5. Only `main()` should appear once across all files
 
-## Step-by-Step Trace
-
-For a typical input, trace the solution:
-
-| Step | State | Action | Result |
-|------|-------|--------|--------|
-| 1 | Initial | Read input | — |
-| 2 | Processing | Apply algorithm | — |
-| 3 | Final | Output result | — |
-
----
-
-## Common Mistakes & Pitfalls
-
-1. **Off-by-one errors** — Check loop boundaries carefully
-2. **Uninitialized variables** — Always initialize before use
-3. **Integer overflow** — Use `long long` for large numbers
-4. **Missing edge cases** — Empty input, single element, negative numbers
-5. **Forgetting `#include`** — Include all necessary headers
-6. **Using `==` vs `=`** — Assignment vs comparison
-
----
-
-## What You Should Learn From This
-
-### Key C++ Feature Demonstrated
-- Multiple source files concept demonstrates fundamental language syntax
-
-### Interview Tips
-- Explain the concept clearly before writing code
-- Always discuss time/space complexity
-- Mention edge cases proactively
-
-### Code Review Checklist
-- [ ] Compiles with `-Wall -Wextra` — no warnings
-- [ ] Handles edge cases
-- [ ] Variables are properly initialized
-- [ ] No memory leaks (if using dynamic allocation)
-- [ ] Code is readable and well-commented
-
----
-
-## Pattern Recognition
-
-**Pattern:** Language fundamentals — know the rules
-
-**Similar Problems:**
-- (See other problems in this category)
-
-**When you see** _______, **think** _______.
-
----
-
-## Practice Variants
-1. **Easy:** Simplify the constraints (smaller input, fewer edge cases)
-2. **Medium:** Add a constraint (handle negative numbers, optimize for time)
-3. **Hard:** Combine with another concept (recursion, dynamic programming)
-
----
-
-## Quick Reference Card
-- **Core idea:** Multiple source files concept
-- **Key construct:** Language syntax
-- **Complexity:** O(n) typical
-- **Don't forget:** Initialize variables, check edge cases, use `-Wall`
-
----
-
-*Generated for C++ Level 0 — C00 Problem Solving Guide*
+## Common Mistakes
+- Including `.cpp` files: `#include "math.cpp"` → multiple definitions
+- Forgetting to compile all `.cpp` files → "undefined reference" errors
+- Putting definitions in headers → linker errors when included by multiple files

@@ -1,189 +1,91 @@
 # using alias basics
 
 > **Level:** 0 — Absolute Beginner  
-> **Category:** C00  
-> **Topic:** types
+> **Category:** C00 — C++ Syntax & Program Structure  
+> **Topic:** syntax
 
 ---
 
 ## Problem Statement
+Use `using` to create type aliases — the modern C++ alternative to `typedef`.
 
-Understand and explain the concept of using alias basics. Be able to describe it, identify it in code, and use it correctly.
+## What You Need to Know
+- `using NewName = ExistingType;` creates a type alias (C++11).
+- Clearer syntax than `typedef`, especially for complex types.
+- Can be templated (unlike `typedef`).
 
-### Examples
-- **Input Example 1:** A typical/simple case
-- **Input Example 2:** An edge case (empty input, boundary values)
-- **Input Example 3:** A larger or tricky case
-
----
-
-## Prerequisites
-- Basic C++ syntax (variables, types, operators)
-- Understanding of C++ compilation model
-- Header files and namespaces
-
----
-
-## Core Concept
-
-### What Is It?
-using alias basics is a fundamental concept in C++ that every programmer must understand.
-
-### Why Does It Matter?
-- Forms the foundation for understanding more complex C++ features
-- Commonly asked in technical interviews
-- Helps write clean, maintainable code
-
-### Mental Model
-Think of using alias basics as a building block — you can't build a house without understanding bricks.
-
----
-
-## Solution Approaches
-
-### Approach 1: Direct / Straightforward
-```cpp
-#include <iostream>
-#include <string>
-#include <vector>
-#include <algorithm>
-
-/*
- * using alias basics
- * 
- * Approach: Direct implementation
- * Time Complexity:  O(n) — typical for this type of problem
- * Space Complexity: O(1) — or O(n) if storing results
- */
-int main() {
-    // TODO: Implement using alias basics
-    // Step 1: Read input
-    // Step 2: Process
-    // Step 3: Output result
-    
-    std::cout << "Solution for: using alias basics" << std::endl;
-    return 0;
-}
-```
-
-**Time Complexity:** O(n) (typical)  
-**Space Complexity:** O(1) or O(n)  
-**When to use:** First attempt, when simplicity matters over performance.
-
-### Approach 2: Optimized / STL-Based
-```cpp
-#include <iostream>
-#include <string>
-#include <vector>
-#include <algorithm>
-#include <numeric>
-
-/*
- * using alias basics — Optimized approach using STL
- * 
- * Uses standard library algorithms where applicable.
- * Generally preferred in production C++ code.
- */
-int main() {
-    // TODO: STL-based implementation
-    // Use std::sort, std::find, std::accumulate, etc. as appropriate
-    
-    return 0;
-}
-```
-
-**Time Complexity:** Depends on STL algorithm used  
-**Space Complexity:** Depends on approach  
-**When to use:** Production code, when you know the right STL tool.
-
-### Approach 3: Modern C++ (C++17/20)
+## Basic using Alias
 ```cpp
 #include <iostream>
 #include <string>
 #include <vector>
 
-/*
- * using alias basics — Modern C++ approach
- * 
- * Uses features from C++17/20: structured bindings,
- * if-init, ranges, constexpr, etc.
- */
+using Integer = int;
+using Real = double;
+using String = std::string;
+using IntVector = std::vector<int>;
+
 int main() {
-    // TODO: Modern C++ implementation
-    // Use auto, structured bindings, ranges, etc.
-    
+    Integer x = 42;
+    Real pi = 3.14;
+    String name = "Viswa";
+    IntVector nums = {1, 2, 3};
+
+    std::cout << x << " " << pi << " " << name << "\n";
     return 0;
 }
 ```
 
----
+## using vs typedef
+```cpp
+#include <vector>
+#include <map>
+#include <string>
 
-## Step-by-Step Trace
+// typedef syntax (reads right-to-left, can be confusing)
+typedef std::vector<int> IntVecT;
+typedef int (*FuncPtrT)(int, int);
+typedef std::map<std::string, std::vector<int>> ScoreMapT;
 
-For a typical input, trace the solution:
+// using syntax (reads left-to-right, clearer)
+using IntVecU = std::vector<int>;
+using FuncPtrU = int(*)(int, int);
+using ScoreMapU = std::map<std::string, std::vector<int>>;
 
-| Step | State | Action | Result |
-|------|-------|--------|--------|
-| 1 | Initial | Read input | — |
-| 2 | Processing | Apply algorithm | — |
-| 3 | Final | Output result | — |
+// Function pointers are MUCH clearer with using:
+// typedef void (*Callback)(int, const std::string&);  // Hard to read
+// using Callback = void(*)(int, const std::string&);  // Much clearer
+```
 
----
+## Template Aliases (using-only feature)
+```cpp
+#include <vector>
+#include <map>
+#include <string>
 
-## Common Mistakes & Pitfalls
+// Cannot do this with typedef!
+template<typename T>
+using Vec = std::vector<T>;
 
-1. **Off-by-one errors** — Check loop boundaries carefully
-2. **Uninitialized variables** — Always initialize before use
-3. **Integer overflow** — Use `long long` for large numbers
-4. **Missing edge cases** — Empty input, single element, negative numbers
-5. **Forgetting `#include`** — Include all necessary headers
-6. **Using `==` vs `=`** — Assignment vs comparison
+template<typename V>
+using StringMap = std::map<std::string, V>;
 
----
+int main() {
+    Vec<int> numbers = {1, 2, 3};
+    Vec<double> reals = {1.1, 2.2};
+    StringMap<int> ages = {{"Viswa", 30}};
+    return 0;
+}
+```
 
-## What You Should Learn From This
+## Key Takeaways
+1. `using Name = Type;` is the modern alternative to `typedef`
+2. Reads left-to-right — much clearer for function pointers
+3. Supports template aliases — `typedef` cannot do this
+4. Prefer `using` over `typedef` in C++11 and later
+5. Both create aliases, not new types
 
-### Key C++ Feature Demonstrated
-- using alias basics demonstrates fundamental language syntax
-
-### Interview Tips
-- Explain the concept clearly before writing code
-- Always discuss time/space complexity
-- Mention edge cases proactively
-
-### Code Review Checklist
-- [ ] Compiles with `-Wall -Wextra` — no warnings
-- [ ] Handles edge cases
-- [ ] Variables are properly initialized
-- [ ] No memory leaks (if using dynamic allocation)
-- [ ] Code is readable and well-commented
-
----
-
-## Pattern Recognition
-
-**Pattern:** Language fundamentals — know the rules
-
-**Similar Problems:**
-- (See other problems in this category)
-
-**When you see** _______, **think** _______.
-
----
-
-## Practice Variants
-1. **Easy:** Simplify the constraints (smaller input, fewer edge cases)
-2. **Medium:** Add a constraint (handle negative numbers, optimize for time)
-3. **Hard:** Combine with another concept (recursion, dynamic programming)
-
----
-
-## Quick Reference Card
-- **Core idea:** using alias basics
-- **Key construct:** Language syntax
-- **Complexity:** O(n) typical
-- **Don't forget:** Initialize variables, check edge cases, use `-Wall`
-
----
-
-*Generated for C++ Level 0 — C00 Problem Solving Guide*
+## Common Mistakes
+- Using `typedef` out of habit when `using` is cleaner
+- Forgetting that `using` aliases are C++11 — won't work in older compilers
+- Confusing `using` alias with `using namespace` — completely different features

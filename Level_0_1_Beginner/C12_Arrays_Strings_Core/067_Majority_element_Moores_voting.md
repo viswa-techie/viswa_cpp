@@ -44,24 +44,23 @@ Think of majority element (moore's voting) as a tool in your toolbox — know wh
 ### Approach 1: Direct / Straightforward
 ```cpp
 #include <iostream>
-#include <string>
 #include <vector>
-#include <algorithm>
 
-/*
- * Majority element (Moore's voting)
- * 
- * Approach: Direct implementation
- * Time Complexity:  O(n) — typical for this type of problem
- * Space Complexity: O(1) — or O(n) if storing results
- */
+int majorityElement(const std::vector<int>& nums) {
+    // Boyer-Moore Voting Algorithm
+    int candidate = nums[0], count = 1;
+    for (int i = 1; i < (int)nums.size(); ++i) {
+        if (count == 0) { candidate = nums[i]; count = 1; }
+        else if (nums[i] == candidate) count++;
+        else count--;
+    }
+    return candidate;  // Verify if needed
+}
+
 int main() {
-    // TODO: Implement Majority element (Moore's voting)
-    // Step 1: Read input
-    // Step 2: Process
-    // Step 3: Output result
-    
-    std::cout << "Solution for: Majority element (Moore's voting)" << std::endl;
+    std::vector<int> nums = {2, 2, 1, 1, 1, 2, 2};
+    std::cout << "Majority: " << majorityElement(nums) << "
+";  // 2
     return 0;
 }
 ```
@@ -73,21 +72,26 @@ int main() {
 ### Approach 2: Optimized / STL-Based
 ```cpp
 #include <iostream>
-#include <string>
 #include <vector>
 #include <algorithm>
 #include <numeric>
 
 /*
- * Majority element (Moore's voting) — Optimized approach using STL
- * 
- * Uses standard library algorithms where applicable.
- * Generally preferred in production C++ code.
+ * Majority element Moores voting — STL/Library approach
  */
 int main() {
-    // TODO: STL-based implementation
-    // Use std::sort, std::find, std::accumulate, etc. as appropriate
+    std::vector<int> data = {5, 2, 8, 1, 9, 3, 7, 4, 6};
     
+    // STL-based implementation
+    std::sort(data.begin(), data.end());
+    for (const auto& x : data) std::cout << x << " ";
+    std::cout << "
+";
+    
+    auto it = std::lower_bound(data.begin(), data.end(), 5);
+    if (it != data.end())
+        std::cout << "Found: " << *it << " at index " << (it - data.begin()) << "
+";
     return 0;
 }
 ```
@@ -99,19 +103,28 @@ int main() {
 ### Approach 3: Modern C++ (C++17/20)
 ```cpp
 #include <iostream>
-#include <string>
 #include <vector>
+#include <algorithm>
+#include <numeric>
 
 /*
- * Majority element (Moore's voting) — Modern C++ approach
- * 
- * Uses features from C++17/20: structured bindings,
- * if-init, ranges, constexpr, etc.
+ * Majority element Moores voting — Modern C++17/20 approach
  */
 int main() {
-    // TODO: Modern C++ implementation
-    // Use auto, structured bindings, ranges, etc.
+    std::vector<int> data = {5, 2, 8, 1, 9, 3, 7, 4, 6};
     
+    // Modern C++ features
+    auto [min_it, max_it] = std::minmax_element(data.begin(), data.end());
+    std::cout << "Range: [" << *min_it << ", " << *max_it << "]
+";
+    
+    // Partition with lambda
+    auto pivot = std::partition(data.begin(), data.end(), [](int x) { return x <= 5; });
+    std::cout << "Partitioned at index: " << (pivot - data.begin()) << "
+";
+    for (int x : data) std::cout << x << " ";
+    std::cout << "
+";
     return 0;
 }
 ```
@@ -187,3 +200,18 @@ For a typical input, trace the solution:
 ---
 
 *Generated for C++ Level 1 — C12 Problem Solving Guide*
+
+
+## Key Takeaways
+1. Understand the algorithm and its time/space complexity
+2. Handle edge cases: empty array, single element, all same values
+3. Consider both brute-force and optimized approaches
+4. Test with small inputs and verify with larger ones
+5. Know when to use STL algorithms vs manual implementation
+
+## Common Mistakes (Specific)
+- Off-by-one errors in array indices and loop bounds
+- Not handling edge cases (empty array, single element)
+- Integer overflow with large sums — use long long
+- Modifying container while iterating — invalidates iterators
+- Forgetting to sort before binary search

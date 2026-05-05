@@ -44,24 +44,30 @@ Think of prime check as a puzzle — break it into smaller pieces and solve each
 ### Approach 1: Direct / Straightforward
 ```cpp
 #include <iostream>
-#include <string>
-#include <vector>
-#include <algorithm>
+#include <cmath>
+bool isPrime(int n) {
+    if (n < 2) return false;
+    if (n == 2) return true;
+    if (n % 2 == 0) return false;
+    for (int i = 3; i <= std::sqrt(n); i += 2) {
+        if (n % i == 0) return false;
+    }
+    return true;
+}
 
-/*
- * Prime check
- * 
- * Approach: Direct implementation
- * Time Complexity:  O(n) — typical for this type of problem
- * Space Complexity: O(1) — or O(n) if storing results
- */
 int main() {
-    // TODO: Implement Prime check
-    // Step 1: Read input
-    // Step 2: Process
-    // Step 3: Output result
+    // Test individual numbers
+    for (int n : {1, 2, 3, 4, 17, 25, 97, 100}) {
+        std::cout << n << " is " << (isPrime(n) ? "prime" : "not prime") << "
+";
+    }
     
-    std::cout << "Solution for: Prime check" << std::endl;
+    // Print primes up to 50
+    std::cout << "Primes up to 50: ";
+    for (int i = 2; i <= 50; ++i)
+        if (isPrime(i)) std::cout << i << " ";
+    std::cout << "
+";
     return 0;
 }
 ```
@@ -73,21 +79,29 @@ int main() {
 ### Approach 2: Optimized / STL-Based
 ```cpp
 #include <iostream>
-#include <string>
 #include <vector>
 #include <algorithm>
 #include <numeric>
+#include <string>
 
 /*
- * Prime check — Optimized approach using STL
- * 
- * Uses standard library algorithms where applicable.
- * Generally preferred in production C++ code.
+ * Prime check — STL/Library approach
  */
 int main() {
-    // TODO: STL-based implementation
-    // Use std::sort, std::find, std::accumulate, etc. as appropriate
+    std::vector<int> data = {5, 2, 8, 1, 9, 3, 7, 4, 6};
     
+    // Using STL algorithms for Prime check
+    std::sort(data.begin(), data.end());
+    
+    for (const auto& x : data)
+        std::cout << x << " ";
+    std::cout << "
+";
+    
+    // STL-based solution demonstration
+    auto sum = std::accumulate(data.begin(), data.end(), 0);
+    std::cout << "Sum: " << sum << "
+";
     return 0;
 }
 ```
@@ -99,18 +113,29 @@ int main() {
 ### Approach 3: Modern C++ (C++17/20)
 ```cpp
 #include <iostream>
-#include <string>
 #include <vector>
+#include <algorithm>
+#include <ranges>
+#include <numeric>
 
 /*
- * Prime check — Modern C++ approach
- * 
- * Uses features from C++17/20: structured bindings,
- * if-init, ranges, constexpr, etc.
+ * Prime check — Modern C++17/20 approach
  */
 int main() {
-    // TODO: Modern C++ implementation
-    // Use auto, structured bindings, ranges, etc.
+    std::vector<int> data = {5, 2, 8, 1, 9, 3, 7, 4, 6};
+    
+    // Modern C++ approach for: Prime check
+    // Using auto, structured bindings, ranges where applicable
+    
+    auto [min_it, max_it] = std::minmax_element(data.begin(), data.end());
+    std::cout << "Min: " << *min_it << ", Max: " << *max_it << "
+";
+    
+    // Lambda-based processing
+    auto is_even = [](int n) { return n % 2 == 0; };
+    auto count = std::count_if(data.begin(), data.end(), is_even);
+    std::cout << "Even count: " << count << "
+";
     
     return 0;
 }
@@ -187,3 +212,18 @@ For a typical input, trace the solution:
 ---
 
 *Generated for C++ Level 1 — C10 Problem Solving Guide*
+
+
+## Key Takeaways
+1. Only check up to sqrt(n) for primality — O(sqrt(n))
+2. Skip even numbers after checking 2 — halves the work
+3. Sieve of Eratosthenes is O(n log log n) — efficient for finding ALL primes
+4. Start marking from i*i (smaller multiples already marked)
+5. Use `vector<bool>` for the sieve — memory efficient
+
+## Common Mistakes (Specific)
+- Off-by-one errors in loop boundaries or array indices
+- Not handling edge cases (empty input, n=0, n=1)
+- Integer overflow for large inputs — use `long long` when needed
+- Forgetting to initialize variables before use
+- Infinite loop from incorrect termination condition

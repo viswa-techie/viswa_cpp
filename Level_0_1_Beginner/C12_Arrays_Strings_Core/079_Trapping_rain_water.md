@@ -44,24 +44,33 @@ Think of trapping rain water as a tool in your toolbox — know when to reach fo
 ### Approach 1: Direct / Straightforward
 ```cpp
 #include <iostream>
-#include <string>
 #include <vector>
 #include <algorithm>
 
-/*
- * Trapping rain water
- * 
- * Approach: Direct implementation
- * Time Complexity:  O(n) — typical for this type of problem
- * Space Complexity: O(1) — or O(n) if storing results
- */
-int main() {
-    // TODO: Implement Trapping rain water
-    // Step 1: Read input
-    // Step 2: Process
-    // Step 3: Output result
+int trap(const std::vector<int>& height) {
+    int n = height.size();
+    if (n < 3) return 0;
+    int left = 0, right = n - 1;
+    int leftMax = 0, rightMax = 0, water = 0;
     
-    std::cout << "Solution for: Trapping rain water" << std::endl;
+    while (left < right) {
+        if (height[left] < height[right]) {
+            leftMax = std::max(leftMax, height[left]);
+            water += leftMax - height[left];
+            left++;
+        } else {
+            rightMax = std::max(rightMax, height[right]);
+            water += rightMax - height[right];
+            right--;
+        }
+    }
+    return water;
+}
+
+int main() {
+    std::vector<int> height = {0, 1, 0, 2, 1, 0, 1, 3, 2, 1, 2, 1};
+    std::cout << "Trapped water: " << trap(height) << "
+";  // 6
     return 0;
 }
 ```
@@ -73,21 +82,26 @@ int main() {
 ### Approach 2: Optimized / STL-Based
 ```cpp
 #include <iostream>
-#include <string>
 #include <vector>
 #include <algorithm>
 #include <numeric>
 
 /*
- * Trapping rain water — Optimized approach using STL
- * 
- * Uses standard library algorithms where applicable.
- * Generally preferred in production C++ code.
+ * Trapping rain water — STL/Library approach
  */
 int main() {
-    // TODO: STL-based implementation
-    // Use std::sort, std::find, std::accumulate, etc. as appropriate
+    std::vector<int> data = {5, 2, 8, 1, 9, 3, 7, 4, 6};
     
+    // STL-based implementation
+    std::sort(data.begin(), data.end());
+    for (const auto& x : data) std::cout << x << " ";
+    std::cout << "
+";
+    
+    auto it = std::lower_bound(data.begin(), data.end(), 5);
+    if (it != data.end())
+        std::cout << "Found: " << *it << " at index " << (it - data.begin()) << "
+";
     return 0;
 }
 ```
@@ -99,19 +113,28 @@ int main() {
 ### Approach 3: Modern C++ (C++17/20)
 ```cpp
 #include <iostream>
-#include <string>
 #include <vector>
+#include <algorithm>
+#include <numeric>
 
 /*
- * Trapping rain water — Modern C++ approach
- * 
- * Uses features from C++17/20: structured bindings,
- * if-init, ranges, constexpr, etc.
+ * Trapping rain water — Modern C++17/20 approach
  */
 int main() {
-    // TODO: Modern C++ implementation
-    // Use auto, structured bindings, ranges, etc.
+    std::vector<int> data = {5, 2, 8, 1, 9, 3, 7, 4, 6};
     
+    // Modern C++ features
+    auto [min_it, max_it] = std::minmax_element(data.begin(), data.end());
+    std::cout << "Range: [" << *min_it << ", " << *max_it << "]
+";
+    
+    // Partition with lambda
+    auto pivot = std::partition(data.begin(), data.end(), [](int x) { return x <= 5; });
+    std::cout << "Partitioned at index: " << (pivot - data.begin()) << "
+";
+    for (int x : data) std::cout << x << " ";
+    std::cout << "
+";
     return 0;
 }
 ```
@@ -187,3 +210,18 @@ For a typical input, trace the solution:
 ---
 
 *Generated for C++ Level 1 — C12 Problem Solving Guide*
+
+
+## Key Takeaways
+1. Two-pointer approach: O(n) time, O(1) space
+2. Water at position i = min(leftMax, rightMax) - height[i]
+3. Process from the side with smaller max height
+4. Also solvable with prefix arrays (O(n) space) or stack
+5. Key insight: water level at each point limited by shorter boundary
+
+## Common Mistakes (Specific)
+- Off-by-one errors in array indices and loop bounds
+- Not handling edge cases (empty array, single element)
+- Integer overflow with large sums — use long long
+- Modifying container while iterating — invalidates iterators
+- Forgetting to sort before binary search

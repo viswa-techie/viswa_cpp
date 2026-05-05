@@ -1,189 +1,89 @@
 # Header file purpose
 
 > **Level:** 0 — Absolute Beginner  
-> **Category:** C00  
-> **Topic:** preprocessor
+> **Category:** C00 — C++ Syntax & Program Structure  
+> **Topic:** syntax
 
 ---
 
 ## Problem Statement
+Understand what header files are, why they exist, and how to create your own.
 
-Master the use of Header file purpose in C++ programs. Understand when and why to use it.
+## What You Need to Know
+- A header file (`.h` or `.hpp`) contains **declarations** — function prototypes, class definitions, constants.
+- A source file (`.cpp`) contains **definitions** — the actual implementation.
+- Headers allow code to be shared across multiple source files.
 
-### Examples
-- **Input Example 1:** A typical/simple case
-- **Input Example 2:** An edge case (empty input, boundary values)
-- **Input Example 3:** A larger or tricky case
+## Mental Model
+Think of a header file as a **menu** (lists what's available) and the `.cpp` file as the **kitchen** (where the food is actually prepared).
 
----
-
-## Prerequisites
-- Basic C++ syntax (variables, types, operators)
-- Standard I/O operations
-- Header files and namespaces
-
----
-
-## Core Concept
-
-### What Is It?
-Header file purpose is a technique in C++ that appears frequently in interviews and real projects.
-
-### Why Does It Matter?
-- Used extensively in production C++ code
-- Commonly asked in technical interviews
-- Helps write clean, maintainable code
-
-### Mental Model
-Think of header file purpose as a tool in your toolbox — know when to reach for it.
-
----
-
-## Solution Approaches
-
-### Approach 1: Direct / Straightforward
+## Anatomy of a Header File
 ```cpp
-#include <iostream>
-#include <string>
-#include <vector>
-#include <algorithm>
+// math_utils.h
+#ifndef MATH_UTILS_H    // Include guard
+#define MATH_UTILS_H
 
-/*
- * Header file purpose
- * 
- * Approach: Direct implementation
- * Time Complexity:  O(n) — typical for this type of problem
- * Space Complexity: O(1) — or O(n) if storing results
- */
+int add(int a, int b);          // Function declaration (prototype)
+int multiply(int a, int b);     // No function body here
+
+const double PI = 3.14159265;   // Constant
+
+#endif // MATH_UTILS_H
+```
+
+## Corresponding Source File
+```cpp
+// math_utils.cpp
+#include "math_utils.h"
+
+int add(int a, int b) {         // Function definition
+    return a + b;
+}
+
+int multiply(int a, int b) {
+    return a * b;
+}
+```
+
+## Using the Header
+```cpp
+// main.cpp
+#include <iostream>
+#include "math_utils.h"    // Include our header
+
 int main() {
-    // TODO: Implement Header file purpose
-    // Step 1: Read input
-    // Step 2: Process
-    // Step 3: Output result
-    
-    std::cout << "Solution for: Header file purpose" << std::endl;
+    std::cout << add(3, 4) << "\n";         // 7
+    std::cout << multiply(3, 4) << "\n";    // 12
+    std::cout << PI << "\n";                // 3.14159
     return 0;
 }
 ```
 
-**Time Complexity:** O(n) (typical)  
-**Space Complexity:** O(1) or O(n)  
-**When to use:** First attempt, when simplicity matters over performance.
-
-### Approach 2: Optimized / STL-Based
-```cpp
-#include <iostream>
-#include <string>
-#include <vector>
-#include <algorithm>
-#include <numeric>
-
-/*
- * Header file purpose — Optimized approach using STL
- * 
- * Uses standard library algorithms where applicable.
- * Generally preferred in production C++ code.
- */
-int main() {
-    // TODO: STL-based implementation
-    // Use std::sort, std::find, std::accumulate, etc. as appropriate
-    
-    return 0;
-}
+## Compile Multiple Files
+```bash
+g++ -o program main.cpp math_utils.cpp
 ```
 
-**Time Complexity:** Depends on STL algorithm used  
-**Space Complexity:** Depends on approach  
-**When to use:** Production code, when you know the right STL tool.
-
-### Approach 3: Modern C++ (C++17/20)
-```cpp
-#include <iostream>
-#include <string>
-#include <vector>
-
-/*
- * Header file purpose — Modern C++ approach
- * 
- * Uses features from C++17/20: structured bindings,
- * if-init, ranges, constexpr, etc.
- */
-int main() {
-    // TODO: Modern C++ implementation
-    // Use auto, structured bindings, ranges, etc.
-    
-    return 0;
-}
+## What Goes in Headers vs Source Files
+```
+Header (.h/.hpp)              Source (.cpp)
+-----------------             ------------
+Function declarations         Function definitions
+Class declarations            Method implementations
+Constants                     Static variable definitions
+Type aliases (typedef/using)  Main function
+Template definitions          Implementation details
+Inline functions              Non-inline function bodies
 ```
 
----
+## Key Takeaways
+1. Headers declare interfaces; source files define implementations
+2. Always use include guards (`#ifndef` or `#pragma once`)
+3. Use `"quotes"` for your own headers, `<angles>` for system headers
+4. Never put `main()` in a header file
+5. Never put function definitions in headers (except inline/template)
 
-## Step-by-Step Trace
-
-For a typical input, trace the solution:
-
-| Step | State | Action | Result |
-|------|-------|--------|--------|
-| 1 | Initial | Read input | — |
-| 2 | Processing | Apply algorithm | — |
-| 3 | Final | Output result | — |
-
----
-
-## Common Mistakes & Pitfalls
-
-1. **Off-by-one errors** — Check loop boundaries carefully
-2. **Uninitialized variables** — Always initialize before use
-3. **Integer overflow** — Use `long long` for large numbers
-4. **Missing edge cases** — Empty input, single element, negative numbers
-5. **Forgetting `#include`** — Include all necessary headers
-6. **Using `==` vs `=`** — Assignment vs comparison
-
----
-
-## What You Should Learn From This
-
-### Key C++ Feature Demonstrated
-- Header file purpose demonstrates proper C++ idioms and best practices
-
-### Interview Tips
-- Discuss tradeoffs between approaches
-- Always discuss time/space complexity
-- Mention edge cases proactively
-
-### Code Review Checklist
-- [ ] Compiles with `-Wall -Wextra` — no warnings
-- [ ] Handles edge cases
-- [ ] Variables are properly initialized
-- [ ] No memory leaks (if using dynamic allocation)
-- [ ] Code is readable and well-commented
-
----
-
-## Pattern Recognition
-
-**Pattern:** Implementation pattern — combine concepts to build
-
-**Similar Problems:**
-- (See other problems in this category)
-
-**When you see** _______, **think** _______.
-
----
-
-## Practice Variants
-1. **Easy:** Simplify the constraints (smaller input, fewer edge cases)
-2. **Medium:** Add a constraint (handle negative numbers, optimize for time)
-3. **Hard:** Combine with another concept (recursion, dynamic programming)
-
----
-
-## Quick Reference Card
-- **Core idea:** Header file purpose
-- **Key construct:** STL / Standard Library
-- **Complexity:** O(n) typical
-- **Don't forget:** Initialize variables, check edge cases, use `-Wall`
-
----
-
-*Generated for C++ Level 0 — C00 Problem Solving Guide*
+## Common Mistakes
+- Putting function bodies in headers → linker errors (multiple definitions)
+- Forgetting include guards → redefinition errors
+- Circular includes — A.h includes B.h which includes A.h

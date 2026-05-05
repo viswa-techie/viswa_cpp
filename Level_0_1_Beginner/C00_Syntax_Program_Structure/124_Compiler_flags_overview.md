@@ -1,189 +1,86 @@
 # Compiler flags overview
 
 > **Level:** 0 — Absolute Beginner  
-> **Category:** C00  
-> **Topic:** build
+> **Category:** C00 — C++ Syntax & Program Structure  
+> **Topic:** syntax
 
 ---
 
 ## Problem Statement
+Understand common compiler flags for g++ and clang++.
 
-Understand and explain the concept of Compiler flags overview. Be able to describe it, identify it in code, and use it correctly.
+## What You Need to Know
+- Compiler flags control warnings, optimization, debugging, and standards.
+- Flags start with `-` (dash).
+- More flags = more information/control.
 
-### Examples
-- **Input Example 1:** A typical/simple case
-- **Input Example 2:** An edge case (empty input, boundary values)
-- **Input Example 3:** A larger or tricky case
+## Essential Flags
+```bash
+# Warning flags (always use these!)
+g++ -Wall -Wextra -Wpedantic main.cpp -o main
 
----
-
-## Prerequisites
-- Basic C++ syntax (variables, types, operators)
-- Understanding of C++ compilation model
-- Header files and namespaces
-
----
-
-## Core Concept
-
-### What Is It?
-Compiler flags overview is a fundamental concept in C++ that every programmer must understand.
-
-### Why Does It Matter?
-- Forms the foundation for understanding more complex C++ features
-- Commonly asked in technical interviews
-- Helps write clean, maintainable code
-
-### Mental Model
-Think of compiler flags overview as a building block — you can't build a house without understanding bricks.
-
----
-
-## Solution Approaches
-
-### Approach 1: Direct / Straightforward
-```cpp
-#include <iostream>
-#include <string>
-#include <vector>
-#include <algorithm>
-
-/*
- * Compiler flags overview
- * 
- * Approach: Direct implementation
- * Time Complexity:  O(n) — typical for this type of problem
- * Space Complexity: O(1) — or O(n) if storing results
- */
-int main() {
-    // TODO: Implement Compiler flags overview
-    // Step 1: Read input
-    // Step 2: Process
-    // Step 3: Output result
-    
-    std::cout << "Solution for: Compiler flags overview" << std::endl;
-    return 0;
-}
+# -Wall     : Enable most warnings
+# -Wextra   : Enable extra warnings
+# -Wpedantic: Enforce strict ISO C++ compliance
 ```
 
-**Time Complexity:** O(n) (typical)  
-**Space Complexity:** O(1) or O(n)  
-**When to use:** First attempt, when simplicity matters over performance.
+## Flag Categories
+```bash
+# WARNINGS
+-Wall              # Most common warnings
+-Wextra            # Additional useful warnings
+-Werror            # Treat warnings as errors
+-Wpedantic         # Strict standard compliance
+-Wshadow           # Warn when variable shadows another
+-Wconversion       # Warn on implicit type conversions
 
-### Approach 2: Optimized / STL-Based
-```cpp
-#include <iostream>
-#include <string>
-#include <vector>
-#include <algorithm>
-#include <numeric>
+# DEBUGGING
+-g                 # Include debug info (for gdb)
+-g3                # Maximum debug info
+-O0                # No optimization (default, best for debugging)
 
-/*
- * Compiler flags overview — Optimized approach using STL
- * 
- * Uses standard library algorithms where applicable.
- * Generally preferred in production C++ code.
- */
-int main() {
-    // TODO: STL-based implementation
-    // Use std::sort, std::find, std::accumulate, etc. as appropriate
-    
-    return 0;
-}
+# OPTIMIZATION
+-O1                # Basic optimization
+-O2                # Standard optimization (recommended for release)
+-O3                # Aggressive optimization
+-Os                # Optimize for size
+
+# STANDARD SELECTION
+-std=c++11         # C++11 standard
+-std=c++14         # C++14 standard
+-std=c++17         # C++17 standard (recommended)
+-std=c++20         # C++20 standard
+-std=c++23         # C++23 standard
+
+# OUTPUT CONTROL
+-o name            # Set output filename
+-c                 # Compile only (no linking) → .o file
+-E                 # Preprocess only → stdout
+-S                 # Compile to assembly → .s file
 ```
 
-**Time Complexity:** Depends on STL algorithm used  
-**Space Complexity:** Depends on approach  
-**When to use:** Production code, when you know the right STL tool.
+## Recommended Combinations
+```bash
+# Learning/Development
+g++ -std=c++17 -Wall -Wextra -g -O0 main.cpp -o main
 
-### Approach 3: Modern C++ (C++17/20)
-```cpp
-#include <iostream>
-#include <string>
-#include <vector>
+# Release build
+g++ -std=c++17 -Wall -Wextra -O2 -DNDEBUG main.cpp -o main
 
-/*
- * Compiler flags overview — Modern C++ approach
- * 
- * Uses features from C++17/20: structured bindings,
- * if-init, ranges, constexpr, etc.
- */
-int main() {
-    // TODO: Modern C++ implementation
-    // Use auto, structured bindings, ranges, etc.
-    
-    return 0;
-}
+# Maximum safety during development
+g++ -std=c++17 -Wall -Wextra -Wpedantic -Werror -Wshadow \
+    -Wconversion -g -O0 main.cpp -o main
 ```
 
----
+## Key Takeaways
+1. `-Wall -Wextra` — always use these for better code quality
+2. `-g` — essential for debugging with gdb
+3. `-std=c++17` — explicitly set the C++ standard
+4. `-O2` — good optimization for release builds
+5. `-Werror` — treat warnings as errors (use during development)
 
-## Step-by-Step Trace
-
-For a typical input, trace the solution:
-
-| Step | State | Action | Result |
-|------|-------|--------|--------|
-| 1 | Initial | Read input | — |
-| 2 | Processing | Apply algorithm | — |
-| 3 | Final | Output result | — |
-
----
-
-## Common Mistakes & Pitfalls
-
-1. **Off-by-one errors** — Check loop boundaries carefully
-2. **Uninitialized variables** — Always initialize before use
-3. **Integer overflow** — Use `long long` for large numbers
-4. **Missing edge cases** — Empty input, single element, negative numbers
-5. **Forgetting `#include`** — Include all necessary headers
-6. **Using `==` vs `=`** — Assignment vs comparison
-
----
-
-## What You Should Learn From This
-
-### Key C++ Feature Demonstrated
-- Compiler flags overview demonstrates fundamental language syntax
-
-### Interview Tips
-- Explain the concept clearly before writing code
-- Always discuss time/space complexity
-- Mention edge cases proactively
-
-### Code Review Checklist
-- [ ] Compiles with `-Wall -Wextra` — no warnings
-- [ ] Handles edge cases
-- [ ] Variables are properly initialized
-- [ ] No memory leaks (if using dynamic allocation)
-- [ ] Code is readable and well-commented
-
----
-
-## Pattern Recognition
-
-**Pattern:** Language fundamentals — know the rules
-
-**Similar Problems:**
-- (See other problems in this category)
-
-**When you see** _______, **think** _______.
-
----
-
-## Practice Variants
-1. **Easy:** Simplify the constraints (smaller input, fewer edge cases)
-2. **Medium:** Add a constraint (handle negative numbers, optimize for time)
-3. **Hard:** Combine with another concept (recursion, dynamic programming)
-
----
-
-## Quick Reference Card
-- **Core idea:** Compiler flags overview
-- **Key construct:** Language syntax
-- **Complexity:** O(n) typical
-- **Don't forget:** Initialize variables, check edge cases, use `-Wall`
-
----
-
-*Generated for C++ Level 0 — C00 Problem Solving Guide*
+## Common Mistakes
+- Compiling without any warnings → missing bugs
+- Using `-O2` while debugging → variables optimized away
+- Not specifying `-std=c++17` → getting old default standard
+- Forgetting `-g` → "no debugging symbols" when using gdb

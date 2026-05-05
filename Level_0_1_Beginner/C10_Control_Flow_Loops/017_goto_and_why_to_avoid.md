@@ -44,24 +44,29 @@ Think of goto (and why to avoid) as a tool in your toolbox — know when to reac
 ### Approach 1: Direct / Straightforward
 ```cpp
 #include <iostream>
-#include <string>
-#include <vector>
-#include <algorithm>
-
-/*
- * goto (and why to avoid)
- * 
- * Approach: Direct implementation
- * Time Complexity:  O(n) — typical for this type of problem
- * Space Complexity: O(1) — or O(n) if storing results
- */
 int main() {
-    // TODO: Implement goto (and why to avoid)
-    // Step 1: Read input
-    // Step 2: Process
-    // Step 3: Output result
+    // goto: unconditional jump (generally AVOID)
+    int i = 0;
+loop_start:
+    if (i >= 5) goto loop_end;
+    std::cout << i << " ";
+    i++;
+    goto loop_start;
+loop_end:
+    std::cout << "
+";
     
-    std::cout << "Solution for: goto (and why to avoid)" << std::endl;
+    // One acceptable use: breaking out of nested loops
+    for (int x = 0; x < 10; ++x) {
+        for (int y = 0; y < 10; ++y) {
+            if (x * y > 20) goto found;
+        }
+    }
+found:
+    std::cout << "Found product > 20
+";
+    
+    // Better alternative: use a function and return
     return 0;
 }
 ```
@@ -73,21 +78,29 @@ int main() {
 ### Approach 2: Optimized / STL-Based
 ```cpp
 #include <iostream>
-#include <string>
 #include <vector>
 #include <algorithm>
 #include <numeric>
+#include <string>
 
 /*
- * goto (and why to avoid) — Optimized approach using STL
- * 
- * Uses standard library algorithms where applicable.
- * Generally preferred in production C++ code.
+ * goto and why to avoid — STL/Library approach
  */
 int main() {
-    // TODO: STL-based implementation
-    // Use std::sort, std::find, std::accumulate, etc. as appropriate
+    std::vector<int> data = {5, 2, 8, 1, 9, 3, 7, 4, 6};
     
+    // Using STL algorithms for goto and why to avoid
+    std::sort(data.begin(), data.end());
+    
+    for (const auto& x : data)
+        std::cout << x << " ";
+    std::cout << "
+";
+    
+    // STL-based solution demonstration
+    auto sum = std::accumulate(data.begin(), data.end(), 0);
+    std::cout << "Sum: " << sum << "
+";
     return 0;
 }
 ```
@@ -99,18 +112,29 @@ int main() {
 ### Approach 3: Modern C++ (C++17/20)
 ```cpp
 #include <iostream>
-#include <string>
 #include <vector>
+#include <algorithm>
+#include <ranges>
+#include <numeric>
 
 /*
- * goto (and why to avoid) — Modern C++ approach
- * 
- * Uses features from C++17/20: structured bindings,
- * if-init, ranges, constexpr, etc.
+ * goto and why to avoid — Modern C++17/20 approach
  */
 int main() {
-    // TODO: Modern C++ implementation
-    // Use auto, structured bindings, ranges, etc.
+    std::vector<int> data = {5, 2, 8, 1, 9, 3, 7, 4, 6};
+    
+    // Modern C++ approach for: goto and why to avoid
+    // Using auto, structured bindings, ranges where applicable
+    
+    auto [min_it, max_it] = std::minmax_element(data.begin(), data.end());
+    std::cout << "Min: " << *min_it << ", Max: " << *max_it << "
+";
+    
+    // Lambda-based processing
+    auto is_even = [](int n) { return n % 2 == 0; };
+    auto count = std::count_if(data.begin(), data.end(), is_even);
+    std::cout << "Even count: " << count << "
+";
     
     return 0;
 }
@@ -187,3 +211,18 @@ For a typical input, trace the solution:
 ---
 
 *Generated for C++ Level 1 — C10 Problem Solving Guide*
+
+
+## Key Takeaways
+1. Understand the core algorithm/pattern for goto and why to avoid
+2. Consider time complexity — aim for optimal approach
+3. Handle edge cases: empty input, single element, boundary values
+4. Test with small inputs first, then verify with larger ones
+5. Know when to use iterative vs recursive approaches
+
+## Common Mistakes (Specific)
+- Off-by-one errors in loop boundaries or array indices
+- Not handling edge cases (empty input, n=0, n=1)
+- Integer overflow for large inputs — use `long long` when needed
+- Forgetting to initialize variables before use
+- Infinite loop from incorrect termination condition

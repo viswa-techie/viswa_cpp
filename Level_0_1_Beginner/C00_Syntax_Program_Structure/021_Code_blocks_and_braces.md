@@ -44,23 +44,35 @@ Think of code blocks and braces as a tool in your toolbox — know when to reach
 ### Approach 1: Direct / Straightforward
 ```cpp
 #include <iostream>
-#include <string>
-#include <vector>
-#include <algorithm>
 
 /*
  * Code blocks and braces
- * 
+ *
  * Approach: Direct implementation
- * Time Complexity:  O(n) — typical for this type of problem
- * Space Complexity: O(1) — or O(n) if storing results
  */
 int main() {
-    // TODO: Implement Code blocks and braces
     // Step 1: Read input
+    int number;
+    std::cout << "Enter a number: ";
+    std::cin >> number;
+
     // Step 2: Process
+    // Code block for if condition
+    if (number > 0) {
+        std::cout << "Number is positive" << std::endl;
+    } else {
+        std::cout << "Number is zero or negative" << std::endl;
+    }
+
+    // Code block for loop
+    std::cout << "Counting using a loop:" << std::endl;
+    for (int i = 0; i < number; i++) {
+        std::cout << i << " ";
+    }
+
+    std::cout << std::endl;
+
     // Step 3: Output result
-    
     std::cout << "Solution for: Code blocks and braces" << std::endl;
     return 0;
 }
@@ -87,7 +99,22 @@ int main() {
 int main() {
     // TODO: STL-based implementation
     // Use std::sort, std::find, std::accumulate, etc. as appropriate
-    
+#include <iostream>
+#include <vector>
+#include <algorithm>
+    // Step 1: Input
+    std::vector<int> numbers = {1, -2, 3, -4, 5};
+
+    // Step 2: Process
+    // Code block using lambda + braces
+    std::cout << "Positive numbers: ";
+    std::for_each(numbers.begin(), numbers.end(), [](int n) {
+        if (n > 0) {
+            std::cout << n << " ";
+        }
+    });
+
+    std::cout << std::endl;
     return 0;
 }
 ```
@@ -111,7 +138,22 @@ int main() {
 int main() {
     // TODO: Modern C++ implementation
     // Use auto, structured bindings, ranges, etc.
-    
+#include <iostream>
+#include <vector>
+
+    std::vector<int> values = {10, 20, 30};
+
+    // if-init statement (C++17)
+    if (int size = values.size(); size > 0) {
+        std::cout << "Vector has " << size << " elements." << std::endl;
+    }
+
+    // Range-based for loop
+    for (int value : values) {
+        std::cout << value << " ";
+    }
+
+    std::cout << std::endl;
     return 0;
 }
 ```

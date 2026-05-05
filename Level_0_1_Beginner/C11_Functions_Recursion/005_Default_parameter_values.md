@@ -45,23 +45,33 @@ Think of default parameter values as a tool in your toolbox — know when to rea
 ```cpp
 #include <iostream>
 #include <string>
-#include <vector>
-#include <algorithm>
 
-/*
- * Default parameter values
- * 
- * Approach: Direct implementation
- * Time Complexity:  O(n) — typical for this type of problem
- * Space Complexity: O(1) — or O(n) if storing results
- */
+void greet(const std::string& name, const std::string& greeting = "Hello") {
+    std::cout << greeting << ", " << name << "!
+";
+}
+
+int power(int base, int exp = 2) {
+    int result = 1;
+    for (int i = 0; i < exp; ++i) result *= base;
+    return result;
+}
+
+void log(const std::string& msg, int level = 0, bool newline = true) {
+    std::cout << "[" << level << "] " << msg;
+    if (newline) std::cout << "
+";
+}
+
 int main() {
-    // TODO: Implement Default parameter values
-    // Step 1: Read input
-    // Step 2: Process
-    // Step 3: Output result
-    
-    std::cout << "Solution for: Default parameter values" << std::endl;
+    greet("Viswa");            // Uses default "Hello"
+    greet("Viswa", "Hi");     // Overrides default
+    std::cout << power(5) << "
+";     // 25 (default exp=2)
+    std::cout << power(2, 10) << "
+"; // 1024
+    log("Started");
+    log("Error", 2);
     return 0;
 }
 ```
@@ -73,21 +83,26 @@ int main() {
 ### Approach 2: Optimized / STL-Based
 ```cpp
 #include <iostream>
-#include <string>
 #include <vector>
 #include <algorithm>
+#include <functional>
 #include <numeric>
 
 /*
- * Default parameter values — Optimized approach using STL
- * 
- * Uses standard library algorithms where applicable.
- * Generally preferred in production C++ code.
+ * Default parameter values — STL/Library approach
  */
 int main() {
-    // TODO: STL-based implementation
-    // Use std::sort, std::find, std::accumulate, etc. as appropriate
+    std::vector<int> data = {5, 2, 8, 1, 9, 3, 7, 4, 6};
     
+    // STL-based implementation of Default parameter values
+    std::sort(data.begin(), data.end());
+    for (const auto& x : data) std::cout << x << " ";
+    std::cout << "
+";
+    
+    auto sum = std::accumulate(data.begin(), data.end(), 0);
+    std::cout << "Sum: " << sum << "
+";
     return 0;
 }
 ```
@@ -99,19 +114,26 @@ int main() {
 ### Approach 3: Modern C++ (C++17/20)
 ```cpp
 #include <iostream>
-#include <string>
 #include <vector>
+#include <algorithm>
+#include <numeric>
 
 /*
- * Default parameter values — Modern C++ approach
- * 
- * Uses features from C++17/20: structured bindings,
- * if-init, ranges, constexpr, etc.
+ * Default parameter values — Modern C++17/20 approach
  */
 int main() {
-    // TODO: Modern C++ implementation
-    // Use auto, structured bindings, ranges, etc.
+    std::vector<int> data = {5, 2, 8, 1, 9, 3, 7, 4, 6};
     
+    // Modern C++ features for Default parameter values
+    auto [min_it, max_it] = std::minmax_element(data.begin(), data.end());
+    std::cout << "Range: [" << *min_it << ", " << *max_it << "]
+";
+    
+    // Lambda-based approach
+    std::sort(data.begin(), data.end());
+    for (const auto& x : data) std::cout << x << " ";
+    std::cout << "
+";
     return 0;
 }
 ```
@@ -187,3 +209,18 @@ For a typical input, trace the solution:
 ---
 
 *Generated for C++ Level 1 — C11 Problem Solving Guide*
+
+
+## Key Takeaways
+1. Default params must be rightmost: `f(int a, int b = 0)` OK, reverse is not
+2. Specified in declaration (header), not definition (source)
+3. Evaluated at call site, not definition site
+4. Can conflict with overloads — causes ambiguity
+5. Use sparingly — too many defaults make calls confusing
+
+## Common Mistakes (Specific)
+- Not handling edge cases (empty input, single element, boundary values)
+- Off-by-one errors in recursive/iterative bounds
+- Integer overflow for large inputs — use `long long`
+- Stack overflow from deep recursion — convert to iterative if needed
+- Forgetting to initialize variables before use

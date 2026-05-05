@@ -44,24 +44,25 @@ Think of signed vs unsigned as a tool in your toolbox — know when to reach for
 ### Approach 1: Direct / Straightforward
 ```cpp
 #include <iostream>
-#include <string>
-#include <vector>
-#include <algorithm>
-
-/*
- * signed vs unsigned
- * 
- * Approach: Direct implementation
- * Time Complexity:  O(n) — typical for this type of problem
- * Space Complexity: O(1) — or O(n) if storing results
- */
 int main() {
-    // TODO: Implement signed vs unsigned
-    // Step 1: Read input
-    // Step 2: Process
-    // Step 3: Output result
-    
-    std::cout << "Solution for: signed vs unsigned" << std::endl;
+    int s = -1;
+    unsigned int u = 1;
+
+    // Dangerous comparison: signed vs unsigned
+    if (s < u) {
+        std::cout << "-1 < 1: Expected!
+";
+    } else {
+        std::cout << "-1 >= 1: Surprise! (signed converted to unsigned)
+";
+    }
+    // s is converted to unsigned: -1 becomes 4294967295, which > 1
+
+    // Safe: cast explicitly
+    if (s < static_cast<int>(u)) {
+        std::cout << "Correct comparison with cast
+";
+    }
     return 0;
 }
 ```
@@ -73,21 +74,25 @@ int main() {
 ### Approach 2: Optimized / STL-Based
 ```cpp
 #include <iostream>
-#include <string>
 #include <vector>
 #include <algorithm>
-#include <numeric>
 
-/*
- * signed vs unsigned — Optimized approach using STL
- * 
- * Uses standard library algorithms where applicable.
- * Generally preferred in production C++ code.
- */
 int main() {
-    // TODO: STL-based implementation
-    // Use std::sort, std::find, std::accumulate, etc. as appropriate
-    
+    std::vector<int> v = {5, 3, 8, 1};
+
+    // v.size() is size_t (unsigned) — careful with subtraction
+    int target = 2;
+    // BAD: if v.size() < target, v.size() - target wraps!
+    // GOOD: compare first
+    if (static_cast<int>(v.size()) > target)
+        std::cout << "Safe to subtract
+";
+
+    // STL uses unsigned (size_t) everywhere
+    for (std::vector<int>::size_type i = 0; i < v.size(); ++i)
+        std::cout << v[i] << " ";
+    std::cout << "
+";
     return 0;
 }
 ```
@@ -99,19 +104,29 @@ int main() {
 ### Approach 3: Modern C++ (C++17/20)
 ```cpp
 #include <iostream>
-#include <string>
-#include <vector>
+#include <cstdint>
+#include <compare>
 
-/*
- * signed vs unsigned — Modern C++ approach
- * 
- * Uses features from C++17/20: structured bindings,
- * if-init, ranges, constexpr, etc.
- */
 int main() {
-    // TODO: Modern C++ implementation
-    // Use auto, structured bindings, ranges, etc.
-    
+    int32_t signed_val = -5;
+    uint32_t unsigned_val = 10;
+
+    // C++20: std::cmp_less handles mixed sign correctly
+    #if __cplusplus >= 202002L
+    if (std::cmp_less(signed_val, unsigned_val))
+        std::cout << "-5 < 10: Correct with cmp_less!
+";
+    #endif
+
+    // Pre-C++20 safe comparison
+    auto safe_less = [](auto a, auto b) -> bool {
+        if constexpr (std::is_signed_v<decltype(a)> && std::is_unsigned_v<decltype(b)>)
+            return a < 0 || static_cast<std::make_unsigned_t<decltype(a)>>(a) < b;
+        else
+            return a < b;
+    };
+    std::cout << safe_less(signed_val, unsigned_val) << "
+";  // 1
     return 0;
 }
 ```
@@ -187,3 +202,17 @@ For a typical input, trace the solution:
 ---
 
 *Generated for C++ Level 0 — C01 Problem Solving Guide*
+
+
+## Key Takeaways
+1. Comparing signed with unsigned triggers implicit conversion — signed becomes unsigned
+2. `-1 < 1u` is FALSE because -1 converts to UINT_MAX
+3. Use `-Wsign-compare` flag to catch these bugs at compile time
+4. C++20 `std::cmp_less/cmp_greater` handles mixed sign correctly
+5. Prefer same signedness in comparisons, or cast explicitly
+
+## Common Mistakes (Specific)
+- Comparing `int` with `size_t` without thinking — common source of bugs
+- `vector.size() - 1` when vector is empty → wraps to huge number
+- Ignoring `-Wsign-compare` warnings — they indicate real bugs
+- Assuming `-1 < 1u` is true — it's false due to unsigned promotion

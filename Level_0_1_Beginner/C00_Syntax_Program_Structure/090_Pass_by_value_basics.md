@@ -1,189 +1,102 @@
 # Pass by value basics
 
 > **Level:** 0 — Absolute Beginner  
-> **Category:** C00  
-> **Topic:** functions
+> **Category:** C00 — C++ Syntax & Program Structure  
+> **Topic:** syntax
 
 ---
 
 ## Problem Statement
+Understand pass by value — the default parameter passing mechanism in C++.
 
-Understand and explain the concept of Pass by value basics. Be able to describe it, identify it in code, and use it correctly.
+## What You Need to Know
+- Pass by value means the function receives a **copy** of the argument.
+- Modifications inside the function do NOT affect the original.
+- Copies can be expensive for large objects.
 
-### Examples
-- **Input Example 1:** A typical/simple case
-- **Input Example 2:** An edge case (empty input, boundary values)
-- **Input Example 3:** A larger or tricky case
-
----
-
-## Prerequisites
-- Basic C++ syntax (variables, types, operators)
-- Understanding of C++ compilation model
-- Header files and namespaces
-
----
-
-## Core Concept
-
-### What Is It?
-Pass by value basics is a fundamental concept in C++ that every programmer must understand.
-
-### Why Does It Matter?
-- Forms the foundation for understanding more complex C++ features
-- Commonly asked in technical interviews
-- Helps write clean, maintainable code
-
-### Mental Model
-Think of pass by value basics as a building block — you can't build a house without understanding bricks.
-
----
-
-## Solution Approaches
-
-### Approach 1: Direct / Straightforward
+## Pass by Value Demo
 ```cpp
 #include <iostream>
-#include <string>
-#include <vector>
-#include <algorithm>
 
-/*
- * Pass by value basics
- * 
- * Approach: Direct implementation
- * Time Complexity:  O(n) — typical for this type of problem
- * Space Complexity: O(1) — or O(n) if storing results
- */
+void doubleIt(int x) {    // x is a copy
+    x = x * 2;
+    std::cout << "Inside: " << x << "\n";   // 20
+}
+
 int main() {
-    // TODO: Implement Pass by value basics
-    // Step 1: Read input
-    // Step 2: Process
-    // Step 3: Output result
-    
-    std::cout << "Solution for: Pass by value basics" << std::endl;
+    int num = 10;
+    doubleIt(num);
+    std::cout << "Outside: " << num << "\n";  // 10 (unchanged!)
     return 0;
 }
 ```
 
-**Time Complexity:** O(n) (typical)  
-**Space Complexity:** O(1) or O(n)  
-**When to use:** First attempt, when simplicity matters over performance.
+## Memory View
+```
+Before call:    num = 10
+                    │
+Function call:  x = 10 (copy created)
+                x = 20 (copy modified)
+After return:   num = 10 (original unchanged)
+                x destroyed
+```
 
-### Approach 2: Optimized / STL-Based
+## Pass by Reference (Preview)
 ```cpp
 #include <iostream>
-#include <string>
-#include <vector>
-#include <algorithm>
-#include <numeric>
 
-/*
- * Pass by value basics — Optimized approach using STL
- * 
- * Uses standard library algorithms where applicable.
- * Generally preferred in production C++ code.
- */
+void doubleIt(int& x) {   // x is a REFERENCE (alias)
+    x = x * 2;
+}
+
 int main() {
-    // TODO: STL-based implementation
-    // Use std::sort, std::find, std::accumulate, etc. as appropriate
-    
+    int num = 10;
+    doubleIt(num);
+    std::cout << "num: " << num << "\n";  // 20 (modified!)
     return 0;
 }
 ```
 
-**Time Complexity:** Depends on STL algorithm used  
-**Space Complexity:** Depends on approach  
-**When to use:** Production code, when you know the right STL tool.
+## When to Use Which
+```
+Use pass by value:              Use pass by reference:
+------------------              ----------------------
+Small types (int, char, bool)   Large objects (string, vector)
+When you need a local copy      When you need to modify the original
+When function shouldn't modify  When copying is too expensive
+```
 
-### Approach 3: Modern C++ (C++17/20)
+## const Reference (Best of Both)
 ```cpp
 #include <iostream>
 #include <string>
-#include <vector>
 
-/*
- * Pass by value basics — Modern C++ approach
- * 
- * Uses features from C++17/20: structured bindings,
- * if-init, ranges, constexpr, etc.
- */
+// Pass by value — copies the entire string
+void printV(std::string s) {
+    std::cout << s << "\n";
+}
+
+// Pass by const reference — no copy, can't modify
+void printR(const std::string& s) {
+    std::cout << s << "\n";
+}
+
 int main() {
-    // TODO: Modern C++ implementation
-    // Use auto, structured bindings, ranges, etc.
-    
+    std::string text = "Hello, World!";
+    printV(text);    // Makes a copy (slow for large strings)
+    printR(text);    // No copy (fast, and safe — const prevents modification)
     return 0;
 }
 ```
 
----
+## Key Takeaways
+1. Pass by value creates a copy — modifications don't affect the original
+2. Use pass by value for small, cheap-to-copy types (int, double, char)
+3. Use `const &` for read-only access to large objects (string, vector)
+4. Use `&` (non-const reference) when the function needs to modify the argument
+5. Pass by value is safe — the function can't accidentally modify your data
 
-## Step-by-Step Trace
-
-For a typical input, trace the solution:
-
-| Step | State | Action | Result |
-|------|-------|--------|--------|
-| 1 | Initial | Read input | — |
-| 2 | Processing | Apply algorithm | — |
-| 3 | Final | Output result | — |
-
----
-
-## Common Mistakes & Pitfalls
-
-1. **Off-by-one errors** — Check loop boundaries carefully
-2. **Uninitialized variables** — Always initialize before use
-3. **Integer overflow** — Use `long long` for large numbers
-4. **Missing edge cases** — Empty input, single element, negative numbers
-5. **Forgetting `#include`** — Include all necessary headers
-6. **Using `==` vs `=`** — Assignment vs comparison
-
----
-
-## What You Should Learn From This
-
-### Key C++ Feature Demonstrated
-- Pass by value basics demonstrates fundamental language syntax
-
-### Interview Tips
-- Explain the concept clearly before writing code
-- Always discuss time/space complexity
-- Mention edge cases proactively
-
-### Code Review Checklist
-- [ ] Compiles with `-Wall -Wextra` — no warnings
-- [ ] Handles edge cases
-- [ ] Variables are properly initialized
-- [ ] No memory leaks (if using dynamic allocation)
-- [ ] Code is readable and well-commented
-
----
-
-## Pattern Recognition
-
-**Pattern:** Language fundamentals — know the rules
-
-**Similar Problems:**
-- (See other problems in this category)
-
-**When you see** _______, **think** _______.
-
----
-
-## Practice Variants
-1. **Easy:** Simplify the constraints (smaller input, fewer edge cases)
-2. **Medium:** Add a constraint (handle negative numbers, optimize for time)
-3. **Hard:** Combine with another concept (recursion, dynamic programming)
-
----
-
-## Quick Reference Card
-- **Core idea:** Pass by value basics
-- **Key construct:** Language syntax
-- **Complexity:** O(n) typical
-- **Don't forget:** Initialize variables, check edge cases, use `-Wall`
-
----
-
-*Generated for C++ Level 0 — C00 Problem Solving Guide*
+## Common Mistakes
+- Passing large objects by value → unnecessary expensive copies
+- Thinking value parameters modify the original → they don't
+- Using `&` when `const &` would suffice → accidental modification possible

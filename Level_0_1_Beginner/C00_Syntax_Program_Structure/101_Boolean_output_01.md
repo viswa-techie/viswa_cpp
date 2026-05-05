@@ -1,189 +1,83 @@
 # Boolean output (0/1)
 
 > **Level:** 0 — Absolute Beginner  
-> **Category:** C00  
-> **Topic:** types
+> **Category:** C00 — C++ Syntax & Program Structure  
+> **Topic:** syntax
 
 ---
 
 ## Problem Statement
+Control how boolean values are printed — as `0`/`1` or `true`/`false`.
 
-Master the use of Boolean output (0/1) in C++ programs. Understand when and why to use it.
-
-### Examples
-- **Input Example 1:** A typical/simple case
-- **Input Example 2:** An edge case (empty input, boundary values)
-- **Input Example 3:** A larger or tricky case
-
----
-
-## Prerequisites
-- Basic C++ syntax (variables, types, operators)
-- Standard I/O operations
-- Header files and namespaces
-
----
-
-## Core Concept
-
-### What Is It?
-Boolean output (0/1) is a technique in C++ that appears frequently in interviews and real projects.
-
-### Why Does It Matter?
-- Used extensively in production C++ code
-- Commonly asked in technical interviews
-- Helps write clean, maintainable code
-
-### Mental Model
-Think of boolean output (0/1) as a tool in your toolbox — know when to reach for it.
-
----
-
-## Solution Approaches
-
-### Approach 1: Direct / Straightforward
+## Default Output (0/1)
 ```cpp
 #include <iostream>
-#include <string>
-#include <vector>
-#include <algorithm>
 
-/*
- * Boolean output (0/1)
- * 
- * Approach: Direct implementation
- * Time Complexity:  O(n) — typical for this type of problem
- * Space Complexity: O(1) — or O(n) if storing results
- */
 int main() {
-    // TODO: Implement Boolean output (0/1)
-    // Step 1: Read input
-    // Step 2: Process
-    // Step 3: Output result
-    
-    std::cout << "Solution for: Boolean output (0/1)" << std::endl;
+    bool a = true;
+    bool b = false;
+
+    // Default: prints 1 and 0
+    std::cout << "a = " << a << "\n";   // a = 1
+    std::cout << "b = " << b << "\n";   // b = 0
     return 0;
 }
 ```
 
-**Time Complexity:** O(n) (typical)  
-**Space Complexity:** O(1) or O(n)  
-**When to use:** First attempt, when simplicity matters over performance.
-
-### Approach 2: Optimized / STL-Based
+## Using boolalpha (true/false)
 ```cpp
 #include <iostream>
-#include <string>
-#include <vector>
-#include <algorithm>
-#include <numeric>
 
-/*
- * Boolean output (0/1) — Optimized approach using STL
- * 
- * Uses standard library algorithms where applicable.
- * Generally preferred in production C++ code.
- */
 int main() {
-    // TODO: STL-based implementation
-    // Use std::sort, std::find, std::accumulate, etc. as appropriate
-    
+    bool a = true;
+    bool b = false;
+
+    std::cout << std::boolalpha;         // Switch to text mode
+    std::cout << "a = " << a << "\n";   // a = true
+    std::cout << "b = " << b << "\n";   // b = false
+
+    std::cout << std::noboolalpha;       // Switch back to numeric
+    std::cout << "a = " << a << "\n";   // a = 1
     return 0;
 }
 ```
 
-**Time Complexity:** Depends on STL algorithm used  
-**Space Complexity:** Depends on approach  
-**When to use:** Production code, when you know the right STL tool.
-
-### Approach 3: Modern C++ (C++17/20)
+## Inline Usage
 ```cpp
 #include <iostream>
-#include <string>
-#include <vector>
 
-/*
- * Boolean output (0/1) — Modern C++ approach
- * 
- * Uses features from C++17/20: structured bindings,
- * if-init, ranges, constexpr, etc.
- */
 int main() {
-    // TODO: Modern C++ implementation
-    // Use auto, structured bindings, ranges, etc.
-    
+    int x = 10;
+    // boolalpha as inline manipulator
+    std::cout << "Is positive: " << std::boolalpha << (x > 0) << "\n";
+    // Output: Is positive: true
     return 0;
 }
 ```
 
----
+## Common Pattern: Print Condition Results
+```cpp
+#include <iostream>
 
-## Step-by-Step Trace
+int main() {
+    int score = 85;
 
-For a typical input, trace the solution:
+    std::cout << std::boolalpha;
+    std::cout << "Passing: " << (score >= 60) << "\n";   // true
+    std::cout << "Perfect: " << (score == 100) << "\n";  // false
+    std::cout << "Score > 80: " << (score > 80) << "\n"; // true
+    return 0;
+}
+```
 
-| Step | State | Action | Result |
-|------|-------|--------|--------|
-| 1 | Initial | Read input | — |
-| 2 | Processing | Apply algorithm | — |
-| 3 | Final | Output result | — |
+## Key Takeaways
+1. Default: `cout << true` prints `1`, `cout << false` prints `0`
+2. `std::boolalpha` makes cout print `true`/`false` as text
+3. `std::noboolalpha` switches back to `0`/`1`
+4. `boolalpha` is sticky — affects all subsequent bool output
+5. Use `boolalpha` for human-readable output
 
----
-
-## Common Mistakes & Pitfalls
-
-1. **Off-by-one errors** — Check loop boundaries carefully
-2. **Uninitialized variables** — Always initialize before use
-3. **Integer overflow** — Use `long long` for large numbers
-4. **Missing edge cases** — Empty input, single element, negative numbers
-5. **Forgetting `#include`** — Include all necessary headers
-6. **Using `==` vs `=`** — Assignment vs comparison
-
----
-
-## What You Should Learn From This
-
-### Key C++ Feature Demonstrated
-- Boolean output (0/1) demonstrates proper C++ idioms and best practices
-
-### Interview Tips
-- Discuss tradeoffs between approaches
-- Always discuss time/space complexity
-- Mention edge cases proactively
-
-### Code Review Checklist
-- [ ] Compiles with `-Wall -Wextra` — no warnings
-- [ ] Handles edge cases
-- [ ] Variables are properly initialized
-- [ ] No memory leaks (if using dynamic allocation)
-- [ ] Code is readable and well-commented
-
----
-
-## Pattern Recognition
-
-**Pattern:** Implementation pattern — combine concepts to build
-
-**Similar Problems:**
-- (See other problems in this category)
-
-**When you see** _______, **think** _______.
-
----
-
-## Practice Variants
-1. **Easy:** Simplify the constraints (smaller input, fewer edge cases)
-2. **Medium:** Add a constraint (handle negative numbers, optimize for time)
-3. **Hard:** Combine with another concept (recursion, dynamic programming)
-
----
-
-## Quick Reference Card
-- **Core idea:** Boolean output (0/1)
-- **Key construct:** STL / Standard Library
-- **Complexity:** O(n) typical
-- **Don't forget:** Initialize variables, check edge cases, use `-Wall`
-
----
-
-*Generated for C++ Level 0 — C00 Problem Solving Guide*
+## Common Mistakes
+- Expecting `true`/`false` by default — you get `1`/`0`
+- Forgetting boolalpha is persistent — it affects all subsequent output
+- Printing expressions without parentheses: `cout << x > 5` is parsed as `(cout << x) > 5`

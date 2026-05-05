@@ -1,189 +1,124 @@
 # Basic boolean logic
 
 > **Level:** 0 — Absolute Beginner  
-> **Category:** C00  
-> **Topic:** types
+> **Category:** C00 — C++ Syntax & Program Structure  
+> **Topic:** syntax
 
 ---
 
 ## Problem Statement
+Understand boolean operators and logic in C++.
 
-Master the use of Basic boolean logic in C++ programs. Understand when and why to use it.
+## What You Need to Know
+- `bool` type has two values: `true` (1) and `false` (0).
+- Logical operators: `&&` (AND), `||` (OR), `!` (NOT).
+- Comparison operators return `bool`: `==`, `!=`, `<`, `>`, `<=`, `>=`.
 
-### Examples
-- **Input Example 1:** A typical/simple case
-- **Input Example 2:** An edge case (empty input, boundary values)
-- **Input Example 3:** A larger or tricky case
-
----
-
-## Prerequisites
-- Basic C++ syntax (variables, types, operators)
-- Standard I/O operations
-- Header files and namespaces
-
----
-
-## Core Concept
-
-### What Is It?
-Basic boolean logic is a technique in C++ that appears frequently in interviews and real projects.
-
-### Why Does It Matter?
-- Used extensively in production C++ code
-- Commonly asked in technical interviews
-- Helps write clean, maintainable code
-
-### Mental Model
-Think of basic boolean logic as a tool in your toolbox — know when to reach for it.
-
----
-
-## Solution Approaches
-
-### Approach 1: Direct / Straightforward
+## Logical Operators
 ```cpp
 #include <iostream>
-#include <string>
-#include <vector>
-#include <algorithm>
 
-/*
- * Basic boolean logic
- * 
- * Approach: Direct implementation
- * Time Complexity:  O(n) — typical for this type of problem
- * Space Complexity: O(1) — or O(n) if storing results
- */
 int main() {
-    // TODO: Implement Basic boolean logic
-    // Step 1: Read input
-    // Step 2: Process
-    // Step 3: Output result
-    
-    std::cout << "Solution for: Basic boolean logic" << std::endl;
+    bool a = true, b = false;
+
+    std::cout << std::boolalpha;    // Print true/false instead of 1/0
+
+    std::cout << "AND: " << (a && b) << "\n";   // false
+    std::cout << "OR:  " << (a || b) << "\n";   // true
+    std::cout << "NOT: " << (!a) << "\n";        // false
+
     return 0;
 }
 ```
 
-**Time Complexity:** O(n) (typical)  
-**Space Complexity:** O(1) or O(n)  
-**When to use:** First attempt, when simplicity matters over performance.
+## Truth Tables
+```
+AND (&&)        OR (||)         NOT (!)
+A     B  Result A     B  Result A    Result
+true  true  true   true  true  true   true  false
+true  false false  true  false true   false true
+false true  false  false true  true
+false false false  false false false
+```
 
-### Approach 2: Optimized / STL-Based
+## Comparison Operators
 ```cpp
 #include <iostream>
-#include <string>
-#include <vector>
-#include <algorithm>
-#include <numeric>
 
-/*
- * Basic boolean logic — Optimized approach using STL
- * 
- * Uses standard library algorithms where applicable.
- * Generally preferred in production C++ code.
- */
 int main() {
-    // TODO: STL-based implementation
-    // Use std::sort, std::find, std::accumulate, etc. as appropriate
-    
+    int x = 10, y = 20;
+
+    std::cout << std::boolalpha;
+    std::cout << (x == y) << "\n";   // false (equal)
+    std::cout << (x != y) << "\n";   // true  (not equal)
+    std::cout << (x < y)  << "\n";   // true  (less than)
+    std::cout << (x > y)  << "\n";   // false (greater than)
+    std::cout << (x <= y) << "\n";   // true  (less or equal)
+    std::cout << (x >= y) << "\n";   // false (greater or equal)
+
     return 0;
 }
 ```
 
-**Time Complexity:** Depends on STL algorithm used  
-**Space Complexity:** Depends on approach  
-**When to use:** Production code, when you know the right STL tool.
-
-### Approach 3: Modern C++ (C++17/20)
+## Combining Conditions
 ```cpp
 #include <iostream>
-#include <string>
-#include <vector>
 
-/*
- * Basic boolean logic — Modern C++ approach
- * 
- * Uses features from C++17/20: structured bindings,
- * if-init, ranges, constexpr, etc.
- */
 int main() {
-    // TODO: Modern C++ implementation
-    // Use auto, structured bindings, ranges, etc.
-    
+    int age = 25;
+    bool hasLicense = true;
+
+    // AND — both must be true
+    if (age >= 18 && hasLicense) {
+        std::cout << "Can drive\n";
+    }
+
+    // OR — at least one must be true
+    int day = 6;
+    if (day == 6 || day == 7) {
+        std::cout << "Weekend\n";
+    }
+
+    // NOT — inverts
+    bool isRaining = false;
+    if (!isRaining) {
+        std::cout << "Go outside\n";
+    }
+
     return 0;
 }
 ```
 
----
+## Short-Circuit Evaluation
+```cpp
+#include <iostream>
 
-## Step-by-Step Trace
+int main() {
+    int* ptr = nullptr;
 
-For a typical input, trace the solution:
+    // AND short-circuits: if first is false, second is NOT evaluated
+    if (ptr != nullptr && *ptr > 0) {
+        // Safe — *ptr is never reached if ptr is null
+    }
 
-| Step | State | Action | Result |
-|------|-------|--------|--------|
-| 1 | Initial | Read input | — |
-| 2 | Processing | Apply algorithm | — |
-| 3 | Final | Output result | — |
+    // OR short-circuits: if first is true, second is NOT evaluated
+    bool found = true;
+    if (found || expensiveSearch()) {
+        // expensiveSearch() is never called
+    }
 
----
+    return 0;
+}
+```
 
-## Common Mistakes & Pitfalls
+## Key Takeaways
+1. `&&` = AND, `||` = OR, `!` = NOT
+2. Short-circuit: `&&` stops on first false, `||` stops on first true
+3. Use `std::boolalpha` to print "true"/"false" instead of "1"/"0"
+4. Non-zero integers are `true`, zero is `false`
+5. Parenthesize complex conditions for clarity
 
-1. **Off-by-one errors** — Check loop boundaries carefully
-2. **Uninitialized variables** — Always initialize before use
-3. **Integer overflow** — Use `long long` for large numbers
-4. **Missing edge cases** — Empty input, single element, negative numbers
-5. **Forgetting `#include`** — Include all necessary headers
-6. **Using `==` vs `=`** — Assignment vs comparison
-
----
-
-## What You Should Learn From This
-
-### Key C++ Feature Demonstrated
-- Basic boolean logic demonstrates proper C++ idioms and best practices
-
-### Interview Tips
-- Discuss tradeoffs between approaches
-- Always discuss time/space complexity
-- Mention edge cases proactively
-
-### Code Review Checklist
-- [ ] Compiles with `-Wall -Wextra` — no warnings
-- [ ] Handles edge cases
-- [ ] Variables are properly initialized
-- [ ] No memory leaks (if using dynamic allocation)
-- [ ] Code is readable and well-commented
-
----
-
-## Pattern Recognition
-
-**Pattern:** Implementation pattern — combine concepts to build
-
-**Similar Problems:**
-- (See other problems in this category)
-
-**When you see** _______, **think** _______.
-
----
-
-## Practice Variants
-1. **Easy:** Simplify the constraints (smaller input, fewer edge cases)
-2. **Medium:** Add a constraint (handle negative numbers, optimize for time)
-3. **Hard:** Combine with another concept (recursion, dynamic programming)
-
----
-
-## Quick Reference Card
-- **Core idea:** Basic boolean logic
-- **Key construct:** STL / Standard Library
-- **Complexity:** O(n) typical
-- **Don't forget:** Initialize variables, check edge cases, use `-Wall`
-
----
-
-*Generated for C++ Level 0 — C00 Problem Solving Guide*
+## Common Mistakes
+- Using `=` (assignment) instead of `==` (comparison) in conditions
+- Not understanding short-circuit → dereferencing null pointer
+- `if (x = 5)` — always true! Use `if (x == 5)`

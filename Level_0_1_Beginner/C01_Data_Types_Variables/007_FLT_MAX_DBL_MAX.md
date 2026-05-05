@@ -44,24 +44,24 @@ Think of flt_max / dbl_max as a tool in your toolbox — know when to reach for 
 ### Approach 1: Direct / Straightforward
 ```cpp
 #include <iostream>
-#include <string>
-#include <vector>
-#include <algorithm>
-
-/*
- * FLT_MAX / DBL_MAX
- * 
- * Approach: Direct implementation
- * Time Complexity:  O(n) — typical for this type of problem
- * Space Complexity: O(1) — or O(n) if storing results
- */
+#include <cfloat>
 int main() {
-    // TODO: Implement FLT_MAX / DBL_MAX
-    // Step 1: Read input
-    // Step 2: Process
-    // Step 3: Output result
-    
-    std::cout << "Solution for: FLT_MAX / DBL_MAX" << std::endl;
+    std::cout << "FLT_MAX = " << FLT_MAX << "
+";
+    std::cout << "FLT_MIN = " << FLT_MIN << " (smallest positive)
+";
+    std::cout << "FLT_EPSILON = " << FLT_EPSILON << "
+";
+    std::cout << "DBL_MAX = " << DBL_MAX << "
+";
+    std::cout << "DBL_MIN = " << DBL_MIN << "
+";
+    std::cout << "DBL_EPSILON = " << DBL_EPSILON << "
+";
+    std::cout << "FLT_DIG = " << FLT_DIG << " decimal digits
+";
+    std::cout << "DBL_DIG = " << DBL_DIG << " decimal digits
+";
     return 0;
 }
 ```
@@ -73,21 +73,18 @@ int main() {
 ### Approach 2: Optimized / STL-Based
 ```cpp
 #include <iostream>
-#include <string>
-#include <vector>
-#include <algorithm>
-#include <numeric>
-
-/*
- * FLT_MAX / DBL_MAX — Optimized approach using STL
- * 
- * Uses standard library algorithms where applicable.
- * Generally preferred in production C++ code.
- */
+#include <limits>
 int main() {
-    // TODO: STL-based implementation
-    // Use std::sort, std::find, std::accumulate, etc. as appropriate
-    
+    std::cout << "float max: " << std::numeric_limits<float>::max() << "
+";
+    std::cout << "float min (positive): " << std::numeric_limits<float>::min() << "
+";
+    std::cout << "float lowest: " << std::numeric_limits<float>::lowest() << "
+";
+    std::cout << "float epsilon: " << std::numeric_limits<float>::epsilon() << "
+";
+    std::cout << "double precision digits: " << std::numeric_limits<double>::digits10 << "
+";
     return 0;
 }
 ```
@@ -99,19 +96,19 @@ int main() {
 ### Approach 3: Modern C++ (C++17/20)
 ```cpp
 #include <iostream>
-#include <string>
-#include <vector>
-
-/*
- * FLT_MAX / DBL_MAX — Modern C++ approach
- * 
- * Uses features from C++17/20: structured bindings,
- * if-init, ranges, constexpr, etc.
- */
+#include <limits>
+#include <cmath>
 int main() {
-    // TODO: Modern C++ implementation
-    // Use auto, structured bindings, ranges, etc.
+    // Using epsilon for float comparison
+    double a = 0.1 + 0.2;
+    double b = 0.3;
+    constexpr double eps = std::numeric_limits<double>::epsilon();
     
+    bool equal = std::abs(a - b) < eps * 10;
+    std::cout << "0.1+0.2 == 0.3? " << std::boolalpha << equal << "
+";
+    std::cout << "Difference: " << (a - b) << "
+";
     return 0;
 }
 ```
@@ -187,3 +184,16 @@ For a typical input, trace the solution:
 ---
 
 *Generated for C++ Level 0 — C01 Problem Solving Guide*
+
+
+## Key Takeaways
+1. FLT_MAX ≈ 3.4e38, DBL_MAX ≈ 1.8e308
+2. FLT_MIN/DBL_MIN is smallest POSITIVE value, not most negative
+3. EPSILON is the smallest value where 1.0 + epsilon != 1.0
+4. float has ~7 digits precision, double has ~15 digits
+5. Use epsilon-based comparison for floating-point equality
+
+## Common Mistakes (Specific)
+- Thinking FLT_MIN is the most negative float (it's the smallest positive)
+- Comparing floats with == directly instead of epsilon-based
+- Exceeding FLT_MAX → infinity, not an error

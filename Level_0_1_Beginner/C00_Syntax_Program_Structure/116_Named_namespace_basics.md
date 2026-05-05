@@ -1,189 +1,92 @@
 # Named namespace basics
 
 > **Level:** 0 — Absolute Beginner  
-> **Category:** C00  
-> **Topic:** namespaces
+> **Category:** C00 — C++ Syntax & Program Structure  
+> **Topic:** syntax
 
 ---
 
 ## Problem Statement
+Create and use named namespaces to organize your code.
 
-Understand and explain the concept of Named namespace basics. Be able to describe it, identify it in code, and use it correctly.
+## What You Need to Know
+- Named namespaces group related declarations under a unique name.
+- They can span multiple files (the namespace is "reopened").
+- Access members with `namespace_name::member`.
 
-### Examples
-- **Input Example 1:** A typical/simple case
-- **Input Example 2:** An edge case (empty input, boundary values)
-- **Input Example 3:** A larger or tricky case
-
----
-
-## Prerequisites
-- Basic C++ syntax (variables, types, operators)
-- Understanding of C++ compilation model
-- Header files and namespaces
-
----
-
-## Core Concept
-
-### What Is It?
-Named namespace basics is a fundamental concept in C++ that every programmer must understand.
-
-### Why Does It Matter?
-- Forms the foundation for understanding more complex C++ features
-- Commonly asked in technical interviews
-- Helps write clean, maintainable code
-
-### Mental Model
-Think of named namespace basics as a building block — you can't build a house without understanding bricks.
-
----
-
-## Solution Approaches
-
-### Approach 1: Direct / Straightforward
+## Creating a Namespace
 ```cpp
 #include <iostream>
-#include <string>
-#include <vector>
-#include <algorithm>
 
-/*
- * Named namespace basics
- * 
- * Approach: Direct implementation
- * Time Complexity:  O(n) — typical for this type of problem
- * Space Complexity: O(1) — or O(n) if storing results
- */
+namespace Graphics {
+    struct Color {
+        int r, g, b;
+    };
+
+    void setBackground(Color c) {
+        std::cout << "BG: " << c.r << "," << c.g << "," << c.b << "\n";
+    }
+}
+
+namespace Audio {
+    void play(const std::string& file) {
+        std::cout << "Playing: " << file << "\n";
+    }
+
+    void setVolume(int level) {
+        std::cout << "Volume: " << level << "\n";
+    }
+}
+
 int main() {
-    // TODO: Implement Named namespace basics
-    // Step 1: Read input
-    // Step 2: Process
-    // Step 3: Output result
-    
-    std::cout << "Solution for: Named namespace basics" << std::endl;
+    Graphics::Color bg{255, 128, 0};
+    Graphics::setBackground(bg);
+    Audio::play("music.mp3");
+    Audio::setVolume(80);
     return 0;
 }
 ```
 
-**Time Complexity:** O(n) (typical)  
-**Space Complexity:** O(1) or O(n)  
-**When to use:** First attempt, when simplicity matters over performance.
+## Reopening a Namespace
+```cpp
+// file1.cpp
+namespace Utils {
+    int add(int a, int b) { return a + b; }
+}
 
-### Approach 2: Optimized / STL-Based
+// file2.cpp — same namespace, adds more
+namespace Utils {
+    int multiply(int a, int b) { return a * b; }
+}
+
+// Both functions are in Utils namespace
+```
+
+## Namespace Aliases
 ```cpp
 #include <iostream>
-#include <string>
-#include <vector>
-#include <algorithm>
-#include <numeric>
 
-/*
- * Named namespace basics — Optimized approach using STL
- * 
- * Uses standard library algorithms where applicable.
- * Generally preferred in production C++ code.
- */
+namespace VeryLongNamespaceName {
+    void hello() { std::cout << "Hello!\n"; }
+}
+
+// Create a short alias
+namespace VLN = VeryLongNamespaceName;
+
 int main() {
-    // TODO: STL-based implementation
-    // Use std::sort, std::find, std::accumulate, etc. as appropriate
-    
+    VLN::hello();   // Much shorter!
     return 0;
 }
 ```
 
-**Time Complexity:** Depends on STL algorithm used  
-**Space Complexity:** Depends on approach  
-**When to use:** Production code, when you know the right STL tool.
+## Key Takeaways
+1. `namespace Name { ... }` groups related code
+2. Access with `Name::member`
+3. Namespaces can be reopened across multiple files
+4. Use `namespace Alias = LongName;` for shorter access
+5. Organize code by module/feature into separate namespaces
 
-### Approach 3: Modern C++ (C++17/20)
-```cpp
-#include <iostream>
-#include <string>
-#include <vector>
-
-/*
- * Named namespace basics — Modern C++ approach
- * 
- * Uses features from C++17/20: structured bindings,
- * if-init, ranges, constexpr, etc.
- */
-int main() {
-    // TODO: Modern C++ implementation
-    // Use auto, structured bindings, ranges, etc.
-    
-    return 0;
-}
-```
-
----
-
-## Step-by-Step Trace
-
-For a typical input, trace the solution:
-
-| Step | State | Action | Result |
-|------|-------|--------|--------|
-| 1 | Initial | Read input | — |
-| 2 | Processing | Apply algorithm | — |
-| 3 | Final | Output result | — |
-
----
-
-## Common Mistakes & Pitfalls
-
-1. **Off-by-one errors** — Check loop boundaries carefully
-2. **Uninitialized variables** — Always initialize before use
-3. **Integer overflow** — Use `long long` for large numbers
-4. **Missing edge cases** — Empty input, single element, negative numbers
-5. **Forgetting `#include`** — Include all necessary headers
-6. **Using `==` vs `=`** — Assignment vs comparison
-
----
-
-## What You Should Learn From This
-
-### Key C++ Feature Demonstrated
-- Named namespace basics demonstrates fundamental language syntax
-
-### Interview Tips
-- Explain the concept clearly before writing code
-- Always discuss time/space complexity
-- Mention edge cases proactively
-
-### Code Review Checklist
-- [ ] Compiles with `-Wall -Wextra` — no warnings
-- [ ] Handles edge cases
-- [ ] Variables are properly initialized
-- [ ] No memory leaks (if using dynamic allocation)
-- [ ] Code is readable and well-commented
-
----
-
-## Pattern Recognition
-
-**Pattern:** Language fundamentals — know the rules
-
-**Similar Problems:**
-- (See other problems in this category)
-
-**When you see** _______, **think** _______.
-
----
-
-## Practice Variants
-1. **Easy:** Simplify the constraints (smaller input, fewer edge cases)
-2. **Medium:** Add a constraint (handle negative numbers, optimize for time)
-3. **Hard:** Combine with another concept (recursion, dynamic programming)
-
----
-
-## Quick Reference Card
-- **Core idea:** Named namespace basics
-- **Key construct:** Language syntax
-- **Complexity:** O(n) typical
-- **Don't forget:** Initialize variables, check edge cases, use `-Wall`
-
----
-
-*Generated for C++ Level 0 — C00 Problem Solving Guide*
+## Common Mistakes
+- Defining everything in the global namespace → name collisions
+- Creating too many or too few namespaces → poor organization
+- Forgetting that namespaces don't end with semicolons after `}`

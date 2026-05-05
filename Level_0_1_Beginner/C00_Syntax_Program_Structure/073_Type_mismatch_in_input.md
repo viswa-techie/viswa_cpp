@@ -1,189 +1,121 @@
 # Type mismatch in input
 
 > **Level:** 0 — Absolute Beginner  
-> **Category:** C00  
-> **Topic:** io
+> **Category:** C00 — C++ Syntax & Program Structure  
+> **Topic:** syntax
 
 ---
 
 ## Problem Statement
+Understand what happens when user input doesn't match the expected type.
 
-Master the use of Type mismatch in input in C++ programs. Understand when and why to use it.
+## What You Need to Know
+- `cin >> int_var` expects numeric input. Entering "hello" causes a failure.
+- The stream enters fail state and stops processing further input.
+- The mismatched input remains in the buffer.
 
-### Examples
-- **Input Example 1:** A typical/simple case
-- **Input Example 2:** An edge case (empty input, boundary values)
-- **Input Example 3:** A larger or tricky case
-
----
-
-## Prerequisites
-- Basic C++ syntax (variables, types, operators)
-- Standard I/O operations
-- Header files and namespaces
-
----
-
-## Core Concept
-
-### What Is It?
-Type mismatch in input is a technique in C++ that appears frequently in interviews and real projects.
-
-### Why Does It Matter?
-- Used extensively in production C++ code
-- Commonly asked in technical interviews
-- Helps write clean, maintainable code
-
-### Mental Model
-Think of type mismatch in input as a tool in your toolbox — know when to reach for it.
-
----
-
-## Solution Approaches
-
-### Approach 1: Direct / Straightforward
+## What Happens on Type Mismatch
 ```cpp
 #include <iostream>
-#include <string>
-#include <vector>
-#include <algorithm>
 
-/*
- * Type mismatch in input
- * 
- * Approach: Direct implementation
- * Time Complexity:  O(n) — typical for this type of problem
- * Space Complexity: O(1) — or O(n) if storing results
- */
 int main() {
-    // TODO: Implement Type mismatch in input
-    // Step 1: Read input
-    // Step 2: Process
-    // Step 3: Output result
-    
-    std::cout << "Solution for: Type mismatch in input" << std::endl;
+    int x = -1;  // Initialize to see if it changes
+
+    std::cout << "Enter a number: ";
+    std::cin >> x;
+
+    // If user enters "hello":
+    // - x remains -1 (unchanged)
+    // - cin is now in fail state
+    // - "hello\n" is still in the buffer
+
+    std::cout << "x = " << x << "\n";
+    std::cout << "Stream good? " << std::cin.good() << "\n";
     return 0;
 }
 ```
 
-**Time Complexity:** O(n) (typical)  
-**Space Complexity:** O(1) or O(n)  
-**When to use:** First attempt, when simplicity matters over performance.
-
-### Approach 2: Optimized / STL-Based
+## Partial Reads
 ```cpp
 #include <iostream>
-#include <string>
-#include <vector>
-#include <algorithm>
-#include <numeric>
 
-/*
- * Type mismatch in input — Optimized approach using STL
- * 
- * Uses standard library algorithms where applicable.
- * Generally preferred in production C++ code.
- */
 int main() {
-    // TODO: STL-based implementation
-    // Use std::sort, std::find, std::accumulate, etc. as appropriate
-    
+    int x;
+    std::cout << "Enter a number: ";
+    std::cin >> x;
+
+    // Input: "42abc"
+    // x = 42 (reads valid part)
+    // "abc\n" remains in buffer
+    // No failure! cin is still good
+
+    // Input: "abc42"
+    // x = unchanged (garbage)
+    // Failure! "abc42\n" remains in buffer
+
+    std::cout << "x = " << x << "\n";
     return 0;
 }
 ```
 
-**Time Complexity:** Depends on STL algorithm used  
-**Space Complexity:** Depends on approach  
-**When to use:** Production code, when you know the right STL tool.
-
-### Approach 3: Modern C++ (C++17/20)
+## Multiple Variables
 ```cpp
 #include <iostream>
-#include <string>
-#include <vector>
 
-/*
- * Type mismatch in input — Modern C++ approach
- * 
- * Uses features from C++17/20: structured bindings,
- * if-init, ranges, constexpr, etc.
- */
 int main() {
-    // TODO: Modern C++ implementation
-    // Use auto, structured bindings, ranges, etc.
-    
+    int a, b, c;
+    std::cout << "Enter three numbers: ";
+    std::cin >> a >> b >> c;
+
+    // Input: "10 hello 30"
+    // a = 10 (OK)
+    // b = read fails on "hello" → failbit set
+    // c = skipped (stream already failed)
+    // "hello 30\n" remains in buffer
+
+    if (std::cin.fail()) {
+        std::cerr << "Failed to read all three numbers\n";
+    }
     return 0;
 }
 ```
 
----
+## Recovery
+```cpp
+#include <iostream>
+#include <limits>
+#include <string>
 
-## Step-by-Step Trace
+int main() {
+    int num;
 
-For a typical input, trace the solution:
+    while (true) {
+        std::cout << "Enter an integer: ";
 
-| Step | State | Action | Result |
-|------|-------|--------|--------|
-| 1 | Initial | Read input | — |
-| 2 | Processing | Apply algorithm | — |
-| 3 | Final | Output result | — |
+        if (std::cin >> num) {
+            break;
+        }
 
----
+        // Show what was entered
+        std::cin.clear();
+        std::string bad;
+        std::cin >> bad;
+        std::cerr << "'" << bad << "' is not an integer. Try again.\n";
+    }
 
-## Common Mistakes & Pitfalls
+    std::cout << "Got: " << num << "\n";
+    return 0;
+}
+```
 
-1. **Off-by-one errors** — Check loop boundaries carefully
-2. **Uninitialized variables** — Always initialize before use
-3. **Integer overflow** — Use `long long` for large numbers
-4. **Missing edge cases** — Empty input, single element, negative numbers
-5. **Forgetting `#include`** — Include all necessary headers
-6. **Using `==` vs `=`** — Assignment vs comparison
+## Key Takeaways
+1. Type mismatch sets failbit — variable is not modified
+2. Partial match (e.g., "42abc") reads 42 successfully, leaves "abc"
+3. Once failed, all subsequent `cin >>` operations are skipped
+4. Recovery: `clear()` then `ignore()` or read the bad data
+5. Always initialize variables before `cin >>` to detect unchanged values
 
----
-
-## What You Should Learn From This
-
-### Key C++ Feature Demonstrated
-- Type mismatch in input demonstrates proper C++ idioms and best practices
-
-### Interview Tips
-- Discuss tradeoffs between approaches
-- Always discuss time/space complexity
-- Mention edge cases proactively
-
-### Code Review Checklist
-- [ ] Compiles with `-Wall -Wextra` — no warnings
-- [ ] Handles edge cases
-- [ ] Variables are properly initialized
-- [ ] No memory leaks (if using dynamic allocation)
-- [ ] Code is readable and well-commented
-
----
-
-## Pattern Recognition
-
-**Pattern:** Implementation pattern — combine concepts to build
-
-**Similar Problems:**
-- (See other problems in this category)
-
-**When you see** _______, **think** _______.
-
----
-
-## Practice Variants
-1. **Easy:** Simplify the constraints (smaller input, fewer edge cases)
-2. **Medium:** Add a constraint (handle negative numbers, optimize for time)
-3. **Hard:** Combine with another concept (recursion, dynamic programming)
-
----
-
-## Quick Reference Card
-- **Core idea:** Type mismatch in input
-- **Key construct:** STL / Standard Library
-- **Complexity:** O(n) typical
-- **Don't forget:** Initialize variables, check edge cases, use `-Wall`
-
----
-
-*Generated for C++ Level 0 — C00 Problem Solving Guide*
+## Common Mistakes
+- Assuming `cin >> x` sets x to 0 on failure — it leaves x unchanged
+- Not noticing partial reads: "42abc" reads 42 with no error
+- Forgetting that failure cascades: one bad read blocks all subsequent reads

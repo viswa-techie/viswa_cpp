@@ -44,24 +44,35 @@ Think of int, float, double, char, bool as a tool in your toolbox — know when 
 ### Approach 1: Direct / Straightforward
 ```cpp
 #include <iostream>
-#include <string>
-#include <vector>
-#include <algorithm>
-
-/*
- * int, float, double, char, bool
- * 
- * Approach: Direct implementation
- * Time Complexity:  O(n) — typical for this type of problem
- * Space Complexity: O(1) — or O(n) if storing results
- */
 int main() {
-    // TODO: Implement int, float, double, char, bool
-    // Step 1: Read input
-    // Step 2: Process
-    // Step 3: Output result
-    
-    std::cout << "Solution for: int, float, double, char, bool" << std::endl;
+    int age = 25;
+    float height = 5.9f;
+    double pi = 3.14159265358979;
+    char grade = 'A';
+    bool passed = true;
+
+    std::cout << "Age: " << age << "
+";
+    std::cout << "Height: " << height << "
+";
+    std::cout << "Pi: " << pi << "
+";
+    std::cout << "Grade: " << grade << "
+";
+    std::cout << "Passed: " << std::boolalpha << passed << "
+";
+
+    // Size of each type
+    std::cout << "sizeof(int)=" << sizeof(int) << "
+";
+    std::cout << "sizeof(float)=" << sizeof(float) << "
+";
+    std::cout << "sizeof(double)=" << sizeof(double) << "
+";
+    std::cout << "sizeof(char)=" << sizeof(char) << "
+";
+    std::cout << "sizeof(bool)=" << sizeof(bool) << "
+";
     return 0;
 }
 ```
@@ -73,21 +84,20 @@ int main() {
 ### Approach 2: Optimized / STL-Based
 ```cpp
 #include <iostream>
-#include <string>
-#include <vector>
-#include <algorithm>
-#include <numeric>
+#include <typeinfo>
+#include <limits>
 
-/*
- * int, float, double, char, bool — Optimized approach using STL
- * 
- * Uses standard library algorithms where applicable.
- * Generally preferred in production C++ code.
- */
 int main() {
-    // TODO: STL-based implementation
-    // Use std::sort, std::find, std::accumulate, etc. as appropriate
-    
+    // Using numeric_limits for type information
+    std::cout << "int range: [" << std::numeric_limits<int>::min()
+              << ", " << std::numeric_limits<int>::max() << "]
+";
+    std::cout << "float max: " << std::numeric_limits<float>::max() << "
+";
+    std::cout << "double precision: " << std::numeric_limits<double>::digits10 << " digits
+";
+    std::cout << "char is signed: " << std::boolalpha << std::numeric_limits<char>::is_signed << "
+";
     return 0;
 }
 ```
@@ -99,19 +109,24 @@ int main() {
 ### Approach 3: Modern C++ (C++17/20)
 ```cpp
 #include <iostream>
-#include <string>
-#include <vector>
+#include <type_traits>
 
-/*
- * int, float, double, char, bool — Modern C++ approach
- * 
- * Uses features from C++17/20: structured bindings,
- * if-init, ranges, constexpr, etc.
- */
 int main() {
-    // TODO: Modern C++ implementation
-    // Use auto, structured bindings, ranges, etc.
-    
+    auto age = 25;          // deduced as int
+    auto height = 5.9f;    // deduced as float
+    auto pi = 3.14159;     // deduced as double
+    auto grade = 'A';      // deduced as char
+    auto passed = true;    // deduced as bool
+
+    // C++17: compile-time type checks
+    static_assert(std::is_same_v<decltype(age), int>);
+    static_assert(std::is_same_v<decltype(height), float>);
+    static_assert(std::is_same_v<decltype(pi), double>);
+    static_assert(std::is_same_v<decltype(grade), char>);
+    static_assert(std::is_same_v<decltype(passed), bool>);
+
+    std::cout << "All type checks passed!
+";
     return 0;
 }
 ```
@@ -187,3 +202,17 @@ For a typical input, trace the solution:
 ---
 
 *Generated for C++ Level 0 — C01 Problem Solving Guide*
+
+
+## Key Takeaways
+1. `int` for whole numbers (4 bytes typically), `double` for decimals (8 bytes), `float` for lower-precision decimals (4 bytes)
+2. `char` holds a single character (1 byte), `bool` holds true/false (1 byte)
+3. Use `double` over `float` unless memory is critical — more precision
+4. `sizeof()` reveals actual byte sizes on your platform
+5. Prefer `int` for general integers; use `double` for floating-point math
+
+## Common Mistakes (Specific)
+- Using `float` when `double` is needed — losing precision silently
+- Forgetting that `char` is an integer type (can do arithmetic on it)
+- Comparing `float`/`double` with `==` — precision issues
+- Uninitialized variables — contain garbage values

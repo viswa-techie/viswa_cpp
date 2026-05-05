@@ -1,189 +1,90 @@
 # cstdio header
 
 > **Level:** 0 — Absolute Beginner  
-> **Category:** C00  
+> **Category:** C00 — C++ Syntax & Program Structure  
 > **Topic:** syntax
 
 ---
 
 ## Problem Statement
+Understand the `<cstdio>` header and C-style I/O functions available in C++.
 
-Master the use of cstdio header in C++ programs. Understand when and why to use it.
+## What You Need to Know
+- `<cstdio>` is the C++ version of C's `<stdio.h>`.
+- It provides `printf`, `scanf`, `fprintf`, `fopen`, `fclose`, etc.
+- Functions are placed in the `std` namespace (though often also in global scope).
 
-### Examples
-- **Input Example 1:** A typical/simple case
-- **Input Example 2:** An edge case (empty input, boundary values)
-- **Input Example 3:** A larger or tricky case
+## Key Functions
+```
+Function         Purpose
+--------         -------
+printf()         Formatted output to stdout
+scanf()          Formatted input from stdin
+fprintf()        Formatted output to a file
+fscanf()         Formatted input from a file
+sprintf()        Formatted output to a string (buffer overflow risk)
+snprintf()       Safe formatted output to a string
+fopen()          Open a file
+fclose()         Close a file
+fgets()          Read a line from a file/stdin
+fputs()          Write a string to a file/stdout
+puts()           Write a string + newline to stdout
+```
 
----
-
-## Prerequisites
-- Basic C++ syntax (variables, types, operators)
-- Standard I/O operations
-- Header files and namespaces
-
----
-
-## Core Concept
-
-### What Is It?
-cstdio header is a technique in C++ that appears frequently in interviews and real projects.
-
-### Why Does It Matter?
-- Used extensively in production C++ code
-- Commonly asked in technical interviews
-- Helps write clean, maintainable code
-
-### Mental Model
-Think of cstdio header as a tool in your toolbox — know when to reach for it.
-
----
-
-## Solution Approaches
-
-### Approach 1: Direct / Straightforward
+## Common Usage
 ```cpp
-#include <iostream>
-#include <string>
-#include <vector>
-#include <algorithm>
+#include <cstdio>
 
-/*
- * cstdio header
- * 
- * Approach: Direct implementation
- * Time Complexity:  O(n) — typical for this type of problem
- * Space Complexity: O(1) — or O(n) if storing results
- */
 int main() {
-    // TODO: Implement cstdio header
-    // Step 1: Read input
-    // Step 2: Process
-    // Step 3: Output result
-    
-    std::cout << "Solution for: cstdio header" << std::endl;
+    // Output
+    std::printf("Hello, %s! You are %d years old.\n", "Viswa", 30);
+
+    // Input
+    int x;
+    std::printf("Enter a number: ");
+    std::scanf("%d", &x);
+    std::printf("You entered: %d\n", x);
+
     return 0;
 }
 ```
 
-**Time Complexity:** O(n) (typical)  
-**Space Complexity:** O(1) or O(n)  
-**When to use:** First attempt, when simplicity matters over performance.
-
-### Approach 2: Optimized / STL-Based
+## File I/O with cstdio
 ```cpp
-#include <iostream>
-#include <string>
-#include <vector>
-#include <algorithm>
-#include <numeric>
+#include <cstdio>
 
-/*
- * cstdio header — Optimized approach using STL
- * 
- * Uses standard library algorithms where applicable.
- * Generally preferred in production C++ code.
- */
 int main() {
-    // TODO: STL-based implementation
-    // Use std::sort, std::find, std::accumulate, etc. as appropriate
-    
+    FILE* fp = std::fopen("output.txt", "w");
+    if (fp) {
+        std::fprintf(fp, "Hello from file!\n");
+        std::fclose(fp);
+    }
     return 0;
 }
 ```
 
-**Time Complexity:** Depends on STL algorithm used  
-**Space Complexity:** Depends on approach  
-**When to use:** Production code, when you know the right STL tool.
-
-### Approach 3: Modern C++ (C++17/20)
+## snprintf — Safe String Formatting
 ```cpp
+#include <cstdio>
 #include <iostream>
-#include <string>
-#include <vector>
 
-/*
- * cstdio header — Modern C++ approach
- * 
- * Uses features from C++17/20: structured bindings,
- * if-init, ranges, constexpr, etc.
- */
 int main() {
-    // TODO: Modern C++ implementation
-    // Use auto, structured bindings, ranges, etc.
-    
+    char buffer[50];
+    int n = std::snprintf(buffer, sizeof(buffer),
+                          "Score: %d/%d", 85, 100);
+    std::printf("%s (wrote %d chars)\n", buffer, n);
     return 0;
 }
 ```
 
----
+## Key Takeaways
+1. `<cstdio>` wraps C's `<stdio.h>` in the `std` namespace
+2. Prefer `<cstdio>` over `<stdio.h>` in C++ code
+3. `printf/scanf` lack type safety — use `cout/cin` when possible
+4. Use `snprintf` instead of `sprintf` to prevent buffer overflow
+5. File operations: `fopen` → `fprintf/fgets` → `fclose`
 
-## Step-by-Step Trace
-
-For a typical input, trace the solution:
-
-| Step | State | Action | Result |
-|------|-------|--------|--------|
-| 1 | Initial | Read input | — |
-| 2 | Processing | Apply algorithm | — |
-| 3 | Final | Output result | — |
-
----
-
-## Common Mistakes & Pitfalls
-
-1. **Off-by-one errors** — Check loop boundaries carefully
-2. **Uninitialized variables** — Always initialize before use
-3. **Integer overflow** — Use `long long` for large numbers
-4. **Missing edge cases** — Empty input, single element, negative numbers
-5. **Forgetting `#include`** — Include all necessary headers
-6. **Using `==` vs `=`** — Assignment vs comparison
-
----
-
-## What You Should Learn From This
-
-### Key C++ Feature Demonstrated
-- cstdio header demonstrates proper C++ idioms and best practices
-
-### Interview Tips
-- Discuss tradeoffs between approaches
-- Always discuss time/space complexity
-- Mention edge cases proactively
-
-### Code Review Checklist
-- [ ] Compiles with `-Wall -Wextra` — no warnings
-- [ ] Handles edge cases
-- [ ] Variables are properly initialized
-- [ ] No memory leaks (if using dynamic allocation)
-- [ ] Code is readable and well-commented
-
----
-
-## Pattern Recognition
-
-**Pattern:** Implementation pattern — combine concepts to build
-
-**Similar Problems:**
-- (See other problems in this category)
-
-**When you see** _______, **think** _______.
-
----
-
-## Practice Variants
-1. **Easy:** Simplify the constraints (smaller input, fewer edge cases)
-2. **Medium:** Add a constraint (handle negative numbers, optimize for time)
-3. **Hard:** Combine with another concept (recursion, dynamic programming)
-
----
-
-## Quick Reference Card
-- **Core idea:** cstdio header
-- **Key construct:** STL / Standard Library
-- **Complexity:** O(n) typical
-- **Don't forget:** Initialize variables, check edge cases, use `-Wall`
-
----
-
-*Generated for C++ Level 0 — C00 Problem Solving Guide*
+## Common Mistakes
+- Using `<stdio.h>` instead of `<cstdio>` in C++ — works but not standard
+- `sprintf` buffer overflow — always use `snprintf` with a size limit
+- Forgetting `&` in `scanf`: `scanf("%d", x)` → undefined behavior

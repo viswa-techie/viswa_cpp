@@ -44,24 +44,35 @@ Think of break statement as a tool in your toolbox — know when to reach for it
 ### Approach 1: Direct / Straightforward
 ```cpp
 #include <iostream>
-#include <string>
-#include <vector>
-#include <algorithm>
-
-/*
- * break statement
- * 
- * Approach: Direct implementation
- * Time Complexity:  O(n) — typical for this type of problem
- * Space Complexity: O(1) — or O(n) if storing results
- */
 int main() {
-    // TODO: Implement break statement
-    // Step 1: Read input
-    // Step 2: Process
-    // Step 3: Output result
+    // Break exits the innermost loop
+    for (int i = 0; i < 10; ++i) {
+        if (i == 5) break;
+        std::cout << i << " ";
+    }
+    std::cout << "
+";  // 0 1 2 3 4
     
-    std::cout << "Solution for: break statement" << std::endl;
+    // Finding first match
+    int arr[] = {3, 7, 2, 9, 4, 6};
+    int target = 9;
+    for (int i = 0; i < 6; ++i) {
+        if (arr[i] == target) {
+            std::cout << "Found " << target << " at index " << i << "
+";
+            break;
+        }
+    }
+    
+    // Break in nested loops — only exits inner loop
+    for (int i = 0; i < 3; ++i) {
+        for (int j = 0; j < 3; ++j) {
+            if (j == 2) break;  // Only breaks inner loop
+            std::cout << "(" << i << "," << j << ") ";
+        }
+    }
+    std::cout << "
+";
     return 0;
 }
 ```
@@ -73,21 +84,29 @@ int main() {
 ### Approach 2: Optimized / STL-Based
 ```cpp
 #include <iostream>
-#include <string>
 #include <vector>
 #include <algorithm>
 #include <numeric>
+#include <string>
 
 /*
- * break statement — Optimized approach using STL
- * 
- * Uses standard library algorithms where applicable.
- * Generally preferred in production C++ code.
+ * break statement — STL/Library approach
  */
 int main() {
-    // TODO: STL-based implementation
-    // Use std::sort, std::find, std::accumulate, etc. as appropriate
+    std::vector<int> data = {5, 2, 8, 1, 9, 3, 7, 4, 6};
     
+    // Using STL algorithms for break statement
+    std::sort(data.begin(), data.end());
+    
+    for (const auto& x : data)
+        std::cout << x << " ";
+    std::cout << "
+";
+    
+    // STL-based solution demonstration
+    auto sum = std::accumulate(data.begin(), data.end(), 0);
+    std::cout << "Sum: " << sum << "
+";
     return 0;
 }
 ```
@@ -99,18 +118,29 @@ int main() {
 ### Approach 3: Modern C++ (C++17/20)
 ```cpp
 #include <iostream>
-#include <string>
 #include <vector>
+#include <algorithm>
+#include <ranges>
+#include <numeric>
 
 /*
- * break statement — Modern C++ approach
- * 
- * Uses features from C++17/20: structured bindings,
- * if-init, ranges, constexpr, etc.
+ * break statement — Modern C++17/20 approach
  */
 int main() {
-    // TODO: Modern C++ implementation
-    // Use auto, structured bindings, ranges, etc.
+    std::vector<int> data = {5, 2, 8, 1, 9, 3, 7, 4, 6};
+    
+    // Modern C++ approach for: break statement
+    // Using auto, structured bindings, ranges where applicable
+    
+    auto [min_it, max_it] = std::minmax_element(data.begin(), data.end());
+    std::cout << "Min: " << *min_it << ", Max: " << *max_it << "
+";
+    
+    // Lambda-based processing
+    auto is_even = [](int n) { return n % 2 == 0; };
+    auto count = std::count_if(data.begin(), data.end(), is_even);
+    std::cout << "Even count: " << count << "
+";
     
     return 0;
 }
@@ -187,3 +217,17 @@ For a typical input, trace the solution:
 ---
 
 *Generated for C++ Level 1 — C10 Problem Solving Guide*
+
+
+## Key Takeaways
+1. `break` exits the innermost loop only — not nested loops
+2. `continue` skips to the next iteration of the innermost loop
+3. Use sparingly — excessive use can make flow hard to follow
+4. For breaking nested loops, use a flag variable or goto or refactor to a function
+5. Prefer early `continue` to reduce nesting (guard clause pattern)
+
+## Common Mistakes (Specific)
+- Assuming break exits ALL nested loops — it only exits one level
+- Using continue in switch inside a loop — confusing behavior
+- Overusing break/continue making control flow hard to trace
+- Forgetting that continue in do-while checks condition AFTER skip

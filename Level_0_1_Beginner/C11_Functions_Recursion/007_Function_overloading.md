@@ -45,23 +45,32 @@ Think of function overloading as a tool in your toolbox — know when to reach f
 ```cpp
 #include <iostream>
 #include <string>
-#include <vector>
-#include <algorithm>
 
-/*
- * Function overloading
- * 
- * Approach: Direct implementation
- * Time Complexity:  O(n) — typical for this type of problem
- * Space Complexity: O(1) — or O(n) if storing results
- */
+// Same function name, different parameter types/counts
+int add(int a, int b) { return a + b; }
+double add(double a, double b) { return a + b; }
+std::string add(const std::string& a, const std::string& b) { return a + b; }
+int add(int a, int b, int c) { return a + b + c; }
+
+void print(int x) { std::cout << "int: " << x << "
+"; }
+void print(double x) { std::cout << "double: " << x << "
+"; }
+void print(const std::string& x) { std::cout << "string: " << x << "
+"; }
+
 int main() {
-    // TODO: Implement Function overloading
-    // Step 1: Read input
-    // Step 2: Process
-    // Step 3: Output result
-    
-    std::cout << "Solution for: Function overloading" << std::endl;
+    std::cout << add(1, 2) << "
+";         // int version
+    std::cout << add(1.5, 2.5) << "
+";     // double version
+    std::cout << add("Hi ", "there") << "
+"; // string version
+    std::cout << add(1, 2, 3) << "
+";      // 3-param version
+    print(42);
+    print(3.14);
+    print("hello");
     return 0;
 }
 ```
@@ -73,21 +82,26 @@ int main() {
 ### Approach 2: Optimized / STL-Based
 ```cpp
 #include <iostream>
-#include <string>
 #include <vector>
 #include <algorithm>
+#include <functional>
 #include <numeric>
 
 /*
- * Function overloading — Optimized approach using STL
- * 
- * Uses standard library algorithms where applicable.
- * Generally preferred in production C++ code.
+ * Function overloading — STL/Library approach
  */
 int main() {
-    // TODO: STL-based implementation
-    // Use std::sort, std::find, std::accumulate, etc. as appropriate
+    std::vector<int> data = {5, 2, 8, 1, 9, 3, 7, 4, 6};
     
+    // STL-based implementation of Function overloading
+    std::sort(data.begin(), data.end());
+    for (const auto& x : data) std::cout << x << " ";
+    std::cout << "
+";
+    
+    auto sum = std::accumulate(data.begin(), data.end(), 0);
+    std::cout << "Sum: " << sum << "
+";
     return 0;
 }
 ```
@@ -99,19 +113,26 @@ int main() {
 ### Approach 3: Modern C++ (C++17/20)
 ```cpp
 #include <iostream>
-#include <string>
 #include <vector>
+#include <algorithm>
+#include <numeric>
 
 /*
- * Function overloading — Modern C++ approach
- * 
- * Uses features from C++17/20: structured bindings,
- * if-init, ranges, constexpr, etc.
+ * Function overloading — Modern C++17/20 approach
  */
 int main() {
-    // TODO: Modern C++ implementation
-    // Use auto, structured bindings, ranges, etc.
+    std::vector<int> data = {5, 2, 8, 1, 9, 3, 7, 4, 6};
     
+    // Modern C++ features for Function overloading
+    auto [min_it, max_it] = std::minmax_element(data.begin(), data.end());
+    std::cout << "Range: [" << *min_it << ", " << *max_it << "]
+";
+    
+    // Lambda-based approach
+    std::sort(data.begin(), data.end());
+    for (const auto& x : data) std::cout << x << " ";
+    std::cout << "
+";
     return 0;
 }
 ```
@@ -187,3 +208,18 @@ For a typical input, trace the solution:
 ---
 
 *Generated for C++ Level 1 — C11 Problem Solving Guide*
+
+
+## Key Takeaways
+1. Overloaded functions share a name but differ in parameters
+2. Return type alone doesn't distinguish overloads
+3. Compiler picks the best match at compile time
+4. Ambiguous overloads cause compile errors
+5. Default parameters can conflict with overloads — be careful
+
+## Common Mistakes (Specific)
+- Not handling edge cases (empty input, single element, boundary values)
+- Off-by-one errors in recursive/iterative bounds
+- Integer overflow for large inputs — use `long long`
+- Stack overflow from deep recursion — convert to iterative if needed
+- Forgetting to initialize variables before use

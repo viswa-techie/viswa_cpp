@@ -1,189 +1,101 @@
 # Stepping through code
 
 > **Level:** 0 — Absolute Beginner  
-> **Category:** C00  
-> **Topic:** debugging
+> **Category:** C00 — C++ Syntax & Program Structure  
+> **Topic:** syntax
 
 ---
 
 ## Problem Statement
+Learn the different stepping commands to navigate through code in a debugger.
 
-Master the use of Stepping through code in C++ programs. Understand when and why to use it.
+## What You Need to Know
+- **Step Over** (`next`): Execute the current line; if it's a function call, run the entire function.
+- **Step Into** (`step`): If current line is a function call, enter that function.
+- **Step Out** (`finish`): Run until the current function returns.
+- **Continue** (`continue`): Run until the next breakpoint.
 
-### Examples
-- **Input Example 1:** A typical/simple case
-- **Input Example 2:** An edge case (empty input, boundary values)
-- **Input Example 3:** A larger or tricky case
-
----
-
-## Prerequisites
-- Basic C++ syntax (variables, types, operators)
-- Standard I/O operations
-- Header files and namespaces
-
----
-
-## Core Concept
-
-### What Is It?
-Stepping through code is a technique in C++ that appears frequently in interviews and real projects.
-
-### Why Does It Matter?
-- Used extensively in production C++ code
-- Commonly asked in technical interviews
-- Helps write clean, maintainable code
-
-### Mental Model
-Think of stepping through code as a tool in your toolbox — know when to reach for it.
-
----
-
-## Solution Approaches
-
-### Approach 1: Direct / Straightforward
+## Visual Explanation
 ```cpp
-#include <iostream>
-#include <string>
-#include <vector>
-#include <algorithm>
+int multiply(int a, int b) {   // ← step INTO goes here
+    return a * b;               //   step over this
+}                               //   step OUT returns here
 
-/*
- * Stepping through code
- * 
- * Approach: Direct implementation
- * Time Complexity:  O(n) — typical for this type of problem
- * Space Complexity: O(1) — or O(n) if storing results
- */
 int main() {
-    // TODO: Implement Stepping through code
-    // Step 1: Read input
-    // Step 2: Process
-    // Step 3: Output result
-    
-    std::cout << "Solution for: Stepping through code" << std::endl;
+    int x = 5;                  // ← next (step over)
+    int y = multiply(x, 3);    // ← step into → goes inside multiply()
+                                //   step over → runs multiply, stays in main
+    std::cout << y << "\n";    // ← next
     return 0;
 }
 ```
 
-**Time Complexity:** O(n) (typical)  
-**Space Complexity:** O(1) or O(n)  
-**When to use:** First attempt, when simplicity matters over performance.
+## GDB Stepping Commands
+```
+Command      Short    Description
+-------      -----    -----------
+next         n        Step over (stay in current function)
+step         s        Step into (enter function calls)
+finish       fin      Step out (run until current function returns)
+continue     c        Continue to next breakpoint
+until 30     u 30     Run until line 30
+nexti        ni       Step one machine instruction (over)
+stepi        si       Step one machine instruction (into)
+```
 
-### Approach 2: Optimized / STL-Based
+## Example Session
 ```cpp
+// program.cpp
 #include <iostream>
-#include <string>
-#include <vector>
-#include <algorithm>
-#include <numeric>
 
-/*
- * Stepping through code — Optimized approach using STL
- * 
- * Uses standard library algorithms where applicable.
- * Generally preferred in production C++ code.
- */
+int square(int n) {
+    int result = n * n;    // Line 4
+    return result;          // Line 5
+}
+
 int main() {
-    // TODO: STL-based implementation
-    // Use std::sort, std::find, std::accumulate, etc. as appropriate
-    
+    int a = 5;             // Line 9
+    int b = square(a);     // Line 10
+    int c = b + 1;         // Line 11
+    std::cout << c << "\n"; // Line 12
     return 0;
 }
 ```
 
-**Time Complexity:** Depends on STL algorithm used  
-**Space Complexity:** Depends on approach  
-**When to use:** Production code, when you know the right STL tool.
-
-### Approach 3: Modern C++ (C++17/20)
-```cpp
-#include <iostream>
-#include <string>
-#include <vector>
-
-/*
- * Stepping through code — Modern C++ approach
- * 
- * Uses features from C++17/20: structured bindings,
- * if-init, ranges, constexpr, etc.
- */
-int main() {
-    // TODO: Modern C++ implementation
-    // Use auto, structured bindings, ranges, etc.
-    
-    return 0;
-}
+```bash
+(gdb) break main
+(gdb) run
+# Stopped at line 9
+(gdb) next              # Execute line 9 (int a = 5)
+(gdb) step              # Step INTO square() at line 10
+# Now inside square(), at line 4
+(gdb) print n            # 5
+(gdb) next              # Execute line 4 (result = 25)
+(gdb) print result       # 25
+(gdb) finish            # Run until square() returns
+# Back in main at line 11
+(gdb) print b            # 25
+(gdb) continue          # Run to end
 ```
 
----
+## VS Code Equivalents
+```
+GDB         VS Code        Shortcut
+---         -------        --------
+next        Step Over      F10
+step        Step Into      F11
+finish      Step Out       Shift+F11
+continue    Continue       F5
+```
 
-## Step-by-Step Trace
+## Key Takeaways
+1. `next` stays in the current function — use to skip function internals
+2. `step` enters function calls — use to debug a specific function
+3. `finish` returns from the current function — use when you've seen enough
+4. `continue` runs to the next breakpoint — use to skip ahead
+5. These are the most-used debugging commands — practice them
 
-For a typical input, trace the solution:
-
-| Step | State | Action | Result |
-|------|-------|--------|--------|
-| 1 | Initial | Read input | — |
-| 2 | Processing | Apply algorithm | — |
-| 3 | Final | Output result | — |
-
----
-
-## Common Mistakes & Pitfalls
-
-1. **Off-by-one errors** — Check loop boundaries carefully
-2. **Uninitialized variables** — Always initialize before use
-3. **Integer overflow** — Use `long long` for large numbers
-4. **Missing edge cases** — Empty input, single element, negative numbers
-5. **Forgetting `#include`** — Include all necessary headers
-6. **Using `==` vs `=`** — Assignment vs comparison
-
----
-
-## What You Should Learn From This
-
-### Key C++ Feature Demonstrated
-- Stepping through code demonstrates proper C++ idioms and best practices
-
-### Interview Tips
-- Discuss tradeoffs between approaches
-- Always discuss time/space complexity
-- Mention edge cases proactively
-
-### Code Review Checklist
-- [ ] Compiles with `-Wall -Wextra` — no warnings
-- [ ] Handles edge cases
-- [ ] Variables are properly initialized
-- [ ] No memory leaks (if using dynamic allocation)
-- [ ] Code is readable and well-commented
-
----
-
-## Pattern Recognition
-
-**Pattern:** Implementation pattern — combine concepts to build
-
-**Similar Problems:**
-- (See other problems in this category)
-
-**When you see** _______, **think** _______.
-
----
-
-## Practice Variants
-1. **Easy:** Simplify the constraints (smaller input, fewer edge cases)
-2. **Medium:** Add a constraint (handle negative numbers, optimize for time)
-3. **Hard:** Combine with another concept (recursion, dynamic programming)
-
----
-
-## Quick Reference Card
-- **Core idea:** Stepping through code
-- **Key construct:** STL / Standard Library
-- **Complexity:** O(n) typical
-- **Don't forget:** Initialize variables, check edge cases, use `-Wall`
-
----
-
-*Generated for C++ Level 0 — C00 Problem Solving Guide*
+## Common Mistakes
+- Using `step` on standard library functions (`cout`) → entering STL code by accident
+- Using `next` when you need to debug inside a function → skips the bug
+- Forgetting to set breakpoints before `continue` → program runs to end

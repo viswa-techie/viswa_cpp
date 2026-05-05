@@ -44,24 +44,39 @@ Think of type sizes with sizeof as a tool in your toolbox — know when to reach
 ### Approach 1: Direct / Straightforward
 ```cpp
 #include <iostream>
-#include <string>
-#include <vector>
-#include <algorithm>
 
-/*
- * Type sizes with sizeof
- * 
- * Approach: Direct implementation
- * Time Complexity:  O(n) — typical for this type of problem
- * Space Complexity: O(1) — or O(n) if storing results
- */
+struct Example {
+    char c;    // 1 byte + 3 padding
+    int i;     // 4 bytes
+    double d;  // 8 bytes
+};
+
 int main() {
-    // TODO: Implement Type sizes with sizeof
-    // Step 1: Read input
-    // Step 2: Process
-    // Step 3: Output result
-    
-    std::cout << "Solution for: Type sizes with sizeof" << std::endl;
+    std::cout << "Fundamental types:
+";
+    std::cout << "  char: " << sizeof(char) << "
+";
+    std::cout << "  short: " << sizeof(short) << "
+";
+    std::cout << "  int: " << sizeof(int) << "
+";
+    std::cout << "  long: " << sizeof(long) << "
+";
+    std::cout << "  long long: " << sizeof(long long) << "
+";
+    std::cout << "  float: " << sizeof(float) << "
+";
+    std::cout << "  double: " << sizeof(double) << "
+";
+    std::cout << "  pointer: " << sizeof(void*) << "
+";
+    std::cout << "  Example struct: " << sizeof(Example) << " (with padding)
+";
+
+    int arr[10];
+    std::cout << "  arr[10]: " << sizeof(arr) << " bytes, "
+              << sizeof(arr)/sizeof(arr[0]) << " elements
+";
     return 0;
 }
 ```
@@ -73,21 +88,24 @@ int main() {
 ### Approach 2: Optimized / STL-Based
 ```cpp
 #include <iostream>
-#include <string>
 #include <vector>
-#include <algorithm>
-#include <numeric>
+#include <string>
+#include <array>
 
-/*
- * Type sizes with sizeof — Optimized approach using STL
- * 
- * Uses standard library algorithms where applicable.
- * Generally preferred in production C++ code.
- */
 int main() {
-    // TODO: STL-based implementation
-    // Use std::sort, std::find, std::accumulate, etc. as appropriate
-    
+    std::cout << "STL container object sizes:
+";
+    std::cout << "  std::string: " << sizeof(std::string) << "
+";
+    std::cout << "  std::vector<int>: " << sizeof(std::vector<int>) << "
+";
+    std::cout << "  std::array<int,10>: " << sizeof(std::array<int,10>) << "
+";
+
+    // Note: sizeof gives object size, not content size
+    std::string s = "Hello World";
+    std::cout << "  sizeof(s)=" << sizeof(s) << " vs s.size()=" << s.size() << "
+";
     return 0;
 }
 ```
@@ -99,19 +117,25 @@ int main() {
 ### Approach 3: Modern C++ (C++17/20)
 ```cpp
 #include <iostream>
-#include <string>
-#include <vector>
+#include <type_traits>
 
-/*
- * Type sizes with sizeof — Modern C++ approach
- * 
- * Uses features from C++17/20: structured bindings,
- * if-init, ranges, constexpr, etc.
- */
+template<typename T>
+void printSize(const char* name) {
+    std::cout << name << ": " << sizeof(T) << " bytes, "
+              << "aligned to " << alignof(T) << "
+";
+}
+
 int main() {
-    // TODO: Modern C++ implementation
-    // Use auto, structured bindings, ranges, etc.
-    
+    printSize<char>("char");
+    printSize<int>("int");
+    printSize<double>("double");
+    printSize<long double>("long double");
+    printSize<void*>("void*");
+
+    // constexpr sizeof — available at compile time
+    constexpr size_t intSize = sizeof(int);
+    static_assert(intSize >= 2, "int must be at least 2 bytes");
     return 0;
 }
 ```
@@ -187,3 +211,17 @@ For a typical input, trace the solution:
 ---
 
 *Generated for C++ Level 0 — C01 Problem Solving Guide*
+
+
+## Key Takeaways
+1. `sizeof` is a compile-time operator — zero runtime cost
+2. `sizeof(char)` is ALWAYS 1 by definition
+3. Struct sizes include padding for alignment
+4. `sizeof(array)` gives total bytes; `sizeof(pointer)` gives pointer size only
+5. Use `sizeof(arr)/sizeof(arr[0])` for C-array element count
+
+## Common Mistakes (Specific)
+- `sizeof(pointer)` gives pointer size (4 or 8), not pointed-to data size
+- `sizeof(std::string)` gives object overhead, not string content length
+- Array decays to pointer in functions — sizeof then gives pointer size
+- Assuming sizes are same across platforms — they vary

@@ -1,189 +1,110 @@
-# Conditional compilation #ifdef
+# Conditional compilation (#ifdef)
 
 > **Level:** 0 — Absolute Beginner  
-> **Category:** C00  
-> **Topic:** preprocessor
+> **Category:** C00 — C++ Syntax & Program Structure  
+> **Topic:** syntax
 
 ---
 
 ## Problem Statement
+Use `#ifdef`, `#ifndef`, `#if`, `#elif`, `#else`, `#endif` for conditional compilation.
 
-Master the use of Conditional compilation #ifdef in C++ programs. Understand when and why to use it.
+## What You Need to Know
+- Conditional directives include/exclude code at preprocessing time.
+- The excluded code is completely removed — never compiled.
+- Used for: debug mode, platform-specific code, feature flags.
 
-### Examples
-- **Input Example 1:** A typical/simple case
-- **Input Example 2:** An edge case (empty input, boundary values)
-- **Input Example 3:** A larger or tricky case
-
----
-
-## Prerequisites
-- Basic C++ syntax (variables, types, operators)
-- Standard I/O operations
-- Header files and namespaces
-
----
-
-## Core Concept
-
-### What Is It?
-Conditional compilation #ifdef is a technique in C++ that appears frequently in interviews and real projects.
-
-### Why Does It Matter?
-- Used extensively in production C++ code
-- Commonly asked in technical interviews
-- Helps write clean, maintainable code
-
-### Mental Model
-Think of conditional compilation #ifdef as a tool in your toolbox — know when to reach for it.
-
----
-
-## Solution Approaches
-
-### Approach 1: Direct / Straightforward
+## #ifdef / #ifndef
 ```cpp
 #include <iostream>
-#include <string>
-#include <vector>
-#include <algorithm>
 
-/*
- * Conditional compilation #ifdef
- * 
- * Approach: Direct implementation
- * Time Complexity:  O(n) — typical for this type of problem
- * Space Complexity: O(1) — or O(n) if storing results
- */
+#define DEBUG
+
 int main() {
-    // TODO: Implement Conditional compilation #ifdef
-    // Step 1: Read input
-    // Step 2: Process
-    // Step 3: Output result
-    
-    std::cout << "Solution for: Conditional compilation #ifdef" << std::endl;
+    #ifdef DEBUG
+        std::cout << "Debug mode is ON\n";
+    #endif
+
+    #ifndef RELEASE
+        std::cout << "Not in release mode\n";
+    #endif
+
+    std::cout << "Always printed\n";
     return 0;
 }
 ```
 
-**Time Complexity:** O(n) (typical)  
-**Space Complexity:** O(1) or O(n)  
-**When to use:** First attempt, when simplicity matters over performance.
-
-### Approach 2: Optimized / STL-Based
+## #if / #elif / #else
 ```cpp
 #include <iostream>
-#include <string>
-#include <vector>
-#include <algorithm>
-#include <numeric>
 
-/*
- * Conditional compilation #ifdef — Optimized approach using STL
- * 
- * Uses standard library algorithms where applicable.
- * Generally preferred in production C++ code.
- */
+#define VERSION 2
+
 int main() {
-    // TODO: STL-based implementation
-    // Use std::sort, std::find, std::accumulate, etc. as appropriate
-    
+    #if VERSION == 1
+        std::cout << "Version 1\n";
+    #elif VERSION == 2
+        std::cout << "Version 2\n";
+    #else
+        std::cout << "Unknown version\n";
+    #endif
     return 0;
 }
 ```
 
-**Time Complexity:** Depends on STL algorithm used  
-**Space Complexity:** Depends on approach  
-**When to use:** Production code, when you know the right STL tool.
-
-### Approach 3: Modern C++ (C++17/20)
+## Platform-Specific Code
 ```cpp
 #include <iostream>
-#include <string>
-#include <vector>
 
-/*
- * Conditional compilation #ifdef — Modern C++ approach
- * 
- * Uses features from C++17/20: structured bindings,
- * if-init, ranges, constexpr, etc.
- */
 int main() {
-    // TODO: Modern C++ implementation
-    // Use auto, structured bindings, ranges, etc.
-    
+    #if defined(_WIN32)
+        std::cout << "Windows\n";
+    #elif defined(__linux__)
+        std::cout << "Linux\n";
+    #elif defined(__APPLE__)
+        std::cout << "macOS\n";
+    #else
+        std::cout << "Unknown platform\n";
+    #endif
     return 0;
 }
 ```
 
----
+## Define from Command Line
+```bash
+# Compile with DEBUG defined
+g++ -DDEBUG main.cpp -o program
 
-## Step-by-Step Trace
+# Compile with VERSION=3
+g++ -DVERSION=3 main.cpp -o program
+```
 
-For a typical input, trace the solution:
+## Debug Logging Pattern
+```cpp
+#include <iostream>
 
-| Step | State | Action | Result |
-|------|-------|--------|--------|
-| 1 | Initial | Read input | — |
-| 2 | Processing | Apply algorithm | — |
-| 3 | Final | Output result | — |
+#ifdef DEBUG
+    #define LOG(msg) std::cerr << "[DEBUG] " << __FILE__ << ":" << __LINE__ << " " << msg << "\n"
+#else
+    #define LOG(msg)   // Compiles to nothing in release
+#endif
 
----
+int main() {
+    LOG("Starting program");
+    int x = 42;
+    LOG("x = " << x);
+    return 0;
+}
+```
 
-## Common Mistakes & Pitfalls
+## Key Takeaways
+1. `#ifdef X` — true if `X` is defined (any value, even empty)
+2. `#ifndef X` — true if `X` is NOT defined
+3. `#if` evaluates integer expressions
+4. Use `-DNAME` on the command line to define macros
+5. Always close with `#endif`
 
-1. **Off-by-one errors** — Check loop boundaries carefully
-2. **Uninitialized variables** — Always initialize before use
-3. **Integer overflow** — Use `long long` for large numbers
-4. **Missing edge cases** — Empty input, single element, negative numbers
-5. **Forgetting `#include`** — Include all necessary headers
-6. **Using `==` vs `=`** — Assignment vs comparison
-
----
-
-## What You Should Learn From This
-
-### Key C++ Feature Demonstrated
-- Conditional compilation #ifdef demonstrates proper C++ idioms and best practices
-
-### Interview Tips
-- Discuss tradeoffs between approaches
-- Always discuss time/space complexity
-- Mention edge cases proactively
-
-### Code Review Checklist
-- [ ] Compiles with `-Wall -Wextra` — no warnings
-- [ ] Handles edge cases
-- [ ] Variables are properly initialized
-- [ ] No memory leaks (if using dynamic allocation)
-- [ ] Code is readable and well-commented
-
----
-
-## Pattern Recognition
-
-**Pattern:** Implementation pattern — combine concepts to build
-
-**Similar Problems:**
-- (See other problems in this category)
-
-**When you see** _______, **think** _______.
-
----
-
-## Practice Variants
-1. **Easy:** Simplify the constraints (smaller input, fewer edge cases)
-2. **Medium:** Add a constraint (handle negative numbers, optimize for time)
-3. **Hard:** Combine with another concept (recursion, dynamic programming)
-
----
-
-## Quick Reference Card
-- **Core idea:** Conditional compilation #ifdef
-- **Key construct:** STL / Standard Library
-- **Complexity:** O(n) typical
-- **Don't forget:** Initialize variables, check edge cases, use `-Wall`
-
----
-
-*Generated for C++ Level 0 — C00 Problem Solving Guide*
+## Common Mistakes
+- Forgetting `#endif` → cascading compilation errors
+- `#ifdef 0` is always true (0 is defined as the identifier) — use `#if 0` instead
+- `#if DEBUG` when DEBUG isn't defined → treated as 0 (false), no error

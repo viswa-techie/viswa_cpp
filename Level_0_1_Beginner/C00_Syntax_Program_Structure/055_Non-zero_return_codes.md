@@ -1,189 +1,103 @@
 # Non-zero return codes
 
 > **Level:** 0 — Absolute Beginner  
-> **Category:** C00  
-> **Topic:** functions
+> **Category:** C00 — C++ Syntax & Program Structure  
+> **Topic:** syntax
 
 ---
 
 ## Problem Statement
+Use non-zero return codes to indicate different error conditions.
 
-Master the use of Non-zero return codes in C++ programs. Understand when and why to use it.
+## What You Need to Know
+- Non-zero return from `main()` tells the OS that something went wrong.
+- Different values can indicate different errors.
+- Return codes are used extensively in scripts and CI/CD pipelines.
 
-### Examples
-- **Input Example 1:** A typical/simple case
-- **Input Example 2:** An edge case (empty input, boundary values)
-- **Input Example 3:** A larger or tricky case
-
----
-
-## Prerequisites
-- Basic C++ syntax (variables, types, operators)
-- Standard I/O operations
-- Header files and namespaces
-
----
-
-## Core Concept
-
-### What Is It?
-Non-zero return codes is a technique in C++ that appears frequently in interviews and real projects.
-
-### Why Does It Matter?
-- Used extensively in production C++ code
-- Commonly asked in technical interviews
-- Helps write clean, maintainable code
-
-### Mental Model
-Think of non-zero return codes as a tool in your toolbox — know when to reach for it.
-
----
-
-## Solution Approaches
-
-### Approach 1: Direct / Straightforward
+## Basic Error Reporting
 ```cpp
 #include <iostream>
-#include <string>
-#include <vector>
-#include <algorithm>
+#include <fstream>
 
-/*
- * Non-zero return codes
- * 
- * Approach: Direct implementation
- * Time Complexity:  O(n) — typical for this type of problem
- * Space Complexity: O(1) — or O(n) if storing results
- */
-int main() {
-    // TODO: Implement Non-zero return codes
-    // Step 1: Read input
-    // Step 2: Process
-    // Step 3: Output result
-    
-    std::cout << "Solution for: Non-zero return codes" << std::endl;
-    return 0;
+int main(int argc, char* argv[]) {
+    if (argc < 2) {
+        std::cerr << "Error: No filename provided\n";
+        return 1;   // Error code 1: missing argument
+    }
+
+    std::ifstream file(argv[1]);
+    if (!file.is_open()) {
+        std::cerr << "Error: Cannot open " << argv[1] << "\n";
+        return 2;   // Error code 2: file not found
+    }
+
+    // Process file...
+    std::cout << "File processed successfully\n";
+    return 0;       // Success
 }
 ```
 
-**Time Complexity:** O(n) (typical)  
-**Space Complexity:** O(1) or O(n)  
-**When to use:** First attempt, when simplicity matters over performance.
+## Checking in Shell
+```bash
+./program
+echo "Exit code: $?"    # 1 (missing argument)
 
-### Approach 2: Optimized / STL-Based
+./program nonexistent.txt
+echo "Exit code: $?"    # 2 (file not found)
+
+./program existing.txt
+echo "Exit code: $?"    # 0 (success)
+```
+
+## Using in Shell Scripts
+```bash
+#!/bin/bash
+./program input.txt
+case $? in
+    0) echo "Success" ;;
+    1) echo "Missing argument" ;;
+    2) echo "File not found" ;;
+    *) echo "Unknown error" ;;
+esac
+```
+
+## Common Convention
+```
+Code    Meaning (convention, not enforced)
+----    -------
+0       Success
+1       General error
+2       Invalid usage / bad arguments
+126     Command not executable
+127     Command not found
+128+N   Killed by signal N
+```
+
+## Using exit()
 ```cpp
 #include <iostream>
-#include <string>
-#include <vector>
-#include <algorithm>
-#include <numeric>
+#include <cstdlib>   // for exit()
 
-/*
- * Non-zero return codes — Optimized approach using STL
- * 
- * Uses standard library algorithms where applicable.
- * Generally preferred in production C++ code.
- */
+void processData() {
+    // If something goes wrong deep in the code:
+    std::cerr << "Fatal error in processData\n";
+    std::exit(1);    // Exit immediately with code 1
+}
+
 int main() {
-    // TODO: STL-based implementation
-    // Use std::sort, std::find, std::accumulate, etc. as appropriate
-    
-    return 0;
+    processData();
+    return 0;   // Never reached if exit() is called
 }
 ```
 
-**Time Complexity:** Depends on STL algorithm used  
-**Space Complexity:** Depends on approach  
-**When to use:** Production code, when you know the right STL tool.
+## Key Takeaways
+1. Return 0 for success, 1-255 for different errors
+2. Document what each return code means
+3. Use `std::exit(code)` to exit from any function (not just `main`)
+4. Shell scripts use `$?` to check the last program's exit code
+5. CI/CD systems treat non-zero as failure
 
-### Approach 3: Modern C++ (C++17/20)
-```cpp
-#include <iostream>
-#include <string>
-#include <vector>
-
-/*
- * Non-zero return codes — Modern C++ approach
- * 
- * Uses features from C++17/20: structured bindings,
- * if-init, ranges, constexpr, etc.
- */
-int main() {
-    // TODO: Modern C++ implementation
-    // Use auto, structured bindings, ranges, etc.
-    
-    return 0;
-}
-```
-
----
-
-## Step-by-Step Trace
-
-For a typical input, trace the solution:
-
-| Step | State | Action | Result |
-|------|-------|--------|--------|
-| 1 | Initial | Read input | — |
-| 2 | Processing | Apply algorithm | — |
-| 3 | Final | Output result | — |
-
----
-
-## Common Mistakes & Pitfalls
-
-1. **Off-by-one errors** — Check loop boundaries carefully
-2. **Uninitialized variables** — Always initialize before use
-3. **Integer overflow** — Use `long long` for large numbers
-4. **Missing edge cases** — Empty input, single element, negative numbers
-5. **Forgetting `#include`** — Include all necessary headers
-6. **Using `==` vs `=`** — Assignment vs comparison
-
----
-
-## What You Should Learn From This
-
-### Key C++ Feature Demonstrated
-- Non-zero return codes demonstrates proper C++ idioms and best practices
-
-### Interview Tips
-- Discuss tradeoffs between approaches
-- Always discuss time/space complexity
-- Mention edge cases proactively
-
-### Code Review Checklist
-- [ ] Compiles with `-Wall -Wextra` — no warnings
-- [ ] Handles edge cases
-- [ ] Variables are properly initialized
-- [ ] No memory leaks (if using dynamic allocation)
-- [ ] Code is readable and well-commented
-
----
-
-## Pattern Recognition
-
-**Pattern:** Implementation pattern — combine concepts to build
-
-**Similar Problems:**
-- (See other problems in this category)
-
-**When you see** _______, **think** _______.
-
----
-
-## Practice Variants
-1. **Easy:** Simplify the constraints (smaller input, fewer edge cases)
-2. **Medium:** Add a constraint (handle negative numbers, optimize for time)
-3. **Hard:** Combine with another concept (recursion, dynamic programming)
-
----
-
-## Quick Reference Card
-- **Core idea:** Non-zero return codes
-- **Key construct:** STL / Standard Library
-- **Complexity:** O(n) typical
-- **Don't forget:** Initialize variables, check edge cases, use `-Wall`
-
----
-
-*Generated for C++ Level 0 — C00 Problem Solving Guide*
+## Common Mistakes
+- Using only 0 and 1 — different errors deserve different codes
+- Not documenting what each code means
+- Using very large return codes — only 0-255 are portable (8-bit)

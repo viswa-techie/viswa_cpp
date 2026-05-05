@@ -46,22 +46,29 @@ Think of return types as a tool in your toolbox — know when to reach for it.
 #include <iostream>
 #include <string>
 #include <vector>
-#include <algorithm>
 
-/*
- * Return types
- * 
- * Approach: Direct implementation
- * Time Complexity:  O(n) — typical for this type of problem
- * Space Complexity: O(1) — or O(n) if storing results
- */
+int square(int x) { return x * x; }
+double divide(int a, int b) { return static_cast<double>(a) / b; }
+std::string greet(const std::string& name) { return "Hello, " + name; }
+bool isEven(int n) { return n % 2 == 0; }
+std::vector<int> range(int n) {
+    std::vector<int> v;
+    for (int i = 0; i < n; ++i) v.push_back(i);
+    return v;
+}
+
 int main() {
-    // TODO: Implement Return types
-    // Step 1: Read input
-    // Step 2: Process
-    // Step 3: Output result
-    
-    std::cout << "Solution for: Return types" << std::endl;
+    std::cout << square(5) << "
+";
+    std::cout << divide(7, 2) << "
+";
+    std::cout << greet("Viswa") << "
+";
+    std::cout << std::boolalpha << isEven(4) << "
+";
+    for (int x : range(5)) std::cout << x << " ";
+    std::cout << "
+";
     return 0;
 }
 ```
@@ -73,21 +80,26 @@ int main() {
 ### Approach 2: Optimized / STL-Based
 ```cpp
 #include <iostream>
-#include <string>
 #include <vector>
 #include <algorithm>
+#include <functional>
 #include <numeric>
 
 /*
- * Return types — Optimized approach using STL
- * 
- * Uses standard library algorithms where applicable.
- * Generally preferred in production C++ code.
+ * Return types — STL/Library approach
  */
 int main() {
-    // TODO: STL-based implementation
-    // Use std::sort, std::find, std::accumulate, etc. as appropriate
+    std::vector<int> data = {5, 2, 8, 1, 9, 3, 7, 4, 6};
     
+    // STL-based implementation of Return types
+    std::sort(data.begin(), data.end());
+    for (const auto& x : data) std::cout << x << " ";
+    std::cout << "
+";
+    
+    auto sum = std::accumulate(data.begin(), data.end(), 0);
+    std::cout << "Sum: " << sum << "
+";
     return 0;
 }
 ```
@@ -99,19 +111,26 @@ int main() {
 ### Approach 3: Modern C++ (C++17/20)
 ```cpp
 #include <iostream>
-#include <string>
 #include <vector>
+#include <algorithm>
+#include <numeric>
 
 /*
- * Return types — Modern C++ approach
- * 
- * Uses features from C++17/20: structured bindings,
- * if-init, ranges, constexpr, etc.
+ * Return types — Modern C++17/20 approach
  */
 int main() {
-    // TODO: Modern C++ implementation
-    // Use auto, structured bindings, ranges, etc.
+    std::vector<int> data = {5, 2, 8, 1, 9, 3, 7, 4, 6};
     
+    // Modern C++ features for Return types
+    auto [min_it, max_it] = std::minmax_element(data.begin(), data.end());
+    std::cout << "Range: [" << *min_it << ", " << *max_it << "]
+";
+    
+    // Lambda-based approach
+    std::sort(data.begin(), data.end());
+    for (const auto& x : data) std::cout << x << " ";
+    std::cout << "
+";
     return 0;
 }
 ```
@@ -187,3 +206,18 @@ For a typical input, trace the solution:
 ---
 
 *Generated for C++ Level 1 — C11 Problem Solving Guide*
+
+
+## Key Takeaways
+1. Understand the core pattern and when to apply Return types
+2. Know the time/space complexity trade-offs
+3. Handle base cases and edge cases properly
+4. Consider iterative alternatives when recursion depth is a concern
+5. Use standard library utilities where available
+
+## Common Mistakes (Specific)
+- Not handling edge cases (empty input, single element, boundary values)
+- Off-by-one errors in recursive/iterative bounds
+- Integer overflow for large inputs — use `long long`
+- Stack overflow from deep recursion — convert to iterative if needed
+- Forgetting to initialize variables before use

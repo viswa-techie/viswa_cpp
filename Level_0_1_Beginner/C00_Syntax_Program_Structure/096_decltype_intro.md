@@ -1,189 +1,91 @@
 # decltype intro
 
 > **Level:** 0 — Absolute Beginner  
-> **Category:** C00  
-> **Topic:** modern
+> **Category:** C00 — C++ Syntax & Program Structure  
+> **Topic:** syntax
 
 ---
 
 ## Problem Statement
+Use `decltype` to get the type of an expression at compile time.
 
-Understand and explain the concept of decltype intro. Be able to describe it, identify it in code, and use it correctly.
+## What You Need to Know
+- `decltype(expr)` gives you the type of `expr` without evaluating it.
+- Useful when you need a type but don't want to spell it out.
+- Available since C++11.
 
-### Examples
-- **Input Example 1:** A typical/simple case
-- **Input Example 2:** An edge case (empty input, boundary values)
-- **Input Example 3:** A larger or tricky case
-
----
-
-## Prerequisites
-- Basic C++ syntax (variables, types, operators)
-- Understanding of C++ compilation model
-- Header files and namespaces
-
----
-
-## Core Concept
-
-### What Is It?
-decltype intro is a fundamental concept in C++ that every programmer must understand.
-
-### Why Does It Matter?
-- Forms the foundation for understanding more complex C++ features
-- Commonly asked in technical interviews
-- Helps write clean, maintainable code
-
-### Mental Model
-Think of decltype intro as a building block — you can't build a house without understanding bricks.
-
----
-
-## Solution Approaches
-
-### Approach 1: Direct / Straightforward
+## Basic Usage
 ```cpp
 #include <iostream>
-#include <string>
-#include <vector>
-#include <algorithm>
 
-/*
- * decltype intro
- * 
- * Approach: Direct implementation
- * Time Complexity:  O(n) — typical for this type of problem
- * Space Complexity: O(1) — or O(n) if storing results
- */
 int main() {
-    // TODO: Implement decltype intro
-    // Step 1: Read input
-    // Step 2: Process
-    // Step 3: Output result
-    
-    std::cout << "Solution for: decltype intro" << std::endl;
+    int x = 42;
+    decltype(x) y = 100;     // y is int (same type as x)
+
+    double pi = 3.14;
+    decltype(pi) e = 2.71;   // e is double
+
+    std::cout << y << " " << e << "\n";
     return 0;
 }
 ```
 
-**Time Complexity:** O(n) (typical)  
-**Space Complexity:** O(1) or O(n)  
-**When to use:** First attempt, when simplicity matters over performance.
-
-### Approach 2: Optimized / STL-Based
+## decltype vs auto
 ```cpp
 #include <iostream>
-#include <string>
-#include <vector>
-#include <algorithm>
-#include <numeric>
 
-/*
- * decltype intro — Optimized approach using STL
- * 
- * Uses standard library algorithms where applicable.
- * Generally preferred in production C++ code.
- */
 int main() {
-    // TODO: STL-based implementation
-    // Use std::sort, std::find, std::accumulate, etc. as appropriate
-    
+    int x = 42;
+    int& ref = x;
+
+    auto a = ref;           // a is int (auto drops reference)
+    decltype(ref) b = x;    // b is int& (decltype preserves reference)
+
+    b = 100;
+    std::cout << x << "\n";  // 100 (b is a reference to x)
     return 0;
 }
 ```
 
-**Time Complexity:** Depends on STL algorithm used  
-**Space Complexity:** Depends on approach  
-**When to use:** Production code, when you know the right STL tool.
-
-### Approach 3: Modern C++ (C++17/20)
+## decltype with Expressions
 ```cpp
 #include <iostream>
-#include <string>
-#include <vector>
 
-/*
- * decltype intro — Modern C++ approach
- * 
- * Uses features from C++17/20: structured bindings,
- * if-init, ranges, constexpr, etc.
- */
 int main() {
-    // TODO: Modern C++ implementation
-    // Use auto, structured bindings, ranges, etc.
-    
+    int x = 5;
+
+    decltype(x + 1) result = 0;     // int (x+1 is an int expression)
+    decltype(x * 1.5) pi = 3.14;    // double (int * double = double)
+
     return 0;
 }
 ```
 
----
+## Practical Use: Template Functions
+```cpp
+#include <iostream>
 
-## Step-by-Step Trace
+template<typename A, typename B>
+auto add(A a, B b) -> decltype(a + b) {
+    return a + b;
+}
 
-For a typical input, trace the solution:
+int main() {
+    auto r1 = add(3, 4);       // int
+    auto r2 = add(3, 4.5);     // double
+    std::cout << r1 << " " << r2 << "\n";
+    return 0;
+}
+```
 
-| Step | State | Action | Result |
-|------|-------|--------|--------|
-| 1 | Initial | Read input | — |
-| 2 | Processing | Apply algorithm | — |
-| 3 | Final | Output result | — |
+## Key Takeaways
+1. `decltype(expr)` gives the exact type of the expression
+2. Unlike `auto`, `decltype` preserves references and const
+3. The expression is NOT evaluated — only its type is inspected
+4. Useful in templates to deduce return types
+5. Rarely needed in simple code — `auto` is usually sufficient
 
----
-
-## Common Mistakes & Pitfalls
-
-1. **Off-by-one errors** — Check loop boundaries carefully
-2. **Uninitialized variables** — Always initialize before use
-3. **Integer overflow** — Use `long long` for large numbers
-4. **Missing edge cases** — Empty input, single element, negative numbers
-5. **Forgetting `#include`** — Include all necessary headers
-6. **Using `==` vs `=`** — Assignment vs comparison
-
----
-
-## What You Should Learn From This
-
-### Key C++ Feature Demonstrated
-- decltype intro demonstrates fundamental language syntax
-
-### Interview Tips
-- Explain the concept clearly before writing code
-- Always discuss time/space complexity
-- Mention edge cases proactively
-
-### Code Review Checklist
-- [ ] Compiles with `-Wall -Wextra` — no warnings
-- [ ] Handles edge cases
-- [ ] Variables are properly initialized
-- [ ] No memory leaks (if using dynamic allocation)
-- [ ] Code is readable and well-commented
-
----
-
-## Pattern Recognition
-
-**Pattern:** Language fundamentals — know the rules
-
-**Similar Problems:**
-- (See other problems in this category)
-
-**When you see** _______, **think** _______.
-
----
-
-## Practice Variants
-1. **Easy:** Simplify the constraints (smaller input, fewer edge cases)
-2. **Medium:** Add a constraint (handle negative numbers, optimize for time)
-3. **Hard:** Combine with another concept (recursion, dynamic programming)
-
----
-
-## Quick Reference Card
-- **Core idea:** decltype intro
-- **Key construct:** Language syntax
-- **Complexity:** O(n) typical
-- **Don't forget:** Initialize variables, check edge cases, use `-Wall`
-
----
-
-*Generated for C++ Level 0 — C00 Problem Solving Guide*
+## Common Mistakes
+- Confusing `auto` (drops references) with `decltype` (preserves them)
+- `decltype(x)` vs `decltype((x))` — with parentheses, it becomes a reference!
+- Overusing `decltype` when `auto` would be simpler

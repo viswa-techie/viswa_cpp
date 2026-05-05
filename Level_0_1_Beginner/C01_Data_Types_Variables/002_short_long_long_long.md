@@ -44,24 +44,23 @@ Think of short, long, long long as a tool in your toolbox — know when to reach
 ### Approach 1: Direct / Straightforward
 ```cpp
 #include <iostream>
-#include <string>
-#include <vector>
-#include <algorithm>
-
-/*
- * short, long, long long
- * 
- * Approach: Direct implementation
- * Time Complexity:  O(n) — typical for this type of problem
- * Space Complexity: O(1) — or O(n) if storing results
- */
 int main() {
-    // TODO: Implement short, long, long long
-    // Step 1: Read input
-    // Step 2: Process
-    // Step 3: Output result
-    
-    std::cout << "Solution for: short, long, long long" << std::endl;
+    short s = 32767;           // Typically 2 bytes
+    long l = 2147483647L;      // At least 4 bytes
+    long long ll = 9223372036854775807LL;  // At least 8 bytes
+
+    std::cout << "short: " << s << " (size: " << sizeof(short) << ")
+";
+    std::cout << "long: " << l << " (size: " << sizeof(long) << ")
+";
+    std::cout << "long long: " << ll << " (size: " << sizeof(long long) << ")
+";
+
+    // Overflow demo
+    short overflow = 32767;
+    overflow++;  // UB for signed, but typically wraps to -32768
+    std::cout << "short overflow: " << overflow << "
+";
     return 0;
 }
 ```
@@ -73,21 +72,18 @@ int main() {
 ### Approach 2: Optimized / STL-Based
 ```cpp
 #include <iostream>
-#include <string>
-#include <vector>
-#include <algorithm>
-#include <numeric>
+#include <limits>
 
-/*
- * short, long, long long — Optimized approach using STL
- * 
- * Uses standard library algorithms where applicable.
- * Generally preferred in production C++ code.
- */
 int main() {
-    // TODO: STL-based implementation
-    // Use std::sort, std::find, std::accumulate, etc. as appropriate
-    
+    std::cout << "short range: [" << std::numeric_limits<short>::min()
+              << ", " << std::numeric_limits<short>::max() << "]
+";
+    std::cout << "long range: [" << std::numeric_limits<long>::min()
+              << ", " << std::numeric_limits<long>::max() << "]
+";
+    std::cout << "long long range: [" << std::numeric_limits<long long>::min()
+              << ", " << std::numeric_limits<long long>::max() << "]
+";
     return 0;
 }
 ```
@@ -99,19 +95,20 @@ int main() {
 ### Approach 3: Modern C++ (C++17/20)
 ```cpp
 #include <iostream>
-#include <string>
-#include <vector>
+#include <cstdint>
 
-/*
- * short, long, long long — Modern C++ approach
- * 
- * Uses features from C++17/20: structured bindings,
- * if-init, ranges, constexpr, etc.
- */
 int main() {
-    // TODO: Modern C++ implementation
-    // Use auto, structured bindings, ranges, etc.
-    
+    // Modern C++: prefer fixed-width types for clarity
+    int16_t s = 32767;       // Exactly 16 bits
+    int32_t i = 2147483647;  // Exactly 32 bits
+    int64_t ll = 9223372036854775807LL;  // Exactly 64 bits
+
+    std::cout << "int16_t max: " << s << "
+";
+    std::cout << "int32_t max: " << i << "
+";
+    std::cout << "int64_t max: " << ll << "
+";
     return 0;
 }
 ```
@@ -187,3 +184,16 @@ For a typical input, trace the solution:
 ---
 
 *Generated for C++ Level 0 — C01 Problem Solving Guide*
+
+
+## Key Takeaways
+1. `short` ≥ 16 bits, `long` ≥ 32 bits, `long long` ≥ 64 bits
+2. Use `long long` when values exceed ~2 billion (INT_MAX)
+3. Suffix literals: `L` for long, `LL` for long long
+4. Prefer `<cstdint>` fixed-width types (`int32_t`, `int64_t`) for portability
+5. Size guarantees are minimums — actual sizes vary by platform
+
+## Common Mistakes (Specific)
+- Forgetting `LL` suffix on large literals — treated as `int` and may overflow
+- Assuming `long` is 8 bytes — it's 4 bytes on Windows 64-bit
+- Using `short` for micro-optimization — rarely saves anything due to alignment

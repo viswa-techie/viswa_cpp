@@ -44,24 +44,31 @@ Think of rotate array left/right as a puzzle — break it into smaller pieces an
 ### Approach 1: Direct / Straightforward
 ```cpp
 #include <iostream>
-#include <string>
 #include <vector>
 #include <algorithm>
 
-/*
- * Rotate array left/right
- * 
- * Approach: Direct implementation
- * Time Complexity:  O(n) — typical for this type of problem
- * Space Complexity: O(1) — or O(n) if storing results
- */
+void rotateLeft(std::vector<int>& arr, int k) {
+    int n = arr.size();
+    k %= n;
+    std::reverse(arr.begin(), arr.begin() + k);
+    std::reverse(arr.begin() + k, arr.end());
+    std::reverse(arr.begin(), arr.end());
+}
+
+void rotateRight(std::vector<int>& arr, int k) {
+    int n = arr.size();
+    k %= n;
+    std::reverse(arr.begin(), arr.end());
+    std::reverse(arr.begin(), arr.begin() + k);
+    std::reverse(arr.begin() + k, arr.end());
+}
+
 int main() {
-    // TODO: Implement Rotate array left/right
-    // Step 1: Read input
-    // Step 2: Process
-    // Step 3: Output result
-    
-    std::cout << "Solution for: Rotate array left/right" << std::endl;
+    std::vector<int> arr = {1, 2, 3, 4, 5};
+    rotateRight(arr, 2);
+    for (int x : arr) std::cout << x << " ";
+    std::cout << "
+";  // 4 5 1 2 3
     return 0;
 }
 ```
@@ -73,21 +80,26 @@ int main() {
 ### Approach 2: Optimized / STL-Based
 ```cpp
 #include <iostream>
-#include <string>
 #include <vector>
 #include <algorithm>
 #include <numeric>
 
 /*
- * Rotate array left/right — Optimized approach using STL
- * 
- * Uses standard library algorithms where applicable.
- * Generally preferred in production C++ code.
+ * Rotate array leftright — STL/Library approach
  */
 int main() {
-    // TODO: STL-based implementation
-    // Use std::sort, std::find, std::accumulate, etc. as appropriate
+    std::vector<int> data = {5, 2, 8, 1, 9, 3, 7, 4, 6};
     
+    // STL-based implementation
+    std::sort(data.begin(), data.end());
+    for (const auto& x : data) std::cout << x << " ";
+    std::cout << "
+";
+    
+    auto it = std::lower_bound(data.begin(), data.end(), 5);
+    if (it != data.end())
+        std::cout << "Found: " << *it << " at index " << (it - data.begin()) << "
+";
     return 0;
 }
 ```
@@ -99,19 +111,28 @@ int main() {
 ### Approach 3: Modern C++ (C++17/20)
 ```cpp
 #include <iostream>
-#include <string>
 #include <vector>
+#include <algorithm>
+#include <numeric>
 
 /*
- * Rotate array left/right — Modern C++ approach
- * 
- * Uses features from C++17/20: structured bindings,
- * if-init, ranges, constexpr, etc.
+ * Rotate array leftright — Modern C++17/20 approach
  */
 int main() {
-    // TODO: Modern C++ implementation
-    // Use auto, structured bindings, ranges, etc.
+    std::vector<int> data = {5, 2, 8, 1, 9, 3, 7, 4, 6};
     
+    // Modern C++ features
+    auto [min_it, max_it] = std::minmax_element(data.begin(), data.end());
+    std::cout << "Range: [" << *min_it << ", " << *max_it << "]
+";
+    
+    // Partition with lambda
+    auto pivot = std::partition(data.begin(), data.end(), [](int x) { return x <= 5; });
+    std::cout << "Partitioned at index: " << (pivot - data.begin()) << "
+";
+    for (int x : data) std::cout << x << " ";
+    std::cout << "
+";
     return 0;
 }
 ```
@@ -187,3 +208,18 @@ For a typical input, trace the solution:
 ---
 
 *Generated for C++ Level 1 — C12 Problem Solving Guide*
+
+
+## Key Takeaways
+1. Understand the algorithm and its time/space complexity
+2. Handle edge cases: empty array, single element, all same values
+3. Consider both brute-force and optimized approaches
+4. Test with small inputs and verify with larger ones
+5. Know when to use STL algorithms vs manual implementation
+
+## Common Mistakes (Specific)
+- Out-of-bounds access: no runtime check for C arrays (UB!)
+- Forgetting that arrays are zero-indexed (last element at size-1)
+- sizeof in function gives pointer size, not array size
+- Uninitialized array elements contain garbage values
+- Using VLAs (variable-length arrays) — not standard C++

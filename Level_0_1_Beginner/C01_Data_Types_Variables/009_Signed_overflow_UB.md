@@ -44,24 +44,24 @@ Think of signed overflow ub as a tool in your toolbox — know when to reach for
 ### Approach 1: Direct / Straightforward
 ```cpp
 #include <iostream>
-#include <string>
-#include <vector>
-#include <algorithm>
-
-/*
- * Signed overflow UB
- * 
- * Approach: Direct implementation
- * Time Complexity:  O(n) — typical for this type of problem
- * Space Complexity: O(1) — or O(n) if storing results
- */
+#include <climits>
 int main() {
-    // TODO: Implement Signed overflow UB
-    // Step 1: Read input
-    // Step 2: Process
-    // Step 3: Output result
-    
-    std::cout << "Solution for: Signed overflow UB" << std::endl;
+    int x = INT_MAX;
+    std::cout << "INT_MAX = " << x << "
+";
+
+    // UNDEFINED BEHAVIOR! Signed overflow has no guaranteed result
+    // x + 1 could be anything — compiler can assume it never happens
+    // x++;  // DON'T DO THIS
+
+    // Safe overflow check BEFORE operation
+    int a = 2000000000, b = 1000000000;
+    if (a > INT_MAX - b)
+        std::cout << "Addition would overflow!
+";
+    else
+        std::cout << "Safe: " << a + b << "
+";
     return 0;
 }
 ```
@@ -73,21 +73,25 @@ int main() {
 ### Approach 2: Optimized / STL-Based
 ```cpp
 #include <iostream>
-#include <string>
-#include <vector>
-#include <algorithm>
-#include <numeric>
-
-/*
- * Signed overflow UB — Optimized approach using STL
- * 
- * Uses standard library algorithms where applicable.
- * Generally preferred in production C++ code.
- */
+#include <limits>
 int main() {
-    // TODO: STL-based implementation
-    // Use std::sort, std::find, std::accumulate, etc. as appropriate
+    // Why signed overflow is UB matters:
+    // The compiler ASSUMES it never happens and optimizes accordingly
+    // Example: compiler may optimize (x + 1 > x) to always true
     
+    int x = std::numeric_limits<int>::max();
+    // Compiler may assume x+1 > x is always true!
+    // With UB, anything can happen
+    
+    // Safe multiplication check
+    int a = 50000, b = 50000;
+    long long product = static_cast<long long>(a) * b;
+    if (product > std::numeric_limits<int>::max())
+        std::cout << "Overflow! Result: " << product << "
+";
+    else
+        std::cout << "Safe: " << static_cast<int>(product) << "
+";
     return 0;
 }
 ```
@@ -99,19 +103,26 @@ int main() {
 ### Approach 3: Modern C++ (C++17/20)
 ```cpp
 #include <iostream>
-#include <string>
-#include <vector>
-
-/*
- * Signed overflow UB — Modern C++ approach
- * 
- * Uses features from C++17/20: structured bindings,
- * if-init, ranges, constexpr, etc.
- */
+#include <cstdint>
+// C++20: could use std::add_overflow if available
+// GCC/Clang built-in:
 int main() {
-    // TODO: Modern C++ implementation
-    // Use auto, structured bindings, ranges, etc.
+    int a = 2000000000, b = 1000000000;
+    int result;
     
+    #if defined(__GNUC__) || defined(__clang__)
+    if (__builtin_add_overflow(a, b, &result))
+        std::cout << "Overflow detected!
+";
+    else
+        std::cout << "Result: " << result << "
+";
+    #endif
+
+    // Alternative: use wider type
+    int64_t safe = static_cast<int64_t>(a) + b;
+    std::cout << "Safe (int64): " << safe << "
+";
     return 0;
 }
 ```
@@ -187,3 +198,17 @@ For a typical input, trace the solution:
 ---
 
 *Generated for C++ Level 0 — C01 Problem Solving Guide*
+
+
+## Key Takeaways
+1. Signed integer overflow is UNDEFINED BEHAVIOR in C++
+2. The compiler assumes it never happens — enables aggressive optimizations
+3. Check BEFORE performing arithmetic: `if (a > INT_MAX - b)`
+4. Use `__builtin_add_overflow` (GCC/Clang) for safe checked arithmetic
+5. Cast to wider type before operation: `(long long)a * b`
+
+## Common Mistakes (Specific)
+- Assuming signed overflow wraps like unsigned — it's UB, anything can happen
+- Compiler may optimize away your overflow checks due to UB assumptions
+- Testing for overflow AFTER the operation — too late, UB already occurred
+- Using `-fwrapv` flag makes it defined but non-portable

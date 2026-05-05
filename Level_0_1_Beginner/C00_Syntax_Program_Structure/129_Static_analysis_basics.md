@@ -1,189 +1,101 @@
 # Static analysis basics
 
 > **Level:** 0 — Absolute Beginner  
-> **Category:** C00  
-> **Topic:** tools
+> **Category:** C00 — C++ Syntax & Program Structure  
+> **Topic:** syntax
 
 ---
 
 ## Problem Statement
+Use static analysis tools to find bugs without running your code.
 
-Understand and explain the concept of Static analysis basics. Be able to describe it, identify it in code, and use it correctly.
+## What You Need to Know
+- **Static analysis** examines source code without executing it.
+- Finds bugs that compilers miss: memory leaks, null dereferences, logic errors.
+- Complements testing — catches bugs before they happen.
 
-### Examples
-- **Input Example 1:** A typical/simple case
-- **Input Example 2:** An edge case (empty input, boundary values)
-- **Input Example 3:** A larger or tricky case
+## Compiler Warnings (First Line of Defense)
+```bash
+# Enable maximum warnings — this IS static analysis
+g++ -Wall -Wextra -Wpedantic -Wshadow -Wconversion -Werror main.cpp
 
----
+# Key warnings explained:
+# -Wall       : Common warnings (uninitialized vars, unused results)
+# -Wextra     : Extra warnings (unused parameters, sign comparisons)
+# -Wshadow    : Variable shadows another variable
+# -Wconversion: Implicit narrowing conversions
+# -Werror     : Treat all warnings as errors
+```
 
-## Prerequisites
-- Basic C++ syntax (variables, types, operators)
-- Understanding of C++ compilation model
-- Header files and namespaces
+## clang-tidy
+```bash
+# Install
+sudo apt install clang-tidy
 
----
+# Run on a file
+clang-tidy main.cpp -- -std=c++17
 
-## Core Concept
+# Common checks it finds:
+# - Modernize: suggest auto, range-for, nullptr
+# - Bugprone: suspicious constructs
+# - Performance: unnecessary copies
+# - Readability: naming conventions
+```
 
-### What Is It?
-Static analysis basics is a fundamental concept in C++ that every programmer must understand.
+## cppcheck
+```bash
+# Install
+sudo apt install cppcheck
 
-### Why Does It Matter?
-- Forms the foundation for understanding more complex C++ features
-- Commonly asked in technical interviews
-- Helps write clean, maintainable code
+# Basic usage
+cppcheck main.cpp
 
-### Mental Model
-Think of static analysis basics as a building block — you can't build a house without understanding bricks.
+# Thorough check
+cppcheck --enable=all --std=c++17 main.cpp
 
----
+# Example findings:
+# [main.cpp:10]: (error) Array 'arr[5]' accessed at index 10
+# [main.cpp:15]: (warning) Unused variable 'x'
+# [main.cpp:20]: (style) Variable 'count' is assigned but never used
+```
 
-## Solution Approaches
-
-### Approach 1: Direct / Straightforward
+## Example: What Static Analysis Finds
 ```cpp
-#include <iostream>
-#include <string>
-#include <vector>
-#include <algorithm>
+int* getPointer(bool flag) {
+    int* p = nullptr;
+    if (flag) {
+        p = new int(42);
+    }
+    return p;    // cppcheck: possible null pointer returned
+}
 
-/*
- * Static analysis basics
- * 
- * Approach: Direct implementation
- * Time Complexity:  O(n) — typical for this type of problem
- * Space Complexity: O(1) — or O(n) if storing results
- */
-int main() {
-    // TODO: Implement Static analysis basics
-    // Step 1: Read input
-    // Step 2: Process
-    // Step 3: Output result
-    
-    std::cout << "Solution for: Static analysis basics" << std::endl;
-    return 0;
+void example() {
+    int arr[5];
+    for (int i = 0; i <= 5; ++i) {   // clang-tidy: off-by-one (i <= 5)
+        arr[i] = i;                    // Buffer overflow when i=5
+    }
 }
 ```
 
-**Time Complexity:** O(n) (typical)  
-**Space Complexity:** O(1) or O(n)  
-**When to use:** First attempt, when simplicity matters over performance.
-
-### Approach 2: Optimized / STL-Based
-```cpp
-#include <iostream>
-#include <string>
-#include <vector>
-#include <algorithm>
-#include <numeric>
-
-/*
- * Static analysis basics — Optimized approach using STL
- * 
- * Uses standard library algorithms where applicable.
- * Generally preferred in production C++ code.
- */
-int main() {
-    // TODO: STL-based implementation
-    // Use std::sort, std::find, std::accumulate, etc. as appropriate
-    
-    return 0;
-}
+## Tools Summary
+```
+Tool               Type         Cost      Depth
+----               ----         ----      -----
+g++ -Wall          Compiler     Free      Basic
+clang-tidy         Linter       Free      Deep
+cppcheck           Analyzer     Free      Deep
+PVS-Studio         Analyzer     Paid      Very deep
+SonarQube          Platform     Free/Paid Enterprise
 ```
 
-**Time Complexity:** Depends on STL algorithm used  
-**Space Complexity:** Depends on approach  
-**When to use:** Production code, when you know the right STL tool.
+## Key Takeaways
+1. Always compile with `-Wall -Wextra` — free bug detection
+2. `clang-tidy` modernizes code and catches subtle bugs
+3. `cppcheck` finds memory errors and logic issues
+4. Static analysis catches bugs BEFORE runtime — cheaper to fix
+5. Use multiple tools — each catches different issues
 
-### Approach 3: Modern C++ (C++17/20)
-```cpp
-#include <iostream>
-#include <string>
-#include <vector>
-
-/*
- * Static analysis basics — Modern C++ approach
- * 
- * Uses features from C++17/20: structured bindings,
- * if-init, ranges, constexpr, etc.
- */
-int main() {
-    // TODO: Modern C++ implementation
-    // Use auto, structured bindings, ranges, etc.
-    
-    return 0;
-}
-```
-
----
-
-## Step-by-Step Trace
-
-For a typical input, trace the solution:
-
-| Step | State | Action | Result |
-|------|-------|--------|--------|
-| 1 | Initial | Read input | — |
-| 2 | Processing | Apply algorithm | — |
-| 3 | Final | Output result | — |
-
----
-
-## Common Mistakes & Pitfalls
-
-1. **Off-by-one errors** — Check loop boundaries carefully
-2. **Uninitialized variables** — Always initialize before use
-3. **Integer overflow** — Use `long long` for large numbers
-4. **Missing edge cases** — Empty input, single element, negative numbers
-5. **Forgetting `#include`** — Include all necessary headers
-6. **Using `==` vs `=`** — Assignment vs comparison
-
----
-
-## What You Should Learn From This
-
-### Key C++ Feature Demonstrated
-- Static analysis basics demonstrates fundamental language syntax
-
-### Interview Tips
-- Explain the concept clearly before writing code
-- Always discuss time/space complexity
-- Mention edge cases proactively
-
-### Code Review Checklist
-- [ ] Compiles with `-Wall -Wextra` — no warnings
-- [ ] Handles edge cases
-- [ ] Variables are properly initialized
-- [ ] No memory leaks (if using dynamic allocation)
-- [ ] Code is readable and well-commented
-
----
-
-## Pattern Recognition
-
-**Pattern:** Language fundamentals — know the rules
-
-**Similar Problems:**
-- (See other problems in this category)
-
-**When you see** _______, **think** _______.
-
----
-
-## Practice Variants
-1. **Easy:** Simplify the constraints (smaller input, fewer edge cases)
-2. **Medium:** Add a constraint (handle negative numbers, optimize for time)
-3. **Hard:** Combine with another concept (recursion, dynamic programming)
-
----
-
-## Quick Reference Card
-- **Core idea:** Static analysis basics
-- **Key construct:** Language syntax
-- **Complexity:** O(n) typical
-- **Don't forget:** Initialize variables, check edge cases, use `-Wall`
-
----
-
-*Generated for C++ Level 0 — C00 Problem Solving Guide*
+## Common Mistakes
+- Ignoring compiler warnings → missing real bugs
+- Running analysis only once → should be part of CI/CD
+- Blindly applying all suggestions → some may not apply to your codebase

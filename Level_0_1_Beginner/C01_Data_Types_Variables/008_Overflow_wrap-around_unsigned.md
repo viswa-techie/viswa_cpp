@@ -44,24 +44,23 @@ Think of overflow wrap-around (unsigned) as a tool in your toolbox — know when
 ### Approach 1: Direct / Straightforward
 ```cpp
 #include <iostream>
-#include <string>
-#include <vector>
-#include <algorithm>
-
-/*
- * Overflow wrap-around (unsigned)
- * 
- * Approach: Direct implementation
- * Time Complexity:  O(n) — typical for this type of problem
- * Space Complexity: O(1) — or O(n) if storing results
- */
+#include <climits>
 int main() {
-    // TODO: Implement Overflow wrap-around (unsigned)
-    // Step 1: Read input
-    // Step 2: Process
-    // Step 3: Output result
-    
-    std::cout << "Solution for: Overflow wrap-around (unsigned)" << std::endl;
+    unsigned int u = 0;
+    u--;  // Well-defined: wraps to UINT_MAX
+    std::cout << "0u - 1 = " << u << "
+";  // 4294967295
+
+    unsigned int max = UINT_MAX;
+    max++;  // Well-defined: wraps to 0
+    std::cout << "UINT_MAX + 1 = " << max << "
+";  // 0
+
+    // Modular arithmetic
+    unsigned int a = 4294967290U;
+    unsigned int b = a + 10;  // wraps: (4294967290 + 10) mod 2^32 = 4
+    std::cout << "4294967290 + 10 = " << b << "
+";
     return 0;
 }
 ```
@@ -73,21 +72,24 @@ int main() {
 ### Approach 2: Optimized / STL-Based
 ```cpp
 #include <iostream>
-#include <string>
 #include <vector>
-#include <algorithm>
-#include <numeric>
-
-/*
- * Overflow wrap-around (unsigned) — Optimized approach using STL
- * 
- * Uses standard library algorithms where applicable.
- * Generally preferred in production C++ code.
- */
 int main() {
-    // TODO: STL-based implementation
-    // Use std::sort, std::find, std::accumulate, etc. as appropriate
-    
+    // Common bug: unsigned subtraction in loop
+    std::vector<int> v = {1, 2, 3};
+    // BAD: if v is empty, v.size()-1 wraps to huge number!
+    // for (size_t i = 0; i <= v.size() - 1; ++i)  // BUG if empty
+
+    // SAFE approach:
+    for (size_t i = 0; i < v.size(); ++i)
+        std::cout << v[i] << " ";
+    std::cout << "
+";
+
+    // SAFE reverse loop with unsigned
+    for (size_t i = v.size(); i-- > 0; )
+        std::cout << v[i] << " ";
+    std::cout << "
+";
     return 0;
 }
 ```
@@ -99,19 +101,27 @@ int main() {
 ### Approach 3: Modern C++ (C++17/20)
 ```cpp
 #include <iostream>
-#include <string>
-#include <vector>
-
-/*
- * Overflow wrap-around (unsigned) — Modern C++ approach
- * 
- * Uses features from C++17/20: structured bindings,
- * if-init, ranges, constexpr, etc.
- */
+#include <cstdint>
 int main() {
-    // TODO: Modern C++ implementation
-    // Use auto, structured bindings, ranges, etc.
-    
+    // Demonstrate wrap behavior with different widths
+    uint8_t byte = 255;
+    byte++;
+    std::cout << "uint8_t 255+1 = " << +byte << "
+";  // 0
+
+    uint16_t word = 65535;
+    word++;
+    std::cout << "uint16_t 65535+1 = " << word << "
+";  // 0
+
+    // Detecting overflow before it happens
+    uint32_t a = 4000000000U, b = 1000000000U;
+    if (a > UINT32_MAX - b)
+        std::cout << "Addition would overflow!
+";
+    else
+        std::cout << "Safe: " << a + b << "
+";
     return 0;
 }
 ```
@@ -187,3 +197,16 @@ For a typical input, trace the solution:
 ---
 
 *Generated for C++ Level 0 — C01 Problem Solving Guide*
+
+
+## Key Takeaways
+1. Unsigned overflow is WELL-DEFINED — wraps modulo 2^N
+2. `0u - 1` = UINT_MAX (wraps around)
+3. This is unlike signed overflow which is undefined behavior
+4. Common trap: `vector.size() - 1` when vector is empty
+5. Check for overflow BEFORE performing the operation
+
+## Common Mistakes (Specific)
+- Using unsigned loop counter decrementing past 0 → infinite loop
+- `size() - 1` on empty container → wraps to enormous value
+- Assuming unsigned can be negative — it can't, it wraps instead

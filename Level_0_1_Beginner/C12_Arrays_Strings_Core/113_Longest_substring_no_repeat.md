@@ -45,23 +45,30 @@ Think of longest substring no repeat as a tool in your toolbox — know when to 
 ```cpp
 #include <iostream>
 #include <string>
-#include <vector>
+#include <unordered_set>
 #include <algorithm>
 
-/*
- * Longest substring no repeat
- * 
- * Approach: Direct implementation
- * Time Complexity:  O(n) — typical for this type of problem
- * Space Complexity: O(1) — or O(n) if storing results
- */
-int main() {
-    // TODO: Implement Longest substring no repeat
-    // Step 1: Read input
-    // Step 2: Process
-    // Step 3: Output result
+int lengthOfLongestSubstring(const std::string& s) {
+    std::unordered_set<char> window;
+    int maxLen = 0, left = 0;
     
-    std::cout << "Solution for: Longest substring no repeat" << std::endl;
+    for (int right = 0; right < (int)s.size(); ++right) {
+        while (window.count(s[right])) {
+            window.erase(s[left++]);
+        }
+        window.insert(s[right]);
+        maxLen = std::max(maxLen, right - left + 1);
+    }
+    return maxLen;
+}
+
+int main() {
+    std::cout << lengthOfLongestSubstring("abcabcbb") << "
+";  // 3 ("abc")
+    std::cout << lengthOfLongestSubstring("bbbbb") << "
+";     // 1 ("b")
+    std::cout << lengthOfLongestSubstring("pwwkew") << "
+";    // 3 ("wke")
     return 0;
 }
 ```
@@ -73,21 +80,26 @@ int main() {
 ### Approach 2: Optimized / STL-Based
 ```cpp
 #include <iostream>
-#include <string>
 #include <vector>
 #include <algorithm>
 #include <numeric>
 
 /*
- * Longest substring no repeat — Optimized approach using STL
- * 
- * Uses standard library algorithms where applicable.
- * Generally preferred in production C++ code.
+ * Longest substring no repeat — STL/Library approach
  */
 int main() {
-    // TODO: STL-based implementation
-    // Use std::sort, std::find, std::accumulate, etc. as appropriate
+    std::vector<int> data = {5, 2, 8, 1, 9, 3, 7, 4, 6};
     
+    // STL-based implementation
+    std::sort(data.begin(), data.end());
+    for (const auto& x : data) std::cout << x << " ";
+    std::cout << "
+";
+    
+    auto it = std::lower_bound(data.begin(), data.end(), 5);
+    if (it != data.end())
+        std::cout << "Found: " << *it << " at index " << (it - data.begin()) << "
+";
     return 0;
 }
 ```
@@ -99,19 +111,28 @@ int main() {
 ### Approach 3: Modern C++ (C++17/20)
 ```cpp
 #include <iostream>
-#include <string>
 #include <vector>
+#include <algorithm>
+#include <numeric>
 
 /*
- * Longest substring no repeat — Modern C++ approach
- * 
- * Uses features from C++17/20: structured bindings,
- * if-init, ranges, constexpr, etc.
+ * Longest substring no repeat — Modern C++17/20 approach
  */
 int main() {
-    // TODO: Modern C++ implementation
-    // Use auto, structured bindings, ranges, etc.
+    std::vector<int> data = {5, 2, 8, 1, 9, 3, 7, 4, 6};
     
+    // Modern C++ features
+    auto [min_it, max_it] = std::minmax_element(data.begin(), data.end());
+    std::cout << "Range: [" << *min_it << ", " << *max_it << "]
+";
+    
+    // Partition with lambda
+    auto pivot = std::partition(data.begin(), data.end(), [](int x) { return x <= 5; });
+    std::cout << "Partitioned at index: " << (pivot - data.begin()) << "
+";
+    for (int x : data) std::cout << x << " ";
+    std::cout << "
+";
     return 0;
 }
 ```
@@ -187,3 +208,18 @@ For a typical input, trace the solution:
 ---
 
 *Generated for C++ Level 1 — C12 Problem Solving Guide*
+
+
+## Key Takeaways
+1. Understand the algorithm and its time/space complexity
+2. Handle edge cases: empty array, single element, all same values
+3. Consider both brute-force and optimized approaches
+4. Test with small inputs and verify with larger ones
+5. Know when to use STL algorithms vs manual implementation
+
+## Common Mistakes (Specific)
+- Off-by-one errors in array indices and loop bounds
+- Not handling edge cases (empty array, single element)
+- Integer overflow with large sums — use long long
+- Modifying container while iterating — invalidates iterators
+- Forgetting to sort before binary search

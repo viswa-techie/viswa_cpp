@@ -1,189 +1,108 @@
 # Reading entire line with getline
 
 > **Level:** 0 — Absolute Beginner  
-> **Category:** C00  
-> **Topic:** io
+> **Category:** C00 — C++ Syntax & Program Structure  
+> **Topic:** syntax
 
 ---
 
 ## Problem Statement
+Use `std::getline()` to read an entire line of input including spaces.
 
-Master the use of Reading entire line with getline in C++ programs. Understand when and why to use it.
+## What You Need to Know
+- `cin >>` stops at whitespace — can't read "Hello World" as one input.
+- `std::getline(cin, str)` reads the entire line until newline.
+- Requires `#include <string>`.
 
-### Examples
-- **Input Example 1:** A typical/simple case
-- **Input Example 2:** An edge case (empty input, boundary values)
-- **Input Example 3:** A larger or tricky case
-
----
-
-## Prerequisites
-- Basic C++ syntax (variables, types, operators)
-- Standard I/O operations
-- Header files and namespaces
-
----
-
-## Core Concept
-
-### What Is It?
-Reading entire line with getline is a technique in C++ that appears frequently in interviews and real projects.
-
-### Why Does It Matter?
-- Used extensively in production C++ code
-- Commonly asked in technical interviews
-- Helps write clean, maintainable code
-
-### Mental Model
-Think of reading entire line with getline as a tool in your toolbox — know when to reach for it.
-
----
-
-## Solution Approaches
-
-### Approach 1: Direct / Straightforward
+## cin >> vs getline
 ```cpp
 #include <iostream>
 #include <string>
-#include <vector>
-#include <algorithm>
 
-/*
- * Reading entire line with getline
- * 
- * Approach: Direct implementation
- * Time Complexity:  O(n) — typical for this type of problem
- * Space Complexity: O(1) — or O(n) if storing results
- */
 int main() {
-    // TODO: Implement Reading entire line with getline
-    // Step 1: Read input
-    // Step 2: Process
-    // Step 3: Output result
-    
-    std::cout << "Solution for: Reading entire line with getline" << std::endl;
+    std::string input;
+
+    // cin >> reads only ONE word
+    std::cout << "Enter with cin>>: ";
+    std::cin >> input;
+    std::cout << "Got: '" << input << "'\n";
+    // Input "Hello World" → Got: 'Hello'
+
+    std::cin.ignore();  // Discard leftover newline
+
+    // getline reads the ENTIRE line
+    std::cout << "Enter with getline: ";
+    std::getline(std::cin, input);
+    std::cout << "Got: '" << input << "'\n";
+    // Input "Hello World" → Got: 'Hello World'
+
     return 0;
 }
 ```
 
-**Time Complexity:** O(n) (typical)  
-**Space Complexity:** O(1) or O(n)  
-**When to use:** First attempt, when simplicity matters over performance.
-
-### Approach 2: Optimized / STL-Based
+## Basic getline Usage
 ```cpp
 #include <iostream>
 #include <string>
-#include <vector>
-#include <algorithm>
-#include <numeric>
 
-/*
- * Reading entire line with getline — Optimized approach using STL
- * 
- * Uses standard library algorithms where applicable.
- * Generally preferred in production C++ code.
- */
 int main() {
-    // TODO: STL-based implementation
-    // Use std::sort, std::find, std::accumulate, etc. as appropriate
-    
+    std::string name;
+    std::string city;
+
+    std::cout << "Enter your full name: ";
+    std::getline(std::cin, name);
+
+    std::cout << "Enter your city: ";
+    std::getline(std::cin, city);
+
+    std::cout << name << " lives in " << city << "\n";
     return 0;
 }
 ```
 
-**Time Complexity:** Depends on STL algorithm used  
-**Space Complexity:** Depends on approach  
-**When to use:** Production code, when you know the right STL tool.
-
-### Approach 3: Modern C++ (C++17/20)
+## getline with Custom Delimiter
 ```cpp
 #include <iostream>
 #include <string>
-#include <vector>
 
-/*
- * Reading entire line with getline — Modern C++ approach
- * 
- * Uses features from C++17/20: structured bindings,
- * if-init, ranges, constexpr, etc.
- */
 int main() {
-    // TODO: Modern C++ implementation
-    // Use auto, structured bindings, ranges, etc.
-    
+    std::string token;
+
+    // Read until semicolon instead of newline
+    std::cout << "Enter data (semicolon-separated): ";
+    while (std::getline(std::cin, token, ';')) {
+        std::cout << "Token: " << token << "\n";
+    }
+    // Input: "apple;banana;cherry"
+    // Output: Token: apple, Token: banana, Token: cherry
     return 0;
 }
 ```
 
----
+## Reading Multiple Lines
+```cpp
+#include <iostream>
+#include <string>
 
-## Step-by-Step Trace
+int main() {
+    std::string line;
+    std::cout << "Enter lines (Ctrl+D to stop):\n";
 
-For a typical input, trace the solution:
+    while (std::getline(std::cin, line)) {
+        std::cout << "Read: " << line << "\n";
+    }
+    return 0;
+}
+```
 
-| Step | State | Action | Result |
-|------|-------|--------|--------|
-| 1 | Initial | Read input | — |
-| 2 | Processing | Apply algorithm | — |
-| 3 | Final | Output result | — |
+## Key Takeaways
+1. `std::getline(cin, str)` reads the entire line including spaces
+2. The newline character is consumed but not stored
+3. Third parameter changes delimiter: `getline(cin, str, ';')`
+4. Returns a reference to the stream — can be used in `while`/`if`
+5. Requires `#include <string>`
 
----
-
-## Common Mistakes & Pitfalls
-
-1. **Off-by-one errors** — Check loop boundaries carefully
-2. **Uninitialized variables** — Always initialize before use
-3. **Integer overflow** — Use `long long` for large numbers
-4. **Missing edge cases** — Empty input, single element, negative numbers
-5. **Forgetting `#include`** — Include all necessary headers
-6. **Using `==` vs `=`** — Assignment vs comparison
-
----
-
-## What You Should Learn From This
-
-### Key C++ Feature Demonstrated
-- Reading entire line with getline demonstrates proper C++ idioms and best practices
-
-### Interview Tips
-- Discuss tradeoffs between approaches
-- Always discuss time/space complexity
-- Mention edge cases proactively
-
-### Code Review Checklist
-- [ ] Compiles with `-Wall -Wextra` — no warnings
-- [ ] Handles edge cases
-- [ ] Variables are properly initialized
-- [ ] No memory leaks (if using dynamic allocation)
-- [ ] Code is readable and well-commented
-
----
-
-## Pattern Recognition
-
-**Pattern:** Implementation pattern — combine concepts to build
-
-**Similar Problems:**
-- (See other problems in this category)
-
-**When you see** _______, **think** _______.
-
----
-
-## Practice Variants
-1. **Easy:** Simplify the constraints (smaller input, fewer edge cases)
-2. **Medium:** Add a constraint (handle negative numbers, optimize for time)
-3. **Hard:** Combine with another concept (recursion, dynamic programming)
-
----
-
-## Quick Reference Card
-- **Core idea:** Reading entire line with getline
-- **Key construct:** STL / Standard Library
-- **Complexity:** O(n) typical
-- **Don't forget:** Initialize variables, check edge cases, use `-Wall`
-
----
-
-*Generated for C++ Level 0 — C00 Problem Solving Guide*
+## Common Mistakes
+- Using `cin >>` when input has spaces → only first word captured
+- Mixing `cin >>` and `getline` without `cin.ignore()` → getline reads empty string
+- Forgetting to `#include <string>`

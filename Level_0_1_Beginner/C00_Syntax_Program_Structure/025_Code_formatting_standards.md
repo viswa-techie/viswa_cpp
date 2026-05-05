@@ -1,189 +1,78 @@
 # Code formatting standards
 
 > **Level:** 0 — Absolute Beginner  
-> **Category:** C00  
+> **Category:** C00 — C++ Syntax & Program Structure  
 > **Topic:** syntax
 
 ---
 
 ## Problem Statement
+Understand common C++ code formatting conventions and why consistency matters.
 
-Master the use of Code formatting standards in C++ programs. Understand when and why to use it.
+## What You Need to Know
+- Formatting doesn't affect compilation but hugely affects readability.
+- Teams agree on a style guide and enforce it with tools.
+- Popular styles: Google C++ Style, LLVM, Mozilla, WebKit.
 
-### Examples
-- **Input Example 1:** A typical/simple case
-- **Input Example 2:** An edge case (empty input, boundary values)
-- **Input Example 3:** A larger or tricky case
+## Common Formatting Rules
 
----
-
-## Prerequisites
-- Basic C++ syntax (variables, types, operators)
-- Standard I/O operations
-- Header files and namespaces
-
----
-
-## Core Concept
-
-### What Is It?
-Code formatting standards is a technique in C++ that appears frequently in interviews and real projects.
-
-### Why Does It Matter?
-- Used extensively in production C++ code
-- Commonly asked in technical interviews
-- Helps write clean, maintainable code
-
-### Mental Model
-Think of code formatting standards as a tool in your toolbox — know when to reach for it.
-
----
-
-## Solution Approaches
-
-### Approach 1: Direct / Straightforward
+### Indentation
 ```cpp
-#include <iostream>
-#include <string>
-#include <vector>
-#include <algorithm>
-
-/*
- * Code formatting standards
- * 
- * Approach: Direct implementation
- * Time Complexity:  O(n) — typical for this type of problem
- * Space Complexity: O(1) — or O(n) if storing results
- */
-int main() {
-    // TODO: Implement Code formatting standards
-    // Step 1: Read input
-    // Step 2: Process
-    // Step 3: Output result
-    
-    std::cout << "Solution for: Code formatting standards" << std::endl;
-    return 0;
+// Use 4 spaces (or 2 spaces) — be consistent, never mix tabs and spaces
+if (x > 0) {
+    std::cout << "Positive\n";   // 4-space indent
 }
 ```
 
-**Time Complexity:** O(n) (typical)  
-**Space Complexity:** O(1) or O(n)  
-**When to use:** First attempt, when simplicity matters over performance.
-
-### Approach 2: Optimized / STL-Based
+### Brace placement
 ```cpp
-#include <iostream>
-#include <string>
-#include <vector>
-#include <algorithm>
-#include <numeric>
+// Style 1: K&R / "Egyptian" braces (most common in C++)
+if (x > 0) {
+    doSomething();
+}
 
-/*
- * Code formatting standards — Optimized approach using STL
- * 
- * Uses standard library algorithms where applicable.
- * Generally preferred in production C++ code.
- */
-int main() {
-    // TODO: STL-based implementation
-    // Use std::sort, std::find, std::accumulate, etc. as appropriate
-    
-    return 0;
+// Style 2: Allman braces (each brace on its own line)
+if (x > 0)
+{
+    doSomething();
 }
 ```
 
-**Time Complexity:** Depends on STL algorithm used  
-**Space Complexity:** Depends on approach  
-**When to use:** Production code, when you know the right STL tool.
+### Line length
+```
+Keep lines under 80-120 characters.
+Break long lines at logical points:
 
-### Approach 3: Modern C++ (C++17/20)
-```cpp
-#include <iostream>
-#include <string>
-#include <vector>
-
-/*
- * Code formatting standards — Modern C++ approach
- * 
- * Uses features from C++17/20: structured bindings,
- * if-init, ranges, constexpr, etc.
- */
-int main() {
-    // TODO: Modern C++ implementation
-    // Use auto, structured bindings, ranges, etc.
-    
-    return 0;
-}
+std::cout << "Name: " << firstName
+          << " " << lastName
+          << ", Age: " << age << "\n";
 ```
 
----
+### Naming conventions
+```cpp
+int myVariable;       // camelCase (Google style)
+int my_variable;      // snake_case (STL style)
+const int MAX_SIZE;   // UPPER_CASE for constants
+class MyClass {};     // PascalCase for types/classes
+void doSomething();   // camelCase or snake_case for functions
+```
 
-## Step-by-Step Trace
+### Spacing around operators
+```cpp
+int x = 10;           // ✓ spaces around =
+int y = x + 5;        // ✓ spaces around +
+int z = x*y + 3;      // ✗ inconsistent spacing
+if (x == 10) {}       // ✓ spaces around ==
+```
 
-For a typical input, trace the solution:
+## Key Takeaways
+1. Pick one style and stick with it across the entire project
+2. Use automated formatters: `clang-format`, IDE auto-format
+3. Indentation: 2 or 4 spaces, never tabs (or configure tabs = spaces)
+4. Braces: K&R or Allman — either is fine if consistent
+5. Naming: match your team/project convention
 
-| Step | State | Action | Result |
-|------|-------|--------|--------|
-| 1 | Initial | Read input | — |
-| 2 | Processing | Apply algorithm | — |
-| 3 | Final | Output result | — |
-
----
-
-## Common Mistakes & Pitfalls
-
-1. **Off-by-one errors** — Check loop boundaries carefully
-2. **Uninitialized variables** — Always initialize before use
-3. **Integer overflow** — Use `long long` for large numbers
-4. **Missing edge cases** — Empty input, single element, negative numbers
-5. **Forgetting `#include`** — Include all necessary headers
-6. **Using `==` vs `=`** — Assignment vs comparison
-
----
-
-## What You Should Learn From This
-
-### Key C++ Feature Demonstrated
-- Code formatting standards demonstrates proper C++ idioms and best practices
-
-### Interview Tips
-- Discuss tradeoffs between approaches
-- Always discuss time/space complexity
-- Mention edge cases proactively
-
-### Code Review Checklist
-- [ ] Compiles with `-Wall -Wextra` — no warnings
-- [ ] Handles edge cases
-- [ ] Variables are properly initialized
-- [ ] No memory leaks (if using dynamic allocation)
-- [ ] Code is readable and well-commented
-
----
-
-## Pattern Recognition
-
-**Pattern:** Implementation pattern — combine concepts to build
-
-**Similar Problems:**
-- (See other problems in this category)
-
-**When you see** _______, **think** _______.
-
----
-
-## Practice Variants
-1. **Easy:** Simplify the constraints (smaller input, fewer edge cases)
-2. **Medium:** Add a constraint (handle negative numbers, optimize for time)
-3. **Hard:** Combine with another concept (recursion, dynamic programming)
-
----
-
-## Quick Reference Card
-- **Core idea:** Code formatting standards
-- **Key construct:** STL / Standard Library
-- **Complexity:** O(n) typical
-- **Don't forget:** Initialize variables, check edge cases, use `-Wall`
-
----
-
-*Generated for C++ Level 0 — C00 Problem Solving Guide*
+## Common Mistakes
+- Mixing tabs and spaces → alignment breaks on different editors
+- Inconsistent brace style within the same file
+- Very long lines with no breaks → hard to read, hard to review

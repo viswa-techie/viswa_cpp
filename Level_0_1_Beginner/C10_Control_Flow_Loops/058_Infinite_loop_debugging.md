@@ -44,24 +44,28 @@ Think of infinite loop debugging as a tool in your toolbox — know when to reac
 ### Approach 1: Direct / Straightforward
 ```cpp
 #include <iostream>
-#include <string>
-#include <vector>
-#include <algorithm>
-
-/*
- * Infinite loop debugging
- * 
- * Approach: Direct implementation
- * Time Complexity:  O(n) — typical for this type of problem
- * Space Complexity: O(1) — or O(n) if storing results
- */
 int main() {
-    // TODO: Implement Infinite loop debugging
-    // Step 1: Read input
-    // Step 2: Process
-    // Step 3: Output result
+    // Pattern 1: while(true)
+    int count = 0;
+    while (true) {
+        if (count >= 5) break;
+        std::cout << count++ << " ";
+    }
+    std::cout << "
+";
     
-    std::cout << "Solution for: Infinite loop debugging" << std::endl;
+    // Pattern 2: for(;;)
+    count = 0;
+    for (;;) {
+        if (count >= 5) break;
+        std::cout << count++ << " ";
+    }
+    std::cout << "
+";
+    
+    // Common use: event loop / server loop
+    // while (true) { process_event(); }
+    
     return 0;
 }
 ```
@@ -73,21 +77,29 @@ int main() {
 ### Approach 2: Optimized / STL-Based
 ```cpp
 #include <iostream>
-#include <string>
 #include <vector>
 #include <algorithm>
 #include <numeric>
+#include <string>
 
 /*
- * Infinite loop debugging — Optimized approach using STL
- * 
- * Uses standard library algorithms where applicable.
- * Generally preferred in production C++ code.
+ * Infinite loop debugging — STL/Library approach
  */
 int main() {
-    // TODO: STL-based implementation
-    // Use std::sort, std::find, std::accumulate, etc. as appropriate
+    std::vector<int> data = {5, 2, 8, 1, 9, 3, 7, 4, 6};
     
+    // Using STL algorithms for Infinite loop debugging
+    std::sort(data.begin(), data.end());
+    
+    for (const auto& x : data)
+        std::cout << x << " ";
+    std::cout << "
+";
+    
+    // STL-based solution demonstration
+    auto sum = std::accumulate(data.begin(), data.end(), 0);
+    std::cout << "Sum: " << sum << "
+";
     return 0;
 }
 ```
@@ -99,18 +111,29 @@ int main() {
 ### Approach 3: Modern C++ (C++17/20)
 ```cpp
 #include <iostream>
-#include <string>
 #include <vector>
+#include <algorithm>
+#include <ranges>
+#include <numeric>
 
 /*
- * Infinite loop debugging — Modern C++ approach
- * 
- * Uses features from C++17/20: structured bindings,
- * if-init, ranges, constexpr, etc.
+ * Infinite loop debugging — Modern C++17/20 approach
  */
 int main() {
-    // TODO: Modern C++ implementation
-    // Use auto, structured bindings, ranges, etc.
+    std::vector<int> data = {5, 2, 8, 1, 9, 3, 7, 4, 6};
+    
+    // Modern C++ approach for: Infinite loop debugging
+    // Using auto, structured bindings, ranges where applicable
+    
+    auto [min_it, max_it] = std::minmax_element(data.begin(), data.end());
+    std::cout << "Min: " << *min_it << ", Max: " << *max_it << "
+";
+    
+    // Lambda-based processing
+    auto is_even = [](int n) { return n % 2 == 0; };
+    auto count = std::count_if(data.begin(), data.end(), is_even);
+    std::cout << "Even count: " << count << "
+";
     
     return 0;
 }
@@ -187,3 +210,17 @@ For a typical input, trace the solution:
 ---
 
 *Generated for C++ Level 1 — C10 Problem Solving Guide*
+
+
+## Key Takeaways
+1. Choose loop type based on pattern: for (known count), while (condition), do-while (at least once)
+2. Range-based for is preferred for iterating containers
+3. Use `++i` (pre-increment) by default — avoids unnecessary copy for iterators
+4. Declare loop variables in the smallest scope possible
+5. Watch for off-by-one: `<` vs `<=`, starting index 0 vs 1
+
+## Common Mistakes (Specific)
+- Off-by-one errors: using `<=` when `<` is correct (or vice versa)
+- Infinite loops from forgetting to update loop variable
+- Modifying container while iterating (invalidates iterators)
+- Using post-increment on complex iterators (unnecessary copy)

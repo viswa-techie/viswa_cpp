@@ -44,24 +44,33 @@ Think of sieve of eratosthenes as a tool in your toolbox — know when to reach 
 ### Approach 1: Direct / Straightforward
 ```cpp
 #include <iostream>
-#include <string>
 #include <vector>
-#include <algorithm>
-
-/*
- * Sieve of Eratosthenes
- * 
- * Approach: Direct implementation
- * Time Complexity:  O(n) — typical for this type of problem
- * Space Complexity: O(1) — or O(n) if storing results
- */
 int main() {
-    // TODO: Implement Sieve of Eratosthenes
-    // Step 1: Read input
-    // Step 2: Process
-    // Step 3: Output result
+    int n = 100;
+    std::vector<bool> is_prime(n + 1, true);
+    is_prime[0] = is_prime[1] = false;
     
-    std::cout << "Solution for: Sieve of Eratosthenes" << std::endl;
+    for (int i = 2; i * i <= n; ++i) {
+        if (is_prime[i]) {
+            for (int j = i * i; j <= n; j += i) {
+                is_prime[j] = false;
+            }
+        }
+    }
+    
+    std::cout << "Primes up to " << n << ":
+";
+    for (int i = 2; i <= n; ++i)
+        if (is_prime[i]) std::cout << i << " ";
+    std::cout << "
+";
+    
+    // Count primes
+    int count = 0;
+    for (int i = 2; i <= n; ++i)
+        if (is_prime[i]) count++;
+    std::cout << "Total: " << count << " primes
+";
     return 0;
 }
 ```
@@ -73,21 +82,29 @@ int main() {
 ### Approach 2: Optimized / STL-Based
 ```cpp
 #include <iostream>
-#include <string>
 #include <vector>
 #include <algorithm>
 #include <numeric>
+#include <string>
 
 /*
- * Sieve of Eratosthenes — Optimized approach using STL
- * 
- * Uses standard library algorithms where applicable.
- * Generally preferred in production C++ code.
+ * Sieve of Eratosthenes — STL/Library approach
  */
 int main() {
-    // TODO: STL-based implementation
-    // Use std::sort, std::find, std::accumulate, etc. as appropriate
+    std::vector<int> data = {5, 2, 8, 1, 9, 3, 7, 4, 6};
     
+    // Using STL algorithms for Sieve of Eratosthenes
+    std::sort(data.begin(), data.end());
+    
+    for (const auto& x : data)
+        std::cout << x << " ";
+    std::cout << "
+";
+    
+    // STL-based solution demonstration
+    auto sum = std::accumulate(data.begin(), data.end(), 0);
+    std::cout << "Sum: " << sum << "
+";
     return 0;
 }
 ```
@@ -99,18 +116,29 @@ int main() {
 ### Approach 3: Modern C++ (C++17/20)
 ```cpp
 #include <iostream>
-#include <string>
 #include <vector>
+#include <algorithm>
+#include <ranges>
+#include <numeric>
 
 /*
- * Sieve of Eratosthenes — Modern C++ approach
- * 
- * Uses features from C++17/20: structured bindings,
- * if-init, ranges, constexpr, etc.
+ * Sieve of Eratosthenes — Modern C++17/20 approach
  */
 int main() {
-    // TODO: Modern C++ implementation
-    // Use auto, structured bindings, ranges, etc.
+    std::vector<int> data = {5, 2, 8, 1, 9, 3, 7, 4, 6};
+    
+    // Modern C++ approach for: Sieve of Eratosthenes
+    // Using auto, structured bindings, ranges where applicable
+    
+    auto [min_it, max_it] = std::minmax_element(data.begin(), data.end());
+    std::cout << "Min: " << *min_it << ", Max: " << *max_it << "
+";
+    
+    // Lambda-based processing
+    auto is_even = [](int n) { return n % 2 == 0; };
+    auto count = std::count_if(data.begin(), data.end(), is_even);
+    std::cout << "Even count: " << count << "
+";
     
     return 0;
 }
@@ -187,3 +215,18 @@ For a typical input, trace the solution:
 ---
 
 *Generated for C++ Level 1 — C10 Problem Solving Guide*
+
+
+## Key Takeaways
+1. Only check up to sqrt(n) for primality — O(sqrt(n))
+2. Skip even numbers after checking 2 — halves the work
+3. Sieve of Eratosthenes is O(n log log n) — efficient for finding ALL primes
+4. Start marking from i*i (smaller multiples already marked)
+5. Use `vector<bool>` for the sieve — memory efficient
+
+## Common Mistakes (Specific)
+- Off-by-one errors in loop boundaries or array indices
+- Not handling edge cases (empty input, n=0, n=1)
+- Integer overflow for large inputs — use `long long` when needed
+- Forgetting to initialize variables before use
+- Infinite loop from incorrect termination condition

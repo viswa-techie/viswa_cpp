@@ -1,189 +1,102 @@
-# Build systems intro (Makefile basics)
+# Build systems intro — Makefile basics
 
 > **Level:** 0 — Absolute Beginner  
-> **Category:** C00  
-> **Topic:** build
+> **Category:** C00 — C++ Syntax & Program Structure  
+> **Topic:** syntax
 
 ---
 
 ## Problem Statement
+Understand build systems and write a basic Makefile to compile C++ projects.
 
-Understand and explain the concept of Build systems intro (Makefile basics). Be able to describe it, identify it in code, and use it correctly.
+## What You Need to Know
+- Typing `g++ file1.cpp file2.cpp ...` gets tedious for large projects.
+- A **Makefile** automates compilation — just type `make`.
+- `make` only recompiles files that changed (incremental builds).
 
-### Examples
-- **Input Example 1:** A typical/simple case
-- **Input Example 2:** An edge case (empty input, boundary values)
-- **Input Example 3:** A larger or tricky case
+## Simplest Makefile
+```makefile
+# Makefile — save as "Makefile" (no extension)
 
----
-
-## Prerequisites
-- Basic C++ syntax (variables, types, operators)
-- Understanding of C++ compilation model
-- Header files and namespaces
-
----
-
-## Core Concept
-
-### What Is It?
-Build systems intro (Makefile basics) is a fundamental concept in C++ that every programmer must understand.
-
-### Why Does It Matter?
-- Forms the foundation for understanding more complex C++ features
-- Commonly asked in technical interviews
-- Helps write clean, maintainable code
-
-### Mental Model
-Think of build systems intro (makefile basics) as a building block — you can't build a house without understanding bricks.
-
----
-
-## Solution Approaches
-
-### Approach 1: Direct / Straightforward
-```cpp
-#include <iostream>
-#include <string>
-#include <vector>
-#include <algorithm>
-
-/*
- * Build systems intro (Makefile basics)
- * 
- * Approach: Direct implementation
- * Time Complexity:  O(n) — typical for this type of problem
- * Space Complexity: O(1) — or O(n) if storing results
- */
-int main() {
-    // TODO: Implement Build systems intro (Makefile basics)
-    // Step 1: Read input
-    // Step 2: Process
-    // Step 3: Output result
-    
-    std::cout << "Solution for: Build systems intro (Makefile basics)" << std::endl;
-    return 0;
-}
+program: main.cpp
+g++ -o program main.cpp
 ```
 
-**Time Complexity:** O(n) (typical)  
-**Space Complexity:** O(1) or O(n)  
-**When to use:** First attempt, when simplicity matters over performance.
+**IMPORTANT**: Makefile indentation must use TABS, not spaces.
 
-### Approach 2: Optimized / STL-Based
-```cpp
-#include <iostream>
-#include <string>
-#include <vector>
-#include <algorithm>
-#include <numeric>
-
-/*
- * Build systems intro (Makefile basics) — Optimized approach using STL
- * 
- * Uses standard library algorithms where applicable.
- * Generally preferred in production C++ code.
- */
-int main() {
-    // TODO: STL-based implementation
-    // Use std::sort, std::find, std::accumulate, etc. as appropriate
-    
-    return 0;
-}
+```bash
+$ make           # Compiles main.cpp → program
+$ ./program      # Run it
 ```
 
-**Time Complexity:** Depends on STL algorithm used  
-**Space Complexity:** Depends on approach  
-**When to use:** Production code, when you know the right STL tool.
+## Multi-File Makefile
+```makefile
+CXX = g++
+CXXFLAGS = -std=c++17 -Wall -Wextra
 
-### Approach 3: Modern C++ (C++17/20)
-```cpp
-#include <iostream>
-#include <string>
-#include <vector>
+program: main.o utils.o math.o
+$(CXX) $(CXXFLAGS) -o program main.o utils.o math.o
 
-/*
- * Build systems intro (Makefile basics) — Modern C++ approach
- * 
- * Uses features from C++17/20: structured bindings,
- * if-init, ranges, constexpr, etc.
- */
-int main() {
-    // TODO: Modern C++ implementation
-    // Use auto, structured bindings, ranges, etc.
-    
-    return 0;
-}
+main.o: main.cpp utils.h math.h
+$(CXX) $(CXXFLAGS) -c main.cpp
+
+utils.o: utils.cpp utils.h
+$(CXX) $(CXXFLAGS) -c utils.cpp
+
+math.o: math.cpp math.h
+$(CXX) $(CXXFLAGS) -c math.cpp
+
+clean:
+rm -f *.o program
 ```
 
----
+```bash
+$ make           # Build all
+$ make clean     # Remove build artifacts
+```
 
-## Step-by-Step Trace
+## How Makefile Works
+```
+target: dependencies
+command (TAB-indented)
 
-For a typical input, trace the solution:
+1. make checks if "target" is older than "dependencies"
+2. If yes (or target doesn't exist), runs the command
+3. Only recompiles what changed — saves time
+```
 
-| Step | State | Action | Result |
-|------|-------|--------|--------|
-| 1 | Initial | Read input | — |
-| 2 | Processing | Apply algorithm | — |
-| 3 | Final | Output result | — |
+## Modern Build Systems
+```
+Tool           Description                   Complexity
+----           -----------                   ----------
+Makefile       Manual, low-level             Simple projects
+CMake          Generate Makefiles/projects   Medium-large projects
+Meson          Modern, fast                  Medium-large
+Bazel          Google's build system         Very large projects
+```
 
----
+## Minimal CMakeLists.txt
+```cmake
+cmake_minimum_required(VERSION 3.10)
+project(MyProject)
+set(CMAKE_CXX_STANDARD 17)
+add_executable(program main.cpp utils.cpp math.cpp)
+```
 
-## Common Mistakes & Pitfalls
+```bash
+mkdir build && cd build
+cmake ..
+make
+```
 
-1. **Off-by-one errors** — Check loop boundaries carefully
-2. **Uninitialized variables** — Always initialize before use
-3. **Integer overflow** — Use `long long` for large numbers
-4. **Missing edge cases** — Empty input, single element, negative numbers
-5. **Forgetting `#include`** — Include all necessary headers
-6. **Using `==` vs `=`** — Assignment vs comparison
+## Key Takeaways
+1. Makefiles automate `g++` commands — type `make` instead of long commands
+2. Rules: `target: dependencies` → TAB-indented command
+3. `make` only rebuilds what changed — fast incremental builds
+4. CMake is the industry standard for larger C++ projects
+5. Variables (`CXX`, `CXXFLAGS`) keep Makefiles maintainable
 
----
-
-## What You Should Learn From This
-
-### Key C++ Feature Demonstrated
-- Build systems intro (Makefile basics) demonstrates fundamental language syntax
-
-### Interview Tips
-- Explain the concept clearly before writing code
-- Always discuss time/space complexity
-- Mention edge cases proactively
-
-### Code Review Checklist
-- [ ] Compiles with `-Wall -Wextra` — no warnings
-- [ ] Handles edge cases
-- [ ] Variables are properly initialized
-- [ ] No memory leaks (if using dynamic allocation)
-- [ ] Code is readable and well-commented
-
----
-
-## Pattern Recognition
-
-**Pattern:** Language fundamentals — know the rules
-
-**Similar Problems:**
-- (See other problems in this category)
-
-**When you see** _______, **think** _______.
-
----
-
-## Practice Variants
-1. **Easy:** Simplify the constraints (smaller input, fewer edge cases)
-2. **Medium:** Add a constraint (handle negative numbers, optimize for time)
-3. **Hard:** Combine with another concept (recursion, dynamic programming)
-
----
-
-## Quick Reference Card
-- **Core idea:** Build systems intro (Makefile basics)
-- **Key construct:** Language syntax
-- **Complexity:** O(n) typical
-- **Don't forget:** Initialize variables, check edge cases, use `-Wall`
-
----
-
-*Generated for C++ Level 0 — C00 Problem Solving Guide*
+## Common Mistakes
+- Using spaces instead of tabs → "missing separator" error
+- Forgetting dependencies → changes don't trigger recompilation
+- Not using `-Wall -Wextra` → missing important warnings

@@ -44,24 +44,39 @@ Think of lambda capture by reference as a tool in your toolbox — know when to 
 ### Approach 1: Direct / Straightforward
 ```cpp
 #include <iostream>
-#include <string>
 #include <vector>
-#include <algorithm>
 
-/*
- * Lambda capture by reference
- * 
- * Approach: Direct implementation
- * Time Complexity:  O(n) — typical for this type of problem
- * Space Complexity: O(1) — or O(n) if storing results
- */
 int main() {
-    // TODO: Implement Lambda capture by reference
-    // Step 1: Read input
-    // Step 2: Process
-    // Step 3: Output result
+    int total = 0;
+    std::vector<int> nums = {1, 2, 3, 4, 5};
     
-    std::cout << "Solution for: Lambda capture by reference" << std::endl;
+    // Capture by reference: [&total]
+    auto accumulate = [&total](int val) {
+        total += val;  // Modifies the ORIGINAL variable
+    };
+    
+    for (int n : nums) accumulate(n);
+    std::cout << "Total: " << total << "
+";  // 15
+    
+    // [&] captures ALL by reference
+    int min_val = nums[0], max_val = nums[0];
+    auto find_range = [&]() {
+        for (int n : nums) {
+            if (n < min_val) min_val = n;
+            if (n > max_val) max_val = n;
+        }
+    };
+    find_range();
+    std::cout << "Range: [" << min_val << ", " << max_val << "]
+";
+    
+    // Mix: [=, &total] — all by value except total by reference
+    int multiplier = 2;
+    auto scale = [=, &total]() { total *= multiplier; };
+    scale();
+    std::cout << "Scaled total: " << total << "
+";
     return 0;
 }
 ```
@@ -73,21 +88,26 @@ int main() {
 ### Approach 2: Optimized / STL-Based
 ```cpp
 #include <iostream>
-#include <string>
 #include <vector>
 #include <algorithm>
+#include <functional>
 #include <numeric>
 
 /*
- * Lambda capture by reference — Optimized approach using STL
- * 
- * Uses standard library algorithms where applicable.
- * Generally preferred in production C++ code.
+ * Lambda capture by reference — STL/Library approach
  */
 int main() {
-    // TODO: STL-based implementation
-    // Use std::sort, std::find, std::accumulate, etc. as appropriate
+    std::vector<int> data = {5, 2, 8, 1, 9, 3, 7, 4, 6};
     
+    // STL-based implementation of Lambda capture by reference
+    std::sort(data.begin(), data.end());
+    for (const auto& x : data) std::cout << x << " ";
+    std::cout << "
+";
+    
+    auto sum = std::accumulate(data.begin(), data.end(), 0);
+    std::cout << "Sum: " << sum << "
+";
     return 0;
 }
 ```
@@ -99,19 +119,26 @@ int main() {
 ### Approach 3: Modern C++ (C++17/20)
 ```cpp
 #include <iostream>
-#include <string>
 #include <vector>
+#include <algorithm>
+#include <numeric>
 
 /*
- * Lambda capture by reference — Modern C++ approach
- * 
- * Uses features from C++17/20: structured bindings,
- * if-init, ranges, constexpr, etc.
+ * Lambda capture by reference — Modern C++17/20 approach
  */
 int main() {
-    // TODO: Modern C++ implementation
-    // Use auto, structured bindings, ranges, etc.
+    std::vector<int> data = {5, 2, 8, 1, 9, 3, 7, 4, 6};
     
+    // Modern C++ features for Lambda capture by reference
+    auto [min_it, max_it] = std::minmax_element(data.begin(), data.end());
+    std::cout << "Range: [" << *min_it << ", " << *max_it << "]
+";
+    
+    // Lambda-based approach
+    std::sort(data.begin(), data.end());
+    for (const auto& x : data) std::cout << x << " ";
+    std::cout << "
+";
     return 0;
 }
 ```
@@ -187,3 +214,17 @@ For a typical input, trace the solution:
 ---
 
 *Generated for C++ Level 1 — C11 Problem Solving Guide*
+
+
+## Key Takeaways
+1. Lambda syntax: `[captures](params) -> return { body }`
+2. `[=]` captures all by value, `[&]` captures all by reference
+3. Captured-by-value vars are const unless `mutable` is used
+4. Lambdas are anonymous function objects (each has unique type)
+5. Prefer lambdas over function pointers for inline callbacks
+
+## Common Mistakes (Specific)
+- Capturing local variable by reference when lambda outlives the variable → dangling reference
+- Forgetting `mutable` when needing to modify captured-by-value variables
+- Capturing `this` in a lambda stored beyond object lifetime
+- Over-capturing with `[=]` or `[&]` — be explicit about what you need

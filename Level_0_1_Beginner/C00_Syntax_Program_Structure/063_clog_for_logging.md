@@ -1,189 +1,78 @@
 # clog for logging
 
 > **Level:** 0 — Absolute Beginner  
-> **Category:** C00  
-> **Topic:** io
+> **Category:** C00 — C++ Syntax & Program Structure  
+> **Topic:** syntax
 
 ---
 
 ## Problem Statement
+Use `std::clog` for log messages — a buffered alternative to `cerr`.
 
-Master the use of clog for logging in C++ programs. Understand when and why to use it.
+## What You Need to Know
+- `std::clog` writes to **stderr**, like `cerr`.
+- Unlike `cerr`, `clog` is **buffered** — more efficient for logging.
+- Use `clog` for non-critical log messages, `cerr` for errors.
 
-### Examples
-- **Input Example 1:** A typical/simple case
-- **Input Example 2:** An edge case (empty input, boundary values)
-- **Input Example 3:** A larger or tricky case
+## Comparison
+```
+Stream       Destination    Buffered    Use For
+------       -----------    --------    -------
+std::cout    stdout         Yes         Program output
+std::cerr    stderr         No          Error messages
+std::clog    stderr         Yes         Log messages
+```
 
----
-
-## Prerequisites
-- Basic C++ syntax (variables, types, operators)
-- Standard I/O operations
-- Header files and namespaces
-
----
-
-## Core Concept
-
-### What Is It?
-clog for logging is a technique in C++ that appears frequently in interviews and real projects.
-
-### Why Does It Matter?
-- Used extensively in production C++ code
-- Commonly asked in technical interviews
-- Helps write clean, maintainable code
-
-### Mental Model
-Think of clog for logging as a tool in your toolbox — know when to reach for it.
-
----
-
-## Solution Approaches
-
-### Approach 1: Direct / Straightforward
+## Basic Usage
 ```cpp
 #include <iostream>
-#include <string>
-#include <vector>
-#include <algorithm>
 
-/*
- * clog for logging
- * 
- * Approach: Direct implementation
- * Time Complexity:  O(n) — typical for this type of problem
- * Space Complexity: O(1) — or O(n) if storing results
- */
 int main() {
-    // TODO: Implement clog for logging
-    // Step 1: Read input
-    // Step 2: Process
-    // Step 3: Output result
-    
-    std::cout << "Solution for: clog for logging" << std::endl;
+    std::clog << "[INFO] Program started\n";
+
+    for (int i = 0; i < 5; ++i) {
+        std::clog << "[INFO] Processing item " << i << "\n";
+    }
+
+    std::cerr << "[ERROR] Something went wrong!\n";  // Immediate
+    std::clog << "[INFO] Program ending\n";
+
     return 0;
 }
 ```
 
-**Time Complexity:** O(n) (typical)  
-**Space Complexity:** O(1) or O(n)  
-**When to use:** First attempt, when simplicity matters over performance.
-
-### Approach 2: Optimized / STL-Based
+## When to Use Each
 ```cpp
 #include <iostream>
-#include <string>
-#include <vector>
-#include <algorithm>
-#include <numeric>
 
-/*
- * clog for logging — Optimized approach using STL
- * 
- * Uses standard library algorithms where applicable.
- * Generally preferred in production C++ code.
- */
 int main() {
-    // TODO: STL-based implementation
-    // Use std::sort, std::find, std::accumulate, etc. as appropriate
-    
+    // cout → user-facing output
+    std::cout << "Hello, User!\n";
+
+    // clog → developer-facing log (non-critical)
+    std::clog << "[LOG] Processing request\n";
+
+    // cerr → urgent error (must appear immediately)
+    std::cerr << "[ERROR] Database connection failed!\n";
+
     return 0;
 }
 ```
 
-**Time Complexity:** Depends on STL algorithm used  
-**Space Complexity:** Depends on approach  
-**When to use:** Production code, when you know the right STL tool.
-
-### Approach 3: Modern C++ (C++17/20)
-```cpp
-#include <iostream>
-#include <string>
-#include <vector>
-
-/*
- * clog for logging — Modern C++ approach
- * 
- * Uses features from C++17/20: structured bindings,
- * if-init, ranges, constexpr, etc.
- */
-int main() {
-    // TODO: Modern C++ implementation
-    // Use auto, structured bindings, ranges, etc.
-    
-    return 0;
-}
+## Redirect Logging to File
+```bash
+# Both clog and cerr go to stderr
+./program 2> log.txt
 ```
 
----
+## Key Takeaways
+1. `clog` writes to stderr but is buffered (unlike `cerr`)
+2. Use `clog` for verbose logging — it's more efficient than `cerr`
+3. Use `cerr` for critical errors that must appear immediately
+4. Both go to stderr — they can be redirected together
+5. In production, consider a proper logging library instead
 
-## Step-by-Step Trace
-
-For a typical input, trace the solution:
-
-| Step | State | Action | Result |
-|------|-------|--------|--------|
-| 1 | Initial | Read input | — |
-| 2 | Processing | Apply algorithm | — |
-| 3 | Final | Output result | — |
-
----
-
-## Common Mistakes & Pitfalls
-
-1. **Off-by-one errors** — Check loop boundaries carefully
-2. **Uninitialized variables** — Always initialize before use
-3. **Integer overflow** — Use `long long` for large numbers
-4. **Missing edge cases** — Empty input, single element, negative numbers
-5. **Forgetting `#include`** — Include all necessary headers
-6. **Using `==` vs `=`** — Assignment vs comparison
-
----
-
-## What You Should Learn From This
-
-### Key C++ Feature Demonstrated
-- clog for logging demonstrates proper C++ idioms and best practices
-
-### Interview Tips
-- Discuss tradeoffs between approaches
-- Always discuss time/space complexity
-- Mention edge cases proactively
-
-### Code Review Checklist
-- [ ] Compiles with `-Wall -Wextra` — no warnings
-- [ ] Handles edge cases
-- [ ] Variables are properly initialized
-- [ ] No memory leaks (if using dynamic allocation)
-- [ ] Code is readable and well-commented
-
----
-
-## Pattern Recognition
-
-**Pattern:** Implementation pattern — combine concepts to build
-
-**Similar Problems:**
-- (See other problems in this category)
-
-**When you see** _______, **think** _______.
-
----
-
-## Practice Variants
-1. **Easy:** Simplify the constraints (smaller input, fewer edge cases)
-2. **Medium:** Add a constraint (handle negative numbers, optimize for time)
-3. **Hard:** Combine with another concept (recursion, dynamic programming)
-
----
-
-## Quick Reference Card
-- **Core idea:** clog for logging
-- **Key construct:** STL / Standard Library
-- **Complexity:** O(n) typical
-- **Don't forget:** Initialize variables, check edge cases, use `-Wall`
-
----
-
-*Generated for C++ Level 0 — C00 Problem Solving Guide*
+## Common Mistakes
+- Using `cerr` for all logging — inefficient due to no buffering
+- Expecting `clog` and `cerr` to go to different destinations — both go to stderr
+- Not flushing `clog` before program crash — log messages may be lost

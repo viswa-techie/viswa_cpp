@@ -1,189 +1,97 @@
 # Parameters vs arguments
 
 > **Level:** 0 — Absolute Beginner  
-> **Category:** C00  
-> **Topic:** functions
+> **Category:** C00 — C++ Syntax & Program Structure  
+> **Topic:** syntax
 
 ---
 
 ## Problem Statement
+Understand the difference between parameters (formal) and arguments (actual).
 
-Master the use of Parameters vs arguments in C++ programs. Understand when and why to use it.
+## What You Need to Know
+- **Parameter**: the variable in the function declaration — a placeholder.
+- **Argument**: the actual value passed when calling the function.
+- Parameters are like empty boxes; arguments are what you put in them.
 
-### Examples
-- **Input Example 1:** A typical/simple case
-- **Input Example 2:** An edge case (empty input, boundary values)
-- **Input Example 3:** A larger or tricky case
-
----
-
-## Prerequisites
-- Basic C++ syntax (variables, types, operators)
-- Standard I/O operations
-- Header files and namespaces
-
----
-
-## Core Concept
-
-### What Is It?
-Parameters vs arguments is a technique in C++ that appears frequently in interviews and real projects.
-
-### Why Does It Matter?
-- Used extensively in production C++ code
-- Commonly asked in technical interviews
-- Helps write clean, maintainable code
-
-### Mental Model
-Think of parameters vs arguments as a tool in your toolbox — know when to reach for it.
-
----
-
-## Solution Approaches
-
-### Approach 1: Direct / Straightforward
+## Visual Explanation
 ```cpp
-#include <iostream>
-#include <string>
-#include <vector>
-#include <algorithm>
+//        Parameters (formal parameters)
+//        ↓         ↓
+int add(int a, int b) {
+    return a + b;
+}
 
-/*
- * Parameters vs arguments
- * 
- * Approach: Direct implementation
- * Time Complexity:  O(n) — typical for this type of problem
- * Space Complexity: O(1) — or O(n) if storing results
- */
 int main() {
-    // TODO: Implement Parameters vs arguments
-    // Step 1: Read input
-    // Step 2: Process
-    // Step 3: Output result
+    //     Arguments (actual arguments)
+    //     ↓    ↓
+    add(3, 4);
     
-    std::cout << "Solution for: Parameters vs arguments" << std::endl;
+    int x = 10, y = 20;
+    add(x, y);     // x and y are arguments
+    add(x+1, y*2); // Expressions can be arguments
     return 0;
 }
 ```
 
-**Time Complexity:** O(n) (typical)  
-**Space Complexity:** O(1) or O(n)  
-**When to use:** First attempt, when simplicity matters over performance.
+## Terminology
+```
+Term                 Also Called            Where
+----                 ----------            -----
+Parameter            Formal parameter       In function definition
+Argument             Actual parameter       In function call
+```
 
-### Approach 2: Optimized / STL-Based
+## Default Parameters
 ```cpp
 #include <iostream>
-#include <string>
-#include <vector>
-#include <algorithm>
-#include <numeric>
 
-/*
- * Parameters vs arguments — Optimized approach using STL
- * 
- * Uses standard library algorithms where applicable.
- * Generally preferred in production C++ code.
- */
+// Default values in parameters
+void greet(const std::string& name, const std::string& greeting = "Hello") {
+    std::cout << greeting << ", " << name << "!\n";
+}
+
 int main() {
-    // TODO: STL-based implementation
-    // Use std::sort, std::find, std::accumulate, etc. as appropriate
-    
+    greet("Viswa");                // Uses default: "Hello, Viswa!"
+    greet("Viswa", "Good morning"); // Override: "Good morning, Viswa!"
     return 0;
 }
 ```
 
-**Time Complexity:** Depends on STL algorithm used  
-**Space Complexity:** Depends on approach  
-**When to use:** Production code, when you know the right STL tool.
-
-### Approach 3: Modern C++ (C++17/20)
+## Parameter Passing (by Value)
 ```cpp
 #include <iostream>
-#include <string>
-#include <vector>
 
-/*
- * Parameters vs arguments — Modern C++ approach
- * 
- * Uses features from C++17/20: structured bindings,
- * if-init, ranges, constexpr, etc.
- */
+void tryToModify(int x) {   // x is a COPY of the argument
+    x = 999;
+    std::cout << "Inside: " << x << "\n";  // 999
+}
+
 int main() {
-    // TODO: Modern C++ implementation
-    // Use auto, structured bindings, ranges, etc.
-    
+    int num = 42;
+    tryToModify(num);
+    std::cout << "Outside: " << num << "\n";  // 42 (unchanged!)
     return 0;
 }
 ```
 
----
+## Number of Arguments Must Match
+```cpp
+int add(int a, int b);
 
-## Step-by-Step Trace
+add(1);        // ERROR: too few arguments
+add(1, 2);     // OK
+add(1, 2, 3);  // ERROR: too many arguments
+```
 
-For a typical input, trace the solution:
+## Key Takeaways
+1. Parameters are in the definition, arguments are in the call
+2. By default, arguments are **copied** to parameters (pass by value)
+3. Default parameters must be rightmost: `foo(int a, int b = 5)`
+4. Number and types of arguments must match parameters
+5. Arguments can be literals, variables, or expressions
 
-| Step | State | Action | Result |
-|------|-------|--------|--------|
-| 1 | Initial | Read input | — |
-| 2 | Processing | Apply algorithm | — |
-| 3 | Final | Output result | — |
-
----
-
-## Common Mistakes & Pitfalls
-
-1. **Off-by-one errors** — Check loop boundaries carefully
-2. **Uninitialized variables** — Always initialize before use
-3. **Integer overflow** — Use `long long` for large numbers
-4. **Missing edge cases** — Empty input, single element, negative numbers
-5. **Forgetting `#include`** — Include all necessary headers
-6. **Using `==` vs `=`** — Assignment vs comparison
-
----
-
-## What You Should Learn From This
-
-### Key C++ Feature Demonstrated
-- Parameters vs arguments demonstrates proper C++ idioms and best practices
-
-### Interview Tips
-- Discuss tradeoffs between approaches
-- Always discuss time/space complexity
-- Mention edge cases proactively
-
-### Code Review Checklist
-- [ ] Compiles with `-Wall -Wextra` — no warnings
-- [ ] Handles edge cases
-- [ ] Variables are properly initialized
-- [ ] No memory leaks (if using dynamic allocation)
-- [ ] Code is readable and well-commented
-
----
-
-## Pattern Recognition
-
-**Pattern:** Implementation pattern — combine concepts to build
-
-**Similar Problems:**
-- (See other problems in this category)
-
-**When you see** _______, **think** _______.
-
----
-
-## Practice Variants
-1. **Easy:** Simplify the constraints (smaller input, fewer edge cases)
-2. **Medium:** Add a constraint (handle negative numbers, optimize for time)
-3. **Hard:** Combine with another concept (recursion, dynamic programming)
-
----
-
-## Quick Reference Card
-- **Core idea:** Parameters vs arguments
-- **Key construct:** STL / Standard Library
-- **Complexity:** O(n) typical
-- **Don't forget:** Initialize variables, check edge cases, use `-Wall`
-
----
-
-*Generated for C++ Level 0 — C00 Problem Solving Guide*
+## Common Mistakes
+- Modifying a parameter expecting the argument to change — pass by value makes a copy
+- Default parameters in wrong position: `foo(int a = 0, int b)` → error
+- Confusing "parameter" and "argument" in technical discussions
