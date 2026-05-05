@@ -61,11 +61,9 @@ double average(int* arr, int n) {
 }
 
 int main() {
-    std::cout << "add(3,4) = " << add(3, 4) << "
-";
+    std::cout << "add(3,4) = " << add(3, 4) << "";
     int nums[] = {10, 20, 30};
-    std::cout << "avg = " << average(nums, 3) << "
-";
+    std::cout << "avg = " << average(nums, 3) << "";
     return 0;
 }
 ```
@@ -91,12 +89,10 @@ int main() {
     // STL-based implementation of Function declaration vs definition
     std::sort(data.begin(), data.end());
     for (const auto& x : data) std::cout << x << " ";
-    std::cout << "
-";
+    std::cout << "";
     
     auto sum = std::accumulate(data.begin(), data.end(), 0);
-    std::cout << "Sum: " << sum << "
-";
+    std::cout << "Sum: " << sum << "";
     return 0;
 }
 ```
@@ -120,14 +116,12 @@ int main() {
     
     // Modern C++ features for Function declaration vs definition
     auto [min_it, max_it] = std::minmax_element(data.begin(), data.end());
-    std::cout << "Range: [" << *min_it << ", " << *max_it << "]
-";
+    std::cout << "Range: [" << *min_it << ", " << *max_it << "]";
     
     // Lambda-based approach
     std::sort(data.begin(), data.end());
     for (const auto& x : data) std::cout << x << " ";
-    std::cout << "
-";
+    std::cout << "";
     return 0;
 }
 ```

@@ -50,8 +50,7 @@ int main() {
     
     // Capture by value: [x] or [=]
     auto fn = [x, y]() {
-        std::cout << "x=" << x << " y=" << y << "
-";
+        std::cout << "x=" << x << " y=" << y << "";
         // x++;  // ERROR! Captured by value is const by default
     };
     fn();
@@ -63,14 +62,12 @@ int main() {
     auto counter = [count = 0]() mutable {
         return ++count;
     };
-    std::cout << counter() << " " << counter() << " " << counter() << "
-";
+    std::cout << counter() << " " << counter() << " " << counter() << "";
     // 1 2 3
     
     // [=] captures ALL local variables by value
     auto all_by_val = [=]() { return x + y; };
-    std::cout << all_by_val() << "
-";
+    std::cout << all_by_val() << "";
     return 0;
 }
 ```
@@ -96,12 +93,10 @@ int main() {
     // STL-based implementation of Lambda capture by value
     std::sort(data.begin(), data.end());
     for (const auto& x : data) std::cout << x << " ";
-    std::cout << "
-";
+    std::cout << "";
     
     auto sum = std::accumulate(data.begin(), data.end(), 0);
-    std::cout << "Sum: " << sum << "
-";
+    std::cout << "Sum: " << sum << "";
     return 0;
 }
 ```
@@ -125,14 +120,12 @@ int main() {
     
     // Modern C++ features for Lambda capture by value
     auto [min_it, max_it] = std::minmax_element(data.begin(), data.end());
-    std::cout << "Range: [" << *min_it << ", " << *max_it << "]
-";
+    std::cout << "Range: [" << *min_it << ", " << *max_it << "]";
     
     // Lambda-based approach
     std::sort(data.begin(), data.end());
     for (const auto& x : data) std::cout << x << " ";
-    std::cout << "
-";
+    std::cout << "";
     return 0;
 }
 ```

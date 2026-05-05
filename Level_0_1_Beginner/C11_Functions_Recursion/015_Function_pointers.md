@@ -54,23 +54,19 @@ int main() {
     int (*op)(int, int);
     
     op = add;
-    std::cout << "add(3,4) = " << op(3, 4) << "
-";
+    std::cout << "add(3,4) = " << op(3, 4) << "";
     
     op = subtract;
-    std::cout << "sub(10,3) = " << op(10, 3) << "
-";
+    std::cout << "sub(10,3) = " << op(10, 3) << "";
     
     op = multiply;
-    std::cout << "mul(5,6) = " << op(5, 6) << "
-";
+    std::cout << "mul(5,6) = " << op(5, 6) << "";
     
     // Passing function pointer to another function
     auto apply = [](int (*f)(int, int), int a, int b) {
         return f(a, b);
     };
-    std::cout << "apply(add,2,3) = " << apply(add, 2, 3) << "
-";
+    std::cout << "apply(add,2,3) = " << apply(add, 2, 3) << "";
     return 0;
 }
 ```
@@ -96,12 +92,10 @@ int main() {
     // STL-based implementation of Function pointers
     std::sort(data.begin(), data.end());
     for (const auto& x : data) std::cout << x << " ";
-    std::cout << "
-";
+    std::cout << "";
     
     auto sum = std::accumulate(data.begin(), data.end(), 0);
-    std::cout << "Sum: " << sum << "
-";
+    std::cout << "Sum: " << sum << "";
     return 0;
 }
 ```
@@ -125,14 +119,12 @@ int main() {
     
     // Modern C++ features for Function pointers
     auto [min_it, max_it] = std::minmax_element(data.begin(), data.end());
-    std::cout << "Range: [" << *min_it << ", " << *max_it << "]
-";
+    std::cout << "Range: [" << *min_it << ", " << *max_it << "]";
     
     // Lambda-based approach
     std::sort(data.begin(), data.end());
     for (const auto& x : data) std::cout << x << " ";
-    std::cout << "
-";
+    std::cout << "";
     return 0;
 }
 ```

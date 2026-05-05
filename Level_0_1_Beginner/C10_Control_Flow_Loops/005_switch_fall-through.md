@@ -50,38 +50,29 @@ int main() {
     // Intentional fall-through: grouping cases
     switch (month) {
         case 12: case 1: case 2:
-            std::cout << "Winter
-"; break;
+            std::cout << "Winter"; break;
         case 3: case 4: case 5:
-            std::cout << "Spring
-"; break;
+            std::cout << "Spring"; break;
         case 6: case 7: case 8:
-            std::cout << "Summer
-"; break;
+            std::cout << "Summer"; break;
         case 9: case 10: case 11:
-            std::cout << "Autumn
-"; break;
+            std::cout << "Autumn"; break;
     }
     
     // Accidental fall-through (BUG — missing break!)
     int x = 1;
     switch (x) {
-        case 1: std::cout << "One
-";   // Missing break! Falls to case 2
-        case 2: std::cout << "Two
-"; break;
-        case 3: std::cout << "Three
-"; break;
+        case 1: std::cout << "One";   // Missing break! Falls to case 2
+        case 2: std::cout << "Two"; break;
+        case 3: std::cout << "Three"; break;
     }
     // Output: "One" then "Two" — probably a bug!
     
     // C++17: [[fallthrough]] attribute for intentional fall-through
     switch (x) {
-        case 1: std::cout << "One
-";
+        case 1: std::cout << "One";
                 [[fallthrough]];  // Tells compiler: this is intentional
-        case 2: std::cout << "Two
-"; break;
+        case 2: std::cout << "Two"; break;
     }
     return 0;
 }
@@ -110,13 +101,11 @@ int main() {
     
     for (const auto& x : data)
         std::cout << x << " ";
-    std::cout << "
-";
+    std::cout << "";
     
     // STL-based solution demonstration
     auto sum = std::accumulate(data.begin(), data.end(), 0);
-    std::cout << "Sum: " << sum << "
-";
+    std::cout << "Sum: " << sum << "";
     return 0;
 }
 ```
@@ -143,14 +132,12 @@ int main() {
     // Using auto, structured bindings, ranges where applicable
     
     auto [min_it, max_it] = std::minmax_element(data.begin(), data.end());
-    std::cout << "Min: " << *min_it << ", Max: " << *max_it << "
-";
+    std::cout << "Min: " << *min_it << ", Max: " << *max_it << "";
     
     // Lambda-based processing
     auto is_even = [](int n) { return n % 2 == 0; };
     auto count = std::count_if(data.begin(), data.end(), is_even);
-    std::cout << "Even count: " << count << "
-";
+    std::cout << "Even count: " << count << "";
     
     return 0;
 }

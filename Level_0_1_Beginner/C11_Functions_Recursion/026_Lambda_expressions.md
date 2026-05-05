@@ -49,27 +49,23 @@ Think of lambda expressions as a tool in your toolbox — know when to reach for
 
 int main() {
     // Basic lambda syntax: [captures](params) -> return_type { body }
-    auto greet = []() { std::cout << "Hello!
-"; };
+    auto greet = []() { std::cout << "Hello!"; };
     greet();
     
     auto add = [](int a, int b) { return a + b; };
-    std::cout << "add(3,4) = " << add(3, 4) << "
-";
+    std::cout << "add(3,4) = " << add(3, 4) << "";
     
     // Lambda with explicit return type
     auto divide = [](int a, int b) -> double {
         return static_cast<double>(a) / b;
     };
-    std::cout << "7/2 = " << divide(7, 2) << "
-";
+    std::cout << "7/2 = " << divide(7, 2) << "";
     
     // Lambda in STL algorithms
     std::vector<int> v = {5, 2, 8, 1, 9, 3};
     std::sort(v.begin(), v.end(), [](int a, int b) { return a > b; });
     for (int x : v) std::cout << x << " ";
-    std::cout << "
-";
+    std::cout << "";
     return 0;
 }
 ```
@@ -95,12 +91,10 @@ int main() {
     // STL-based implementation of Lambda expressions
     std::sort(data.begin(), data.end());
     for (const auto& x : data) std::cout << x << " ";
-    std::cout << "
-";
+    std::cout << "";
     
     auto sum = std::accumulate(data.begin(), data.end(), 0);
-    std::cout << "Sum: " << sum << "
-";
+    std::cout << "Sum: " << sum << "";
     return 0;
 }
 ```
@@ -124,14 +118,12 @@ int main() {
     
     // Modern C++ features for Lambda expressions
     auto [min_it, max_it] = std::minmax_element(data.begin(), data.end());
-    std::cout << "Range: [" << *min_it << ", " << *max_it << "]
-";
+    std::cout << "Range: [" << *min_it << ", " << *max_it << "]";
     
     // Lambda-based approach
     std::sort(data.begin(), data.end());
     for (const auto& x : data) std::cout << x << " ";
-    std::cout << "
-";
+    std::cout << "";
     return 0;
 }
 ```

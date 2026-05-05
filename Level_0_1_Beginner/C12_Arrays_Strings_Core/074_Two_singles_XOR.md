@@ -50,19 +50,16 @@ Think of two singles (xor) as a tool in your toolbox — know when to reach for 
 
 int main() {
     // Implementation: Two singles XOR
-    std::cout << "Demonstrating: Two singles XOR
-";
+    std::cout << "Demonstrating: Two singles XOR";
     
     std::vector<int> data = {5, 2, 8, 1, 9, 3, 7, 4, 6};
     
     // Core logic for Two singles XOR
     std::sort(data.begin(), data.end());
     for (int x : data) std::cout << x << " ";
-    std::cout << "
-";
+    std::cout << "";
     
-    std::cout << "Implementation complete
-";
+    std::cout << "Implementation complete";
     return 0;
 }
 ```
@@ -87,13 +84,11 @@ int main() {
     // STL-based implementation
     std::sort(data.begin(), data.end());
     for (const auto& x : data) std::cout << x << " ";
-    std::cout << "
-";
+    std::cout << "";
     
     auto it = std::lower_bound(data.begin(), data.end(), 5);
     if (it != data.end())
-        std::cout << "Found: " << *it << " at index " << (it - data.begin()) << "
-";
+        std::cout << "Found: " << *it << " at index " << (it - data.begin()) << "";
     return 0;
 }
 ```
@@ -117,16 +112,13 @@ int main() {
     
     // Modern C++ features
     auto [min_it, max_it] = std::minmax_element(data.begin(), data.end());
-    std::cout << "Range: [" << *min_it << ", " << *max_it << "]
-";
+    std::cout << "Range: [" << *min_it << ", " << *max_it << "]";
     
     // Partition with lambda
     auto pivot = std::partition(data.begin(), data.end(), [](int x) { return x <= 5; });
-    std::cout << "Partitioned at index: " << (pivot - data.begin()) << "
-";
+    std::cout << "Partitioned at index: " << (pivot - data.begin()) << "";
     for (int x : data) std::cout << x << " ";
-    std::cout << "
-";
+    std::cout << "";
     return 0;
 }
 ```

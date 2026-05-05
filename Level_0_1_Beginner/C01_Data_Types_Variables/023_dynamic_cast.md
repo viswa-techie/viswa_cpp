@@ -47,16 +47,13 @@ Think of dynamic_cast<> as a tool in your toolbox — know when to reach for it.
 #include <string>
 int main() {
     // Demonstrating: dynamic cast
-    std::cout << "Topic: dynamic cast" << "
-";
+    std::cout << "Topic: dynamic cast" << "";
     
     // Direct implementation showing core concept
-    std::cout << "See code examples below for detailed usage
-";
+    std::cout << "See code examples below for detailed usage";
     
     // Basic usage pattern
-    std::cout << "Implementation complete
-";
+    std::cout << "Implementation complete";
     return 0;
 }
 ```
@@ -79,12 +76,10 @@ int main() {
  */
 int main() {
     // STL-based demonstration of dynamic cast
-    std::cout << "STL approach for: dynamic cast
-";
+    std::cout << "STL approach for: dynamic cast";
     
     // Using appropriate STL facilities
-    std::cout << "Implementation uses standard library best practices
-";
+    std::cout << "Implementation uses standard library best practices";
     return 0;
 }
 ```
@@ -105,12 +100,10 @@ int main() {
  */
 int main() {
     // Modern C++ demonstration of dynamic cast
-    std::cout << "Modern C++ approach for: dynamic cast
-";
+    std::cout << "Modern C++ approach for: dynamic cast";
     
     // Using C++17/20 features where applicable
-    std::cout << "Implementation uses modern C++ idioms
-";
+    std::cout << "Implementation uses modern C++ idioms";
     return 0;
 }
 ```

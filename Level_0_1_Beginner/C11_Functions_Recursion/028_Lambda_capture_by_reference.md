@@ -56,8 +56,7 @@ int main() {
     };
     
     for (int n : nums) accumulate(n);
-    std::cout << "Total: " << total << "
-";  // 15
+    std::cout << "Total: " << total << "";  // 15
     
     // [&] captures ALL by reference
     int min_val = nums[0], max_val = nums[0];
@@ -68,15 +67,13 @@ int main() {
         }
     };
     find_range();
-    std::cout << "Range: [" << min_val << ", " << max_val << "]
-";
+    std::cout << "Range: [" << min_val << ", " << max_val << "]";
     
     // Mix: [=, &total] — all by value except total by reference
     int multiplier = 2;
     auto scale = [=, &total]() { total *= multiplier; };
     scale();
-    std::cout << "Scaled total: " << total << "
-";
+    std::cout << "Scaled total: " << total << "";
     return 0;
 }
 ```
@@ -102,12 +99,10 @@ int main() {
     // STL-based implementation of Lambda capture by reference
     std::sort(data.begin(), data.end());
     for (const auto& x : data) std::cout << x << " ";
-    std::cout << "
-";
+    std::cout << "";
     
     auto sum = std::accumulate(data.begin(), data.end(), 0);
-    std::cout << "Sum: " << sum << "
-";
+    std::cout << "Sum: " << sum << "";
     return 0;
 }
 ```
@@ -131,14 +126,12 @@ int main() {
     
     // Modern C++ features for Lambda capture by reference
     auto [min_it, max_it] = std::minmax_element(data.begin(), data.end());
-    std::cout << "Range: [" << *min_it << ", " << *max_it << "]
-";
+    std::cout << "Range: [" << *min_it << ", " << *max_it << "]";
     
     // Lambda-based approach
     std::sort(data.begin(), data.end());
     for (const auto& x : data) std::cout << x << " ";
-    std::cout << "
-";
+    std::cout << "";
     return 0;
 }
 ```

@@ -47,16 +47,13 @@ Think of string comparison as a tool in your toolbox — know when to reach for 
 #include <string>
 int main() {
     // Demonstrating: String comparison
-    std::cout << "Topic: String comparison" << "
-";
+    std::cout << "Topic: String comparison" << "";
     
     // Direct implementation showing core concept
-    std::cout << "See code examples below for detailed usage
-";
+    std::cout << "See code examples below for detailed usage";
     
     // Basic usage pattern
-    std::cout << "Implementation complete
-";
+    std::cout << "Implementation complete";
     return 0;
 }
 ```
@@ -79,12 +76,10 @@ int main() {
  */
 int main() {
     // STL-based demonstration of String comparison
-    std::cout << "STL approach for: String comparison
-";
+    std::cout << "STL approach for: String comparison";
     
     // Using appropriate STL facilities
-    std::cout << "Implementation uses standard library best practices
-";
+    std::cout << "Implementation uses standard library best practices";
     return 0;
 }
 ```
@@ -105,12 +100,10 @@ int main() {
  */
 int main() {
     // Modern C++ demonstration of String comparison
-    std::cout << "Modern C++ approach for: String comparison
-";
+    std::cout << "Modern C++ approach for: String comparison";
     
     // Using C++17/20 features where applicable
-    std::cout << "Implementation uses modern C++ idioms
-";
+    std::cout << "Implementation uses modern C++ idioms";
     return 0;
 }
 ```

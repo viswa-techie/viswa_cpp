@@ -49,8 +49,7 @@ Think of typedef for function pointer as a tool in your toolbox — know when to
 
 int main() {
     // Implementation: Typedef for function pointer
-    std::cout << "Demonstrating: Typedef for function pointer
-";
+    std::cout << "Demonstrating: Typedef for function pointer";
     
     // Core algorithm/pattern implementation
     std::vector<int> data = {5, 2, 8, 1, 9, 3, 7};
@@ -58,8 +57,7 @@ int main() {
     // Process
     std::sort(data.begin(), data.end());
     for (int x : data) std::cout << x << " ";
-    std::cout << "
-";
+    std::cout << "";
     
     return 0;
 }
@@ -86,12 +84,10 @@ int main() {
     // STL-based implementation of Typedef for function pointer
     std::sort(data.begin(), data.end());
     for (const auto& x : data) std::cout << x << " ";
-    std::cout << "
-";
+    std::cout << "";
     
     auto sum = std::accumulate(data.begin(), data.end(), 0);
-    std::cout << "Sum: " << sum << "
-";
+    std::cout << "Sum: " << sum << "";
     return 0;
 }
 ```
@@ -115,14 +111,12 @@ int main() {
     
     // Modern C++ features for Typedef for function pointer
     auto [min_it, max_it] = std::minmax_element(data.begin(), data.end());
-    std::cout << "Range: [" << *min_it << ", " << *max_it << "]
-";
+    std::cout << "Range: [" << *min_it << ", " << *max_it << "]";
     
     // Lambda-based approach
     std::sort(data.begin(), data.end());
     for (const auto& x : data) std::cout << x << " ";
-    std::cout << "
-";
+    std::cout << "";
     return 0;
 }
 ```

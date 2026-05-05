@@ -49,8 +49,7 @@ Think of permutations of string as a tool in your toolbox — know when to reach
 
 void permute(std::string& s, int left, int right) {
     if (left == right) {
-        std::cout << s << "
-";
+        std::cout << s << "";
         return;
     }
     for (int i = left; i <= right; ++i) {
@@ -62,8 +61,7 @@ void permute(std::string& s, int left, int right) {
 
 int main() {
     std::string s = "ABC";
-    std::cout << "Permutations of " << s << ":
-";
+    std::cout << "Permutations of " << s << ":";
     permute(s, 0, s.size() - 1);
     return 0;
 }
@@ -90,12 +88,10 @@ int main() {
     // STL-based implementation of Permutations of string
     std::sort(data.begin(), data.end());
     for (const auto& x : data) std::cout << x << " ";
-    std::cout << "
-";
+    std::cout << "";
     
     auto sum = std::accumulate(data.begin(), data.end(), 0);
-    std::cout << "Sum: " << sum << "
-";
+    std::cout << "Sum: " << sum << "";
     return 0;
 }
 ```
@@ -119,14 +115,12 @@ int main() {
     
     // Modern C++ features for Permutations of string
     auto [min_it, max_it] = std::minmax_element(data.begin(), data.end());
-    std::cout << "Range: [" << *min_it << ", " << *max_it << "]
-";
+    std::cout << "Range: [" << *min_it << ", " << *max_it << "]";
     
     // Lambda-based approach
     std::sort(data.begin(), data.end());
     for (const auto& x : data) std::cout << x << " ";
-    std::cout << "
-";
+    std::cout << "";
     return 0;
 }
 ```

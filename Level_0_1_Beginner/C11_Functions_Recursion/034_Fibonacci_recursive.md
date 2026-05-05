@@ -63,13 +63,11 @@ int main() {
     // Naive (slow for large n)
     for (int i = 0; i <= 10; ++i)
         std::cout << fib(i) << " ";
-    std::cout << "
-";
+    std::cout << "";
     
     // Memoized (fast)
     std::vector<int> memo(50, -1);
-    std::cout << "fib(40) = " << fib_memo(40, memo) << "
-";
+    std::cout << "fib(40) = " << fib_memo(40, memo) << "";
     return 0;
 }
 ```
@@ -95,12 +93,10 @@ int main() {
     // STL-based implementation of Fibonacci recursive
     std::sort(data.begin(), data.end());
     for (const auto& x : data) std::cout << x << " ";
-    std::cout << "
-";
+    std::cout << "";
     
     auto sum = std::accumulate(data.begin(), data.end(), 0);
-    std::cout << "Sum: " << sum << "
-";
+    std::cout << "Sum: " << sum << "";
     return 0;
 }
 ```
@@ -124,14 +120,12 @@ int main() {
     
     // Modern C++ features for Fibonacci recursive
     auto [min_it, max_it] = std::minmax_element(data.begin(), data.end());
-    std::cout << "Range: [" << *min_it << ", " << *max_it << "]
-";
+    std::cout << "Range: [" << *min_it << ", " << *max_it << "]";
     
     // Lambda-based approach
     std::sort(data.begin(), data.end());
     for (const auto& x : data) std::cout << x << " ";
-    std::cout << "
-";
+    std::cout << "";
     return 0;
 }
 ```

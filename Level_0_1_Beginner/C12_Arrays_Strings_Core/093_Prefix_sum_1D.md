@@ -58,8 +58,7 @@ int main() {
     // Range sum query: sum of arr[l..r] = prefix[r+1] - prefix[l]
     int l = 1, r = 3;  // sum of arr[1..3] = 2+3+4 = 9
     std::cout << "Sum [" << l << ".." << r << "] = " 
-              << prefix[r+1] - prefix[l] << "
-";
+              << prefix[r+1] - prefix[l] << "";
     return 0;
 }
 ```
@@ -84,13 +83,11 @@ int main() {
     // STL-based implementation
     std::sort(data.begin(), data.end());
     for (const auto& x : data) std::cout << x << " ";
-    std::cout << "
-";
+    std::cout << "";
     
     auto it = std::lower_bound(data.begin(), data.end(), 5);
     if (it != data.end())
-        std::cout << "Found: " << *it << " at index " << (it - data.begin()) << "
-";
+        std::cout << "Found: " << *it << " at index " << (it - data.begin()) << "";
     return 0;
 }
 ```
@@ -114,16 +111,13 @@ int main() {
     
     // Modern C++ features
     auto [min_it, max_it] = std::minmax_element(data.begin(), data.end());
-    std::cout << "Range: [" << *min_it << ", " << *max_it << "]
-";
+    std::cout << "Range: [" << *min_it << ", " << *max_it << "]";
     
     // Partition with lambda
     auto pivot = std::partition(data.begin(), data.end(), [](int x) { return x <= 5; });
-    std::cout << "Partitioned at index: " << (pivot - data.begin()) << "
-";
+    std::cout << "Partitioned at index: " << (pivot - data.begin()) << "";
     for (int x : data) std::cout << x << " ";
-    std::cout << "
-";
+    std::cout << "";
     return 0;
 }
 ```

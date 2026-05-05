@@ -52,26 +52,17 @@ int main() {
     bool passed = true;
 
     std::cout << "Age: " << age << "";
-    std::cout << "Height: " << height << "
-";
-    std::cout << "Pi: " << pi << "
-";
-    std::cout << "Grade: " << grade << "
-";
-    std::cout << "Passed: " << std::boolalpha << passed << "
-";
+    std::cout << "Height: " << height << "";
+    std::cout << "Pi: " << pi << "";
+    std::cout << "Grade: " << grade << "";
+    std::cout << "Passed: " << std::boolalpha << passed << "";
 
     // Size of each type
-    std::cout << "sizeof(int)=" << sizeof(int) << "
-";
-    std::cout << "sizeof(float)=" << sizeof(float) << "
-";
-    std::cout << "sizeof(double)=" << sizeof(double) << "
-";
-    std::cout << "sizeof(char)=" << sizeof(char) << "
-";
-    std::cout << "sizeof(bool)=" << sizeof(bool) << "
-";
+    std::cout << "sizeof(int)=" << sizeof(int) << "";
+    std::cout << "sizeof(float)=" << sizeof(float) << "";
+    std::cout << "sizeof(double)=" << sizeof(double) << "";
+    std::cout << "sizeof(char)=" << sizeof(char) << "";
+    std::cout << "sizeof(bool)=" << sizeof(bool) << "";
     return 0;
 }
 ```
@@ -89,14 +80,10 @@ int main() {
 int main() {
     // Using numeric_limits for type information
     std::cout << "int range: [" << std::numeric_limits<int>::min()
-              << ", " << std::numeric_limits<int>::max() << "]
-";
-    std::cout << "float max: " << std::numeric_limits<float>::max() << "
-";
-    std::cout << "double precision: " << std::numeric_limits<double>::digits10 << " digits
-";
-    std::cout << "char is signed: " << std::boolalpha << std::numeric_limits<char>::is_signed << "
-";
+              << ", " << std::numeric_limits<int>::max() << "]";
+    std::cout << "float max: " << std::numeric_limits<float>::max() << "";
+    std::cout << "double precision: " << std::numeric_limits<double>::digits10 << " digits";
+    std::cout << "char is signed: " << std::boolalpha << std::numeric_limits<char>::is_signed << "";
     return 0;
 }
 ```
@@ -124,8 +111,7 @@ int main() {
     static_assert(std::is_same_v<decltype(grade), char>);
     static_assert(std::is_same_v<decltype(passed), bool>);
 
-    std::cout << "All type checks passed!
-";
+    std::cout << "All type checks passed!";
     return 0;
 }
 ```

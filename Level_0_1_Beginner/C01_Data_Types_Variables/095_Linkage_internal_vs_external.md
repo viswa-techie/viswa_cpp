@@ -47,16 +47,13 @@ Think of linkage: internal vs external as a tool in your toolbox — know when t
 #include <string>
 int main() {
     // Demonstrating: Linkage internal vs external
-    std::cout << "Topic: Linkage internal vs external" << "
-";
+    std::cout << "Topic: Linkage internal vs external" << "";
     
     // Direct implementation showing core concept
-    std::cout << "See code examples below for detailed usage
-";
+    std::cout << "See code examples below for detailed usage";
     
     // Basic usage pattern
-    std::cout << "Implementation complete
-";
+    std::cout << "Implementation complete";
     return 0;
 }
 ```
@@ -79,12 +76,10 @@ int main() {
  */
 int main() {
     // STL-based demonstration of Linkage internal vs external
-    std::cout << "STL approach for: Linkage internal vs external
-";
+    std::cout << "STL approach for: Linkage internal vs external";
     
     // Using appropriate STL facilities
-    std::cout << "Implementation uses standard library best practices
-";
+    std::cout << "Implementation uses standard library best practices";
     return 0;
 }
 ```
@@ -105,12 +100,10 @@ int main() {
  */
 int main() {
     // Modern C++ demonstration of Linkage internal vs external
-    std::cout << "Modern C++ approach for: Linkage internal vs external
-";
+    std::cout << "Modern C++ approach for: Linkage internal vs external";
     
     // Using C++17/20 features where applicable
-    std::cout << "Implementation uses modern C++ idioms
-";
+    std::cout << "Implementation uses modern C++ idioms";
     return 0;
 }
 ```

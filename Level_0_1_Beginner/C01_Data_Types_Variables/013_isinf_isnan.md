@@ -50,28 +50,19 @@ int main() {
     double inf = std::numeric_limits<double>::infinity();
     double nan = std::numeric_limits<double>::quiet_NaN();
     
-    std::cout << "Infinity: " << inf << "
-";
-    std::cout << "-Infinity: " << -inf << "
-";
-    std::cout << "NaN: " << nan << "
-";
+    std::cout << "Infinity: " << inf << "";
+    std::cout << "-Infinity: " << -inf << "";
+    std::cout << "NaN: " << nan << "";
     
     // Operations producing infinity and NaN
-    std::cout << "1.0/0.0 = " << 1.0/0.0 << "
-";     // inf
-    std::cout << "-1.0/0.0 = " << -1.0/0.0 << "
-";   // -inf
-    std::cout << "0.0/0.0 = " << 0.0/0.0 << "
-";     // NaN
-    std::cout << "inf - inf = " << inf - inf << "
-";   // NaN
-    std::cout << "inf + inf = " << inf + inf << "
-";   // inf
+    std::cout << "1.0/0.0 = " << 1.0/0.0 << "";     // inf
+    std::cout << "-1.0/0.0 = " << -1.0/0.0 << "";   // -inf
+    std::cout << "0.0/0.0 = " << 0.0/0.0 << "";     // NaN
+    std::cout << "inf - inf = " << inf - inf << "";   // NaN
+    std::cout << "inf + inf = " << inf + inf << "";   // inf
     
     // NaN is not equal to anything, including itself!
-    std::cout << "NaN == NaN? " << (nan == nan) << "
-";  // 0 (false!)
+    std::cout << "NaN == NaN? " << (nan == nan) << "";  // 0 (false!)
     return 0;
 }
 ```
@@ -94,12 +85,10 @@ int main() {
  */
 int main() {
     // STL-based demonstration of isinf isnan
-    std::cout << "STL approach for: isinf isnan
-";
+    std::cout << "STL approach for: isinf isnan";
     
     // Using appropriate STL facilities
-    std::cout << "Implementation uses standard library best practices
-";
+    std::cout << "Implementation uses standard library best practices";
     return 0;
 }
 ```
@@ -120,12 +109,10 @@ int main() {
  */
 int main() {
     // Modern C++ demonstration of isinf isnan
-    std::cout << "Modern C++ approach for: isinf isnan
-";
+    std::cout << "Modern C++ approach for: isinf isnan";
     
     // Using C++17/20 features where applicable
-    std::cout << "Implementation uses modern C++ idioms
-";
+    std::cout << "Implementation uses modern C++ idioms";
     return 0;
 }
 ```

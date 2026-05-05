@@ -47,16 +47,13 @@ Think of auto type deduction rules as a building block — you can't build a hou
 #include <string>
 int main() {
     // Demonstrating: auto type deduction rules
-    std::cout << "Topic: auto type deduction rules" << "
-";
+    std::cout << "Topic: auto type deduction rules" << "";
     
     // Direct implementation showing core concept
-    std::cout << "See code examples below for detailed usage
-";
+    std::cout << "See code examples below for detailed usage";
     
     // Basic usage pattern
-    std::cout << "Implementation complete
-";
+    std::cout << "Implementation complete";
     return 0;
 }
 ```
@@ -79,12 +76,10 @@ int main() {
  */
 int main() {
     // STL-based demonstration of auto type deduction rules
-    std::cout << "STL approach for: auto type deduction rules
-";
+    std::cout << "STL approach for: auto type deduction rules";
     
     // Using appropriate STL facilities
-    std::cout << "Implementation uses standard library best practices
-";
+    std::cout << "Implementation uses standard library best practices";
     return 0;
 }
 ```
@@ -105,12 +100,10 @@ int main() {
  */
 int main() {
     // Modern C++ demonstration of auto type deduction rules
-    std::cout << "Modern C++ approach for: auto type deduction rules
-";
+    std::cout << "Modern C++ approach for: auto type deduction rules";
     
     // Using C++17/20 features where applicable
-    std::cout << "Implementation uses modern C++ idioms
-";
+    std::cout << "Implementation uses modern C++ idioms";
     return 0;
 }
 ```

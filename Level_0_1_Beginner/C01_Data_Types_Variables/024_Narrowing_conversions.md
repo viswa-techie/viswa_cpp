@@ -55,19 +55,15 @@ int main() {
     int negative = -1;
     unsigned int u = negative;  // Narrowing: negative to unsigned
     
-    std::cout << "double->int: " << i << "
-";
-    std::cout << "long long->int: " << small << " (truncated!)
-";
-    std::cout << "int->unsigned: " << u << "
-";
+    std::cout << "double->int: " << i << "";
+    std::cout << "long long->int: " << small << " (truncated!)";
+    std::cout << "int->unsigned: " << u << "";
     
     // Brace initialization prevents narrowing
     // int x{3.14};          // ERROR! Narrowing not allowed
     // int y{big};           // ERROR! Narrowing not allowed
     int safe{42};            // OK — no narrowing
-    std::cout << "safe: " << safe << "
-";
+    std::cout << "safe: " << safe << "";
     return 0;
 }
 ```
@@ -90,12 +86,10 @@ int main() {
  */
 int main() {
     // STL-based demonstration of Narrowing conversions
-    std::cout << "STL approach for: Narrowing conversions
-";
+    std::cout << "STL approach for: Narrowing conversions";
     
     // Using appropriate STL facilities
-    std::cout << "Implementation uses standard library best practices
-";
+    std::cout << "Implementation uses standard library best practices";
     return 0;
 }
 ```
@@ -116,12 +110,10 @@ int main() {
  */
 int main() {
     // Modern C++ demonstration of Narrowing conversions
-    std::cout << "Modern C++ approach for: Narrowing conversions
-";
+    std::cout << "Modern C++ approach for: Narrowing conversions";
     
     // Using C++17/20 features where applicable
-    std::cout << "Implementation uses modern C++ idioms
-";
+    std::cout << "Implementation uses modern C++ idioms";
     return 0;
 }
 ```

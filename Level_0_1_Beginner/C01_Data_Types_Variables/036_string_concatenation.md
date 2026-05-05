@@ -47,16 +47,13 @@ Think of string concatenation as a tool in your toolbox — know when to reach f
 #include <string>
 int main() {
     // Demonstrating: string concatenation
-    std::cout << "Topic: string concatenation" << "
-";
+    std::cout << "Topic: string concatenation" << "";
     
     // Direct implementation showing core concept
-    std::cout << "See code examples below for detailed usage
-";
+    std::cout << "See code examples below for detailed usage";
     
     // Basic usage pattern
-    std::cout << "Implementation complete
-";
+    std::cout << "Implementation complete";
     return 0;
 }
 ```
@@ -79,12 +76,10 @@ int main() {
  */
 int main() {
     // STL-based demonstration of string concatenation
-    std::cout << "STL approach for: string concatenation
-";
+    std::cout << "STL approach for: string concatenation";
     
     // Using appropriate STL facilities
-    std::cout << "Implementation uses standard library best practices
-";
+    std::cout << "Implementation uses standard library best practices";
     return 0;
 }
 ```
@@ -105,12 +100,10 @@ int main() {
  */
 int main() {
     // Modern C++ demonstration of string concatenation
-    std::cout << "Modern C++ approach for: string concatenation
-";
+    std::cout << "Modern C++ approach for: string concatenation";
     
     // Using C++17/20 features where applicable
-    std::cout << "Implementation uses modern C++ idioms
-";
+    std::cout << "Implementation uses modern C++ idioms";
     return 0;
 }
 ```

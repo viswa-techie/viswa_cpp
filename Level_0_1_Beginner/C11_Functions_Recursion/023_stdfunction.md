@@ -55,12 +55,10 @@ int main() {
     std::function<int(int,int)> op;
     
     op = add;
-    std::cout << "add: " << op(3, 4) << "
-";
+    std::cout << "add: " << op(3, 4) << "";
     
     op = [](int a, int b) { return a * b; };
-    std::cout << "mul: " << op(3, 4) << "
-";
+    std::cout << "mul: " << op(3, 4) << "";
     
     // Array of operations
     std::vector<std::function<int(int,int)>> ops = {
@@ -70,8 +68,7 @@ int main() {
     };
     for (auto& f : ops)
         std::cout << f(10, 3) << " ";
-    std::cout << "
-";
+    std::cout << "";
     return 0;
 }
 ```
@@ -97,12 +94,10 @@ int main() {
     // STL-based implementation of stdfunction
     std::sort(data.begin(), data.end());
     for (const auto& x : data) std::cout << x << " ";
-    std::cout << "
-";
+    std::cout << "";
     
     auto sum = std::accumulate(data.begin(), data.end(), 0);
-    std::cout << "Sum: " << sum << "
-";
+    std::cout << "Sum: " << sum << "";
     return 0;
 }
 ```
@@ -126,14 +121,12 @@ int main() {
     
     // Modern C++ features for stdfunction
     auto [min_it, max_it] = std::minmax_element(data.begin(), data.end());
-    std::cout << "Range: [" << *min_it << ", " << *max_it << "]
-";
+    std::cout << "Range: [" << *min_it << ", " << *max_it << "]";
     
     // Lambda-based approach
     std::sort(data.begin(), data.end());
     for (const auto& x : data) std::cout << x << " ";
-    std::cout << "
-";
+    std::cout << "";
     return 0;
 }
 ```

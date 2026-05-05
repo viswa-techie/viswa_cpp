@@ -58,17 +58,12 @@ std::vector<int> range(int n) {
 }
 
 int main() {
-    std::cout << square(5) << "
-";
-    std::cout << divide(7, 2) << "
-";
-    std::cout << greet("Viswa") << "
-";
-    std::cout << std::boolalpha << isEven(4) << "
-";
+    std::cout << square(5) << "";
+    std::cout << divide(7, 2) << "";
+    std::cout << greet("Viswa") << "";
+    std::cout << std::boolalpha << isEven(4) << "";
     for (int x : range(5)) std::cout << x << " ";
-    std::cout << "
-";
+    std::cout << "";
     return 0;
 }
 ```
@@ -94,12 +89,10 @@ int main() {
     // STL-based implementation of Return types
     std::sort(data.begin(), data.end());
     for (const auto& x : data) std::cout << x << " ";
-    std::cout << "
-";
+    std::cout << "";
     
     auto sum = std::accumulate(data.begin(), data.end(), 0);
-    std::cout << "Sum: " << sum << "
-";
+    std::cout << "Sum: " << sum << "";
     return 0;
 }
 ```
@@ -123,14 +116,12 @@ int main() {
     
     // Modern C++ features for Return types
     auto [min_it, max_it] = std::minmax_element(data.begin(), data.end());
-    std::cout << "Range: [" << *min_it << ", " << *max_it << "]
-";
+    std::cout << "Range: [" << *min_it << ", " << *max_it << "]";
     
     // Lambda-based approach
     std::sort(data.begin(), data.end());
     for (const auto& x : data) std::cout << x << " ";
-    std::cout << "
-";
+    std::cout << "";
     return 0;
 }
 ```

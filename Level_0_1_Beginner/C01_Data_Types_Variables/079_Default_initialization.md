@@ -47,16 +47,13 @@ Think of default initialization as a tool in your toolbox — know when to reach
 #include <string>
 int main() {
     // Demonstrating: Default initialization
-    std::cout << "Topic: Default initialization" << "
-";
+    std::cout << "Topic: Default initialization" << "";
     
     // Direct implementation showing core concept
-    std::cout << "See code examples below for detailed usage
-";
+    std::cout << "See code examples below for detailed usage";
     
     // Basic usage pattern
-    std::cout << "Implementation complete
-";
+    std::cout << "Implementation complete";
     return 0;
 }
 ```
@@ -79,12 +76,10 @@ int main() {
  */
 int main() {
     // STL-based demonstration of Default initialization
-    std::cout << "STL approach for: Default initialization
-";
+    std::cout << "STL approach for: Default initialization";
     
     // Using appropriate STL facilities
-    std::cout << "Implementation uses standard library best practices
-";
+    std::cout << "Implementation uses standard library best practices";
     return 0;
 }
 ```
@@ -105,12 +100,10 @@ int main() {
  */
 int main() {
     // Modern C++ demonstration of Default initialization
-    std::cout << "Modern C++ approach for: Default initialization
-";
+    std::cout << "Modern C++ approach for: Default initialization";
     
     // Using C++17/20 features where applicable
-    std::cout << "Implementation uses modern C++ idioms
-";
+    std::cout << "Implementation uses modern C++ idioms";
     return 0;
 }
 ```

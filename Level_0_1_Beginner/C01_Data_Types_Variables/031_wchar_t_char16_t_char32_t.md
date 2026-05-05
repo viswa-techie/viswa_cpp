@@ -47,16 +47,13 @@ Think of wchar_t, char16_t, char32_t as a tool in your toolbox — know when to 
 #include <string>
 int main() {
     // Demonstrating: wchar t char16 t char32 t
-    std::cout << "Topic: wchar t char16 t char32 t" << "
-";
+    std::cout << "Topic: wchar t char16 t char32 t" << "";
     
     // Direct implementation showing core concept
-    std::cout << "See code examples below for detailed usage
-";
+    std::cout << "See code examples below for detailed usage";
     
     // Basic usage pattern
-    std::cout << "Implementation complete
-";
+    std::cout << "Implementation complete";
     return 0;
 }
 ```
@@ -79,12 +76,10 @@ int main() {
  */
 int main() {
     // STL-based demonstration of wchar t char16 t char32 t
-    std::cout << "STL approach for: wchar t char16 t char32 t
-";
+    std::cout << "STL approach for: wchar t char16 t char32 t";
     
     // Using appropriate STL facilities
-    std::cout << "Implementation uses standard library best practices
-";
+    std::cout << "Implementation uses standard library best practices";
     return 0;
 }
 ```
@@ -105,12 +100,10 @@ int main() {
  */
 int main() {
     // Modern C++ demonstration of wchar t char16 t char32 t
-    std::cout << "Modern C++ approach for: wchar t char16 t char32 t
-";
+    std::cout << "Modern C++ approach for: wchar t char16 t char32 t";
     
     // Using C++17/20 features where applicable
-    std::cout << "Implementation uses modern C++ idioms
-";
+    std::cout << "Implementation uses modern C++ idioms";
     return 0;
 }
 ```

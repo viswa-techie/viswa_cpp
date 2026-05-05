@@ -52,31 +52,20 @@ struct Example {
 };
 
 int main() {
-    std::cout << "Fundamental types:
-";
-    std::cout << "  char: " << sizeof(char) << "
-";
-    std::cout << "  short: " << sizeof(short) << "
-";
-    std::cout << "  int: " << sizeof(int) << "
-";
-    std::cout << "  long: " << sizeof(long) << "
-";
-    std::cout << "  long long: " << sizeof(long long) << "
-";
-    std::cout << "  float: " << sizeof(float) << "
-";
-    std::cout << "  double: " << sizeof(double) << "
-";
-    std::cout << "  pointer: " << sizeof(void*) << "
-";
-    std::cout << "  Example struct: " << sizeof(Example) << " (with padding)
-";
+    std::cout << "Fundamental types:";
+    std::cout << "  char: " << sizeof(char) << "";
+    std::cout << "  short: " << sizeof(short) << "";
+    std::cout << "  int: " << sizeof(int) << "";
+    std::cout << "  long: " << sizeof(long) << "";
+    std::cout << "  long long: " << sizeof(long long) << "";
+    std::cout << "  float: " << sizeof(float) << "";
+    std::cout << "  double: " << sizeof(double) << "";
+    std::cout << "  pointer: " << sizeof(void*) << "";
+    std::cout << "  Example struct: " << sizeof(Example) << " (with padding)";
 
     int arr[10];
     std::cout << "  arr[10]: " << sizeof(arr) << " bytes, "
-              << sizeof(arr)/sizeof(arr[0]) << " elements
-";
+              << sizeof(arr)/sizeof(arr[0]) << " elements";
     return 0;
 }
 ```
@@ -93,19 +82,14 @@ int main() {
 #include <array>
 
 int main() {
-    std::cout << "STL container object sizes:
-";
-    std::cout << "  std::string: " << sizeof(std::string) << "
-";
-    std::cout << "  std::vector<int>: " << sizeof(std::vector<int>) << "
-";
-    std::cout << "  std::array<int,10>: " << sizeof(std::array<int,10>) << "
-";
+    std::cout << "STL container object sizes:";
+    std::cout << "  std::string: " << sizeof(std::string) << "";
+    std::cout << "  std::vector<int>: " << sizeof(std::vector<int>) << "";
+    std::cout << "  std::array<int,10>: " << sizeof(std::array<int,10>) << "";
 
     // Note: sizeof gives object size, not content size
     std::string s = "Hello World";
-    std::cout << "  sizeof(s)=" << sizeof(s) << " vs s.size()=" << s.size() << "
-";
+    std::cout << "  sizeof(s)=" << sizeof(s) << " vs s.size()=" << s.size() << "";
     return 0;
 }
 ```
@@ -122,8 +106,7 @@ int main() {
 template<typename T>
 void printSize(const char* name) {
     std::cout << name << ": " << sizeof(T) << " bytes, "
-              << "aligned to " << alignof(T) << "
-";
+              << "aligned to " << alignof(T) << "";
 }
 
 int main() {

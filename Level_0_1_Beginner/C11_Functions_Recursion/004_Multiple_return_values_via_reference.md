@@ -64,13 +64,11 @@ int main() {
     int arr[] = {3, 7, 1, 9, 4};
     int mn, mx;
     minMax(arr, 5, mn, mx);
-    std::cout << "Min=" << mn << " Max=" << mx << "
-";
+    std::cout << "Min=" << mn << " Max=" << mx << "";
 
     int q, r;
     divide(17, 5, q, r);
-    std::cout << "17/5 = " << q << " remainder " << r << "
-";
+    std::cout << "17/5 = " << q << " remainder " << r << "";
     return 0;
 }
 ```
@@ -96,12 +94,10 @@ int main() {
     // STL-based implementation of Multiple return values via reference
     std::sort(data.begin(), data.end());
     for (const auto& x : data) std::cout << x << " ";
-    std::cout << "
-";
+    std::cout << "";
     
     auto sum = std::accumulate(data.begin(), data.end(), 0);
-    std::cout << "Sum: " << sum << "
-";
+    std::cout << "Sum: " << sum << "";
     return 0;
 }
 ```
@@ -125,14 +121,12 @@ int main() {
     
     // Modern C++ features for Multiple return values via reference
     auto [min_it, max_it] = std::minmax_element(data.begin(), data.end());
-    std::cout << "Range: [" << *min_it << ", " << *max_it << "]
-";
+    std::cout << "Range: [" << *min_it << ", " << *max_it << "]";
     
     // Lambda-based approach
     std::sort(data.begin(), data.end());
     for (const auto& x : data) std::cout << x << " ";
-    std::cout << "
-";
+    std::cout << "";
     return 0;
 }
 ```

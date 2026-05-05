@@ -46,16 +46,13 @@ Think of array size pitfalls as a tool in your toolbox — know when to reach fo
 #include <iostream>
 void printSize(int arr[]) {  // arr decays to pointer!
     // sizeof(arr) gives pointer size (8 bytes), NOT array size!
-    std::cout << "In function sizeof: " << sizeof(arr) << "
-";  // 8
+    std::cout << "In function sizeof: " << sizeof(arr) << "";  // 8
 }
 
 int main() {
     int arr[10] = {};
-    std::cout << "In main sizeof: " << sizeof(arr) << "
-";  // 40
-    std::cout << "Element count: " << sizeof(arr)/sizeof(arr[0]) << "
-"; // 10
+    std::cout << "In main sizeof: " << sizeof(arr) << "";  // 40
+    std::cout << "Element count: " << sizeof(arr)/sizeof(arr[0]) << ""; // 10
     printSize(arr);  // Loses size information!
     
     // Solution: pass size explicitly or use std::array/std::vector
@@ -83,13 +80,11 @@ int main() {
     // STL-based implementation
     std::sort(data.begin(), data.end());
     for (const auto& x : data) std::cout << x << " ";
-    std::cout << "
-";
+    std::cout << "";
     
     auto it = std::lower_bound(data.begin(), data.end(), 5);
     if (it != data.end())
-        std::cout << "Found: " << *it << " at index " << (it - data.begin()) << "
-";
+        std::cout << "Found: " << *it << " at index " << (it - data.begin()) << "";
     return 0;
 }
 ```
@@ -113,16 +108,13 @@ int main() {
     
     // Modern C++ features
     auto [min_it, max_it] = std::minmax_element(data.begin(), data.end());
-    std::cout << "Range: [" << *min_it << ", " << *max_it << "]
-";
+    std::cout << "Range: [" << *min_it << ", " << *max_it << "]";
     
     // Partition with lambda
     auto pivot = std::partition(data.begin(), data.end(), [](int x) { return x <= 5; });
-    std::cout << "Partitioned at index: " << (pivot - data.begin()) << "
-";
+    std::cout << "Partitioned at index: " << (pivot - data.begin()) << "";
     for (int x : data) std::cout << x << " ";
-    std::cout << "
-";
+    std::cout << "";
     return 0;
 }
 ```

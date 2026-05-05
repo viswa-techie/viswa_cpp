@@ -48,16 +48,14 @@ int main() {
     int n = 20;
     long long a = 0, b = 1;
     
-    std::cout << "Fibonacci sequence:
-";
+    std::cout << "Fibonacci sequence:";
     for (int i = 0; i < n; ++i) {
         std::cout << a << " ";
         long long next = a + b;
         a = b;
         b = next;
     }
-    std::cout << "
-";
+    std::cout << "";
     
     // Get nth Fibonacci number
     auto fib = [](int n) -> long long {
@@ -70,8 +68,7 @@ int main() {
         }
         return b;
     };
-    std::cout << "fib(10) = " << fib(10) << "
-";  // 55
+    std::cout << "fib(10) = " << fib(10) << "";  // 55
     return 0;
 }
 ```
@@ -99,13 +96,11 @@ int main() {
     
     for (const auto& x : data)
         std::cout << x << " ";
-    std::cout << "
-";
+    std::cout << "";
     
     // STL-based solution demonstration
     auto sum = std::accumulate(data.begin(), data.end(), 0);
-    std::cout << "Sum: " << sum << "
-";
+    std::cout << "Sum: " << sum << "";
     return 0;
 }
 ```
@@ -132,14 +127,12 @@ int main() {
     // Using auto, structured bindings, ranges where applicable
     
     auto [min_it, max_it] = std::minmax_element(data.begin(), data.end());
-    std::cout << "Min: " << *min_it << ", Max: " << *max_it << "
-";
+    std::cout << "Min: " << *min_it << ", Max: " << *max_it << "";
     
     // Lambda-based processing
     auto is_even = [](int n) { return n % 2 == 0; };
     auto count = std::count_if(data.begin(), data.end(), is_even);
-    std::cout << "Even count: " << count << "
-";
+    std::cout << "Even count: " << count << "";
     
     return 0;
 }

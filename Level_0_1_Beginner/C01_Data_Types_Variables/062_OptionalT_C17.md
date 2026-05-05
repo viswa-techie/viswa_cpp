@@ -47,16 +47,13 @@ Think of optional<t> (c++17) as a tool in your toolbox — know when to reach fo
 #include <string>
 int main() {
     // Demonstrating: OptionalT C17
-    std::cout << "Topic: OptionalT C17" << "
-";
+    std::cout << "Topic: OptionalT C17" << "";
     
     // Direct implementation showing core concept
-    std::cout << "See code examples below for detailed usage
-";
+    std::cout << "See code examples below for detailed usage";
     
     // Basic usage pattern
-    std::cout << "Implementation complete
-";
+    std::cout << "Implementation complete";
     return 0;
 }
 ```
@@ -79,12 +76,10 @@ int main() {
  */
 int main() {
     // STL-based demonstration of OptionalT C17
-    std::cout << "STL approach for: OptionalT C17
-";
+    std::cout << "STL approach for: OptionalT C17";
     
     // Using appropriate STL facilities
-    std::cout << "Implementation uses standard library best practices
-";
+    std::cout << "Implementation uses standard library best practices";
     return 0;
 }
 ```
@@ -105,12 +100,10 @@ int main() {
  */
 int main() {
     // Modern C++ demonstration of OptionalT C17
-    std::cout << "Modern C++ approach for: OptionalT C17
-";
+    std::cout << "Modern C++ approach for: OptionalT C17";
     
     // Using C++17/20 features where applicable
-    std::cout << "Implementation uses modern C++ idioms
-";
+    std::cout << "Implementation uses modern C++ idioms";
     return 0;
 }
 ```

@@ -50,21 +50,16 @@ int main() {
     double a = 0.1 + 0.2;
     double b = 0.3;
     std::cout << std::setprecision(20);
-    std::cout << "0.1 + 0.2 = " << a << "
-";
-    std::cout << "0.3       = " << b << "
-";
-    std::cout << "Equal? " << (a == b) << "
-";  // 0 (false!)
-    std::cout << "Difference: " << (a - b) << "
-";
+    std::cout << "0.1 + 0.2 = " << a << "";
+    std::cout << "0.3       = " << b << "";
+    std::cout << "Equal? " << (a == b) << "";  // 0 (false!)
+    std::cout << "Difference: " << (a - b) << "";
 
     // Loss of precision with large + small
     float big = 1000000.0f;
     float small_val = 0.001f;
     float sum = big + small_val;
-    std::cout << "1000000 + 0.001 = " << sum << "
-";  // 1000000 (small lost!)
+    std::cout << "1000000 + 0.001 = " << sum << "";  // 1000000 (small lost!)
     return 0;
 }
 ```
@@ -86,15 +81,13 @@ int main() {
 
     // Absolute comparison (for values near zero)
     bool eq1 = std::abs(a - b) < eps * 100;
-    std::cout << "Absolute compare: " << std::boolalpha << eq1 << "
-";
+    std::cout << "Absolute compare: " << std::boolalpha << eq1 << "";
 
     // Relative comparison (for larger values)
     auto relEqual = [](double x, double y, double tol = 1e-9) {
         return std::abs(x - y) <= tol * std::max(std::abs(x), std::abs(y));
     };
-    std::cout << "Relative compare: " << relEqual(a, b) << "
-";
+    std::cout << "Relative compare: " << relEqual(a, b) << "";
     return 0;
 }
 ```
@@ -112,15 +105,13 @@ int main() {
     // Catastrophic cancellation
     double x = 1e15;
     double y = x + 1.0;
-    std::cout << "(1e15 + 1) - 1e15 = " << (y - x) << "
-";  // May be 0 or 1!
+    std::cout << "(1e15 + 1) - 1e15 = " << (y - x) << "";  // May be 0 or 1!
 
     // Summation order matters (Kahan summation)
     float naive_sum = 0.0f;
     for (int i = 0; i < 1000000; ++i)
         naive_sum += 0.1f;
-    std::cout << "Naive sum of 0.1 * 1M: " << naive_sum << "
-";
+    std::cout << "Naive sum of 0.1 * 1M: " << naive_sum << "";
 
     // Kahan compensated summation
     float kahan_sum = 0.0f, c = 0.0f;
@@ -130,8 +121,7 @@ int main() {
         c = (t - kahan_sum) - y2;
         kahan_sum = t;
     }
-    std::cout << "Kahan sum of 0.1 * 1M: " << kahan_sum << "
-";
+    std::cout << "Kahan sum of 0.1 * 1M: " << kahan_sum << "";
     return 0;
 }
 ```

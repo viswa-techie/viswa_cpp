@@ -46,23 +46,16 @@ Think of int_max / int_min constants as a tool in your toolbox — know when to 
 #include <iostream>
 #include <climits>
 int main() {
-    std::cout << "INT_MAX = " << INT_MAX << "
-";   // 2147483647
-    std::cout << "INT_MIN = " << INT_MIN << "
-";   // -2147483648
-    std::cout << "UINT_MAX = " << UINT_MAX << "
-"; // 4294967295
-    std::cout << "SHRT_MAX = " << SHRT_MAX << "
-"; // 32767
-    std::cout << "LLONG_MAX = " << LLONG_MAX << "
-";
-    std::cout << "CHAR_MAX = " << CHAR_MAX << "
-";
+    std::cout << "INT_MAX = " << INT_MAX << "";   // 2147483647
+    std::cout << "INT_MIN = " << INT_MIN << "";   // -2147483648
+    std::cout << "UINT_MAX = " << UINT_MAX << ""; // 4294967295
+    std::cout << "SHRT_MAX = " << SHRT_MAX << ""; // 32767
+    std::cout << "LLONG_MAX = " << LLONG_MAX << "";
+    std::cout << "CHAR_MAX = " << CHAR_MAX << "";
 
     // Overflow check
     int x = INT_MAX;
-    std::cout << "INT_MAX + 1 = UB (signed overflow)
-";
+    std::cout << "INT_MAX + 1 = UB (signed overflow)";
     return 0;
 }
 ```
@@ -77,16 +70,11 @@ int main() {
 #include <limits>
 int main() {
     // Preferred C++ way: std::numeric_limits
-    std::cout << "int max: " << std::numeric_limits<int>::max() << "
-";
-    std::cout << "int min: " << std::numeric_limits<int>::min() << "
-";
-    std::cout << "int lowest: " << std::numeric_limits<int>::lowest() << "
-";
-    std::cout << "uint max: " << std::numeric_limits<unsigned>::max() << "
-";
-    std::cout << "digits: " << std::numeric_limits<int>::digits << " bits
-";
+    std::cout << "int max: " << std::numeric_limits<int>::max() << "";
+    std::cout << "int min: " << std::numeric_limits<int>::min() << "";
+    std::cout << "int lowest: " << std::numeric_limits<int>::lowest() << "";
+    std::cout << "uint max: " << std::numeric_limits<unsigned>::max() << "";
+    std::cout << "digits: " << std::numeric_limits<int>::digits << " bits";
     return 0;
 }
 ```
@@ -103,8 +91,7 @@ int main() {
 template<typename T>
 void showLimits(const char* name) {
     std::cout << name << ": [" << std::numeric_limits<T>::lowest()
-              << ", " << std::numeric_limits<T>::max() << "]
-";
+              << ", " << std::numeric_limits<T>::max() << "]";
 }
 int main() {
     showLimits<short>("short");

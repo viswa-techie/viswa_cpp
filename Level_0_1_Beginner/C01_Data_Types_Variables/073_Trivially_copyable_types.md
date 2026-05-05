@@ -47,16 +47,13 @@ Think of trivially copyable types as a tool in your toolbox — know when to rea
 #include <string>
 int main() {
     // Demonstrating: Trivially copyable types
-    std::cout << "Topic: Trivially copyable types" << "
-";
+    std::cout << "Topic: Trivially copyable types" << "";
     
     // Direct implementation showing core concept
-    std::cout << "See code examples below for detailed usage
-";
+    std::cout << "See code examples below for detailed usage";
     
     // Basic usage pattern
-    std::cout << "Implementation complete
-";
+    std::cout << "Implementation complete";
     return 0;
 }
 ```
@@ -79,12 +76,10 @@ int main() {
  */
 int main() {
     // STL-based demonstration of Trivially copyable types
-    std::cout << "STL approach for: Trivially copyable types
-";
+    std::cout << "STL approach for: Trivially copyable types";
     
     // Using appropriate STL facilities
-    std::cout << "Implementation uses standard library best practices
-";
+    std::cout << "Implementation uses standard library best practices";
     return 0;
 }
 ```
@@ -105,12 +100,10 @@ int main() {
  */
 int main() {
     // Modern C++ demonstration of Trivially copyable types
-    std::cout << "Modern C++ approach for: Trivially copyable types
-";
+    std::cout << "Modern C++ approach for: Trivially copyable types";
     
     // Using C++17/20 features where applicable
-    std::cout << "Implementation uses modern C++ idioms
-";
+    std::cout << "Implementation uses modern C++ idioms";
     return 0;
 }
 ```

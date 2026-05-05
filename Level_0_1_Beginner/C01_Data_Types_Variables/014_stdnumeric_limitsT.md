@@ -47,22 +47,14 @@ Think of std::numeric_limits<t> as a tool in your toolbox — know when to reach
 #include <limits>
 int main() {
     // std::numeric_limits<T> — compile-time type information
-    std::cout << "int max: " << std::numeric_limits<int>::max() << "
-";
-    std::cout << "int min: " << std::numeric_limits<int>::min() << "
-";
-    std::cout << "int digits: " << std::numeric_limits<int>::digits << "
-";
-    std::cout << "double max: " << std::numeric_limits<double>::max() << "
-";
-    std::cout << "double epsilon: " << std::numeric_limits<double>::epsilon() << "
-";
-    std::cout << "double digits10: " << std::numeric_limits<double>::digits10 << "
-";
-    std::cout << "float is_iec559: " << std::numeric_limits<float>::is_iec559 << "
-";
-    std::cout << "bool is_integer: " << std::numeric_limits<bool>::is_integer << "
-";
+    std::cout << "int max: " << std::numeric_limits<int>::max() << "";
+    std::cout << "int min: " << std::numeric_limits<int>::min() << "";
+    std::cout << "int digits: " << std::numeric_limits<int>::digits << "";
+    std::cout << "double max: " << std::numeric_limits<double>::max() << "";
+    std::cout << "double epsilon: " << std::numeric_limits<double>::epsilon() << "";
+    std::cout << "double digits10: " << std::numeric_limits<double>::digits10 << "";
+    std::cout << "float is_iec559: " << std::numeric_limits<float>::is_iec559 << "";
+    std::cout << "bool is_integer: " << std::numeric_limits<bool>::is_integer << "";
     return 0;
 }
 ```
@@ -85,12 +77,10 @@ int main() {
  */
 int main() {
     // STL-based demonstration of stdnumeric limitsT
-    std::cout << "STL approach for: stdnumeric limitsT
-";
+    std::cout << "STL approach for: stdnumeric limitsT";
     
     // Using appropriate STL facilities
-    std::cout << "Implementation uses standard library best practices
-";
+    std::cout << "Implementation uses standard library best practices";
     return 0;
 }
 ```
@@ -111,12 +101,10 @@ int main() {
  */
 int main() {
     // Modern C++ demonstration of stdnumeric limitsT
-    std::cout << "Modern C++ approach for: stdnumeric limitsT
-";
+    std::cout << "Modern C++ approach for: stdnumeric limitsT";
     
     // Using C++17/20 features where applicable
-    std::cout << "Implementation uses modern C++ idioms
-";
+    std::cout << "Implementation uses modern C++ idioms";
     return 0;
 }
 ```

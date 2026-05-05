@@ -47,16 +47,13 @@ Think of concepts intro (c++20) as a building block — you can't build a house 
 #include <string>
 int main() {
     // Demonstrating: Concepts intro C20
-    std::cout << "Topic: Concepts intro C20" << "
-";
+    std::cout << "Topic: Concepts intro C20" << "";
     
     // Direct implementation showing core concept
-    std::cout << "See code examples below for detailed usage
-";
+    std::cout << "See code examples below for detailed usage";
     
     // Basic usage pattern
-    std::cout << "Implementation complete
-";
+    std::cout << "Implementation complete";
     return 0;
 }
 ```
@@ -79,12 +76,10 @@ int main() {
  */
 int main() {
     // STL-based demonstration of Concepts intro C20
-    std::cout << "STL approach for: Concepts intro C20
-";
+    std::cout << "STL approach for: Concepts intro C20";
     
     // Using appropriate STL facilities
-    std::cout << "Implementation uses standard library best practices
-";
+    std::cout << "Implementation uses standard library best practices";
     return 0;
 }
 ```
@@ -105,12 +100,10 @@ int main() {
  */
 int main() {
     // Modern C++ demonstration of Concepts intro C20
-    std::cout << "Modern C++ approach for: Concepts intro C20
-";
+    std::cout << "Modern C++ approach for: Concepts intro C20";
     
     // Using C++17/20 features where applicable
-    std::cout << "Implementation uses modern C++ idioms
-";
+    std::cout << "Implementation uses modern C++ idioms";
     return 0;
 }
 ```

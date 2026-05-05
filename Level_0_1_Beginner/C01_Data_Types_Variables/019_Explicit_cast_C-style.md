@@ -51,17 +51,14 @@ int main() {
     int a = (int)pi;          // 3
     int b = int(pi);          // functional notation, same thing
     
-    std::cout << "C-cast (int)3.14 = " << a << "
-";
-    std::cout << "Functional int(3.14) = " << b << "
-";
+    std::cout << "C-cast (int)3.14 = " << a << "";
+    std::cout << "Functional int(3.14) = " << b << "";
     
     // C-style cast can do dangerous things silently
     int* ptr = (int*)0x1234;  // No compiler warning!
     void* vp = &pi;
     double* dp = (double*)vp;  // Compiles, but risky
-    std::cout << "*dp = " << *dp << "
-";
+    std::cout << "*dp = " << *dp << "";
     
     // Why C-style casts are bad: they combine ALL cast types
     // Prefer static_cast, const_cast, reinterpret_cast, dynamic_cast
@@ -87,12 +84,10 @@ int main() {
  */
 int main() {
     // STL-based demonstration of Explicit cast C style
-    std::cout << "STL approach for: Explicit cast C style
-";
+    std::cout << "STL approach for: Explicit cast C style";
     
     // Using appropriate STL facilities
-    std::cout << "Implementation uses standard library best practices
-";
+    std::cout << "Implementation uses standard library best practices";
     return 0;
 }
 ```
@@ -113,12 +108,10 @@ int main() {
  */
 int main() {
     // Modern C++ demonstration of Explicit cast C style
-    std::cout << "Modern C++ approach for: Explicit cast C style
-";
+    std::cout << "Modern C++ approach for: Explicit cast C style";
     
     // Using C++17/20 features where applicable
-    std::cout << "Implementation uses modern C++ idioms
-";
+    std::cout << "Implementation uses modern C++ idioms";
     return 0;
 }
 ```

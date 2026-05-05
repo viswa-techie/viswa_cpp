@@ -49,18 +49,14 @@ int main() {
     long l = 2147483647L;      // At least 4 bytes
     long long ll = 9223372036854775807LL;  // At least 8 bytes
 
-    std::cout << "short: " << s << " (size: " << sizeof(short) << ")
-";
-    std::cout << "long: " << l << " (size: " << sizeof(long) << ")
-";
-    std::cout << "long long: " << ll << " (size: " << sizeof(long long) << ")
-";
+    std::cout << "short: " << s << " (size: " << sizeof(short) << ")";
+    std::cout << "long: " << l << " (size: " << sizeof(long) << ")";
+    std::cout << "long long: " << ll << " (size: " << sizeof(long long) << ")";
 
     // Overflow demo
     short overflow = 32767;
     overflow++;  // UB for signed, but typically wraps to -32768
-    std::cout << "short overflow: " << overflow << "
-";
+    std::cout << "short overflow: " << overflow << "";
     return 0;
 }
 ```
@@ -76,14 +72,11 @@ int main() {
 
 int main() {
     std::cout << "short range: [" << std::numeric_limits<short>::min()
-              << ", " << std::numeric_limits<short>::max() << "]
-";
+              << ", " << std::numeric_limits<short>::max() << "]";
     std::cout << "long range: [" << std::numeric_limits<long>::min()
-              << ", " << std::numeric_limits<long>::max() << "]
-";
+              << ", " << std::numeric_limits<long>::max() << "]";
     std::cout << "long long range: [" << std::numeric_limits<long long>::min()
-              << ", " << std::numeric_limits<long long>::max() << "]
-";
+              << ", " << std::numeric_limits<long long>::max() << "]";
     return 0;
 }
 ```
@@ -103,12 +96,9 @@ int main() {
     int32_t i = 2147483647;  // Exactly 32 bits
     int64_t ll = 9223372036854775807LL;  // Exactly 64 bits
 
-    std::cout << "int16_t max: " << s << "
-";
-    std::cout << "int32_t max: " << i << "
-";
-    std::cout << "int64_t max: " << ll << "
-";
+    std::cout << "int16_t max: " << s << "";
+    std::cout << "int32_t max: " << i << "";
+    std::cout << "int64_t max: " << ll << "";
     return 0;
 }
 ```

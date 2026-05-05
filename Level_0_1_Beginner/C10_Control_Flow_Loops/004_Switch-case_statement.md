@@ -48,35 +48,23 @@ int main() {
     int day = 3;
     
     switch (day) {
-        case 1: std::cout << "Monday
-"; break;
-        case 2: std::cout << "Tuesday
-"; break;
-        case 3: std::cout << "Wednesday
-"; break;
-        case 4: std::cout << "Thursday
-"; break;
-        case 5: std::cout << "Friday
-"; break;
-        case 6: std::cout << "Saturday
-"; break;
-        case 7: std::cout << "Sunday
-"; break;
-        default: std::cout << "Invalid day
-"; break;
+        case 1: std::cout << "Monday"; break;
+        case 2: std::cout << "Tuesday"; break;
+        case 3: std::cout << "Wednesday"; break;
+        case 4: std::cout << "Thursday"; break;
+        case 5: std::cout << "Friday"; break;
+        case 6: std::cout << "Saturday"; break;
+        case 7: std::cout << "Sunday"; break;
+        default: std::cout << "Invalid day"; break;
     }
     
     // Switch with char
     char grade = 'B';
     switch (grade) {
-        case 'A': std::cout << "Excellent
-"; break;
-        case 'B': std::cout << "Good
-"; break;
-        case 'C': std::cout << "Average
-"; break;
-        default: std::cout << "Below average
-"; break;
+        case 'A': std::cout << "Excellent"; break;
+        case 'B': std::cout << "Good"; break;
+        case 'C': std::cout << "Average"; break;
+        default: std::cout << "Below average"; break;
     }
     
     return 0;
@@ -106,13 +94,11 @@ int main() {
     
     for (const auto& x : data)
         std::cout << x << " ";
-    std::cout << "
-";
+    std::cout << "";
     
     // STL-based solution demonstration
     auto sum = std::accumulate(data.begin(), data.end(), 0);
-    std::cout << "Sum: " << sum << "
-";
+    std::cout << "Sum: " << sum << "";
     return 0;
 }
 ```
@@ -139,14 +125,12 @@ int main() {
     // Using auto, structured bindings, ranges where applicable
     
     auto [min_it, max_it] = std::minmax_element(data.begin(), data.end());
-    std::cout << "Min: " << *min_it << ", Max: " << *max_it << "
-";
+    std::cout << "Min: " << *min_it << ", Max: " << *max_it << "";
     
     // Lambda-based processing
     auto is_even = [](int n) { return n % 2 == 0; };
     auto count = std::count_if(data.begin(), data.end(), is_even);
-    std::cout << "Even count: " << count << "
-";
+    std::cout << "Even count: " << count << "";
     
     return 0;
 }

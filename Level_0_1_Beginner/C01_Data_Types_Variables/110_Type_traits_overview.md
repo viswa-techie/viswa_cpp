@@ -47,16 +47,13 @@ Think of type traits overview as a building block — you can't build a house wi
 #include <string>
 int main() {
     // Demonstrating: Type traits overview
-    std::cout << "Topic: Type traits overview" << "
-";
+    std::cout << "Topic: Type traits overview" << "";
     
     // Direct implementation showing core concept
-    std::cout << "See code examples below for detailed usage
-";
+    std::cout << "See code examples below for detailed usage";
     
     // Basic usage pattern
-    std::cout << "Implementation complete
-";
+    std::cout << "Implementation complete";
     return 0;
 }
 ```
@@ -79,12 +76,10 @@ int main() {
  */
 int main() {
     // STL-based demonstration of Type traits overview
-    std::cout << "STL approach for: Type traits overview
-";
+    std::cout << "STL approach for: Type traits overview";
     
     // Using appropriate STL facilities
-    std::cout << "Implementation uses standard library best practices
-";
+    std::cout << "Implementation uses standard library best practices";
     return 0;
 }
 ```
@@ -105,12 +100,10 @@ int main() {
  */
 int main() {
     // Modern C++ demonstration of Type traits overview
-    std::cout << "Modern C++ approach for: Type traits overview
-";
+    std::cout << "Modern C++ approach for: Type traits overview";
     
     // Using C++17/20 features where applicable
-    std::cout << "Implementation uses modern C++ idioms
-";
+    std::cout << "Implementation uses modern C++ idioms";
     return 0;
 }
 ```

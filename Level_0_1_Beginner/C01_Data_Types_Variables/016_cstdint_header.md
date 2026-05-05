@@ -59,16 +59,11 @@ int main() {
     // Maximum width type
     intmax_t biggest = INTMAX_MAX;
     
-    std::cout << "int32_t size: " << sizeof(exact) << "
-";
-    std::cout << "int_least32_t size: " << sizeof(least) << "
-";
-    std::cout << "int_fast32_t size: " << sizeof(fast) << "
-";
-    std::cout << "intmax_t size: " << sizeof(biggest) << "
-";
-    std::cout << "INTMAX_MAX: " << biggest << "
-";
+    std::cout << "int32_t size: " << sizeof(exact) << "";
+    std::cout << "int_least32_t size: " << sizeof(least) << "";
+    std::cout << "int_fast32_t size: " << sizeof(fast) << "";
+    std::cout << "intmax_t size: " << sizeof(biggest) << "";
+    std::cout << "INTMAX_MAX: " << biggest << "";
     return 0;
 }
 ```
@@ -91,12 +86,10 @@ int main() {
  */
 int main() {
     // STL-based demonstration of cstdint header
-    std::cout << "STL approach for: cstdint header
-";
+    std::cout << "STL approach for: cstdint header";
     
     // Using appropriate STL facilities
-    std::cout << "Implementation uses standard library best practices
-";
+    std::cout << "Implementation uses standard library best practices";
     return 0;
 }
 ```
@@ -117,12 +110,10 @@ int main() {
  */
 int main() {
     // Modern C++ demonstration of cstdint header
-    std::cout << "Modern C++ approach for: cstdint header
-";
+    std::cout << "Modern C++ approach for: cstdint header";
     
     // Using C++17/20 features where applicable
-    std::cout << "Implementation uses modern C++ idioms
-";
+    std::cout << "Implementation uses modern C++ idioms";
     return 0;
 }
 ```

@@ -49,8 +49,7 @@ Think of default params ordering rules as a building block — you can't build a
 
 int main() {
     // Implementation: Default params ordering rules
-    std::cout << "Demonstrating: Default params ordering rules
-";
+    std::cout << "Demonstrating: Default params ordering rules";
     
     // Core algorithm/pattern implementation
     std::vector<int> data = {5, 2, 8, 1, 9, 3, 7};
@@ -58,8 +57,7 @@ int main() {
     // Process
     std::sort(data.begin(), data.end());
     for (int x : data) std::cout << x << " ";
-    std::cout << "
-";
+    std::cout << "";
     
     return 0;
 }
@@ -86,12 +84,10 @@ int main() {
     // STL-based implementation of Default params ordering rules
     std::sort(data.begin(), data.end());
     for (const auto& x : data) std::cout << x << " ";
-    std::cout << "
-";
+    std::cout << "";
     
     auto sum = std::accumulate(data.begin(), data.end(), 0);
-    std::cout << "Sum: " << sum << "
-";
+    std::cout << "Sum: " << sum << "";
     return 0;
 }
 ```
@@ -115,14 +111,12 @@ int main() {
     
     // Modern C++ features for Default params ordering rules
     auto [min_it, max_it] = std::minmax_element(data.begin(), data.end());
-    std::cout << "Range: [" << *min_it << ", " << *max_it << "]
-";
+    std::cout << "Range: [" << *min_it << ", " << *max_it << "]";
     
     // Lambda-based approach
     std::sort(data.begin(), data.end());
     for (const auto& x : data) std::cout << x << " ";
-    std::cout << "
-";
+    std::cout << "";
     return 0;
 }
 ```

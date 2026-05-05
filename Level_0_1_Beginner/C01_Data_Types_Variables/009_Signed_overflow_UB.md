@@ -47,8 +47,7 @@ Think of signed overflow ub as a tool in your toolbox — know when to reach for
 #include <climits>
 int main() {
     int x = INT_MAX;
-    std::cout << "INT_MAX = " << x << "
-";
+    std::cout << "INT_MAX = " << x << "";
 
     // UNDEFINED BEHAVIOR! Signed overflow has no guaranteed result
     // x + 1 could be anything — compiler can assume it never happens
@@ -57,11 +56,9 @@ int main() {
     // Safe overflow check BEFORE operation
     int a = 2000000000, b = 1000000000;
     if (a > INT_MAX - b)
-        std::cout << "Addition would overflow!
-";
+        std::cout << "Addition would overflow!";
     else
-        std::cout << "Safe: " << a + b << "
-";
+        std::cout << "Safe: " << a + b << "";
     return 0;
 }
 ```
@@ -87,11 +84,9 @@ int main() {
     int a = 50000, b = 50000;
     long long product = static_cast<long long>(a) * b;
     if (product > std::numeric_limits<int>::max())
-        std::cout << "Overflow! Result: " << product << "
-";
+        std::cout << "Overflow! Result: " << product << "";
     else
-        std::cout << "Safe: " << static_cast<int>(product) << "
-";
+        std::cout << "Safe: " << static_cast<int>(product) << "";
     return 0;
 }
 ```
@@ -112,17 +107,14 @@ int main() {
     
     #if defined(__GNUC__) || defined(__clang__)
     if (__builtin_add_overflow(a, b, &result))
-        std::cout << "Overflow detected!
-";
+        std::cout << "Overflow detected!";
     else
-        std::cout << "Result: " << result << "
-";
+        std::cout << "Result: " << result << "";
     #endif
 
     // Alternative: use wider type
     int64_t safe = static_cast<int64_t>(a) + b;
-    std::cout << "Safe (int64): " << safe << "
-";
+    std::cout << "Safe (int64): " << safe << "";
     return 0;
 }
 ```

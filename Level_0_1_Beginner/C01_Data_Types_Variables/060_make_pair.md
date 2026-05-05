@@ -47,16 +47,13 @@ Think of make_pair() as a tool in your toolbox — know when to reach for it.
 #include <string>
 int main() {
     // Demonstrating: make pair
-    std::cout << "Topic: make pair" << "
-";
+    std::cout << "Topic: make pair" << "";
     
     // Direct implementation showing core concept
-    std::cout << "See code examples below for detailed usage
-";
+    std::cout << "See code examples below for detailed usage";
     
     // Basic usage pattern
-    std::cout << "Implementation complete
-";
+    std::cout << "Implementation complete";
     return 0;
 }
 ```
@@ -79,12 +76,10 @@ int main() {
  */
 int main() {
     // STL-based demonstration of make pair
-    std::cout << "STL approach for: make pair
-";
+    std::cout << "STL approach for: make pair";
     
     // Using appropriate STL facilities
-    std::cout << "Implementation uses standard library best practices
-";
+    std::cout << "Implementation uses standard library best practices";
     return 0;
 }
 ```
@@ -105,12 +100,10 @@ int main() {
  */
 int main() {
     // Modern C++ demonstration of make pair
-    std::cout << "Modern C++ approach for: make pair
-";
+    std::cout << "Modern C++ approach for: make pair";
     
     // Using C++17/20 features where applicable
-    std::cout << "Implementation uses modern C++ idioms
-";
+    std::cout << "Implementation uses modern C++ idioms";
     return 0;
 }
 ```

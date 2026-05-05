@@ -47,16 +47,13 @@ Think of redeclaration vs redefinition as a tool in your toolbox — know when t
 #include <string>
 int main() {
     // Demonstrating: Redeclaration vs redefinition
-    std::cout << "Topic: Redeclaration vs redefinition" << "
-";
+    std::cout << "Topic: Redeclaration vs redefinition" << "";
     
     // Direct implementation showing core concept
-    std::cout << "See code examples below for detailed usage
-";
+    std::cout << "See code examples below for detailed usage";
     
     // Basic usage pattern
-    std::cout << "Implementation complete
-";
+    std::cout << "Implementation complete";
     return 0;
 }
 ```
@@ -79,12 +76,10 @@ int main() {
  */
 int main() {
     // STL-based demonstration of Redeclaration vs redefinition
-    std::cout << "STL approach for: Redeclaration vs redefinition
-";
+    std::cout << "STL approach for: Redeclaration vs redefinition";
     
     // Using appropriate STL facilities
-    std::cout << "Implementation uses standard library best practices
-";
+    std::cout << "Implementation uses standard library best practices";
     return 0;
 }
 ```
@@ -105,12 +100,10 @@ int main() {
  */
 int main() {
     // Modern C++ demonstration of Redeclaration vs redefinition
-    std::cout << "Modern C++ approach for: Redeclaration vs redefinition
-";
+    std::cout << "Modern C++ approach for: Redeclaration vs redefinition";
     
     // Using C++17/20 features where applicable
-    std::cout << "Implementation uses modern C++ idioms
-";
+    std::cout << "Implementation uses modern C++ idioms";
     return 0;
 }
 ```

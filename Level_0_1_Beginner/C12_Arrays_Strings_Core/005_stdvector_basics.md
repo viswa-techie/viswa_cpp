@@ -53,20 +53,14 @@ int main() {
     std::vector<int> v4 = {1, 2, 3, 4, 5}; // Initializer list
     
     // Access
-    std::cout << "v4[0] = " << v4[0] << "
-";
-    std::cout << "v4.at(2) = " << v4.at(2) << "
-"; // Bounds-checked
-    std::cout << "front = " << v4.front() << "
-";
-    std::cout << "back = " << v4.back() << "
-";
+    std::cout << "v4[0] = " << v4[0] << "";
+    std::cout << "v4.at(2) = " << v4.at(2) << ""; // Bounds-checked
+    std::cout << "front = " << v4.front() << "";
+    std::cout << "back = " << v4.back() << "";
     
     // Size info
-    std::cout << "size = " << v4.size() << "
-";
-    std::cout << "empty? " << v4.empty() << "
-";
+    std::cout << "size = " << v4.size() << "";
+    std::cout << "empty? " << v4.empty() << "";
     
     // Add/remove
     v4.push_back(6);
@@ -74,8 +68,7 @@ int main() {
     
     // Iterate
     for (const auto& x : v4) std::cout << x << " ";
-    std::cout << "
-";
+    std::cout << "";
     return 0;
 }
 ```
@@ -100,13 +93,11 @@ int main() {
     // STL-based implementation
     std::sort(data.begin(), data.end());
     for (const auto& x : data) std::cout << x << " ";
-    std::cout << "
-";
+    std::cout << "";
     
     auto it = std::lower_bound(data.begin(), data.end(), 5);
     if (it != data.end())
-        std::cout << "Found: " << *it << " at index " << (it - data.begin()) << "
-";
+        std::cout << "Found: " << *it << " at index " << (it - data.begin()) << "";
     return 0;
 }
 ```
@@ -130,16 +121,13 @@ int main() {
     
     // Modern C++ features
     auto [min_it, max_it] = std::minmax_element(data.begin(), data.end());
-    std::cout << "Range: [" << *min_it << ", " << *max_it << "]
-";
+    std::cout << "Range: [" << *min_it << ", " << *max_it << "]";
     
     // Partition with lambda
     auto pivot = std::partition(data.begin(), data.end(), [](int x) { return x <= 5; });
-    std::cout << "Partitioned at index: " << (pivot - data.begin()) << "
-";
+    std::cout << "Partitioned at index: " << (pivot - data.begin()) << "";
     for (int x : data) std::cout << x << " ";
-    std::cout << "
-";
+    std::cout << "";
     return 0;
 }
 ```

@@ -66,8 +66,7 @@ int main() {
     std::vector<int> nums = {1, 3, -1, -3, 5, 3, 6, 7};
     auto res = maxSlidingWindow(nums, 3);
     for (int x : res) std::cout << x << " ";
-    std::cout << "
-";  // 3 3 5 5 6 7
+    std::cout << "";  // 3 3 5 5 6 7
     return 0;
 }
 ```
@@ -92,13 +91,11 @@ int main() {
     // STL-based implementation
     std::sort(data.begin(), data.end());
     for (const auto& x : data) std::cout << x << " ";
-    std::cout << "
-";
+    std::cout << "";
     
     auto it = std::lower_bound(data.begin(), data.end(), 5);
     if (it != data.end())
-        std::cout << "Found: " << *it << " at index " << (it - data.begin()) << "
-";
+        std::cout << "Found: " << *it << " at index " << (it - data.begin()) << "";
     return 0;
 }
 ```
@@ -122,16 +119,13 @@ int main() {
     
     // Modern C++ features
     auto [min_it, max_it] = std::minmax_element(data.begin(), data.end());
-    std::cout << "Range: [" << *min_it << ", " << *max_it << "]
-";
+    std::cout << "Range: [" << *min_it << ", " << *max_it << "]";
     
     // Partition with lambda
     auto pivot = std::partition(data.begin(), data.end(), [](int x) { return x <= 5; });
-    std::cout << "Partitioned at index: " << (pivot - data.begin()) << "
-";
+    std::cout << "Partitioned at index: " << (pivot - data.begin()) << "";
     for (int x : data) std::cout << x << " ";
-    std::cout << "
-";
+    std::cout << "";
     return 0;
 }
 ```

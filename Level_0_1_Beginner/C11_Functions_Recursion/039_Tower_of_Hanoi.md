@@ -49,18 +49,15 @@ Think of tower of hanoi as a tool in your toolbox — know when to reach for it.
 void hanoi(int n, char from, char to, char aux) {
     if (n == 0) return;
     hanoi(n - 1, from, aux, to);
-    std::cout << "Move disk " << n << " from " << from << " to " << to << "
-";
+    std::cout << "Move disk " << n << " from " << from << " to " << to << "";
     hanoi(n - 1, aux, to, from);
 }
 
 int main() {
     int n = 3;
-    std::cout << "Tower of Hanoi with " << n << " disks:
-";
+    std::cout << "Tower of Hanoi with " << n << " disks:";
     hanoi(n, 'A', 'C', 'B');
-    std::cout << "Total moves: " << ((1 << n) - 1) << "
-";
+    std::cout << "Total moves: " << ((1 << n) - 1) << "";
     return 0;
 }
 ```
@@ -86,12 +83,10 @@ int main() {
     // STL-based implementation of Tower of Hanoi
     std::sort(data.begin(), data.end());
     for (const auto& x : data) std::cout << x << " ";
-    std::cout << "
-";
+    std::cout << "";
     
     auto sum = std::accumulate(data.begin(), data.end(), 0);
-    std::cout << "Sum: " << sum << "
-";
+    std::cout << "Sum: " << sum << "";
     return 0;
 }
 ```
@@ -115,14 +110,12 @@ int main() {
     
     // Modern C++ features for Tower of Hanoi
     auto [min_it, max_it] = std::minmax_element(data.begin(), data.end());
-    std::cout << "Range: [" << *min_it << ", " << *max_it << "]
-";
+    std::cout << "Range: [" << *min_it << ", " << *max_it << "]";
     
     // Lambda-based approach
     std::sort(data.begin(), data.end());
     for (const auto& x : data) std::cout << x << " ";
-    std::cout << "
-";
+    std::cout << "";
     return 0;
 }
 ```

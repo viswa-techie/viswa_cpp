@@ -47,16 +47,13 @@ Think of strlen vs string::size as a tool in your toolbox — know when to reach
 #include <string>
 int main() {
     // Demonstrating: strlen vs stringsize
-    std::cout << "Topic: strlen vs stringsize" << "
-";
+    std::cout << "Topic: strlen vs stringsize" << "";
     
     // Direct implementation showing core concept
-    std::cout << "See code examples below for detailed usage
-";
+    std::cout << "See code examples below for detailed usage";
     
     // Basic usage pattern
-    std::cout << "Implementation complete
-";
+    std::cout << "Implementation complete";
     return 0;
 }
 ```
@@ -79,12 +76,10 @@ int main() {
  */
 int main() {
     // STL-based demonstration of strlen vs stringsize
-    std::cout << "STL approach for: strlen vs stringsize
-";
+    std::cout << "STL approach for: strlen vs stringsize";
     
     // Using appropriate STL facilities
-    std::cout << "Implementation uses standard library best practices
-";
+    std::cout << "Implementation uses standard library best practices";
     return 0;
 }
 ```
@@ -105,12 +100,10 @@ int main() {
  */
 int main() {
     // Modern C++ demonstration of strlen vs stringsize
-    std::cout << "Modern C++ approach for: strlen vs stringsize
-";
+    std::cout << "Modern C++ approach for: strlen vs stringsize";
     
     // Using C++17/20 features where applicable
-    std::cout << "Implementation uses modern C++ idioms
-";
+    std::cout << "Implementation uses modern C++ idioms";
     return 0;
 }
 ```

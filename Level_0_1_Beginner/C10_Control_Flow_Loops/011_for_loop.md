@@ -49,30 +49,26 @@ int main() {
     for (int i = 0; i < 5; ++i) {
         std::cout << i << " ";
     }
-    std::cout << "
-";
+    std::cout << "";
     
     // Counting down
     for (int i = 10; i >= 0; i -= 2) {
         std::cout << i << " ";
     }
-    std::cout << "
-";
+    std::cout << "";
     
     // Multiple variables
     for (int i = 0, j = 10; i < j; ++i, --j) {
         std::cout << "(" << i << "," << j << ") ";
     }
-    std::cout << "
-";
+    std::cout << "";
     
     // Nested for: multiplication table
     for (int i = 1; i <= 3; ++i) {
         for (int j = 1; j <= 3; ++j) {
             std::cout << i*j << "	";
         }
-        std::cout << "
-";
+        std::cout << "";
     }
     return 0;
 }
@@ -101,13 +97,11 @@ int main() {
     
     for (const auto& x : data)
         std::cout << x << " ";
-    std::cout << "
-";
+    std::cout << "";
     
     // STL-based solution demonstration
     auto sum = std::accumulate(data.begin(), data.end(), 0);
-    std::cout << "Sum: " << sum << "
-";
+    std::cout << "Sum: " << sum << "";
     return 0;
 }
 ```
@@ -134,14 +128,12 @@ int main() {
     // Using auto, structured bindings, ranges where applicable
     
     auto [min_it, max_it] = std::minmax_element(data.begin(), data.end());
-    std::cout << "Min: " << *min_it << ", Max: " << *max_it << "
-";
+    std::cout << "Min: " << *min_it << ", Max: " << *max_it << "";
     
     // Lambda-based processing
     auto is_even = [](int n) { return n % 2 == 0; };
     auto count = std::count_if(data.begin(), data.end(), is_even);
-    std::cout << "Even count: " << count << "
-";
+    std::cout << "Even count: " << count << "";
     
     return 0;
 }

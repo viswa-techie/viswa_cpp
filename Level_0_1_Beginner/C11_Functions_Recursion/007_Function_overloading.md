@@ -52,22 +52,15 @@ double add(double a, double b) { return a + b; }
 std::string add(const std::string& a, const std::string& b) { return a + b; }
 int add(int a, int b, int c) { return a + b + c; }
 
-void print(int x) { std::cout << "int: " << x << "
-"; }
-void print(double x) { std::cout << "double: " << x << "
-"; }
-void print(const std::string& x) { std::cout << "string: " << x << "
-"; }
+void print(int x) { std::cout << "int: " << x << ""; }
+void print(double x) { std::cout << "double: " << x << ""; }
+void print(const std::string& x) { std::cout << "string: " << x << ""; }
 
 int main() {
-    std::cout << add(1, 2) << "
-";         // int version
-    std::cout << add(1.5, 2.5) << "
-";     // double version
-    std::cout << add("Hi ", "there") << "
-"; // string version
-    std::cout << add(1, 2, 3) << "
-";      // 3-param version
+    std::cout << add(1, 2) << "";         // int version
+    std::cout << add(1.5, 2.5) << "";     // double version
+    std::cout << add("Hi ", "there") << ""; // string version
+    std::cout << add(1, 2, 3) << "";      // 3-param version
     print(42);
     print(3.14);
     print("hello");
@@ -96,12 +89,10 @@ int main() {
     // STL-based implementation of Function overloading
     std::sort(data.begin(), data.end());
     for (const auto& x : data) std::cout << x << " ";
-    std::cout << "
-";
+    std::cout << "";
     
     auto sum = std::accumulate(data.begin(), data.end(), 0);
-    std::cout << "Sum: " << sum << "
-";
+    std::cout << "Sum: " << sum << "";
     return 0;
 }
 ```
@@ -125,14 +116,12 @@ int main() {
     
     // Modern C++ features for Function overloading
     auto [min_it, max_it] = std::minmax_element(data.begin(), data.end());
-    std::cout << "Range: [" << *min_it << ", " << *max_it << "]
-";
+    std::cout << "Range: [" << *min_it << ", " << *max_it << "]";
     
     // Lambda-based approach
     std::sort(data.begin(), data.end());
     for (const auto& x : data) std::cout << x << " ";
-    std::cout << "
-";
+    std::cout << "";
     return 0;
 }
 ```

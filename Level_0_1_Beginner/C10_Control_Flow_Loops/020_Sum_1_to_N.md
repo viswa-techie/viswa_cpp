@@ -51,13 +51,11 @@ int main() {
     int sum_loop = 0;
     for (int i = 1; i <= n; ++i)
         sum_loop += i;
-    std::cout << "Loop sum: " << sum_loop << "
-";
+    std::cout << "Loop sum: " << sum_loop << "";
     
     // Approach 2: Formula (Gauss)
     int sum_formula = n * (n + 1) / 2;
-    std::cout << "Formula sum: " << sum_formula << "
-";
+    std::cout << "Formula sum: " << sum_formula << "";
     
     return 0;
 }
@@ -86,13 +84,11 @@ int main() {
     
     for (const auto& x : data)
         std::cout << x << " ";
-    std::cout << "
-";
+    std::cout << "";
     
     // STL-based solution demonstration
     auto sum = std::accumulate(data.begin(), data.end(), 0);
-    std::cout << "Sum: " << sum << "
-";
+    std::cout << "Sum: " << sum << "";
     return 0;
 }
 ```
@@ -119,14 +115,12 @@ int main() {
     // Using auto, structured bindings, ranges where applicable
     
     auto [min_it, max_it] = std::minmax_element(data.begin(), data.end());
-    std::cout << "Min: " << *min_it << ", Max: " << *max_it << "
-";
+    std::cout << "Min: " << *min_it << ", Max: " << *max_it << "";
     
     // Lambda-based processing
     auto is_even = [](int n) { return n % 2 == 0; };
     auto count = std::count_if(data.begin(), data.end(), is_even);
-    std::cout << "Even count: " << count << "
-";
+    std::cout << "Even count: " << count << "";
     
     return 0;
 }

@@ -50,20 +50,15 @@ int main() {
     unsigned long ul = 4294967295UL;
     unsigned long long ull = 18446744073709551615ULL;
 
-    std::cout << "unsigned int: " << ui << " (size: " << sizeof(ui) << ")
-";
-    std::cout << "unsigned short: " << us << " (size: " << sizeof(us) << ")
-";
-    std::cout << "unsigned long: " << ul << " (size: " << sizeof(ul) << ")
-";
-    std::cout << "unsigned long long: " << ull << " (size: " << sizeof(ull) << ")
-";
+    std::cout << "unsigned int: " << ui << " (size: " << sizeof(ui) << ")";
+    std::cout << "unsigned short: " << us << " (size: " << sizeof(us) << ")";
+    std::cout << "unsigned long: " << ul << " (size: " << sizeof(ul) << ")";
+    std::cout << "unsigned long long: " << ull << " (size: " << sizeof(ull) << ")";
 
     // Wrap-around (defined behavior for unsigned)
     unsigned int zero = 0;
     zero--;  // Wraps to UINT_MAX
-    std::cout << "0 - 1 = " << zero << "
-";
+    std::cout << "0 - 1 = " << zero << "";
     return 0;
 }
 ```
@@ -78,19 +73,15 @@ int main() {
 #include <limits>
 
 int main() {
-    std::cout << "unsigned int max: " << std::numeric_limits<unsigned int>::max() << "
-";
-    std::cout << "unsigned long long max: " << std::numeric_limits<unsigned long long>::max() << "
-";
-    std::cout << "size_t max: " << std::numeric_limits<size_t>::max() << "
-";
+    std::cout << "unsigned int max: " << std::numeric_limits<unsigned int>::max() << "";
+    std::cout << "unsigned long long max: " << std::numeric_limits<unsigned long long>::max() << "";
+    std::cout << "size_t max: " << std::numeric_limits<size_t>::max() << "";
 
     // size_t is unsigned — used for sizes and indices
     std::string s = "hello";
     for (size_t i = 0; i < s.size(); ++i)
         std::cout << s[i];
-    std::cout << "
-";
+    std::cout << "";
     return 0;
 }
 ```
@@ -112,17 +103,14 @@ int main() {
     uint32_t dword = 4294967295U;
     uint64_t qword = 18446744073709551615ULL;
 
-    std::cout << "uint8_t: " << +byte << "
-";  // + promotes to int for printing
-    std::cout << "uint32_t: " << dword << "
-";
+    std::cout << "uint8_t: " << +byte << "";  // + promotes to int for printing
+    std::cout << "uint32_t: " << dword << "";
 
     // Correct loop with unsigned (avoid underflow)
     std::vector<int> v = {1, 2, 3};
     for (auto i = v.size(); i-- > 0; )
         std::cout << v[i] << " ";
-    std::cout << "
-";
+    std::cout << "";
     return 0;
 }
 ```

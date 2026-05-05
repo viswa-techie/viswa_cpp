@@ -48,13 +48,11 @@ Think of void functions as a tool in your toolbox — know when to reach for it.
 
 // void — function returns nothing
 void printLine() {
-    std::cout << "----------------
-";
+    std::cout << "----------------";
 }
 
 void printValue(int x) {
-    std::cout << "Value: " << x << "
-";
+    std::cout << "Value: " << x << "";
 }
 
 void swap(int& a, int& b) {
@@ -65,8 +63,7 @@ void swap(int& a, int& b) {
 
 void printVector(const std::vector<int>& v) {
     for (int x : v) std::cout << x << " ";
-    std::cout << "
-";
+    std::cout << "";
 }
 
 int main() {
@@ -74,8 +71,7 @@ int main() {
     printValue(42);
     int a = 5, b = 10;
     swap(a, b);
-    std::cout << "After swap: " << a << ", " << b << "
-";
+    std::cout << "After swap: " << a << ", " << b << "";
     printVector({1, 2, 3});
     return 0;
 }
@@ -102,12 +98,10 @@ int main() {
     // STL-based implementation of void functions
     std::sort(data.begin(), data.end());
     for (const auto& x : data) std::cout << x << " ";
-    std::cout << "
-";
+    std::cout << "";
     
     auto sum = std::accumulate(data.begin(), data.end(), 0);
-    std::cout << "Sum: " << sum << "
-";
+    std::cout << "Sum: " << sum << "";
     return 0;
 }
 ```
@@ -131,14 +125,12 @@ int main() {
     
     // Modern C++ features for void functions
     auto [min_it, max_it] = std::minmax_element(data.begin(), data.end());
-    std::cout << "Range: [" << *min_it << ", " << *max_it << "]
-";
+    std::cout << "Range: [" << *min_it << ", " << *max_it << "]";
     
     // Lambda-based approach
     std::sort(data.begin(), data.end());
     for (const auto& x : data) std::cout << x << " ";
-    std::cout << "
-";
+    std::cout << "";
     return 0;
 }
 ```

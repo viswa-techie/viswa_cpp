@@ -51,15 +51,13 @@ int main() {
     for (int i = 2; i <= n; ++i) {
         factorial *= i;
     }
-    std::cout << n << "! = " << factorial << "
-";
+    std::cout << n << "! = " << factorial << "";
     
     // Print all factorials up to n
     long long f = 1;
     for (int i = 0; i <= 12; ++i) {
         if (i > 0) f *= i;
-        std::cout << i << "! = " << f << "
-";
+        std::cout << i << "! = " << f << "";
     }
     // Note: 13! overflows int32, 21! overflows int64
     return 0;
@@ -89,13 +87,11 @@ int main() {
     
     for (const auto& x : data)
         std::cout << x << " ";
-    std::cout << "
-";
+    std::cout << "";
     
     // STL-based solution demonstration
     auto sum = std::accumulate(data.begin(), data.end(), 0);
-    std::cout << "Sum: " << sum << "
-";
+    std::cout << "Sum: " << sum << "";
     return 0;
 }
 ```
@@ -122,14 +118,12 @@ int main() {
     // Using auto, structured bindings, ranges where applicable
     
     auto [min_it, max_it] = std::minmax_element(data.begin(), data.end());
-    std::cout << "Min: " << *min_it << ", Max: " << *max_it << "
-";
+    std::cout << "Min: " << *min_it << ", Max: " << *max_it << "";
     
     // Lambda-based processing
     auto is_even = [](int n) { return n % 2 == 0; };
     auto count = std::count_if(data.begin(), data.end(), is_even);
-    std::cout << "Even count: " << count << "
-";
+    std::cout << "Even count: " << count << "";
     
     return 0;
 }

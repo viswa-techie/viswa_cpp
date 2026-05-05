@@ -49,26 +49,21 @@ Think of ptrdiff_t and size_t as a tool in your toolbox — know when to reach f
 int main() {
     // size_t: unsigned type for object sizes and array indices
     size_t sz = sizeof(int);
-    std::cout << "sizeof(int) = " << sz << "
-";
+    std::cout << "sizeof(int) = " << sz << "";
     
     std::vector<int> v = {10, 20, 30, 40, 50};
     for (size_t i = 0; i < v.size(); ++i)
         std::cout << v[i] << " ";
-    std::cout << "
-";
+    std::cout << "";
     
     // ptrdiff_t: signed type for pointer differences
     int arr[] = {1, 2, 3, 4, 5};
     int* p1 = &arr[1];
     int* p2 = &arr[4];
     ptrdiff_t diff = p2 - p1;  // 3 elements apart
-    std::cout << "Pointer difference: " << diff << "
-";
-    std::cout << "sizeof(size_t): " << sizeof(size_t) << "
-";
-    std::cout << "sizeof(ptrdiff_t): " << sizeof(ptrdiff_t) << "
-";
+    std::cout << "Pointer difference: " << diff << "";
+    std::cout << "sizeof(size_t): " << sizeof(size_t) << "";
+    std::cout << "sizeof(ptrdiff_t): " << sizeof(ptrdiff_t) << "";
     return 0;
 }
 ```
@@ -91,12 +86,10 @@ int main() {
  */
 int main() {
     // STL-based demonstration of ptrdiff t and size t
-    std::cout << "STL approach for: ptrdiff t and size t
-";
+    std::cout << "STL approach for: ptrdiff t and size t";
     
     // Using appropriate STL facilities
-    std::cout << "Implementation uses standard library best practices
-";
+    std::cout << "Implementation uses standard library best practices";
     return 0;
 }
 ```
@@ -117,12 +110,10 @@ int main() {
  */
 int main() {
     // Modern C++ demonstration of ptrdiff t and size t
-    std::cout << "Modern C++ approach for: ptrdiff t and size t
-";
+    std::cout << "Modern C++ approach for: ptrdiff t and size t";
     
     // Using C++17/20 features where applicable
-    std::cout << "Implementation uses modern C++ idioms
-";
+    std::cout << "Implementation uses modern C++ idioms";
     return 0;
 }
 ```

@@ -47,16 +47,13 @@ Think of sprintf / snprintf as a tool in your toolbox — know when to reach for
 #include <string>
 int main() {
     // Demonstrating: sprintf snprintf
-    std::cout << "Topic: sprintf snprintf" << "
-";
+    std::cout << "Topic: sprintf snprintf" << "";
     
     // Direct implementation showing core concept
-    std::cout << "See code examples below for detailed usage
-";
+    std::cout << "See code examples below for detailed usage";
     
     // Basic usage pattern
-    std::cout << "Implementation complete
-";
+    std::cout << "Implementation complete";
     return 0;
 }
 ```
@@ -79,12 +76,10 @@ int main() {
  */
 int main() {
     // STL-based demonstration of sprintf snprintf
-    std::cout << "STL approach for: sprintf snprintf
-";
+    std::cout << "STL approach for: sprintf snprintf";
     
     // Using appropriate STL facilities
-    std::cout << "Implementation uses standard library best practices
-";
+    std::cout << "Implementation uses standard library best practices";
     return 0;
 }
 ```
@@ -105,12 +100,10 @@ int main() {
  */
 int main() {
     // Modern C++ demonstration of sprintf snprintf
-    std::cout << "Modern C++ approach for: sprintf snprintf
-";
+    std::cout << "Modern C++ approach for: sprintf snprintf";
     
     // Using C++17/20 features where applicable
-    std::cout << "Implementation uses modern C++ idioms
-";
+    std::cout << "Implementation uses modern C++ idioms";
     return 0;
 }
 ```

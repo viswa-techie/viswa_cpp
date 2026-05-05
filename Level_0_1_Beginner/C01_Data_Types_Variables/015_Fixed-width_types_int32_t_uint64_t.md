@@ -56,16 +56,11 @@ int main() {
     uint32_t u32 = 4294967295U;
     uint64_t u64 = 18446744073709551615ULL;
     
-    std::cout << "int8_t: " << +i8 << " (size " << sizeof(i8) << ")
-";
-    std::cout << "int16_t: " << i16 << " (size " << sizeof(i16) << ")
-";
-    std::cout << "int32_t: " << i32 << " (size " << sizeof(i32) << ")
-";
-    std::cout << "int64_t: " << i64 << " (size " << sizeof(i64) << ")
-";
-    std::cout << "uint64_t: " << u64 << " (size " << sizeof(u64) << ")
-";
+    std::cout << "int8_t: " << +i8 << " (size " << sizeof(i8) << ")";
+    std::cout << "int16_t: " << i16 << " (size " << sizeof(i16) << ")";
+    std::cout << "int32_t: " << i32 << " (size " << sizeof(i32) << ")";
+    std::cout << "int64_t: " << i64 << " (size " << sizeof(i64) << ")";
+    std::cout << "uint64_t: " << u64 << " (size " << sizeof(u64) << ")";
     return 0;
 }
 ```
@@ -88,12 +83,10 @@ int main() {
  */
 int main() {
     // STL-based demonstration of Fixed width types int32 t uint64 t
-    std::cout << "STL approach for: Fixed width types int32 t uint64 t
-";
+    std::cout << "STL approach for: Fixed width types int32 t uint64 t";
     
     // Using appropriate STL facilities
-    std::cout << "Implementation uses standard library best practices
-";
+    std::cout << "Implementation uses standard library best practices";
     return 0;
 }
 ```
@@ -114,12 +107,10 @@ int main() {
  */
 int main() {
     // Modern C++ demonstration of Fixed width types int32 t uint64 t
-    std::cout << "Modern C++ approach for: Fixed width types int32 t uint64 t
-";
+    std::cout << "Modern C++ approach for: Fixed width types int32 t uint64 t";
     
     // Using C++17/20 features where applicable
-    std::cout << "Implementation uses modern C++ idioms
-";
+    std::cout << "Implementation uses modern C++ idioms";
     return 0;
 }
 ```

@@ -48,19 +48,16 @@ Think of overflow wrap-around (unsigned) as a tool in your toolbox — know when
 int main() {
     unsigned int u = 0;
     u--;  // Well-defined: wraps to UINT_MAX
-    std::cout << "0u - 1 = " << u << "
-";  // 4294967295
+    std::cout << "0u - 1 = " << u << "";  // 4294967295
 
     unsigned int max = UINT_MAX;
     max++;  // Well-defined: wraps to 0
-    std::cout << "UINT_MAX + 1 = " << max << "
-";  // 0
+    std::cout << "UINT_MAX + 1 = " << max << "";  // 0
 
     // Modular arithmetic
     unsigned int a = 4294967290U;
     unsigned int b = a + 10;  // wraps: (4294967290 + 10) mod 2^32 = 4
-    std::cout << "4294967290 + 10 = " << b << "
-";
+    std::cout << "4294967290 + 10 = " << b << "";
     return 0;
 }
 ```
@@ -82,14 +79,12 @@ int main() {
     // SAFE approach:
     for (size_t i = 0; i < v.size(); ++i)
         std::cout << v[i] << " ";
-    std::cout << "
-";
+    std::cout << "";
 
     // SAFE reverse loop with unsigned
     for (size_t i = v.size(); i-- > 0; )
         std::cout << v[i] << " ";
-    std::cout << "
-";
+    std::cout << "";
     return 0;
 }
 ```
@@ -106,22 +101,18 @@ int main() {
     // Demonstrate wrap behavior with different widths
     uint8_t byte = 255;
     byte++;
-    std::cout << "uint8_t 255+1 = " << +byte << "
-";  // 0
+    std::cout << "uint8_t 255+1 = " << +byte << "";  // 0
 
     uint16_t word = 65535;
     word++;
-    std::cout << "uint16_t 65535+1 = " << word << "
-";  // 0
+    std::cout << "uint16_t 65535+1 = " << word << "";  // 0
 
     // Detecting overflow before it happens
     uint32_t a = 4000000000U, b = 1000000000U;
     if (a > UINT32_MAX - b)
-        std::cout << "Addition would overflow!
-";
+        std::cout << "Addition would overflow!";
     else
-        std::cout << "Safe: " << a + b << "
-";
+        std::cout << "Safe: " << a + b << "";
     return 0;
 }
 ```

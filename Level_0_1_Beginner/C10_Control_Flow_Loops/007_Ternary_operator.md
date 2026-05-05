@@ -50,23 +50,19 @@ int main() {
     
     // Ternary: condition ? value_if_true : value_if_false
     std::string result = (x > 0) ? "positive" : "non-positive";
-    std::cout << x << " is " << result << "
-";
+    std::cout << x << " is " << result << "";
     
     int a = 5, b = 8;
     int max_val = (a > b) ? a : b;
-    std::cout << "Max: " << max_val << "
-";
+    std::cout << "Max: " << max_val << "";
     
     // In expressions
-    std::cout << "Parity: " << ((x % 2 == 0) ? "even" : "odd") << "
-";
+    std::cout << "Parity: " << ((x % 2 == 0) ? "even" : "odd") << "";
     
     // Assignment shorthand
     int score = 85;
     char grade = (score >= 90) ? 'A' : (score >= 80) ? 'B' : 'C';
-    std::cout << "Grade: " << grade << "
-";
+    std::cout << "Grade: " << grade << "";
     
     return 0;
 }
@@ -95,13 +91,11 @@ int main() {
     
     for (const auto& x : data)
         std::cout << x << " ";
-    std::cout << "
-";
+    std::cout << "";
     
     // STL-based solution demonstration
     auto sum = std::accumulate(data.begin(), data.end(), 0);
-    std::cout << "Sum: " << sum << "
-";
+    std::cout << "Sum: " << sum << "";
     return 0;
 }
 ```
@@ -128,14 +122,12 @@ int main() {
     // Using auto, structured bindings, ranges where applicable
     
     auto [min_it, max_it] = std::minmax_element(data.begin(), data.end());
-    std::cout << "Min: " << *min_it << ", Max: " << *max_it << "
-";
+    std::cout << "Min: " << *min_it << ", Max: " << *max_it << "";
     
     // Lambda-based processing
     auto is_even = [](int n) { return n % 2 == 0; };
     auto count = std::count_if(data.begin(), data.end(), is_even);
-    std::cout << "Even count: " << count << "
-";
+    std::cout << "Even count: " << count << "";
     
     return 0;
 }

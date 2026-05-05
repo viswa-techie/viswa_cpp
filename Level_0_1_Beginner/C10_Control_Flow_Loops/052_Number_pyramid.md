@@ -50,8 +50,7 @@ Think of number pyramid as a recipe — follow the steps in order and you'll get
 
 int main() {
     // Implementation: Number pyramid
-    std::cout << "Demonstrating: Number pyramid
-";
+    std::cout << "Demonstrating: Number pyramid";
     
     // Core logic
     std::vector<int> data = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
@@ -60,11 +59,9 @@ int main() {
     for (const auto& val : data) {
         std::cout << val << " ";
     }
-    std::cout << "
-";
+    std::cout << "";
     
-    std::cout << "Implementation complete
-";
+    std::cout << "Implementation complete";
     return 0;
 }
 ```
@@ -92,13 +89,11 @@ int main() {
     
     for (const auto& x : data)
         std::cout << x << " ";
-    std::cout << "
-";
+    std::cout << "";
     
     // STL-based solution demonstration
     auto sum = std::accumulate(data.begin(), data.end(), 0);
-    std::cout << "Sum: " << sum << "
-";
+    std::cout << "Sum: " << sum << "";
     return 0;
 }
 ```
@@ -125,14 +120,12 @@ int main() {
     // Using auto, structured bindings, ranges where applicable
     
     auto [min_it, max_it] = std::minmax_element(data.begin(), data.end());
-    std::cout << "Min: " << *min_it << ", Max: " << *max_it << "
-";
+    std::cout << "Min: " << *min_it << ", Max: " << *max_it << "";
     
     // Lambda-based processing
     auto is_even = [](int n) { return n % 2 == 0; };
     auto count = std::count_if(data.begin(), data.end(), is_even);
-    std::cout << "Even count: " << count << "
-";
+    std::cout << "Even count: " << count << "";
     
     return 0;
 }

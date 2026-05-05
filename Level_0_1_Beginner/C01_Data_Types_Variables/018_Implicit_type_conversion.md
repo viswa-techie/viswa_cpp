@@ -48,31 +48,26 @@ int main() {
     // Implicit conversions happen automatically
     int i = 42;
     double d = i;       // int -> double (widening, safe)
-    std::cout << "int to double: " << d << "
-";
+    std::cout << "int to double: " << d << "";
     
     double pi = 3.14159;
     int truncated = pi; // double -> int (narrowing, data loss!)
-    std::cout << "double to int: " << truncated << "
-";  // 3
+    std::cout << "double to int: " << truncated << "";  // 3
     
     char c = 'A';
     int ascii = c;      // char -> int (widening)
-    std::cout << "'A' as int: " << ascii << "
-";  // 65
+    std::cout << "'A' as int: " << ascii << "";  // 65
     
     // Dangerous: signed to unsigned
     int neg = -1;
     unsigned int u = neg;  // -1 becomes UINT_MAX
-    std::cout << "-1 as unsigned: " << u << "
-";
+    std::cout << "-1 as unsigned: " << u << "";
     
     // Bool conversions
     int zero = 0, nonzero = 42;
     bool b1 = zero;     // false
     bool b2 = nonzero;  // true
-    std::cout << "0 -> bool: " << b1 << ", 42 -> bool: " << b2 << "
-";
+    std::cout << "0 -> bool: " << b1 << ", 42 -> bool: " << b2 << "";
     return 0;
 }
 ```
@@ -95,12 +90,10 @@ int main() {
  */
 int main() {
     // STL-based demonstration of Implicit type conversion
-    std::cout << "STL approach for: Implicit type conversion
-";
+    std::cout << "STL approach for: Implicit type conversion";
     
     // Using appropriate STL facilities
-    std::cout << "Implementation uses standard library best practices
-";
+    std::cout << "Implementation uses standard library best practices";
     return 0;
 }
 ```
@@ -121,12 +114,10 @@ int main() {
  */
 int main() {
     // Modern C++ demonstration of Implicit type conversion
-    std::cout << "Modern C++ approach for: Implicit type conversion
-";
+    std::cout << "Modern C++ approach for: Implicit type conversion";
     
     // Using C++17/20 features where applicable
-    std::cout << "Implementation uses modern C++ idioms
-";
+    std::cout << "Implementation uses modern C++ idioms";
     return 0;
 }
 ```

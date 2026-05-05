@@ -46,22 +46,14 @@ Think of flt_max / dbl_max as a tool in your toolbox — know when to reach for 
 #include <iostream>
 #include <cfloat>
 int main() {
-    std::cout << "FLT_MAX = " << FLT_MAX << "
-";
-    std::cout << "FLT_MIN = " << FLT_MIN << " (smallest positive)
-";
-    std::cout << "FLT_EPSILON = " << FLT_EPSILON << "
-";
-    std::cout << "DBL_MAX = " << DBL_MAX << "
-";
-    std::cout << "DBL_MIN = " << DBL_MIN << "
-";
-    std::cout << "DBL_EPSILON = " << DBL_EPSILON << "
-";
-    std::cout << "FLT_DIG = " << FLT_DIG << " decimal digits
-";
-    std::cout << "DBL_DIG = " << DBL_DIG << " decimal digits
-";
+    std::cout << "FLT_MAX = " << FLT_MAX << "";
+    std::cout << "FLT_MIN = " << FLT_MIN << " (smallest positive)";
+    std::cout << "FLT_EPSILON = " << FLT_EPSILON << "";
+    std::cout << "DBL_MAX = " << DBL_MAX << "";
+    std::cout << "DBL_MIN = " << DBL_MIN << "";
+    std::cout << "DBL_EPSILON = " << DBL_EPSILON << "";
+    std::cout << "FLT_DIG = " << FLT_DIG << " decimal digits";
+    std::cout << "DBL_DIG = " << DBL_DIG << " decimal digits";
     return 0;
 }
 ```
@@ -75,16 +67,11 @@ int main() {
 #include <iostream>
 #include <limits>
 int main() {
-    std::cout << "float max: " << std::numeric_limits<float>::max() << "
-";
-    std::cout << "float min (positive): " << std::numeric_limits<float>::min() << "
-";
-    std::cout << "float lowest: " << std::numeric_limits<float>::lowest() << "
-";
-    std::cout << "float epsilon: " << std::numeric_limits<float>::epsilon() << "
-";
-    std::cout << "double precision digits: " << std::numeric_limits<double>::digits10 << "
-";
+    std::cout << "float max: " << std::numeric_limits<float>::max() << "";
+    std::cout << "float min (positive): " << std::numeric_limits<float>::min() << "";
+    std::cout << "float lowest: " << std::numeric_limits<float>::lowest() << "";
+    std::cout << "float epsilon: " << std::numeric_limits<float>::epsilon() << "";
+    std::cout << "double precision digits: " << std::numeric_limits<double>::digits10 << "";
     return 0;
 }
 ```
@@ -105,10 +92,8 @@ int main() {
     constexpr double eps = std::numeric_limits<double>::epsilon();
     
     bool equal = std::abs(a - b) < eps * 10;
-    std::cout << "0.1+0.2 == 0.3? " << std::boolalpha << equal << "
-";
-    std::cout << "Difference: " << (a - b) << "
-";
+    std::cout << "0.1+0.2 == 0.3? " << std::boolalpha << equal << "";
+    std::cout << "Difference: " << (a - b) << "";
     return 0;
 }
 ```

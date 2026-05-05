@@ -57,15 +57,13 @@ int main() {
     double d{42};          // int -> double is widening (OK)
     char c{65};            // 65 fits in char (OK)
     
-    std::cout << x << " " << d << " " << c << "
-";
+    std::cout << x << " " << d << " " << c << "";
     
     // Why this matters: catches bugs at compile time
     long long big = 9000000000LL;
     // int bad{big};  // ERROR: narrowing — caught at compile time!
     int ok = big;     // Compiles silently — bug goes unnoticed
-    std::cout << "Silent narrowing: " << ok << " (wrong!)
-";
+    std::cout << "Silent narrowing: " << ok << " (wrong!)";
     return 0;
 }
 ```
@@ -88,12 +86,10 @@ int main() {
  */
 int main() {
     // STL-based demonstration of Brace init prevents narrowing
-    std::cout << "STL approach for: Brace init prevents narrowing
-";
+    std::cout << "STL approach for: Brace init prevents narrowing";
     
     // Using appropriate STL facilities
-    std::cout << "Implementation uses standard library best practices
-";
+    std::cout << "Implementation uses standard library best practices";
     return 0;
 }
 ```
@@ -114,12 +110,10 @@ int main() {
  */
 int main() {
     // Modern C++ demonstration of Brace init prevents narrowing
-    std::cout << "Modern C++ approach for: Brace init prevents narrowing
-";
+    std::cout << "Modern C++ approach for: Brace init prevents narrowing";
     
     // Using C++17/20 features where applicable
-    std::cout << "Implementation uses modern C++ idioms
-";
+    std::cout << "Implementation uses modern C++ idioms";
     return 0;
 }
 ```

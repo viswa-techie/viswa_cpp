@@ -50,18 +50,15 @@ int main() {
 
     // Dangerous comparison: signed vs unsigned
     if (s < u) {
-        std::cout << "-1 < 1: Expected!
-";
+        std::cout << "-1 < 1: Expected!";
     } else {
-        std::cout << "-1 >= 1: Surprise! (signed converted to unsigned)
-";
+        std::cout << "-1 >= 1: Surprise! (signed converted to unsigned)";
     }
     // s is converted to unsigned: -1 becomes 4294967295, which > 1
 
     // Safe: cast explicitly
     if (s < static_cast<int>(u)) {
-        std::cout << "Correct comparison with cast
-";
+        std::cout << "Correct comparison with cast";
     }
     return 0;
 }
@@ -85,14 +82,12 @@ int main() {
     // BAD: if v.size() < target, v.size() - target wraps!
     // GOOD: compare first
     if (static_cast<int>(v.size()) > target)
-        std::cout << "Safe to subtract
-";
+        std::cout << "Safe to subtract";
 
     // STL uses unsigned (size_t) everywhere
     for (std::vector<int>::size_type i = 0; i < v.size(); ++i)
         std::cout << v[i] << " ";
-    std::cout << "
-";
+    std::cout << "";
     return 0;
 }
 ```
@@ -114,8 +109,7 @@ int main() {
     // C++20: std::cmp_less handles mixed sign correctly
     #if __cplusplus >= 202002L
     if (std::cmp_less(signed_val, unsigned_val))
-        std::cout << "-5 < 10: Correct with cmp_less!
-";
+        std::cout << "-5 < 10: Correct with cmp_less!";
     #endif
 
     // Pre-C++20 safe comparison
@@ -125,8 +119,7 @@ int main() {
         else
             return a < b;
     };
-    std::cout << safe_less(signed_val, unsigned_val) << "
-";  // 1
+    std::cout << safe_less(signed_val, unsigned_val) << "";  // 1
     return 0;
 }
 ```

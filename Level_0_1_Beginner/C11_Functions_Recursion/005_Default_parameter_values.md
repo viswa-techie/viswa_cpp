@@ -47,8 +47,7 @@ Think of default parameter values as a tool in your toolbox — know when to rea
 #include <string>
 
 void greet(const std::string& name, const std::string& greeting = "Hello") {
-    std::cout << greeting << ", " << name << "!
-";
+    std::cout << greeting << ", " << name << "!";
 }
 
 int power(int base, int exp = 2) {
@@ -59,17 +58,14 @@ int power(int base, int exp = 2) {
 
 void log(const std::string& msg, int level = 0, bool newline = true) {
     std::cout << "[" << level << "] " << msg;
-    if (newline) std::cout << "
-";
+    if (newline) std::cout << "";
 }
 
 int main() {
     greet("Viswa");            // Uses default "Hello"
     greet("Viswa", "Hi");     // Overrides default
-    std::cout << power(5) << "
-";     // 25 (default exp=2)
-    std::cout << power(2, 10) << "
-"; // 1024
+    std::cout << power(5) << "";     // 25 (default exp=2)
+    std::cout << power(2, 10) << ""; // 1024
     log("Started");
     log("Error", 2);
     return 0;
@@ -97,12 +93,10 @@ int main() {
     // STL-based implementation of Default parameter values
     std::sort(data.begin(), data.end());
     for (const auto& x : data) std::cout << x << " ";
-    std::cout << "
-";
+    std::cout << "";
     
     auto sum = std::accumulate(data.begin(), data.end(), 0);
-    std::cout << "Sum: " << sum << "
-";
+    std::cout << "Sum: " << sum << "";
     return 0;
 }
 ```
@@ -126,14 +120,12 @@ int main() {
     
     // Modern C++ features for Default parameter values
     auto [min_it, max_it] = std::minmax_element(data.begin(), data.end());
-    std::cout << "Range: [" << *min_it << ", " << *max_it << "]
-";
+    std::cout << "Range: [" << *min_it << ", " << *max_it << "]";
     
     // Lambda-based approach
     std::sort(data.begin(), data.end());
     for (const auto& x : data) std::cout << x << " ";
-    std::cout << "
-";
+    std::cout << "";
     return 0;
 }
 ```

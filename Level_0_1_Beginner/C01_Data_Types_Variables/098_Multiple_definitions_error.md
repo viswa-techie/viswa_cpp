@@ -47,16 +47,13 @@ Think of multiple definitions error as a tool in your toolbox — know when to r
 #include <string>
 int main() {
     // Demonstrating: Multiple definitions error
-    std::cout << "Topic: Multiple definitions error" << "
-";
+    std::cout << "Topic: Multiple definitions error" << "";
     
     // Direct implementation showing core concept
-    std::cout << "See code examples below for detailed usage
-";
+    std::cout << "See code examples below for detailed usage";
     
     // Basic usage pattern
-    std::cout << "Implementation complete
-";
+    std::cout << "Implementation complete";
     return 0;
 }
 ```
@@ -79,12 +76,10 @@ int main() {
  */
 int main() {
     // STL-based demonstration of Multiple definitions error
-    std::cout << "STL approach for: Multiple definitions error
-";
+    std::cout << "STL approach for: Multiple definitions error";
     
     // Using appropriate STL facilities
-    std::cout << "Implementation uses standard library best practices
-";
+    std::cout << "Implementation uses standard library best practices";
     return 0;
 }
 ```
@@ -105,12 +100,10 @@ int main() {
  */
 int main() {
     // Modern C++ demonstration of Multiple definitions error
-    std::cout << "Modern C++ approach for: Multiple definitions error
-";
+    std::cout << "Modern C++ approach for: Multiple definitions error";
     
     // Using C++17/20 features where applicable
-    std::cout << "Implementation uses modern C++ idioms
-";
+    std::cout << "Implementation uses modern C++ idioms";
     return 0;
 }
 ```

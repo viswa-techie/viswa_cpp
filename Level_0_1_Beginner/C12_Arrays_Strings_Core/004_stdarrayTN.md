@@ -50,22 +50,17 @@ int main() {
     // std::array<T, N> — fixed-size, stack-allocated, safe
     std::array<int, 5> arr = {5, 2, 8, 1, 3};
     
-    std::cout << "Size: " << arr.size() << "
-";
-    std::cout << "Front: " << arr.front() << "
-";
-    std::cout << "Back: " << arr.back() << "
-";
+    std::cout << "Size: " << arr.size() << "";
+    std::cout << "Front: " << arr.front() << "";
+    std::cout << "Back: " << arr.back() << "";
     
     // Safe access with bounds checking
-    std::cout << "arr.at(2) = " << arr.at(2) << "
-";
+    std::cout << "arr.at(2) = " << arr.at(2) << "";
     
     // Works with STL algorithms
     std::sort(arr.begin(), arr.end());
     for (int x : arr) std::cout << x << " ";
-    std::cout << "
-";
+    std::cout << "";
     
     // Fill and swap
     std::array<int, 5> other;
@@ -73,8 +68,7 @@ int main() {
     arr.swap(other);
     
     // Doesn't decay to pointer
-    std::cout << "sizeof: " << sizeof(arr) << "
-";  // 20 (5*4)
+    std::cout << "sizeof: " << sizeof(arr) << "";  // 20 (5*4)
     return 0;
 }
 ```
@@ -99,13 +93,11 @@ int main() {
     // STL-based implementation
     std::sort(data.begin(), data.end());
     for (const auto& x : data) std::cout << x << " ";
-    std::cout << "
-";
+    std::cout << "";
     
     auto it = std::lower_bound(data.begin(), data.end(), 5);
     if (it != data.end())
-        std::cout << "Found: " << *it << " at index " << (it - data.begin()) << "
-";
+        std::cout << "Found: " << *it << " at index " << (it - data.begin()) << "";
     return 0;
 }
 ```
@@ -129,16 +121,13 @@ int main() {
     
     // Modern C++ features
     auto [min_it, max_it] = std::minmax_element(data.begin(), data.end());
-    std::cout << "Range: [" << *min_it << ", " << *max_it << "]
-";
+    std::cout << "Range: [" << *min_it << ", " << *max_it << "]";
     
     // Partition with lambda
     auto pivot = std::partition(data.begin(), data.end(), [](int x) { return x <= 5; });
-    std::cout << "Partitioned at index: " << (pivot - data.begin()) << "
-";
+    std::cout << "Partitioned at index: " << (pivot - data.begin()) << "";
     for (int x : data) std::cout << x << " ";
-    std::cout << "
-";
+    std::cout << "";
     return 0;
 }
 ```
