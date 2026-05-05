@@ -51,8 +51,7 @@ int main() {
     char grade = 'A';
     bool passed = true;
 
-    std::cout << "Age: " << age << "
-";
+    std::cout << "Age: " << age << "";
     std::cout << "Height: " << height << "
 ";
     std::cout << "Pi: " << pi << "
