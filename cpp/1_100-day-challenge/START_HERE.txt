@@ -1,0 +1,111 @@
+╔══════════════════════════════════════════════════════════════════════════════╗
+║                                                                              ║
+║               🚀 WELCOME TO YOUR 100-DAY C++ CHALLENGE! 🚀                  ║
+║                                                                              ║
+║                        Start Date: November 20, 2025                         ║
+║                          End Date: February 27, 2026                         ║
+║                                                                              ║
+╚══════════════════════════════════════════════════════════════════════════════╝
+
+┌──────────────────────────────────────────────────────────────────────────────┐
+│  📖 STEP 1: READ THE ROADMAP                                                 │
+└──────────────────────────────────────────────────────────────────────────────┘
+
+    Open and read in this order:
+    
+    1. README.md                    ← Overview (5 minutes)
+    2. QUICK_START.md               ← How to begin Day 1 (10 minutes)
+    3. 100_DAY_CPP_CHALLENGE.md     ← Full 14-week plan (20 minutes)
+
+
+┌──────────────────────────────────────────────────────────────────────────────┐
+│  💻 STEP 2: START DAY 1 EXERCISES                                            │
+└──────────────────────────────────────────────────────────────────────────────┘
+
+    cd week-01
+    
+    # Compile Day 1 exercise
+    g++ -std=c++17 -Wall -Wextra -O2 day01_vectors_algorithms.cpp -o day01
+    
+    # Run it!
+    ./day01
+    
+    # Study the code
+    code day01_vectors_algorithms.cpp
+
+
+┌──────────────────────────────────────────────────────────────────────────────┐
+│  🎯 STEP 3: SOLVE PROBLEMS                                                   │
+└──────────────────────────────────────────────────────────────────────────────┘
+
+    Go to LeetCode and solve:
+    
+    ✓ Two Sum (Easy)
+    ✓ Remove Duplicates from Sorted Array (Easy)
+    ✓ Maximum Subarray (Medium)
+    ✓ Product of Array Except Self (Medium)
+
+
+┌──────────────────────────────────────────────────────────────────────────────┐
+│  📊 STEP 4: TRACK YOUR PROGRESS                                              │
+└──────────────────────────────────────────────────────────────────────────────┘
+
+    Open PROGRESS_TRACKER.md and fill in:
+    
+    - Time spent today
+    - Problems solved
+    - Key learnings
+    - Challenges faced
+
+
+┌──────────────────────────────────────────────────────────────────────────────┐
+│  📚 HELPFUL RESOURCES                                                        │
+└──────────────────────────────────────────────────────────────────────────────┘
+
+    BEST_PRACTICES.md       → Smart pointers, RAII, templates, performance
+    PROJECT_IDEAS.md        → 12 projects for days 50-100
+    week-01/DAY_02_PREVIEW.md → What's coming tomorrow
+
+
+┌──────────────────────────────────────────────────────────────────────────────┐
+│  🏆 YOUR MILESTONES                                                          │
+└──────────────────────────────────────────────────────────────────────────────┘
+
+    Day 10:  ✓ STL fundamentals mastered
+    Day 25:  ✓ 50+ problems solved
+    Day 50:  ✓ Mid-challenge checkpoint (100+ problems, 2-3 projects)
+    Day 75:  ✓ Advanced C++ & OpenCV integration
+    Day 100: ✓ CHALLENGE COMPLETE! Portfolio ready 🎉
+
+
+┌──────────────────────────────────────────────────────────────────────────────┐
+│  💡 DAILY ROUTINE (2-3 hours)                                                │
+└──────────────────────────────────────────────────────────────────────────────┘
+
+    ⏰ 30 min:  Theory & Reading (daily exercise file + BEST_PRACTICES.md)
+    ⏰ 90 min:  Hands-On Coding (exercises + LeetCode)
+    ⏰ 30 min:  Code Review & Reflection (update PROGRESS_TRACKER.md)
+
+
+┌──────────────────────────────────────────────────────────────────────────────┐
+│  🔥 MENTOR TIPS                                                              │
+└──────────────────────────────────────────────────────────────────────────────┘
+
+    ✓ Consistency > Intensity (2 hours daily beats 14 hours once/week)
+    ✓ Understand WHY, not just HOW
+    ✓ Test edge cases (empty, single element, large inputs)
+    ✓ Git commit daily with meaningful messages
+    ✓ Take breaks (Pomodoro: 25 min work, 5 min break)
+    ✓ Celebrate small wins!
+
+
+╔══════════════════════════════════════════════════════════════════════════════╗
+║                                                                              ║
+║                 🎯 YOU'RE READY! START DAY 1 NOW! 🎯                        ║
+║                                                                              ║
+║                    Questions? Check README.md or                             ║
+║                  QUICK_START.md for detailed guidance                        ║
+║                                                                              ║
+║                        Good luck! See you at Day 100! 🚀                     ║
+║                                                                              ║
+╚══════════════════════════════════════════════════════════════════════════════╝

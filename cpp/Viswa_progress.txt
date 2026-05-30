@@ -1,0 +1,130 @@
+I'm trying to upskill myself with CPP coding practice with the real coding instead of learvning it theorical.
+i knew already sufficient theory, so I'm trying to practice coding & solve problems.
+
+Help me create an comprehensive guide of this cpp/ all repositories which i found good to pratice realtime
+
+I will measure my progress daily or weekly to my plan is in next 100 day daily i want to improve atleast 1% of me.
+
+Where can I start keep an achievable goal daily I can spend atleast 2-3 hrs to learn.
+Provide an timeplan and help me track it.
+
+you are my mentor and you are an expert in career development and an upskilling mentor person who tutor in CPP coding practice.
+✅ Your Goal
+
+Focus: Real coding practice, problem-solving, and building projects.
+Duration: 100 days.
+Daily Commitment: 2–3 hours.
+Improvement Target: At least 1% daily.
+
+================================================================================
+🎉 100-DAY C++ CHALLENGE - SETUP COMPLETE! 🎉
+================================================================================
+
+📅 START DATE: November 20, 2025
+📅 END DATE: February 27, 2026
+
+✅ WHAT'S BEEN CREATED FOR YOU:
+
+📂 Location: /home/23u58g/work/viswa/cpp/100-day-challenge/
+
+📄 Core Files:
+  ✓ README.md - Overview and getting started
+  ✓ QUICK_START.md - How to begin Day 1 (READ THIS FIRST!)
+  ✓ 100_DAY_CPP_CHALLENGE.md - Complete 14-week roadmap
+  ✓ BEST_PRACTICES.md - Memory management, smart pointers, templates
+  ✓ PROJECT_IDEAS.md - 12 real-world projects (days 50-100)
+  ✓ PROGRESS_TRACKER.md - Daily tracking template
+
+💻 Day 1 Exercise:
+  ✓ week-01/day01_vectors_algorithms.cpp - Working, tested, ready to run!
+
+================================================================================
+🚀 START RIGHT NOW - 3 SIMPLE STEPS:
+================================================================================
+
+1️⃣  Read the Quick Start Guide:
+    cd /home/23u58g/work/viswa/cpp/100-day-challenge
+    cat QUICK_START.md
+
+2️⃣  Compile and Run Day 1:
+    cd week-01
+    g++ -std=c++17 -Wall -Wextra -O2 day01_vectors_algorithms.cpp -o day01
+    ./day01
+
+3️⃣  Solve Your First Problems:
+    - Study the code in day01_vectors_algorithms.cpp
+    - Complete the TODO functions
+    - Solve these on LeetCode:
+      • Two Sum (Easy)
+      • Remove Duplicates from Sorted Array (Easy)
+      • Maximum Subarray (Medium)
+
+================================================================================
+📚 YOUR LEARNING RESOURCES:
+================================================================================
+
+PHASE 1 (Days 1-30): STL & Algorithms
+  → Use: C-Plus-Plus/, CPlusPlusThings/, TheAlgorithms/C-Plus-Plus
+
+PHASE 2 (Days 31-50): Modern C++ & Design Patterns
+  → Use: CppCoreGuidelines/, design-patterns-cpp/, Effective-Modern-Cpp/
+
+PHASE 3 (Days 51-100): Real-World Projects
+  → Use: opencv/, open-adas/, apollo/, autoware/
+
+================================================================================
+🎯 YOUR DAILY ROUTINE (2-3 hours):
+================================================================================
+
+⏰ 09:00-09:30 (30 min): Theory & Reading
+   - Read daily exercise file
+   - Study BEST_PRACTICES.md sections
+
+⏰ 09:30-11:00 (90 min): Hands-On Coding
+   - Complete daily exercises
+   - Solve 2-3 LeetCode problems
+
+⏰ 11:00-11:30 (30 min): Code Review & Reflection
+   - Study expert solutions
+   - Update PROGRESS_TRACKER.md
+
+================================================================================
+🏆 MILESTONES:
+================================================================================
+
+Day 10:  STL fundamentals mastered
+Day 25:  50+ problems solved
+Day 50:  Mid-challenge checkpoint - 100+ problems, 2-3 projects
+Day 75:  Advanced C++ & OpenCV integration
+Day 100: CHALLENGE COMPLETE! Portfolio ready, interview confident
+
+================================================================================
+💡 MENTOR TIPS:
+================================================================================
+
+✓ Consistency beats intensity - 2 hours daily > 14 hours once/week
+✓ Understand WHY, not just HOW
+✓ Test edge cases (empty, single element, large inputs)
+✓ Commit to Git daily with meaningful messages
+✓ Review expert code from your workspace repos
+✓ Take breaks - Pomodoro technique (25 min work, 5 min break)
+✓ Celebrate small wins!
+
+================================================================================
+🔥 YOU'RE READY!
+================================================================================
+
+Everything is set up. The path is clear. The resources are here.
+
+Now it's time to CODE.
+
+Start with Day 1, stay consistent, and trust the process.
+
+See you at Day 100! 💪🚀
+
+For questions or guidance, refer to:
+- QUICK_START.md for immediate next steps
+- 100_DAY_CPP_CHALLENGE.md for the full roadmap
+- BEST_PRACTICES.md when writing code
+
+================================================================================
